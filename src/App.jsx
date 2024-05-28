@@ -4,13 +4,13 @@ import HomePage from "./pages/Home";
 import Blogs from "./pages/Blogs";
 import Contact from "./pages/Contact";
 import RootLayout from "./pages/Root.jsx";
-import WebFont from "webfontloader";
-import { useEffect } from "react";
+import NoPage from "./pages/Error.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
+    errorElement: <NoPage />,
     children: [
       { path: "/", element: <HomePage /> },
       { path: "/blog", element: <Blogs /> },
@@ -21,13 +21,6 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  useEffect(() => {
-    WebFont.load({
-      google: {
-        families: ["Droid Sans", "Roboto", "Chilanka"],
-      },
-    });
-  }, []);
   return <RouterProvider router={router} />;
 }
 
