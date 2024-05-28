@@ -1,7 +1,7 @@
 const Footer = () => {
   return (
-    <div id="footer">
-      <h1>This is a Footer</h1>
+    <div id="footer ">
+      <h1>Copyright © 2024 EmmaColothes.</h1>
     </div>
   );
 };
