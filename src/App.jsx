@@ -1,26 +1,34 @@
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Test from "./components/Test";
-import HomePage from "./pages";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import HomePage from "./pages/Home";
 import Blogs from "./pages/Blogs";
-import Layout from "./Layout.jsx";
-import NoPage from "./pages/NoPage";
-import Contact from "./pages/Contact.jsx";
+import Contact from "./pages/Contact";
+import RootLayout from "./pages/Root.jsx";
+import WebFont from "webfontloader";
+import { useEffect } from "react";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <RootLayout />,
+    children: [
+      { path: "/", element: <HomePage /> },
+      { path: "/blog", element: <Blogs /> },
+      { path: "/contact", element: <Contact /> },
+      { path: "/blog", element: <Blogs /> },
+    ],
+  },
+]);
 
 function App() {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<HomePage />} />
-          <Route path="/test" element={<Test />} />
-          <Route path="/blog" element={<Blogs />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="*" element={<NoPage />} />
-        </Route>
-      </Routes>
-    </Router>
-  );
+  useEffect(() => {
+    WebFont.load({
+      google: {
+        families: ["Droid Sans", "Roboto", "Chilanka"],
+      },
+    });
+  }, []);
+  return <RouterProvider router={router} />;
 }
 
 export default App;

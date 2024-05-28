@@ -1,10 +1,10 @@
-import { Link, Outlet } from "react-router-dom";
-// import PropTypes from "prop-types";
-const Layout = () => {
+import { Link } from "react-router-dom";
+
+const Navigation = () => {
   return (
     <div>
       <nav>
-        <ul>
+        <ul className="flex">
           <li>
             <Link to="/">Home</Link>
           </li>
@@ -16,12 +16,8 @@ const Layout = () => {
           </li>
         </ul>
       </nav>
-      <main>{<Outlet />}</main>
     </div>
   );
 };
-// Layout.propTypes = {
-//   children: PropTypes.node.isRequired,
-// };
 
-export default Layout;
+export default Navigation;
