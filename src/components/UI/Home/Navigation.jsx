@@ -5,13 +5,13 @@ const Navigation = () => {
     <div>
       <nav>
         <ul className="flex">
-          <li>
+          <li className="px-4">
             <Link to="/">Home</Link>
           </li>
-          <li>
+          <li className="px-4">
             <Link to="/blog">Blog</Link>
           </li>
-          <li>
+          <li className="px-4">
             <Link to="/contact">Contact</Link>
           </li>
         </ul>
