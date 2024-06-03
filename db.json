@@ -1,7 +1,7 @@
 {
   "posts": [
-    { "id": "1", "title": "a title", "views": 100 },
-    { "id": "2", "title": "another title", "views": 200 }
+    { "id": "1", "title": "Blog1", "img": "./public", "views": 100 },
+    { "id": "2", "title": "Blog2", "img": "", "views": 200 }
   ],
   "comments": [
     { "id": "1", "text": "a comment about post 1", "postId": "1" },
@@ -9,5 +9,16 @@
   ],
   "profile": {
     "name": "typicode"
-  }
+  },
+  "products": [
+    { "id": "1", "name": "Product 1", "price": "99.00" },
+    { "id": "2", "name": "Product 1", "price": "99.00" },
+    { "id": "3", "name": "Product 1", "price": "99.00" },
+    { "id": "4", "name": "Product 1", "price": "99.00" },
+    { "id": "5", "name": "Product 1", "price": "99.00" },
+    { "id": "6", "name": "Product 1", "price": "99.00" },
+    { "id": "7", "name": "Product 1", "price": "99.00" },
+    { "id": "8", "name": "Product 1", "price": "99.00" },
+    { "id": "9", "name": "Product 1", "price": "99.00" }
+  ]
 }

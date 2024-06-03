@@ -22,9 +22,15 @@ a {
   font-weight: 500;
 }
 
-/* .list a:hover,
+.list a:hover,
 .list a.active {
   color: rgb(255, 255, 255);
   text-decoration: underline;
-} */
+}
+.products-site li.ant-pagination-item.ant-pagination-item-active {
+  border: 1px solid black;
+}
+.products-site li.ant-pagination-item.ant-pagination-item-active a {
+  color: black;
+}
 

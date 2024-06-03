@@ -18,6 +18,16 @@ const Navigation = () => {
           </li>
           <li className="px-4 list">
             <NavLink
+              to="/products"
+              className={({ isActive }) =>
+                isActive ? classes.active : undefined
+              }
+            >
+              Product Us
+            </NavLink>
+          </li>
+          <li className="px-4 list">
+            <NavLink
               to="/blog"
               className={({ isActive }) =>
                 isActive ? classes.active : undefined
@@ -26,7 +36,7 @@ const Navigation = () => {
               Blog
             </NavLink>
           </li>
-          <li className="px- list">
+          <li className="px-4 list">
             <NavLink
               to="/contact"
               className={({ isActive }) =>
@@ -34,6 +44,16 @@ const Navigation = () => {
               }
             >
               Contact
+            </NavLink>
+          </li>
+          <li className="px-4 list">
+            <NavLink
+              to="/login"
+              className={({ isActive }) =>
+                isActive ? classes.active : undefined
+              }
+            >
+              Login
             </NavLink>
           </li>
         </ul>
