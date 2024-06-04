@@ -9,6 +9,7 @@ import Signin from "./pages/Auth/Signin.jsx";
 import Blogs from "./pages/Blog/Blogs.jsx";
 import BlogDetail from "./pages/Blog/BlogDetail.jsx";
 import ProductPage from "./pages/Product/ProductPage.jsx";
+import CartPage from "./pages/Cart/CartPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,7 @@ const router = createBrowserRouter([
       { path: "/blog/:id", element: <BlogDetail /> },
       { path: "/contact", element: <Contact /> },
       { path: "/products", element: <ProductPage /> },
+      { path: "/cart", element: <CartPage /> },
       { path: "/login", element: <Signin /> },
     ],
   },

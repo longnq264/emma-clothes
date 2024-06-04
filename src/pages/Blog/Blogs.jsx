@@ -39,11 +39,11 @@ const Blogs = () => {
         <h1 className="title">Blogs Page</h1>
         <div className="">
           {state.map((data) => (
-            <div key={data.id} className="py-6 px-2 border-2 my-2">
-              <Link to={`http://localhost:5173/blog/${data.id}`}>
+            <Link key={data.id} to={`http://localhost:5173/blog/${data.id}`}>
+              <div className="py-6 px-2 border-2 my-2">
                 <h1>{data.title}</h1>
-              </Link>
-            </div>
+              </div>
+            </Link>
           ))}
         </div>
       </div>

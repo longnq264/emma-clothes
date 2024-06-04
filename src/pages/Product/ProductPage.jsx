@@ -1,10 +1,12 @@
+import axios from "axios";
 import { Pagination } from "antd";
 import { useState } from "react";
 import { useEffect } from "react";
 import { Breadcrumb } from "antd";
 import { Link } from "react-router-dom";
-import axios from "axios";
-
+import { Carousel } from "antd";
+import product from "../../assets/img/product1.png";
+import background from "../../assets/img/banner-products.jpg";
 const ProductPage = () => {
   const [products, setProducts] = useState([]);
   //   const [loading, setLoading] = useState(false);
@@ -14,6 +16,13 @@ const ProductPage = () => {
     const response = await axios.get("http://localhost:3000/products");
     console.log(response.data);
     setProducts(response.data);
+  };
+  const contentStyle = {
+    // height: "160px",
+    color: "#fff",
+    lineHeight: "160px",
+    textAlign: "center",
+    background: "#364d79",
   };
   useEffect(() => {
     fetchProduct();
@@ -34,13 +43,32 @@ const ProductPage = () => {
         />
       </div>
       <div className="products-site">
+        <div className="carousel my-4">
+          <Carousel>
+            <div>
+              <div style={contentStyle}>
+                <img className="w-full" src={background} alt="bg" />
+              </div>
+            </div>
+            <div>
+              <h3 style={contentStyle}>
+                <img className="w-full" src={background} alt="bg" />
+              </h3>
+            </div>
+          </Carousel>
+        </div>
         <h1 className="title">Product Us</h1>
         <div className="product-content min-h-screen">
-          {products.map((res) => (
-            <div key={res.id}>
-              <h3>{res.name}</h3>
-            </div>
-          ))}
+          <div className="grid grid-cols-2 lg:grid-cols-4">
+            {products.map((res) => (
+              <div key={res.id} className="mx-4">
+                <img src={product} />
+                <div className="content-product">
+                  <h3 className="">{res.name}</h3>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
         <Pagination
           className="flex justify-center"
