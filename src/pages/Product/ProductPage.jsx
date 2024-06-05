@@ -18,9 +18,9 @@ const ProductPage = () => {
     setProducts(response.data);
   };
   const contentStyle = {
-    // height: "160px",
+    height: "140px",
     color: "#fff",
-    lineHeight: "160px",
+    lineHeight: "100px",
     textAlign: "center",
     background: "#364d79",
   };
@@ -30,7 +30,7 @@ const ProductPage = () => {
 
   return (
     <>
-      <div className="breadcrumb-site">
+      <div className="container mx-auto py-2">
         <Breadcrumb
           items={[
             {
@@ -42,7 +42,7 @@ const ProductPage = () => {
           ]}
         />
       </div>
-      <div className="products-site">
+      <div className="container mx-auto px-10 py-4">
         <div className="carousel my-4">
           <Carousel>
             <div>
@@ -61,12 +61,17 @@ const ProductPage = () => {
         <div className="product-content min-h-screen">
           <div className="grid grid-cols-2 lg:grid-cols-4">
             {products.map((res) => (
-              <div key={res.id} className="mx-4">
-                <img src={product} />
-                <div className="content-product">
-                  <h3 className="">{res.name}</h3>
+              <Link
+                key={res.id}
+                to={`http://localhost:5173/products/${res.product_id}`}
+              >
+                <div className="mx-4">
+                  <img src={product} />
+                  <div className="content-product">
+                    <h3 className="">{res.name}</h3>
+                  </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

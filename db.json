@@ -1,33 +1,136 @@
 {
   "posts": [
-    { "id": "1", "title": "Blog1", "img": "./public", "views": 100 },
-    { "id": "2", "title": "Blog2", "img": "", "views": 200 }
+    {
+      "id": "1",
+      "title": "Blog1",
+      "img": "./public",
+      "views": 100
+    },
+    {
+      "id": "2",
+      "title": "Blog2",
+      "img": "",
+      "views": 200
+    }
   ],
   "comments": [
-    { "id": "1", "text": "a comment about post 1", "postId": "1" },
-    { "id": "2", "text": "another comment about post 1", "postId": "1" }
+    {
+      "id": "1",
+      "text": "a comment about post 1",
+      "postId": "1"
+    },
+    {
+      "id": "2",
+      "text": "another comment about post 1",
+      "postId": "1"
+    }
   ],
   "profile": {
     "name": "typicode"
   },
   "products": [
-    { "id": "1", "name": "Product 1", "price": "99.00" },
-    { "id": "2", "name": "Product 1", "price": "99.00" },
-    { "id": "3", "name": "Product 1", "price": "99.00" },
-    { "id": "4", "name": "Product 1", "price": "99.00" },
-    { "id": "5", "name": "Product 1", "price": "99.00" },
-    { "id": "6", "name": "Product 1", "price": "99.00" },
-    { "id": "7", "name": "Product 1", "price": "99.00" },
-    { "id": "8", "name": "Product 1", "price": "99.00" },
-    { "id": "9", "name": "Product 1", "price": "99.00" },
-    { "id": "10", "name": "Product 1", "price": "99.00" },
-    { "id": "11", "name": "Product 1", "price": "99.00" },
-    { "id": "12", "name": "Product 1", "price": "99.00" },
-    { "id": "13", "name": "Product 1", "price": "99.00" },
-    { "id": "14", "name": "Product 1", "price": "99.00" },
-    { "id": "15", "name": "Product 1", "price": "99.00" },
-    { "id": "16", "name": "Product 1", "price": "99.00" },
-    { "id": "17", "name": "Product 1", "price": "99.00" },
-    { "id": "18", "name": "Product 1", "price": "99.00" }
+    {
+      "id": "1",
+      "product_id": "1",
+      "name": "Odd Shade Oversized T-Shirt - Black",
+      "price": "$47.00",
+      "price_old": "$59.00",
+      "description": "t-shirt",
+      "quantity": "50",
+      "main_image_url": "https://res.cloudinary.com/da7r4robk/image/upload/v1717588304/Products/product1_rr8fhn.png",
+      "view": 103,
+      "category": {
+        "id": 1,
+        "name": "T-shirt"
+      },
+      "brand_id": 1,
+      "thumbnail_id": 1,
+      "status": "true",
+      "categories_id": 1
+    },
+    {
+      "id": "2",
+      "product_id": "2",
+      "name": "Odd Shade Oversized T-Shirt - Black",
+      "price": "$47.00",
+      "price_old": "$59.00",
+      "description": "t-shirt",
+      "quantity": "50",
+      "main_image_url": "https://res.cloudinary.com/da7r4robk/image/upload/v1717588304/Products/product1_rr8fhn.png",
+      "view": 103,
+      "category": {
+        "id": 1,
+        "name": "T-shirt"
+      },
+      "brand_id": 1,
+      "thumbnail_id": 1,
+      "thumbnail_image_url": [],
+      "status": "true",
+      "categories_id": 1
+    },
+    {
+      "id": "3",
+      "product_id": "3",
+      "name": "Odd Shade Oversized T-Shirt - Black",
+      "price": "$47.00",
+      "price_old": "$59.00",
+      "description": "t-shirt",
+      "quantity": "50",
+      "main_image_url": "https://res.cloudinary.com/da7r4robk/image/upload/v1717588304/Products/product1_rr8fhn.png",
+      "view": 103,
+      "category": {
+        "id": 1,
+        "name": "T-shirt"
+      },
+      "brand_id": 1,
+      "thumbnail_id": 1,
+      "status": "true",
+      "categories_id": 1
+    },
+    {
+      "id": "4",
+      "product_id": "4",
+      "name": "Odd Shade Oversized T-Shirt - Black",
+      "price": "$47.00",
+      "price_old": "$59.00",
+      "description": "t-shirt",
+      "quantity": "50",
+      "main_image_url": "https://res.cloudinary.com/da7r4robk/image/upload/v1717588304/Products/product1_rr8fhn.png",
+      "view": 103,
+      "category": {
+        "id": 1,
+        "name": "T-shirt"
+      },
+      "brand_id": 1,
+      "thumbnail_id": 1,
+      "thumbnail_image_url": [],
+      "status": "true",
+      "categories_id": 1
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "T-shirt"
+    },
+    {
+      "id": 2,
+      "name": "Trouser"
+    }
+  ],
+  "thumbnails": [
+    {
+      "id": 1,
+      "filename": "thumbnail1.jpg"
+    },
+    {
+      "id": 2,
+      "filename": "thumbnail2.jpg"
+    },
+    {
+      "id": 3,
+      "filename": "thumbnail3.jpg"
+    }
   ]
 }
+

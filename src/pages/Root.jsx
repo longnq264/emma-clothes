@@ -6,7 +6,7 @@ const RootLayout = () => {
   return (
     <div>
       <Header />
-      <main className="container mx-auto py-4" style={{ minHeight: "80vh" }}>
+      <main style={{ minHeight: "80vh" }}>
         <Outlet />
       </main>
       <Footer />
