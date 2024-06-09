@@ -2,7 +2,7 @@ import { Button, Form, Input } from "antd";
 import axios from "axios";
 import { useState } from "react";
 
-const Signin = () => {
+const Signup = () => {
   const [state, setState] = useState([]);
   const onFinish = async (values) => {
     console.log("Success:", values);
@@ -12,7 +12,7 @@ const Signin = () => {
     console.log(formData);
     try {
       const response = await axios.post(
-        "http://localhost:3000/login",
+        "http://localhost:3000/register",
         formData
       );
       console.log("response", response);
@@ -27,7 +27,7 @@ const Signin = () => {
   console.log(state);
   return (
     <div>
-      <h1 className="title my-10">Login</h1>
+      <h1 className="title my-10">Signup</h1>
       <div className="form flex justify-center">
         <Form
           name="basic"
@@ -47,6 +47,18 @@ const Signin = () => {
           onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
+          <Form.Item
+            label="Full Name"
+            name="username"
+            rules={[
+              {
+                required: true,
+                message: "Please input your username!",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
           <Form.Item
             label="Email"
             name="email"
@@ -100,4 +112,4 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default Signup;

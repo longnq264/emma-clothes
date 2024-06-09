@@ -4,13 +4,12 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "proxy": "http://localhost:8000",
-    "server": "json-server --watch db.json --port 8000",
+    "dev": "vite",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "build": "vite build",
-    "start": "concurrently \"json-server --watch db.json\" \"npm run dev\"",
-    "dev": "vite"
+    "server": "json-server --watch db.json -m ./node_modules/json-server-auth --port 3000",
+    "start": "concurrently \"npm run dev\" \"npm run server\""
   },
   "dependencies": {
     "@shopify/koa-shopify-auth": "^5.0.3",
@@ -20,7 +19,9 @@
     "concurrently": "^8.2.2",
     "dotenv": "^16.4.5",
     "isomorphic-fetch": "^3.0.0",
-    "json-server": "^1.0.0-beta.0",
+    "json-server": "^0.17.4",
+    "json-server-auth": "^2.1.0",
+    "jwt-decode": "^4.0.0",
     "koa": "^2.15.3",
     "koa-session": "^6.4.0",
     "prop-types": "^15.8.1",

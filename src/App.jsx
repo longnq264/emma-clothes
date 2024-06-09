@@ -4,6 +4,7 @@ import HomePage from "./pages/Home";
 import RootLayout from "./pages/Root.jsx";
 import NoPage from "./pages/Error.jsx";
 import Signin from "./pages/Auth/Signin.jsx";
+import Signup from "./pages/Auth/Signup.jsx";
 import Blogs from "./pages/Blog/Blogs.jsx";
 import BlogDetail from "./pages/Blog/BlogDetail.jsx";
 import ProductPage from "./pages/Product/ProductPage.jsx";
@@ -26,6 +27,7 @@ const router = createBrowserRouter([
       { path: "/products/:id", element: <ProductDetail /> },
       { path: "/cart", element: <CartPage /> },
       { path: "/login", element: <Signin /> },
+      { path: "/register", element: <Signup /> },
     ],
   },
 ]);

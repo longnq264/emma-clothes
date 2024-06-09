@@ -28,6 +28,16 @@
   "profile": {
     "name": "typicode"
   },
+  "categories": [
+    {
+      "id": 1,
+      "name": "T-shirt"
+    },
+    {
+      "id": 2,
+      "name": "Trouser"
+    }
+  ],
   "products": [
     {
       "id": "1",
@@ -45,6 +55,12 @@
       },
       "brand_id": 1,
       "thumbnail_id": 1,
+      "thumbnail_image_url": [
+        "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png",
+        "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png",
+        "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png",
+        "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png"
+      ],
       "status": "true",
       "categories_id": 1
     },
@@ -63,8 +79,13 @@
         "name": "T-shirt"
       },
       "brand_id": 1,
-      "thumbnail_id": 1,
-      "thumbnail_image_url": [],
+      "thumbnail_id": 2,
+      "thumbnail_image_url": [
+        "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png",
+        "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png",
+        "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png",
+        "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png"
+      ],
       "status": "true",
       "categories_id": 1
     },
@@ -84,6 +105,12 @@
       },
       "brand_id": 1,
       "thumbnail_id": 1,
+      "thumbnail_image_url": [
+        "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png",
+        "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png",
+        "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png",
+        "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png"
+      ],
       "status": "true",
       "categories_id": 1
     },
@@ -103,19 +130,14 @@
       },
       "brand_id": 1,
       "thumbnail_id": 1,
-      "thumbnail_image_url": [],
+      "thumbnail_image_url": [
+        "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png",
+        "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png",
+        "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png",
+        "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png"
+      ],
       "status": "true",
       "categories_id": 1
-    }
-  ],
-  "categories": [
-    {
-      "id": 1,
-      "name": "T-shirt"
-    },
-    {
-      "id": 2,
-      "name": "Trouser"
     }
   ],
   "thumbnails": [
@@ -131,6 +153,34 @@
       "id": 3,
       "filename": "thumbnail3.jpg"
     }
-  ]
+  ],
+  "contact": [
+    {
+      "name": "longanh",
+      "email": "long@gmail.com",
+      "id": 1
+    }
+  ],
+  "users": [
+    {
+      "email": "long@gmail.com",
+      "password": "$2a$10$05JLRQI81fe/47EDcx9jKueVXUHpjlWXJ.7G77nIE3eIvyk8zEiuq",
+      "name": "longanh",
+      "id": 1
+    },
+    {
+      "email": "test@gmail.com",
+      "password": "$2a$10$hZ6r/LiHH8Bma.m0CTpcrO5Cd9XYEg/leWVudszlkHkr6GFmDRMe.",
+      "username": "test",
+      "id": 2
+    },
+    {
+      "email": "testt@gmail.com",
+      "password": "$2a$10$9MJHoHwQLPDgf95E0w1iROuKEH3kcp.pRY.ObTD6GcwpqbgX.mdiK",
+      "username": "testt",
+      "id": 3
+    }
+  ],
+  "signup": [],
+  "register": []
 }
-
