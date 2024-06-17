@@ -1,26 +1,36 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-
-// import { Swiper, SwiperSlide } from "swiper/react";
-// import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
+// import { useContext } from "react";
+// import { AppContext } from "../../context/AppContextProvider";
+import { addToCart, getProductId } from "../../api/fakeApi";
 
 const ProductDetail = () => {
   const { id } = useParams();
-  const [state, setState] = useState([]);
-  const fetchProductDetail = async () => {
-    const response = await axios.get(`http://localhost:3000/products/${id}`);
+  const [data, setData] = useState([]);
+  // const { addItemToCart } = useContext(AppContext);
 
-    setState(response.data);
-    console.log(response.data);
+  const handleAddtoCart = async (idCart, dataCart) => {
+    const initCart = {
+      productID: idCart,
+      data: {
+        ...dataCart,
+      },
+    };
+    try {
+      const response = await addToCart(initCart);
+      console.log("handle Add", response);
+    } catch (error) {
+      console.log("error", error);
+    }
   };
   useEffect(() => {
+    const fetchProductDetail = async () => {
+      const response = await getProductId(id);
+      setData(response);
+      console.log(response);
+    };
     fetchProductDetail();
-  }, []);
+  }, [id]);
 
   return (
     <div className="">
@@ -32,10 +42,10 @@ const ProductDetail = () => {
           <div className="grid grid-cols-2">
             <div className="product-detail-image">
               <div className="product-image">
-                <img src={state.main_image_url} alt="" />
+                <img src={data.main_image_url} alt="" />
               </div>
               <div className="thumbail flex">
-                {state.thumbnail_image_url?.map((data, index) => (
+                {data.thumbnail_image_url?.map((data, index) => (
                   <div key={index} className="m-4 border-4 p-4">
                     <img src={data} alt="" />
                   </div>
@@ -43,11 +53,25 @@ const ProductDetail = () => {
               </div>
             </div>
             <div className="inner-detail min-h-40 p-5">
-              <h1 className="font-bold">{state.name}</h1>
+              <h1 className="font-bold">{data.name}</h1>
               <div className="price flex">
-                <p className="text-xl">{state.price}</p>
-                <p className="text-stone-300">{state.price_old}</p>
+                <p className="text-xl">{data.price}</p>
+                <p className="text-stone-300">{data.price_old}</p>
               </div>
+              <button
+                onClick={() => {
+                  const cartData = {
+                    name: data.name,
+                    quantity: data.quantity,
+                    img: data.main_image_url,
+                  };
+                  handleAddtoCart(id, cartData);
+                  console.log(id);
+                }}
+                className="px-10 py-2 border-2 w-full text-white font-bold bg-stone-700 my-5"
+              >
+                Add To Cart
+              </button>
             </div>
           </div>
         </div>

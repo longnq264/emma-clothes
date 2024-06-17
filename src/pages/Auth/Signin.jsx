@@ -4,6 +4,7 @@ import { useState } from "react";
 
 const Signin = () => {
   const [state, setState] = useState([]);
+
   const onFinish = async (values) => {
     console.log("Success:", values);
     const formData = {
@@ -15,7 +16,7 @@ const Signin = () => {
         "http://localhost:3000/login",
         formData
       );
-      console.log("response", response);
+      localStorage.setItem("token", response.data.accessToken);
       setState(response.data);
     } catch (error) {
       console.log(error);
@@ -72,18 +73,6 @@ const Signin = () => {
           >
             <Input.Password />
           </Form.Item>
-
-          {/* <Form.Item
-            name="remember"
-            valuePropName="checked"
-            wrapperCol={{
-              offset: 8,
-              span: 16,
-            }}
-          >
-            <Checkbox>Remember me</Checkbox>
-          </Form.Item> */}
-
           <Form.Item
             wrapperCol={{
               offset: 8,

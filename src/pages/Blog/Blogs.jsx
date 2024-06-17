@@ -23,7 +23,7 @@ const Blogs = () => {
 
   return (
     <>
-      <div className="breadcrumb-site">
+      <div className="breadcrumb-site container mx-auto py-2">
         <Breadcrumb
           items={[
             {
@@ -35,9 +35,9 @@ const Blogs = () => {
           ]}
         />
       </div>
-      <div className="Blogs-site">
+      <div className="Blogs-site container mx-auto px-4">
         <h1 className="title">Blogs Page</h1>
-        <div className="">
+        <div className="py-6">
           {state.map((data) => (
             <Link key={data.id} to={`http://localhost:5173/blog/${data.id}`}>
               <div className="py-6 px-2 border-2 my-2">

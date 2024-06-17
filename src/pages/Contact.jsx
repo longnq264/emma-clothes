@@ -9,11 +9,14 @@ const onFinishFailed = (errorInfo) => {
 };
 const ContactPage = () => (
   <>
-    <div className="breadcrumb-site">
+    <div className="breadcrumb-site container mx-auto py-2">
       <Breadcrumb
         items={[
           {
             title: <Link to="/">Home</Link>,
+          },
+          {
+            title: <Link to="/contact">Contact</Link>,
           },
         ]}
       />

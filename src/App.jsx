@@ -11,6 +11,11 @@ import ProductPage from "./pages/Product/ProductPage.jsx";
 import CartPage from "./pages/Cart/CartPage.jsx";
 import ProductDetail from "./pages/Product/ProductDetail.jsx";
 import ContactPage from "./pages/Contact";
+import AboutPage from "./pages/About/AboutPage.jsx";
+import ProfilePage from "./pages/Profile/ProfilePage.jsx";
+import NotLoggedIn from "./pages/NotLoggedIn.jsx";
+import { AppContext } from "./context/AppContextProvider.jsx";
+import { useState } from "react";
 
 const router = createBrowserRouter([
   {
@@ -22,18 +27,41 @@ const router = createBrowserRouter([
       { path: "/", element: <HomePage /> },
       { path: "/blog", element: <Blogs /> },
       { path: "/blog/:id", element: <BlogDetail /> },
+      { path: "/about", element: <AboutPage /> },
       { path: "/contact", element: <ContactPage /> },
       { path: "/products", element: <ProductPage /> },
       { path: "/products/:id", element: <ProductDetail /> },
       { path: "/cart", element: <CartPage /> },
+
+      { path: "/profile", element: <ProfilePage /> },
       { path: "/login", element: <Signin /> },
       { path: "/register", element: <Signup /> },
+      { path: "/not-loggedin", element: <NotLoggedIn /> },
     ],
   },
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  const [shoppingCart, setShoppingCart] = useState({
+    items: [],
+  });
+
+  const addCartItems = (data) => {
+    console.log(data);
+    setShoppingCart(data);
+  };
+
+  const ctxValue = {
+    items: shoppingCart.items,
+    addItemToCart: addCartItems,
+  };
+  return (
+    <>
+      <AppContext.Provider value={ctxValue}>
+        <RouterProvider router={router} />
+      </AppContext.Provider>
+    </>
+  );
 }
 
 export default App;

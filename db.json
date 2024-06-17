@@ -40,7 +40,7 @@
   ],
   "products": [
     {
-      "id": "1",
+      "id": 1,
       "product_id": "1",
       "name": "Odd Shade Oversized T-Shirt - Black",
       "price": "$47.00",
@@ -65,14 +65,14 @@
       "categories_id": 1
     },
     {
-      "id": "2",
+      "id": 2,
       "product_id": "2",
       "name": "Odd Shade Oversized T-Shirt - Black",
       "price": "$47.00",
       "price_old": "$59.00",
       "description": "t-shirt",
       "quantity": "50",
-      "main_image_url": "https://res.cloudinary.com/da7r4robk/image/upload/v1717588304/Products/product1_rr8fhn.png",
+      "main_image_url": "https://res.cloudinary.com/da7r4robk/image/upload/v1717590011/Products/product3_rymfed.png",
       "view": 103,
       "category": {
         "id": 1,
@@ -90,8 +90,58 @@
       "categories_id": 1
     },
     {
-      "id": "3",
+      "id": 3,
       "product_id": "3",
+      "name": "Odd Shade Oversized T-Shirt - Black",
+      "price": "$47.00",
+      "price_old": "$59.00",
+      "description": "t-shirt",
+      "quantity": "50",
+      "main_image_url": "https://res.cloudinary.com/da7r4robk/image/upload/v1717590329/Products/product4_w4ocxz.png",
+      "view": 103,
+      "category": {
+        "id": 1,
+        "name": "T-shirt"
+      },
+      "brand_id": 1,
+      "thumbnail_id": 1,
+      "thumbnail_image_url": [
+        "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png",
+        "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png",
+        "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png",
+        "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png"
+      ],
+      "status": "true",
+      "categories_id": 1
+    },
+    {
+      "id": 4,
+      "product_id": "4",
+      "name": "Odd Shade Oversized T-Shirt - Black",
+      "price": "$47.00",
+      "price_old": "$59.00",
+      "description": "t-shirt",
+      "quantity": "50",
+      "main_image_url": "https://res.cloudinary.com/da7r4robk/image/upload/v1717589998/Products/product2_ibk7at.png",
+      "view": 103,
+      "category": {
+        "id": 1,
+        "name": "T-shirt"
+      },
+      "brand_id": 1,
+      "thumbnail_id": 1,
+      "thumbnail_image_url": [
+        "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png",
+        "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png",
+        "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png",
+        "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png"
+      ],
+      "status": "true",
+      "categories_id": 1
+    },
+    {
+      "id": 5,
+      "product_id": "5",
       "name": "Odd Shade Oversized T-Shirt - Black",
       "price": "$47.00",
       "price_old": "$59.00",
@@ -115,14 +165,64 @@
       "categories_id": 1
     },
     {
-      "id": "4",
+      "id": 6,
+      "product_id": "2",
+      "name": "Odd Shade Oversized T-Shirt - Black",
+      "price": "$47.00",
+      "price_old": "$59.00",
+      "description": "t-shirt",
+      "quantity": "50",
+      "main_image_url": "https://res.cloudinary.com/da7r4robk/image/upload/v1717590011/Products/product3_rymfed.png",
+      "view": 103,
+      "category": {
+        "id": 1,
+        "name": "T-shirt"
+      },
+      "brand_id": 1,
+      "thumbnail_id": 2,
+      "thumbnail_image_url": [
+        "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png",
+        "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png",
+        "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png",
+        "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png"
+      ],
+      "status": "true",
+      "categories_id": 1
+    },
+    {
+      "id": 7,
+      "product_id": "3",
+      "name": "Odd Shade Oversized T-Shirt - Black",
+      "price": "$47.00",
+      "price_old": "$59.00",
+      "description": "t-shirt",
+      "quantity": "50",
+      "main_image_url": "https://res.cloudinary.com/da7r4robk/image/upload/v1717590329/Products/product4_w4ocxz.png",
+      "view": 103,
+      "category": {
+        "id": 1,
+        "name": "T-shirt"
+      },
+      "brand_id": 1,
+      "thumbnail_id": 1,
+      "thumbnail_image_url": [
+        "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png",
+        "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png",
+        "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png",
+        "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png"
+      ],
+      "status": "true",
+      "categories_id": 1
+    },
+    {
+      "id": 8,
       "product_id": "4",
       "name": "Odd Shade Oversized T-Shirt - Black",
       "price": "$47.00",
       "price_old": "$59.00",
       "description": "t-shirt",
       "quantity": "50",
-      "main_image_url": "https://res.cloudinary.com/da7r4robk/image/upload/v1717588304/Products/product1_rr8fhn.png",
+      "main_image_url": "https://res.cloudinary.com/da7r4robk/image/upload/v1717589998/Products/product2_ibk7at.png",
       "view": 103,
       "category": {
         "id": 1,
@@ -140,6 +240,27 @@
       "categories_id": 1
     }
   ],
+  "cart": [
+    {
+      "productID": "3",
+      "data": {
+        "name": "Odd Shade Oversized T-Shirt - Black",
+        "quantity": "50",
+        "img": "https://res.cloudinary.com/da7r4robk/image/upload/v1717590329/Products/product4_w4ocxz.png"
+      },
+      "id": 3
+    },
+    {
+      "productID": "4",
+      "data": {
+        "name": "Odd Shade Oversized T-Shirt - Black",
+        "quantity": "50",
+        "img": "https://res.cloudinary.com/da7r4robk/image/upload/v1717589998/Products/product2_ibk7at.png"
+      },
+      "id": 4
+    }
+  ],
+  "brand": [],
   "thumbnails": [
     {
       "id": 1,
@@ -179,8 +300,12 @@
       "password": "$2a$10$9MJHoHwQLPDgf95E0w1iROuKEH3kcp.pRY.ObTD6GcwpqbgX.mdiK",
       "username": "testt",
       "id": 3
+    },
+    {
+      "email": "Admin@gmail.com",
+      "password": "$2a$10$Ljp4jhBpYwaDXVXTgoEQ6uHa4DXMSHkkhBUMFgdizhXqfDYHIeBZa",
+      "username": "Admin",
+      "id": 4
     }
-  ],
-  "signup": [],
-  "register": []
+  ]
 }

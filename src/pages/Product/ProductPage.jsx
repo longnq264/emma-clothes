@@ -1,22 +1,23 @@
-import axios from "axios";
 import { Pagination } from "antd";
 import { useState } from "react";
 import { useEffect } from "react";
 import { Breadcrumb } from "antd";
 import { Link } from "react-router-dom";
 import { Carousel } from "antd";
-import product from "../../assets/img/product1.png";
+// import product from "../../assets/img/product1.png";
 import background from "../../assets/img/banner-products.jpg";
+import { getProducts } from "../../api/fakeApi";
 const ProductPage = () => {
   const [products, setProducts] = useState([]);
   //   const [loading, setLoading] = useState(false);
   //   const [currentPage, setCurrentPage] = useState(1);
   //   const [productPerPage, setProductPerPage] = useState(18);
   const fetchProduct = async () => {
-    const response = await axios.get("http://localhost:3000/products");
-    console.log(response.data);
-    setProducts(response.data);
+    const response = await getProducts();
+    console.log(response);
+    setProducts(response);
   };
+
   const contentStyle = {
     height: "140px",
     color: "#fff",
@@ -66,7 +67,7 @@ const ProductPage = () => {
                 to={`http://localhost:5173/products/${res.product_id}`}
               >
                 <div className="mx-4">
-                  <img src={product} />
+                  <img src={res.main_image_url} />
                   <div className="content-product">
                     <h3 className="">{res.name}</h3>
                   </div>
