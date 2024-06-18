@@ -46,14 +46,14 @@ function App() {
     items: [],
   });
 
-  const addCartItems = (data) => {
-    console.log(data);
+  const handleAddCartItems = (data) => {
+    // console.log(data);
     setShoppingCart(data);
   };
 
   const ctxValue = {
     items: shoppingCart.items,
-    addItemToCart: addCartItems,
+    addItemToCart: handleAddCartItems,
   };
   return (
     <>

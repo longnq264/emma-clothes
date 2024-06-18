@@ -7,7 +7,7 @@ const Navigation = () => {
       <nav>
         <ul className="flex">
           {NAV_LINKS.map((data, index) => (
-            <li key={index} className="px-4 list">
+            <li className="px-4 list" key={index}>
               <NavLink
                 to={data.key}
                 className={({ isActive }) =>
@@ -18,6 +18,11 @@ const Navigation = () => {
               </NavLink>
             </li>
           ))}
+          <li>
+            <NavLink to="/cart">
+              <span className="font-bold">Cart</span>
+            </NavLink>
+          </li>
         </ul>
       </nav>
     </div>

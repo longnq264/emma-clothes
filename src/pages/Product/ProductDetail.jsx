@@ -1,28 +1,29 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-// import { useContext } from "react";
-// import { AppContext } from "../../context/AppContextProvider";
-import { addToCart, getProductId } from "../../api/fakeApi";
+import { useContext } from "react";
+import { AppContext } from "../../context/AppContextProvider";
+import { getProductId } from "../../api/fakeApi";
 
 const ProductDetail = () => {
   const { id } = useParams();
   const [data, setData] = useState([]);
-  // const { addItemToCart } = useContext(AppContext);
+  const { addItemToCart } = useContext(AppContext);
 
-  const handleAddtoCart = async (idCart, dataCart) => {
-    const initCart = {
-      productID: idCart,
-      data: {
-        ...dataCart,
-      },
-    };
-    try {
-      const response = await addToCart(initCart);
-      console.log("handle Add", response);
-    } catch (error) {
-      console.log("error", error);
-    }
-  };
+  // const handleAddtoCart = async (idCart, dataCart) => {
+  //   const initCart = {
+  //     productID: idCart,
+  //     data: {
+  //       ...dataCart,
+  //     },
+  //   };
+  //   try {
+  //     const response = await addToCart(initCart);
+  //     console.log("handle Add", response);
+  //   } catch (error) {
+  //     console.log("error", error);
+  //   }
+  // };
+
   useEffect(() => {
     const fetchProductDetail = async () => {
       const response = await getProductId(id);
@@ -64,8 +65,9 @@ const ProductDetail = () => {
                     name: data.name,
                     quantity: data.quantity,
                     img: data.main_image_url,
+                    price: data.price,
                   };
-                  handleAddtoCart(id, cartData);
+                  addItemToCart(cartData);
                   console.log(id);
                 }}
                 className="px-10 py-2 border-2 w-full text-white font-bold bg-stone-700 my-5"

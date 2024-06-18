@@ -248,16 +248,7 @@
         "quantity": "50",
         "img": "https://res.cloudinary.com/da7r4robk/image/upload/v1717590329/Products/product4_w4ocxz.png"
       },
-      "id": 3
-    },
-    {
-      "productID": "4",
-      "data": {
-        "name": "Odd Shade Oversized T-Shirt - Black",
-        "quantity": "50",
-        "img": "https://res.cloudinary.com/da7r4robk/image/upload/v1717589998/Products/product2_ibk7at.png"
-      },
-      "id": 4
+      "id": 1
     }
   ],
   "brand": [],

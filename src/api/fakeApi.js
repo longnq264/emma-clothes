@@ -27,6 +27,11 @@ export const addToCart = async (data) => {
   return response.data;
 };
 
+export const removeCart = async (id) => {
+  const response = await axios.delete(`${API_URL}/cart/${id}`);
+  return response.data;
+};
+
 export const listCart = async () => {
   const response = await axios.get(`${API_URL}/cart`);
   return response.data;
