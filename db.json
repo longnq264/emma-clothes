@@ -53,6 +53,7 @@
         "id": 1,
         "name": "T-shirt"
       },
+      "gender": "men",
       "brand_id": 1,
       "thumbnail_id": 1,
       "thumbnail_image_url": [
@@ -78,6 +79,7 @@
         "id": 1,
         "name": "T-shirt"
       },
+      "gender": "men",
       "brand_id": 1,
       "thumbnail_id": 2,
       "thumbnail_image_url": [
@@ -103,6 +105,7 @@
         "id": 1,
         "name": "T-shirt"
       },
+      "gender": "men",
       "brand_id": 1,
       "thumbnail_id": 1,
       "thumbnail_image_url": [
@@ -128,6 +131,7 @@
         "id": 1,
         "name": "T-shirt"
       },
+      "gender": "men",
       "brand_id": 1,
       "thumbnail_id": 1,
       "thumbnail_image_url": [
@@ -153,6 +157,7 @@
         "id": 1,
         "name": "T-shirt"
       },
+      "gender": "women",
       "brand_id": 1,
       "thumbnail_id": 1,
       "thumbnail_image_url": [
@@ -178,6 +183,7 @@
         "id": 1,
         "name": "T-shirt"
       },
+      "gender": "women",
       "brand_id": 1,
       "thumbnail_id": 2,
       "thumbnail_image_url": [
@@ -203,6 +209,7 @@
         "id": 1,
         "name": "T-shirt"
       },
+      "gender": "women",
       "brand_id": 1,
       "thumbnail_id": 1,
       "thumbnail_image_url": [
@@ -228,6 +235,59 @@
         "id": 1,
         "name": "T-shirt"
       },
+      "gender": "women",
+      "brand_id": 1,
+      "thumbnail_id": 1,
+      "thumbnail_image_url": [
+        "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png",
+        "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png",
+        "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png",
+        "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png"
+      ],
+      "status": "true",
+      "categories_id": 1
+    },
+    {
+      "id": 9,
+      "product_id": "9",
+      "name": "Odd Shade Oversized T-Shirt - Black",
+      "price": "$47.00",
+      "price_old": "$59.00",
+      "description": "t-shirt",
+      "quantity": "50",
+      "main_image_url": "https://res.cloudinary.com/da7r4robk/image/upload/v1717589998/Products/product2_ibk7at.png",
+      "view": 103,
+      "category": {
+        "id": 1,
+        "name": "T-shirt"
+      },
+      "gender": "men",
+      "brand_id": 1,
+      "thumbnail_id": 1,
+      "thumbnail_image_url": [
+        "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png",
+        "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png",
+        "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png",
+        "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png"
+      ],
+      "status": "true",
+      "categories_id": 1
+    },
+    {
+      "id": 10,
+      "product_id": "4",
+      "name": "Odd Shade Oversized T-Shirt - Black",
+      "price": "$47.00",
+      "price_old": "$59.00",
+      "description": "t-shirt",
+      "quantity": "50",
+      "main_image_url": "https://res.cloudinary.com/da7r4robk/image/upload/v1717589998/Products/product2_ibk7at.png",
+      "view": 103,
+      "category": {
+        "id": 1,
+        "name": "T-shirt"
+      },
+      "gender": "women",
       "brand_id": 1,
       "thumbnail_id": 1,
       "thumbnail_image_url": [
@@ -300,3 +360,4 @@
     }
   ]
 }
+

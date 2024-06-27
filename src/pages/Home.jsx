@@ -1,5 +1,6 @@
 import { Breadcrumb } from "antd";
 import { Link } from "react-router-dom";
+import Banner from "../components/UI/Home/Banner";
 function HomePage() {
   return (
     <>
@@ -12,6 +13,7 @@ function HomePage() {
           ]}
         />
       </div>
+      <Banner />
       <div className="container-site">
         <h1 className="title">Home Page</h1>
         <div className="content">

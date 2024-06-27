@@ -26,7 +26,7 @@ This is a streetwear clothing e-commerce project using React.js, Vite, and JSON 
 
 3. **Start both the server and the React application:**
 
-npm run start
+npm run dev
 
 3. **View the application in your browser:**
 
@@ -40,3 +40,4 @@ npm run preview: Previews the build of the project.
 npm run build: Builds the project for production.
 npm run server: Starts the JSON Server with data from db.json.
 npm run start: Runs both the Vite dev server and the JSON Server concurrently.
+

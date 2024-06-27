@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useContext } from "react";
-import { AppContext } from "../../context/AppContextProvider";
+import { AppContext } from "../../context/AppContext";
 import { getProductId } from "../../api/fakeApi";
 
 const ProductDetail = () => {
   const { id } = useParams();
   const [data, setData] = useState([]);
+  const [quantity, setQuantity] = useState(1);
+
   const { addItemToCart } = useContext(AppContext);
 
   // const handleAddtoCart = async (idCart, dataCart) => {
@@ -23,6 +25,15 @@ const ProductDetail = () => {
   //     console.log("error", error);
   //   }
   // };
+  const handleIncreaseQuantity = () => {
+    setQuantity(quantity + 1);
+  };
+
+  const handleDecreaseQuantity = () => {
+    if (quantity > 1) {
+      setQuantity((prevQuantity) => prevQuantity - 1);
+    }
+  };
 
   useEffect(() => {
     const fetchProductDetail = async () => {
@@ -37,8 +48,8 @@ const ProductDetail = () => {
     <div className="">
       <div className="">
         <div
-          className="content mt-10 container mx-auto px-20"
-          style={{ minHeight: "140vh" }}
+          className="content container mx-auto px-20"
+          style={{ minHeight: "140vh", background: "#f9f9f9" }}
         >
           <div className="grid grid-cols-2">
             <div className="product-detail-image">
@@ -53,24 +64,38 @@ const ProductDetail = () => {
                 ))}
               </div>
             </div>
-            <div className="inner-detail min-h-40 p-5">
-              <h1 className="font-bold">{data.name}</h1>
+            <div className="inner-detail min-h-40 p-5 text-stone-700">
+              <h1 className="font-bold text-3xl">{data.name}</h1>
               <div className="price flex">
-                <p className="text-xl">{data.price}</p>
-                <p className="text-stone-300">{data.price_old}</p>
+                <p className="text-2xl my-2 font-bold">{data.price}</p>
+                <p className="text-stone-400 text-xl my-2 ml-2 line-through">
+                  {data.price_old}
+                </p>
               </div>
+              <p>Color:</p>
+              <p>Size:</p>
+              <div className="grid grid-cols-2">
+                <p>Quantity: </p>
+                <div className="flex items-center">
+                  <button
+                    className="px-3 py-1 border border-gray-400 rounded-l hover:bg-gray-200"
+                    onClick={handleDecreaseQuantity}
+                  >
+                    -
+                  </button>
+                  <span className="px-3">{quantity}</span>
+                  <button
+                    className="px-3 py-1 border border-gray-400 rounded-r hover:bg-gray-200"
+                    onClick={handleIncreaseQuantity}
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+
               <button
-                onClick={() => {
-                  const cartData = {
-                    name: data.name,
-                    quantity: data.quantity,
-                    img: data.main_image_url,
-                    price: data.price,
-                  };
-                  addItemToCart(cartData);
-                  console.log(id);
-                }}
-                className="px-10 py-2 border-2 w-full text-white font-bold bg-stone-700 my-5"
+                onClick={() => addItemToCart(id)}
+                className="px-10 py-2 border-2 w-full text-white font-bold bg-stone-700 my-5 rounded"
               >
                 Add To Cart
               </button>

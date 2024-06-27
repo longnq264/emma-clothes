@@ -5,7 +5,7 @@ const RootLayout = () => {
   return (
     <div>
       <Header />
-      <main style={{ minHeight: "80vh" }}>
+      <main className="min-h-screen mt-24">
         <Outlet />
       </main>
       <Footer />
