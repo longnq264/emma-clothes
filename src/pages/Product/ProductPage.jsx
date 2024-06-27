@@ -85,17 +85,23 @@ const ProductPage = () => {
               </div>
             </div>
           </div>
-          <div className="product-content min-h-screen">
+          <div className="pl-4 product-content min-h-screen">
             <div className="grid grid-cols-2 lg:grid-cols-4">
               {products.map((res) => (
                 <Link
                   key={res.id}
                   to={`http://localhost:5173/products/${role}/${res.product_id}`}
                 >
-                  <div className="mx-4">
+                  <div className="mx-2 my-2 px-4 pb-4 rounded-lg shadow-md">
                     <img src={res.main_image_url} />
                     <div className="content-product">
-                      <h3 className="">{res.name}</h3>
+                      <h3 className="pb-2">{res.name}</h3>
+                      <h1 className="price text-lg font-semibold">
+                        {res.price}
+                        <span className="text-stone-400 my-2 ml-2 line-through">
+                          {res.price_old}
+                        </span>
+                      </h1>
                     </div>
                   </div>
                 </Link>
