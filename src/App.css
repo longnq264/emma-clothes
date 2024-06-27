@@ -13,7 +13,9 @@
   font-style: normal;
   letter-spacing: 2px;
 }
-
+#main {
+  margin-top: 81px;
+}
 /* .bebas-neue-regular {
   font-family: "Bebas Neue", sans-serif;
   font-weight: 400;
