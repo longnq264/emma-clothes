@@ -1,7 +1,6 @@
 import { NavLink, Outlet } from "react-router-dom";
 import NavBar from "./NavBar";
 import Navigation from "./Navigation";
-import Logo from "../UI/Home/Logo";
 
 const AdminLayout = () => {
   return (
