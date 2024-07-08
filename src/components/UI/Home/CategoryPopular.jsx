@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import ShowMoreBtn from "./ShowMoreBtn";
 const PRODUCTS = {
   hoodie: [
     {
@@ -105,11 +106,38 @@ const PRODUCTS = {
         "https://res.cloudinary.com/da7r4robk/image/upload/v1720375791/2a3e6b69fe95e5819596c3d630e85af0_osrr2q.webp",
     },
   ],
+  office: [
+    {
+      id: 1,
+      name: "Cargo Pants 1",
+      image:
+        "https://res.cloudinary.com/da7r4robk/image/upload/v1720375791/2a3e6b69fe95e5819596c3d630e85af0_osrr2q.webp",
+    },
+    {
+      id: 2,
+      name: "Cargo Pants 2",
+      image:
+        "https://res.cloudinary.com/da7r4robk/image/upload/v1720375791/2a3e6b69fe95e5819596c3d630e85af0_osrr2q.webp",
+    },
+    {
+      id: 3,
+      name: "Cargo Pants 3",
+      image:
+        "https://res.cloudinary.com/da7r4robk/image/upload/v1720375791/2a3e6b69fe95e5819596c3d630e85af0_osrr2q.webp",
+    },
+    {
+      id: 4,
+      name: "Cargo Pants 4",
+      image:
+        "https://res.cloudinary.com/da7r4robk/image/upload/v1720375791/2a3e6b69fe95e5819596c3d630e85af0_osrr2q.webp",
+    },
+  ],
 };
+
 const CategoryPopular = () => {
   const [selectedCategory, setSelectedCategory] = useState("hoodie");
 
-  const categories = ["hoodie", "chinos", "jacket", "cargopants"];
+  const categories = ["hoodie", "chinos", "jacket", "cargopants", "office"];
 
   return (
     <div className="container mx-auto ">
@@ -121,7 +149,7 @@ const CategoryPopular = () => {
         {categories.map((category) => (
           <button
             key={category}
-            className={`px-4 py-2 mx-2 ${
+            className={`px-8 py-2 mx-2 ${
               selectedCategory === category
                 ? "bg-amber-600 text-white"
                 : "bg-slate-50 text-gray-700"
@@ -142,6 +170,7 @@ const CategoryPopular = () => {
           </div>
         ))}
       </div>
+      <ShowMoreBtn />
     </div>
   );
 };

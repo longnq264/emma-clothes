@@ -6,6 +6,8 @@ import CollectionBanner from "../assets/img/bannercollection.png";
 // import CommingSoon from "../assets/img/coming-soon.png";
 import FlashSale from "../assets/img/flash-sale.png";
 import CategoryPopular from "../components/UI/Home/CategoryPopular";
+import SuggestedProducts from "../components/UI/Home/SuggestedProducts";
+
 function HomePage() {
   return (
     <>
@@ -46,6 +48,7 @@ function HomePage() {
         </div>
       </div>
       <CategoryPopular />
+      <SuggestedProducts />
     </>
   );
 }

@@ -29,10 +29,12 @@ const ProductPage = () => {
     setProducts(filteredProducts);
     setQuantityProduct(filteredProducts.length);
   };
+
   useEffect(() => {
     fetchProduct(role);
   }, [role]);
   console.log(role);
+
   return (
     <>
       <div className="container mx-auto py-2">
