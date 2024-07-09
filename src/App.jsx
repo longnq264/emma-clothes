@@ -18,11 +18,8 @@ import CollectionPage from "./pages/Collection/CollectionPage.jsx";
 import CollectionDetailPage from "./pages/Collection/CollectionDetailPage.jsx";
 import DashBoardPage from "./components/User/DashBoardPage.jsx";
 import AdminLayout from "./components/User/AdminLayout.jsx";
-
-
-
 import Sale from "./pages/Sale/Sale.jsx";
-import Products from "./pages/Admin/ProductsList.jsx";
+// import Products from "./pages/Admin/ProductsList.jsx";
 import CategoriesList from "./pages/Admin/CategoriesList.jsx";
 import ProductAdd from "./pages/Admin/ProductAdd.jsx";
 import ProductEdit from "./pages/Admin/ProductEdit.jsx";
@@ -55,7 +52,7 @@ const router = createBrowserRouter([
       { path: "/register", element: <Signup /> },
       { path: "/not-loggedin", element: <NotLoggedIn /> },
       { path: "/admin", element: <DashBoardPage /> },
-      { path: "/sale", element: <Sale/> },
+      { path: "/sale", element: <Sale /> },
     ],
   },
   {
@@ -69,7 +66,6 @@ const router = createBrowserRouter([
       { path: "categories", element: <CategoriesList /> },
     ],
   },
-  
 ]);
 
 function App() {
