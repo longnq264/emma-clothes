@@ -17,8 +17,11 @@ const Navigation = () => {
               onMouseLeave={() => setActiveIndex(null)}
             >
               <NavLink to={item.key}>
-                {/* {console.log(data)} */}
-                <span className="text-base text-stone-700 font-semibold">
+                <span
+                  className={`text-base font-semibold ${
+                    item.key === "sale" ? "text-red-500" : "text-stone-700"
+                  }`}
+                >
                   {item.label}
                 </span>
               </NavLink>

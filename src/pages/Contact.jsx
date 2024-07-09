@@ -106,11 +106,12 @@ const ContactPage = () => (
 
         <div className="bg-gray-50 p-12 shadow-xl rounded-2xl">
           <h2 className="text-3xl font-semibold mb-6 text-gray-700">
-          Liên Hệ Chúng Tôi
+            Liên Hệ Chúng Tôi
           </h2>
           <p className="text-lg mb-4">
-          Hãy liên hệ với chúng tôi để có được sự hỗ trợ
+            Hãy liên hệ với chúng tôi để có được sự hỗ trợ
           </p>
+          <br />
           <div className="flex items-center mb-4">
             <PhoneOutlined className="text-2xl mr-4 text-gray-600" />
             <span className="text-lg text-gray-700">0912345678</span>
@@ -126,7 +127,8 @@ const ContactPage = () => (
           <div className="flex items-center">
             <HomeOutlined className="text-2xl mr-4 text-gray-600" />
             <span className="text-lg text-gray-700">
-              FPT Polytechnic Building, Trinh Van Bo Street, Phuong Canh Ward, Nam Tu Liem District, Hanoi City
+              FPT Polytechnic Building, Trinh Van Bo Street, Phuong Canh Ward,
+              Nam Tu Liem District, Hanoi City
             </span>
           </div>
         </div>
@@ -136,10 +138,11 @@ const ContactPage = () => (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl lg:max-w-4xl mx-auto text-center">
             <h2 className="text-4xl font-extrabold text-gray-900">
-            Ghé Thăm địa điểm cửa hàng của Emma
+              Ghé Thăm Store Emma
             </h2>
             <p className="mt-4 text-lg text-gray-600">
-            Hãy khám phá các địa điểm cửa hàng của chúng tôi và tìm địa điểm gần bạn nhất.
+              Hãy khám phá các địa điểm cửa hàng của chúng tôi và tìm địa điểm
+              gần bạn nhất.
             </p>
           </div>
           <div className="mt-16 lg:mt-20 grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -161,8 +164,12 @@ const ContactPage = () => (
                 FPT Polytechnic, Trinh Van Bo Street, Hanoi, Vietnam
               </p>
               <div className="border-t border-gray-200 mt-4 pt-4">
-                <h3 className="text-xl font-medium text-gray-900">Lịch mở cửa</h3>
-                <p className="mt-2 text-gray-600">Thứ Hai- Thứ Năm: 9am - 5pm</p>
+                <h3 className="text-xl font-medium text-gray-900">
+                  Lịch mở cửa
+                </h3>
+                <p className="mt-2 text-gray-600">
+                  Thứ Hai- Thứ Năm: 9am - 5pm
+                </p>
                 <p className="mt-1 text-gray-600">Thứ Bảy: 9am - 5pm</p>
                 <p className="mt-1 text-gray-600">Chủ nhật: Đóng cửa</p>
               </div>
