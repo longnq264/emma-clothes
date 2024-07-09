@@ -1,6 +1,13 @@
 // import { Breadcrumb } from "antd";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Banner from "../components/UI/Home/Banner";
+import Collection from "../components/UI/Home/Collection";
+import CollectionBanner from "../assets/img/bannercollection.png";
+// import CommingSoon from "../assets/img/coming-soon.png";
+import FlashSale from "../assets/img/flash-sale.png";
+import CategoryPopular from "../components/UI/Home/CategoryPopular";
+import SuggestedProducts from "../components/UI/Home/SuggestedProducts";
+
 function HomePage() {
   return (
     <>
@@ -18,6 +25,30 @@ function HomePage() {
           </p>
         </div>
       </div>
+      <Collection />
+      <div className="container mx-auto py-2">
+        <Link>
+          <img src={CollectionBanner} alt="" />
+        </Link>
+      </div>
+      <div className="container mx-auto">
+        <div className="grid grid-cols-2 gap-4 my-4">
+          <Link>
+            <img src={FlashSale} alt="" />
+          </Link>
+          <Link>
+            <img src={FlashSale} alt="" />
+          </Link>
+          <Link>
+            <img src={FlashSale} alt="" />
+          </Link>
+          <Link>
+            <img src={FlashSale} alt="" />
+          </Link>
+        </div>
+      </div>
+      <CategoryPopular />
+      <SuggestedProducts />
     </>
   );
 }

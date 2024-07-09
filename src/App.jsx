@@ -15,6 +15,9 @@ import AboutPage from "./pages/About/AboutPage.jsx";
 import ProfilePage from "./pages/Profile/ProfilePage.jsx";
 import NotLoggedIn from "./pages/NotLoggedIn.jsx";
 import CollectionPage from "./pages/Collection/CollectionPage.jsx";
+import CollectionDetailPage from "./pages/Collection/CollectionDetailPage.jsx";
+import DashBoardPage from "./components/User/DashBoardPage.jsx";
+import AdminLayout from "./components/User/AdminLayout.jsx";
 // import AppProvider from "./context/AppContext.jsx";
 
 const router = createBrowserRouter([
@@ -24,12 +27,13 @@ const router = createBrowserRouter([
     errorElement: <NoPage />,
     // loader:
     children: [
-      { path: "/", element: <HomePage /> },
+      { path: "", element: <HomePage /> },
       { path: "/blog", element: <Blogs /> },
       { path: "/blog/:id", element: <BlogDetail /> },
       { path: "/about", element: <AboutPage /> },
       { path: "/contact", element: <ContactPage /> },
       { path: "/collection", element: <CollectionPage /> },
+      { path: "/collection/:role", element: <CollectionDetailPage /> },
       { path: "/products/:role", element: <ProductPage /> },
       { path: "/products/:role/:id", element: <ProductDetail /> },
       { path: "/cart", element: <CartPage /> },
@@ -37,6 +41,15 @@ const router = createBrowserRouter([
       { path: "/login", element: <Signin /> },
       { path: "/register", element: <Signup /> },
       { path: "/not-loggedin", element: <NotLoggedIn /> },
+      { path: "/admin", element: <DashBoardPage /> },
+    ],
+  },
+  {
+    path: "/admin",
+    element: <AdminLayout />,
+    children: [
+      { path: "", element: <DashBoardPage /> },
+      // Thêm các route admin khác tại đây
     ],
   },
 ]);

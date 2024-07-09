@@ -41,7 +41,6 @@
   "products": [
     {
       "id": 1,
-      "product_id": "1",
       "name": "Odd Shade Oversized T-Shirt - Black",
       "price": "$47.00",
       "price_old": "$59.00",
@@ -51,23 +50,55 @@
       "view": 103,
       "category": {
         "id": 1,
-        "name": "T-shirt"
+        "name": "Men"
       },
       "gender": "men",
       "brand_id": 1,
       "thumbnail_id": 1,
       "thumbnail_image_url": [
         "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png",
-        "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png",
-        "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png",
-        "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png"
+        "https://res.cloudinary.com/da7r4robk/image/upload/v1717590329/Products/product4_w4ocxz.png",
+        "https://res.cloudinary.com/da7r4robk/image/upload/v1717590011/Products/product3_rymfed.png",
+        "https://res.cloudinary.com/da7r4robk/image/upload/v1717588304/Products/product1_rr8fhn.png"
       ],
       "status": "true",
-      "categories_id": 1
+      "variants": [
+        {
+          "id": 1,
+          "color": "black",
+          "price": 47.0,
+          "stock": 50,
+          "main_image_url": "https://res.cloudinary.com/da7r4robk/image/upload/v1717588304/Products/product1_rr8fhn.png",
+          "images": [
+            "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png"
+          ]
+        },
+        {
+          "id": 2,
+          "color": "brown",
+          "price": 47.0,
+          "stock": 30,
+          "main_image_url": "https://res.cloudinary.com/da7r4robk/image/upload/v1717590329/Products/product4_w4ocxz.png",
+          "images": [
+            "https://res.cloudinary.com/da7r4robk/image/upload/v1717590329/Products/product4_w4ocxz.png",
+            "https://res.cloudinary.com/da7r4robk/image/upload/v1717590329/Products/product4_w4ocxz.png"
+          ]
+        },
+        {
+          "id": 3,
+          "color": "white",
+          "price": 47.0,
+          "stock": 30,
+          "main_image_url": "https://res.cloudinary.com/da7r4robk/image/upload/v1717590011/Products/product3_rymfed.png",
+          "images": [
+            "https://res.cloudinary.com/da7r4robk/image/upload/v1717590011/Products/product3_rymfed.png",
+            "https://res.cloudinary.com/da7r4robk/image/upload/v1717590011/Products/product3_rymfed.png"
+          ]
+        }
+      ]
     },
     {
       "id": 2,
-      "product_id": "2",
       "name": "Odd Shade Oversized T-Shirt - Black",
       "price": "$47.00",
       "price_old": "$59.00",
@@ -93,7 +124,6 @@
     },
     {
       "id": 3,
-      "product_id": "3",
       "name": "Odd Shade Oversized T-Shirt - Black",
       "price": "$47.00",
       "price_old": "$59.00",
@@ -119,7 +149,6 @@
     },
     {
       "id": 4,
-      "product_id": "4",
       "name": "Odd Shade Oversized T-Shirt - Black",
       "price": "$47.00",
       "price_old": "$59.00",
@@ -352,6 +381,32 @@
       "categories_id": 1
     }
   ],
+  "product_variants": [
+    {
+      "id": 1,
+      "product_id": 1,
+      "color": "black",
+      "price": 47.0,
+      "stock": 50,
+      "main_image_url": "https://example.com/product1_black_main.png",
+      "images": [
+        "https://example.com/product1_black_1.png",
+        "https://example.com/product1_black_2.png"
+      ]
+    },
+    {
+      "id": 2,
+      "product_id": 1,
+      "color": "white",
+      "price": 47.0,
+      "stock": 30,
+      "main_image_url": "https://example.com/product1_white_main.png",
+      "images": [
+        "https://example.com/product1_white_1.png",
+        "https://example.com/product1_white_2.png"
+      ]
+    }
+  ],
   "cart": [
     {
       "productID": "3",
@@ -412,3 +467,4 @@
     }
   ]
 }
+

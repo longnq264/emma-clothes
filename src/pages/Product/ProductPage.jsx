@@ -29,10 +29,12 @@ const ProductPage = () => {
     setProducts(filteredProducts);
     setQuantityProduct(filteredProducts.length);
   };
+
   useEffect(() => {
     fetchProduct(role);
   }, [role]);
   console.log(role);
+
   return (
     <>
       <div className="container mx-auto py-2">
@@ -90,7 +92,7 @@ const ProductPage = () => {
               {products.map((res) => (
                 <Link
                   key={res.id}
-                  to={`http://localhost:5173/products/${role}/${res.product_id}`}
+                  to={`http://localhost:5173/products/${role}/${res.id}`}
                 >
                   <div className="mx-2 my-2 px-4 pb-4 rounded-lg shadow-md">
                     <img src={res.main_image_url} />
