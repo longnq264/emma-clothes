@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { getProducts } from "../../../api/fakeApi";
 import ShowMoreBtn from "./ShowMoreBtn";
-
+import { getProducts } from "../../../api/api-server";
+import imageProduct from "../../../assets/img/product1.png";
 const SuggestedProducts = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [data, setData] = useState([]);
@@ -13,8 +13,8 @@ const SuggestedProducts = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getProducts();
-        setData(data);
+        const response = await getProducts();
+        setData(response.data);
       } catch (error) {
         console.log(error);
       }
@@ -84,12 +84,8 @@ const SuggestedProducts = () => {
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mt-4">
         {data.map((product) => (
           <div key={product.id} className="relative">
-            <img
-              src={product.main_image_url}
-              alt={product.name}
-              className="w-full"
-            />
-            <h3 className="mt-2 text-lg font-semibold text-gray-700">
+            <img src={imageProduct} alt={product.name} className="w-full" />
+            <h3 className="mt-2 text-lg font-semibold text-gray-700 text-center">
               {product.name}
             </h3>
           </div>

@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useContext } from "react";
-import { AppContext } from "../../context/AppContext";
-import { getProductId } from "../../api/fakeApi";
+// import { useContext } from "react";
+// import { AppContext } from "../../context/AppContext";
 import { Breadcrumb } from "antd";
 import Link from "antd/es/typography/Link";
+import { getProductId } from "../../api/api-server";
+
 const ProductDetail = () => {
-  const { role, id } = useParams();
   const [data, setData] = useState([]);
   const [quantity, setQuantity] = useState(1);
 
-  const { addItemToCart } = useContext(AppContext);
+  const { role, id } = useParams();
+
+  // const { addItemToCart } = useContext(AppContext);
 
   // const handleAddtoCart = async (idCart, dataCart) => {
   //   const initCart = {
@@ -26,6 +28,13 @@ const ProductDetail = () => {
   //     console.log("error", error);
   //   }
   // };
+
+  const fetchProductDetail = async (id) => {
+    const response = await getProductId(id);
+    setData(response.data);
+    console.log(response);
+  };
+
   const handleIncreaseQuantity = () => {
     setQuantity(quantity + 1);
   };
@@ -36,13 +45,9 @@ const ProductDetail = () => {
     }
   };
   console.log(id);
+
   useEffect(() => {
-    const fetchProductDetail = async () => {
-      const response = await getProductId(id);
-      setData(response);
-      console.log(response);
-    };
-    fetchProductDetail();
+    fetchProductDetail(id);
   }, [id]);
 
   return (
@@ -55,7 +60,7 @@ const ProductDetail = () => {
             },
             {
               title: (
-                <Link to="/products/:role/" className="capitalize text-black">
+                <Link to="/products/:role" className="capitalize text-black">
                   {role}
                 </Link>
               ),
@@ -119,12 +124,12 @@ const ProductDetail = () => {
               </div>
             </div>
 
-            <button
+            {/* <button
               onClick={() => addItemToCart(id)}
               className="px-10 py-2 border-2 w-full text-white font-bold bg-stone-700 my-5 rounded"
             >
               Add To Cart
-            </button>
+            </button> */}
           </div>
         </div>
       </div>

@@ -13,6 +13,7 @@ const Header = () => {
 
   const { items } = useContext(AppContext);
   const cartQuantity = items ? items.length : 0;
+
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > lastScrollY) {
