@@ -1,92 +1,49 @@
-import { Button, Form, Input } from "antd";
-import axios from "axios";
-import { useState } from "react";
+// src/LoginForm.js
+import React, { useState } from 'react';
+import axios from 'axios';
 
-const Signin = () => {
-  const [state, setState] = useState([]);
+const LoginForm = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
-  const onFinish = async (values) => {
-    console.log("Success:", values);
-    const formData = {
-      ...values,
-    };
-    console.log(formData);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     try {
-      const response = await axios.post(
-        "http://localhost:3000/login",
-        formData
-      );
-      localStorage.setItem("token", response.data.accessToken);
-      setState(response.data);
-    } catch (error) {
-      console.log(error);
+      const response = await axios.post('http://localhost:3000/users', { email, password });
+      console.log('Login successful:', response.data);
+      // Handle successful login (e.g., save token, redirect)
+    } catch (err) {
+      setError('Invalid email or password');
     }
   };
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
-  console.log(state);
-  return (
-    <div>
-      <h1 className="title my-10">Login</h1>
-      <div className="form flex justify-center">
-        <Form
-          name="basic"
-          labelCol={{
-            span: 8,
-          }}
-          wrapperCol={{
-            span: 16,
-          }}
-          style={{
-            maxWidth: 600,
-          }}
-          initialValues={{
-            remember: true,
-          }}
-          onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
-          autoComplete="off"
-        >
-          <Form.Item
-            label="Email"
-            name="email"
-            rules={[
-              {
-                required: true,
-                message: "Please input your username!",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
 
-          <Form.Item
-            label="Password"
-            name="password"
-            rules={[
-              {
-                required: true,
-                message: "Please input your password!",
-              },
-            ]}
-          >
-            <Input.Password />
-          </Form.Item>
-          <Form.Item
-            wrapperCol={{
-              offset: 8,
-              span: 16,
-            }}
-          >
-            <Button type="primary" htmlType="submit">
-              Submit
-            </Button>
-          </Form.Item>
-        </Form>
+  return (
+    <form onSubmit={handleSubmit} className="max-w-sm mx-auto p-6 bg-white shadow-md rounded">
+      {error && <p className="text-red-500">{error}</p>}
+      <div className="mb-4">
+        <label className="block text-gray-700">Email:</label>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="w-full px-3 py-2 border rounded"
+          required
+        />
       </div>
-    </div>
+      <div className="mb-4">
+        <label className="block text-gray-700">Password:</label>
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="w-full px-3 py-2 border rounded"
+          required
+        />
+      </div>
+      <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded">Login</button>
+    </form>
   );
 };
 
-export default Signin;
+export default LoginForm;

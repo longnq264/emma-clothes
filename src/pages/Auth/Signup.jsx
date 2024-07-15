@@ -1,112 +1,71 @@
-import { Button, Form, Input } from "antd";
-import axios from "axios";
-import { useState } from "react";
+import { useState } from 'react';
+import axios from 'axios';
 
 const Signup = () => {
-  const [state, setState] = useState([]);
-  const onFinish = async (values) => {
-    console.log("Success:", values);
-    const formData = {
-      ...values,
-    };
-    console.log(formData);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
+
+  const handleSignup = async (e) => {
+    e.preventDefault();
+    setMessage('');
+
     try {
-      const response = await axios.post(
-        "http://localhost:3000/register",
-        formData
-      );
-      console.log("response", response);
-      setState(response.data);
+      const response = await axios.post('http://localhost:3000/api/register', {
+        name,
+        email,
+        password,
+      });
+      setMessage(response.data.message);
     } catch (error) {
-      console.log(error);
+      setMessage(error.response?.data?.message || 'An error occurred');
     }
   };
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
-  console.log(state);
+
   return (
-    <div>
-      <h1 className="title my-10">Signup</h1>
-      <div className="form flex justify-center">
-        <Form
-          name="basic"
-          labelCol={{
-            span: 8,
-          }}
-          wrapperCol={{
-            span: 16,
-          }}
-          style={{
-            maxWidth: 600,
-          }}
-          initialValues={{
-            remember: true,
-          }}
-          onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
-          autoComplete="off"
-        >
-          <Form.Item
-            label="Full Name"
-            name="username"
-            rules={[
-              {
-                required: true,
-                message: "Please input your username!",
-              },
-            ]}
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
+        <h2 className="text-2xl font-bold mb-6">Sign Up</h2>
+        <form onSubmit={handleSignup}>
+          <div className="mb-4">
+            <label className="block text-gray-700">Name</label>
+            <input
+              type="text"
+              className="w-full p-2 border border-gray-300 rounded mt-1"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700">Email</label>
+            <input
+              type="email"
+              className="w-full p-2 border border-gray-300 rounded mt-1"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700">Password</label>
+            <input
+              type="password"
+              className="w-full p-2 border border-gray-300 rounded mt-1"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          {message && <p className="text-red-500">{message}</p>}
+          <button
+            type="submit"
+            className="w-full bg-blue-500 text-white p-2 rounded mt-4"
           >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            label="Email"
-            name="email"
-            rules={[
-              {
-                required: true,
-                message: "Please input your username!",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="Password"
-            name="password"
-            rules={[
-              {
-                required: true,
-                message: "Please input your password!",
-              },
-            ]}
-          >
-            <Input.Password />
-          </Form.Item>
-
-          {/* <Form.Item
-            name="remember"
-            valuePropName="checked"
-            wrapperCol={{
-              offset: 8,
-              span: 16,
-            }}
-          >
-            <Checkbox>Remember me</Checkbox>
-          </Form.Item> */}
-
-          <Form.Item
-            wrapperCol={{
-              offset: 8,
-              span: 16,
-            }}
-          >
-            <Button type="primary" htmlType="submit">
-              Submit
-            </Button>
-          </Form.Item>
-        </Form>
+            Sign Up
+          </button>
+        </form>
       </div>
     </div>
   );

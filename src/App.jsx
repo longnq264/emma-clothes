@@ -18,6 +18,7 @@ import CollectionPage from "./pages/Collection/CollectionPage.jsx";
 import CollectionDetailPage from "./pages/Collection/CollectionDetailPage.jsx";
 import DashBoardPage from "./components/User/DashBoardPage.jsx";
 import AdminLayout from "./components/User/AdminLayout.jsx";
+import Checkout from "./pages/Cart/Checkout.jsx";
 // import AppProvider from "./context/AppContext.jsx";
 
 const router = createBrowserRouter([
@@ -37,6 +38,7 @@ const router = createBrowserRouter([
       { path: "/products/:role", element: <ProductPage /> },
       { path: "/products/:role/:id", element: <ProductDetail /> },
       { path: "/cart", element: <CartPage /> },
+      { path: "/checkout", element: <Checkout /> },
       { path: "/profile", element: <ProfilePage /> },
       { path: "/login", element: <Signin /> },
       { path: "/register", element: <Signup /> },
