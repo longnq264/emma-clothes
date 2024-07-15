@@ -10,7 +10,7 @@ const ProductDetail = () => {
   const [data, setData] = useState([]);
   const [quantity, setQuantity] = useState(1);
 
-  const { role, id } = useParams();
+  const { id } = useParams();
 
   // const { addItemToCart } = useContext(AppContext);
 
@@ -58,13 +58,13 @@ const ProductDetail = () => {
             {
               title: <Link to="/">Home</Link>,
             },
-            {
-              title: (
-                <Link to="/products/:role" className="capitalize text-black">
-                  {role}
-                </Link>
-              ),
-            },
+            // {
+            //   title: (
+            //     <Link to="/products/:role" className="capitalize text-black">
+            //       {role}
+            //     </Link>
+            //   ),
+            // },
             {
               title: (
                 <Link
@@ -80,7 +80,7 @@ const ProductDetail = () => {
       </div>
       <div
         className="content container mx-auto px-20"
-        style={{ minHeight: "140vh", background: "#f9f9f9" }}
+        style={{ minHeight: "140vh" }}
       >
         <div className="grid grid-cols-2">
           <div className="product-detail-image">

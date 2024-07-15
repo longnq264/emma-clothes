@@ -5,17 +5,12 @@ import { Breadcrumb } from "antd";
 import { Link, useLocation } from "react-router-dom";
 import { getProductByCategoryId } from "../../api/api-server.js";
 import { useParams } from "react-router-dom";
-import { FaAngleDown, FaAngleUp } from "react-icons/fa6";
 import DropdownItem from "../../components/UI/Home/DropDownItem.jsx";
 
 const ProductPage = () => {
   const [products, setProducts] = useState([]);
   const [quantityProduct, setQuantityProduct] = useState(0);
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleOpen = () => {
-    setIsOpen(!isOpen);
-  };
+  // const [isOpen, setIsOpen] = useState(false);
 
   const { id } = useParams();
   const location = useLocation();
@@ -64,8 +59,10 @@ const ProductPage = () => {
             <h1 className="uppercase font-bold text-2xl text-stone-700 mb-5">
               {categoryName}
             </h1>
-            <p>
-              <span className="font-medium text-base">{quantityProduct} </span>
+            <p className="font-semibold text-gray-600 my-4">
+              <span className="font-semibold text-gray-600">
+                {quantityProduct}{" "}
+              </span>
               products
             </p>
             <div className="my-2">
@@ -73,56 +70,61 @@ const ProductPage = () => {
               <div>
                 <ul className="text-stone-800">
                   <DropdownItem title="Gender">
-                    {/* Nội dung con của Gender */}
-                    <p>Male</p>
-                    <p>Female</p>
-                    <p>Other</p>
+                    <label className="flex items-center my-2 hover:bg-stone-100 py-2 rounded-lg">
+                      <input
+                        type="checkbox"
+                        className="mr-4 w-4 h-4 border-slate-500"
+                      />
+                      Unisex
+                    </label>
+                    <label className="flex items-center my-2 hover:bg-stone-100 py-2 rounded-lg">
+                      <input
+                        type="checkbox"
+                        className="mr-4 w-4 h-4 border-slate-500"
+                      />
+                      Men
+                    </label>
+                    <label className="flex items-center my-2 hover:bg-stone-100 py-2 rounded-lg">
+                      <input
+                        type="checkbox"
+                        className="mr-4 w-4 h-4 border-slate-100"
+                      />
+                      Women
+                    </label>
                   </DropdownItem>
                   <DropdownItem title="Color">
-                    {/* Nội dung con của Color */}
                     <p>Red</p>
                     <p>Blue</p>
                     <p>Green</p>
                   </DropdownItem>
                   <DropdownItem title="Size">
-                    {/* Nội dung con của Size */}
                     <p>Small</p>
                     <p>Medium</p>
                     <p>Large</p>
                   </DropdownItem>
                   <DropdownItem title="Price">
-                    {/* Nội dung con của Price */}
-                    <p>Under $50</p>
-                    <p>$50 - $100</p>
-                    <p>Over $100</p>
+                    <label className="flex items-center my-2 hover:bg-stone-100 py-2 rounded-lg">
+                      <input
+                        type="checkbox"
+                        className="mr-4 w-4 h-4 border-slate-500"
+                      />
+                      Under $50
+                    </label>
+                    <label className="flex items-center my-2 hover:bg-stone-100 py-2 rounded-lg">
+                      <input
+                        type="checkbox"
+                        className="mr-4 w-4 h-4 border-slate-500"
+                      />
+                      $50 - $100
+                    </label>
+                    <label className="flex items-center my-2 hover:bg-stone-100 py-2 rounded-lg">
+                      <input
+                        type="checkbox"
+                        className="mr-4 w-4 h-4 border-slate-100"
+                      />
+                      Over $100
+                    </label>
                   </DropdownItem>
-                  <li className="w-full py-3 border-b-2 pl-1 font-semibold flex flex-col cursor-pointer">
-                    <div
-                      className="flex items-center justify-between"
-                      onClick={toggleOpen}
-                    >
-                      <p>Price</p>
-                      {isOpen ? <FaAngleUp /> : <FaAngleDown />}
-                    </div>
-                    {isOpen && (
-                      <div className="mt-2 pl-2">
-                        <form action="">
-                          <div>
-                            <input type="checkbox" id="1" />
-                            <label htmlFor="1">Duoi 350.000</label>
-                          </div>
-                          <div>
-                            <input type="checkbox" id="1" />
-                            <label htmlFor="1">Tu 350.000 - 750.000</label>
-                          </div>
-                          <div>
-                            <input type="checkbox" id="1" />
-                            <label htmlFor="1">Tren 750.000</label>
-                          </div>
-                        </form>
-                      </div>
-                    )}
-                  </li>
                 </ul>
               </div>
             </div>
