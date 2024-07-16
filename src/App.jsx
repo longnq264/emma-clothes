@@ -18,7 +18,12 @@ import CollectionPage from "./pages/Collection/CollectionPage.jsx";
 import CollectionDetailPage from "./pages/Collection/CollectionDetailPage.jsx";
 import DashBoardPage from "./components/User/DashBoardPage.jsx";
 import AdminLayout from "./components/User/AdminLayout.jsx";
+<<<<<<< HEAD
 import Sale from "./pages/Sale/Sale.jsx";
+=======
+import Products from "./pages/Admin/ProductsList.jsx";
+import CategoriesList from "./pages/Admin/CategoriesList.jsx";
+>>>>>>> main
 // import AppProvider from "./context/AppContext.jsx";
 
 const router = createBrowserRouter([
@@ -33,10 +38,13 @@ const router = createBrowserRouter([
       { path: "/blog/:id", element: <BlogDetail /> },
       { path: "/about", element: <AboutPage /> },
       { path: "/contact", element: <ContactPage /> },
+      //role collection
       { path: "/collection", element: <CollectionPage /> },
       { path: "/collection/:role", element: <CollectionDetailPage /> },
-      { path: "/products/:role", element: <ProductPage /> },
-      { path: "/products/:role/:id", element: <ProductDetail /> },
+      //role categories
+      { path: "/category/:id", element: <ProductPage /> },
+      { path: "/products/:id", element: <ProductDetail /> },
+
       { path: "/cart", element: <CartPage /> },
       { path: "/profile", element: <ProfilePage /> },
       { path: "/login", element: <Signin /> },
@@ -51,7 +59,8 @@ const router = createBrowserRouter([
     element: <AdminLayout />,
     children: [
       { path: "", element: <DashBoardPage /> },
-      // Thêm các route admin khác tại đây
+      { path: "/admin/products", element: <Products /> },
+      { path: "/admin/categories", element: <CategoriesList /> },
     ],
   },
 ]);

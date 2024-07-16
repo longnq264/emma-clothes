@@ -2,38 +2,38 @@ import { Pagination } from "antd";
 import { useState } from "react";
 import { useEffect } from "react";
 import { Breadcrumb } from "antd";
-import { Link } from "react-router-dom";
-// import { Carousel } from "antd";
-// import background from "../../assets/img/banner-products.jpg";
-// import product from "../../assets/img/product1.png";
-import { getProducts } from "../../api/fakeApi";
+import { Link, useLocation } from "react-router-dom";
+import { getProductByCategoryId } from "../../api/api-server.js";
 import { useParams } from "react-router-dom";
-import { FaAngleDown } from "react-icons/fa6";
+import DropdownItem from "../../components/UI/Home/DropDownItem.jsx";
 
 const ProductPage = () => {
   const [products, setProducts] = useState([]);
-  const [quantityProduct, setQuantityProduct] = useState();
+  const [quantityProduct, setQuantityProduct] = useState(0);
+  // const [isOpen, setIsOpen] = useState(false);
 
-  const { role } = useParams();
-  //   const [loading, setLoading] = useState(false);
-  //   const [currentPage, setCurrentPage] = useState(1);
-  //   const [productPerPage, setProductPerPage] = useState(18);
+  const { id } = useParams();
+  const location = useLocation();
+  const { categoryName } = location.state || "";
 
-  const fetchProduct = async (gender) => {
-    const response = await getProducts();
-    console.log(response);
-    const filteredProducts = response.filter(
-      (product) => product.gender === gender
-    );
-    // Lọc sản phẩm theo giới tính
-    setProducts(filteredProducts);
-    setQuantityProduct(filteredProducts.length);
+  console.log(id, categoryName);
+
+  const fetchProductByCategory = async (categoryId) => {
+    try {
+      const response = await getProductByCategoryId(categoryId);
+      const productsData = response.data;
+      setProducts(productsData);
+
+      setQuantityProduct(productsData.length);
+      console.log("Products:", productsData);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
   };
 
   useEffect(() => {
-    fetchProduct(role);
-  }, [role]);
-  console.log(role);
+    fetchProductByCategory(id);
+  }, [id]);
 
   return (
     <>
@@ -45,8 +45,8 @@ const ProductPage = () => {
             },
             {
               title: (
-                <Link to="/products/:role/" className="capitalize text-black">
-                  {role}
+                <Link to="/products/:role" className="capitalize text-black">
+                  {categoryName}
                 </Link>
               ),
             },
@@ -55,44 +55,86 @@ const ProductPage = () => {
       </div>
       <div className="container mx-auto py-4">
         <div className="flex">
-          <div className="w-2/5">
+          <div className="basis-1/5 overflow-y-auto max-h-90">
             <h1 className="uppercase font-bold text-2xl text-stone-700 mb-5">
-              {role}
+              {categoryName}
             </h1>
-            <p>
-              <span className="font-medium text-base">{quantityProduct}</span>{" "}
+            <p className="font-semibold text-gray-600 my-4">
+              <span className="font-semibold text-gray-600">
+                {quantityProduct}{" "}
+              </span>
               products
             </p>
             <div className="my-2">
               <h1 className="font-bold text-2xl">Filter</h1>
               <div>
                 <ul className="text-stone-800">
-                  <li className="w-full py-3 border-b-2 pl-1 font-semibold flex items-center justify-between cursor-pointer">
-                    <p>Gender</p>
-                    <FaAngleDown />
-                  </li>
-                  <li className="w-full py-3 border-b-2 pl-1 font-semibold flex items-center justify-between cursor-pointer">
-                    <p>Color</p>
-                    <FaAngleDown />
-                  </li>
-                  <li className="w-full py-3 border-b-2 pl-1 font-semibold flex items-center justify-between cursor-pointer">
-                    <p>Size</p>
-                    <FaAngleDown />
-                  </li>
-                  <li className="w-full py-3 border-b-2 pl-1 font-semibold flex items-center justify-between cursor-pointer">
-                    <p>Price</p>
-                    <FaAngleDown />
-                  </li>
+                  <DropdownItem title="Gender">
+                    <label className="flex items-center my-2 hover:bg-stone-100 py-2 rounded-lg">
+                      <input
+                        type="checkbox"
+                        className="mr-4 w-4 h-4 border-slate-500"
+                      />
+                      Unisex
+                    </label>
+                    <label className="flex items-center my-2 hover:bg-stone-100 py-2 rounded-lg">
+                      <input
+                        type="checkbox"
+                        className="mr-4 w-4 h-4 border-slate-500"
+                      />
+                      Men
+                    </label>
+                    <label className="flex items-center my-2 hover:bg-stone-100 py-2 rounded-lg">
+                      <input
+                        type="checkbox"
+                        className="mr-4 w-4 h-4 border-slate-100"
+                      />
+                      Women
+                    </label>
+                  </DropdownItem>
+                  <DropdownItem title="Color">
+                    <p>Red</p>
+                    <p>Blue</p>
+                    <p>Green</p>
+                  </DropdownItem>
+                  <DropdownItem title="Size">
+                    <p>Small</p>
+                    <p>Medium</p>
+                    <p>Large</p>
+                  </DropdownItem>
+                  <DropdownItem title="Price">
+                    <label className="flex items-center my-2 hover:bg-stone-100 py-2 rounded-lg">
+                      <input
+                        type="checkbox"
+                        className="mr-4 w-4 h-4 border-slate-500"
+                      />
+                      Under $50
+                    </label>
+                    <label className="flex items-center my-2 hover:bg-stone-100 py-2 rounded-lg">
+                      <input
+                        type="checkbox"
+                        className="mr-4 w-4 h-4 border-slate-500"
+                      />
+                      $50 - $100
+                    </label>
+                    <label className="flex items-center my-2 hover:bg-stone-100 py-2 rounded-lg">
+                      <input
+                        type="checkbox"
+                        className="mr-4 w-4 h-4 border-slate-100"
+                      />
+                      Over $100
+                    </label>
+                  </DropdownItem>
                 </ul>
               </div>
             </div>
           </div>
-          <div className="pl-4 product-content min-h-screen">
+          <div className="basis-4/5 pl-4 min-h-screen">
             <div className="grid grid-cols-2 lg:grid-cols-4">
               {products.map((res) => (
                 <Link
                   key={res.id}
-                  to={`http://localhost:5173/products/${role}/${res.id}`}
+                  to={`http://localhost:5173/products/${res.id}`}
                 >
                   <div className="mx-2 my-2 px-4 pb-4 rounded-lg shadow-md">
                     <img src={res.main_image_url} />
