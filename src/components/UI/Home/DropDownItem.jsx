@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa6";
+// import PropTypes from "prop-types";
 
-const DropdownItem = ({ title, children }) => {
+const DropdownItem = (title, children) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleOpen = () => {
