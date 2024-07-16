@@ -9,7 +9,7 @@ const Navigation = () => {
   const fetchCategories = async () => {
     const response = await getCategories();
     setCategories(response.data);
-    console.log(response.data);
+    // console.log(response.data);
   };
 
   useEffect(() => {
