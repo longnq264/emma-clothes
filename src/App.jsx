@@ -18,12 +18,16 @@ import CollectionPage from "./pages/Collection/CollectionPage.jsx";
 import CollectionDetailPage from "./pages/Collection/CollectionDetailPage.jsx";
 import DashBoardPage from "./components/User/DashBoardPage.jsx";
 import AdminLayout from "./components/User/AdminLayout.jsx";
-<<<<<<< HEAD
+
+
+
 import Sale from "./pages/Sale/Sale.jsx";
-=======
 import Products from "./pages/Admin/ProductsList.jsx";
 import CategoriesList from "./pages/Admin/CategoriesList.jsx";
->>>>>>> main
+import ProductAdd from "./pages/Admin/ProductAdd.jsx";
+import ProductEdit from "./pages/Admin/ProductEdit.jsx";
+import ProductsList from "./pages/Admin/ProductsList.jsx";
+
 // import AppProvider from "./context/AppContext.jsx";
 
 const router = createBrowserRouter([
@@ -59,10 +63,13 @@ const router = createBrowserRouter([
     element: <AdminLayout />,
     children: [
       { path: "", element: <DashBoardPage /> },
-      { path: "/admin/products", element: <Products /> },
-      { path: "/admin/categories", element: <CategoriesList /> },
+      { path: "products", element: <ProductsList /> },
+      { path: "products/new", element: <ProductAdd /> },
+      { path: "products/edit", element: <ProductEdit /> },
+      { path: "categories", element: <CategoriesList /> },
     ],
   },
+  
 ]);
 
 function App() {

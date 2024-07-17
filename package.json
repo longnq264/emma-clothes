@@ -14,7 +14,7 @@
   "dependencies": {
     "@shopify/koa-shopify-auth": "^5.0.3",
     "@vitejs/plugin-react": "^4.3.0",
-    "antd": "^5.17.4",
+    "antd": "^5.19.2",
     "axios": "^1.7.2",
     "concurrently": "^8.2.2",
     "dotenv": "^16.4.5",
