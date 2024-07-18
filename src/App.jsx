@@ -45,7 +45,6 @@ const router = createBrowserRouter([
       //role categories
       { path: "/category/:id", element: <ProductPage /> },
       { path: "/products/:id", element: <ProductDetail /> },
-
       { path: "/cart", element: <CartPage /> },
       { path: "/profile", element: <ProfilePage /> },
       { path: "/login", element: <Signin /> },

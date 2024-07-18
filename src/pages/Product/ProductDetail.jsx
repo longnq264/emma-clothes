@@ -28,6 +28,7 @@ const ProductDetail = () => {
   //     console.log("error", error);
   //   }
   // };
+
   console.log("data", data.productVariants);
   const fetchProductDetail = async (id) => {
     const response = await getProductId(id);

@@ -132,10 +132,7 @@ const ProductPage = () => {
           <div className="basis-4/5 pl-4 min-h-screen">
             <div className="grid grid-cols-2 lg:grid-cols-4">
               {products.map((res) => (
-                <Link
-                  key={res.id}
-                  to={`http://localhost:5173/products/${res.id}`}
-                >
+                <Link key={res.id} to={`/products/${res.id}`}>
                   <div className="mx-2 my-2 px-4 pb-4 rounded-lg shadow-md">
                     <img src={res.main_image_url} />
                     <div className="content-product">
