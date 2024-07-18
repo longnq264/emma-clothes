@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import ShowMoreBtn from "./ShowMoreBtn";
-import { getProductByCategoryId } from "../../../api/api-server";
+// import { getProductByCategoryId } from "../../../api/api-server";
+import axios from "axios";
 
 const categories = [
   { id: 30, name: "Best Sale" },
@@ -10,14 +11,17 @@ const categories = [
 
 const SuggestedProducts = () => {
   const [selectedCategory, setSelectedCategory] = useState(categories[0].id);
-  console.log(categories[0].id);
-  const [products, setProducts] = useState([]);
+  // console.log(categories[0].id);
+  // const [products, setProducts] = useState([]);
 
   const fetchProductsByCategory = async (id) => {
+    console.log(id);
     try {
-      const response = await getProductByCategoryId(id);
-      console.log("response", response);
-      setProducts(response.data);
+      const response = await axios.get(
+        `http://127.0.0.1:8000/api/products?category_id=${id}`
+      );
+      console.log("response", response.data);
+      // setProducts(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -29,7 +33,7 @@ const SuggestedProducts = () => {
   }, [selectedCategory]);
 
   const handleCategoryChange = (e) => {
-    console.log(e.target.value);
+    console.log("e", e.target.value);
     setSelectedCategory(e.target.value);
   };
 
@@ -55,13 +59,13 @@ const SuggestedProducts = () => {
         </div>
       </div>
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mt-4">
-        {products.map((product) => (
+        {/* {products.map((product) => (
           <div key={product.id} className="relative">
             <h3 className="mt-2 text-lg font-semibold text-gray-700">
               {product.name}
             </h3>
           </div>
-        ))}
+        ))} */}
       </div>
       <ShowMoreBtn />
     </div>
