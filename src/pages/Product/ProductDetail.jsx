@@ -28,7 +28,7 @@ const ProductDetail = () => {
   //     console.log("error", error);
   //   }
   // };
-
+  console.log("data", data.productVariants);
   const fetchProductDetail = async (id) => {
     const response = await getProductId(id);
     setData(response.data);
@@ -58,13 +58,6 @@ const ProductDetail = () => {
             {
               title: <Link to="/">Home</Link>,
             },
-            // {
-            //   title: (
-            //     <Link to="/products/:role" className="capitalize text-black">
-            //       {role}
-            //     </Link>
-            //   ),
-            // },
             {
               title: (
                 <Link
@@ -103,27 +96,38 @@ const ProductDetail = () => {
                 {data.price_old}
               </p>
             </div>
-            <p>Color:</p>
+            <p>Color: </p>
             <p>Size:</p>
             <div className="grid grid-cols-2">
-              <p>Quantity: </p>
+              <p>Quantity: {data.quantity}</p>
+              {data.productVariants && data.productVariants.length > 0 ? (
+                <ul>
+                  {data.productVariants.map((variant) => (
+                    <li key={variant.id}>
+                      SKU: {variant.sku}
+                      Stock: {variant.stock} Price: {variant.price}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p>No variants available</p>
+              )}
               <div className="flex items-center">
                 <button
-                  className="px-3 py-1 border border-gray-400 rounded-l hover:bg-gray-200"
+                  className="px-3 py-1 border border-gray-400 rounded-l hover:bg-gray-200 font-bold"
                   onClick={handleDecreaseQuantity}
                 >
                   -
                 </button>
                 <span className="px-3">{quantity}</span>
                 <button
-                  className="px-3 py-1 border border-gray-400 rounded-r hover:bg-gray-200"
+                  className="px-3 py-1 border border-gray-400 rounded-r hover:bg-gray-200 font-bold"
                   onClick={handleIncreaseQuantity}
                 >
                   +
                 </button>
               </div>
             </div>
-
             {/* <button
               onClick={() => addItemToCart(id)}
               className="px-10 py-2 border-2 w-full text-white font-bold bg-stone-700 my-5 rounded"
