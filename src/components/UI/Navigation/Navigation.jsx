@@ -26,8 +26,15 @@ const Navigation = () => {
             onMouseEnter={() => setActiveIndex(index)}
             onMouseLeave={() => setActiveIndex(null)}
           >
-            <NavLink to={`/category/${item.id}`} state={{ categoryName: item.name }}>
-              <span className={`text-base font-semibold ${item.key === "sale" ? "text-red-500" : "text-stone-700"}`}>
+            <NavLink
+              to={`/category/${item.id}`}
+              state={{ categoryName: item.name }}
+            >
+              <span
+                className={`text-base font-semibold ${
+                  item.key === "sale" ? "text-red-500" : "text-stone-700"
+                }`}
+              >
                 {item.label}
               </span>
             </NavLink>
