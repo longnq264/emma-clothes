@@ -144,6 +144,8 @@ export const NAV_LINKS = [
   { href: "/", key: "contact", label: "Contact" },
   { href: "/", key: "about", label: "About" },
   { href: "/", key: "blog", label: "Blog" },
+  { href: "/", key: "sale", label: "Sale" },
+
 ];
 
 export const NAV_LINKS_WOMEN = [

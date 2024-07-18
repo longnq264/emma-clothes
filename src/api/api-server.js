@@ -1,3 +1,4 @@
+// api-server.js
 import axios from "axios";
 
 const API_URL = "http://localhost:8000/api";
@@ -39,5 +40,34 @@ export const removeCart = async (id) => {
 
 export const listCart = async () => {
   const response = await axios.get(`${API_URL}/cart`);
+  return response.data;
+};
+
+// phần admin product
+
+export const deleteProduct = async (productId) => {
+  const response = await axios.delete(`${API_URL}/products/${productId}`);
+  console.log(`Delete product ${productId} response:`, response.data);
+  return response.data;
+};
+
+export const createProduct = async (productData) => {
+  const response = await axios.post(`${API_URL}/products`, productData);
+  console.log("Create product response:", response.data);
+  return response.data;
+};
+
+export const updateProduct = async (productId, productData) => {
+  const response = await axios.put(
+    `${API_URL}/products/${productId}`,
+    productData
+  );
+  console.log(`Update product ${productId} response:`, response.data);
+  return response.data;
+};
+
+export const getProduct = async (productId) => {
+  const response = await axios.get(`${API_URL}/products/${productId}`);
+  console.log(`Get product ${productId} data:`, response.data);
   return response.data;
 };
