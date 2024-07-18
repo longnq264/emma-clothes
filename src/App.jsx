@@ -18,16 +18,8 @@ import CollectionPage from "./pages/Collection/CollectionPage.jsx";
 import CollectionDetailPage from "./pages/Collection/CollectionDetailPage.jsx";
 import DashBoardPage from "./components/User/DashBoardPage.jsx";
 import AdminLayout from "./components/User/AdminLayout.jsx";
-<<<<<<< HEAD
 import Sale from "./pages/Sale/Sale.jsx";
 // import Products from "./pages/Admin/ProductsList.jsx";
-=======
-
-
-
-import Sale from "./pages/Sale/Sale.jsx";
-import Products from "./pages/Admin/ProductsList.jsx";
->>>>>>> de88f76 (Update Admin Product giao dien form crud)
 import CategoriesList from "./pages/Admin/CategoriesList.jsx";
 import ProductAdd from "./pages/Admin/ProductAdd.jsx";
 import ProductEdit from "./pages/Admin/ProductEdit.jsx";
@@ -74,7 +66,6 @@ const router = createBrowserRouter([
       { path: "categories", element: <CategoriesList /> },
     ],
   },
-  
 ]);
 
 function App() {
