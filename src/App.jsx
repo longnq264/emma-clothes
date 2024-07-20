@@ -24,8 +24,7 @@ import CategoriesList from "./pages/Admin/CategoriesList.jsx";
 import ProductAdd from "./pages/Admin/ProductAdd.jsx";
 import ProductEdit from "./pages/Admin/ProductEdit.jsx";
 import ProductsList from "./pages/Admin/ProductsList.jsx";
-
-// import AppProvider from "./context/AppContext.jsx";
+import AppProvider from "./context/AppProvider.jsx";
 
 const router = createBrowserRouter([
   {
@@ -69,9 +68,9 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    // <AppProvider>
-    // </AppProvider>
-    <RouterProvider router={router} />
+    <AppProvider>
+      <RouterProvider router={router} />
+    </AppProvider>
   );
 }
 

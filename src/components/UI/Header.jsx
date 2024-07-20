@@ -4,16 +4,10 @@ import Navigation from "./Navigation/Navigation";
 import { NavLink } from "react-router-dom";
 import { AppContext } from "../../context/AppContext";
 import { PiBag } from "react-icons/pi";
-import { LuUser2 } from "react-icons/lu";
 import Search from "./Search";
+import DropDownProfile from "./Navigation/DropDownProfile";
 
 const Header = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleOpen = () => {
-    setIsOpen(!isOpen);
-  };
-
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
@@ -65,63 +59,7 @@ const Header = () => {
                 </span>
               </NavLink>
             </li>
-            <li className="px-2">
-              <span className="font-bold text-stone-800" onClick={toggleOpen}>
-                <LuUser2 size={22} />
-              </span>
-              {isOpen && (
-                <div
-                  className="absolute right-0 w-48 mt-2 origin-top-right bg-white border border-gray-200 rounded-md shadow-lg ring-1 ring-black ring-opacity-5"
-                  role="menu"
-                  aria-orientation="vertical"
-                  aria-labelledby="menu-button"
-                  tabIndex="-1"
-                >
-                  <div className="py-1" role="none">
-                    <NavLink
-                      to="/profile"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                      role="menuitem"
-                      tabIndex="-1"
-                      id="menu-item-0"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      Profile
-                    </NavLink>
-                    <NavLink
-                      to="/login"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                      role="menuitem"
-                      tabIndex="-1"
-                      id="menu-item-1"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      Đăng nhập
-                    </NavLink>
-                    <NavLink
-                      to="/register"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                      role="menuitem"
-                      tabIndex="-1"
-                      id="menu-item-2"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      Đăng ký
-                    </NavLink>
-                    <NavLink
-                      to="/settings"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                      role="menuitem"
-                      tabIndex="-1"
-                      id="menu-item-3"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      Cài đặt
-                    </NavLink>
-                  </div>
-                </div>
-              )}
-            </li>
+            <DropDownProfile />
           </ul>
         </div>
       </div>

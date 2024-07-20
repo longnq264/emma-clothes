@@ -18,7 +18,7 @@ const SuggestedProducts = () => {
     console.log(id);
     try {
       const response = await axios.get(
-        `http://127.0.0.1:8000/api/products?category_id=${id}`
+        `http://127.0.0.1:8000/api/products?sort_by=created_at`
       );
       console.log("response", response.data);
       // setProducts(response.data);

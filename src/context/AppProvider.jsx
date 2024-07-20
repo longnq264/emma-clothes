@@ -1,30 +1,37 @@
-import { AppContext } from "./context/AppContext.jsx";
+import { AppContext } from "./AppContext.jsx";
 import { useState } from "react";
+import PropTypes from "prop-types";
 
-export default function AppProvider({ chidren }) {
-  const [shoppingCart, setShoppingCart] = useState({
-    items: [],
-  });
+const AppProvider = ({ children }) => {
+  const [items, setItems] = useState([]);
+  const addItemToCart = (item) => {
+    setItems((prevItems) => [...prevItems, item]);
+  };
+  const updateItemQuantity = (itemId, quantity) => {
+    setItems((prevItems) =>
+      prevItems.map((item) =>
+        item.id === itemId ? { ...item, quantity } : item
+      )
+    );
+  };
+  const removeItemFromCart = (itemId) => {
+    setItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
+  };
+  return (
+    <AppContext.Provider
+      value={{
+        items,
+        addItemToCart,
+        updateItemQuantity,
+        removeItemFromCart,
+      }}
+    >
+      {children}
+    </AppContext.Provider>
+  );
+};
 
-  const handleAddToCart = (data) => {
-    setShoppingCart((prevCart) => ({
-      // Lấy mảng data trước đó và thêm món hàng mới vào
-      items: [...prevCart.items, data],
-    }));
-  };
-
-  const handleUpdateCartItem = (id, data) => {
-    console.log(id, data);
-  };
-  const handleRemoveCartItem = (id) => {
-    console.log(id);
-  };
-  const ctxValue = {
-    items: shoppingCart.items,
-    addItemToCart: handleAddToCart,
-    updateItemQuantity: handleUpdateCartItem,
-    removeItemFormCart: handleRemoveCartItem,
-  };
-  //   console.log(chidren);
-  return <AppContext.Provider value={ctxValue}>{chidren}</AppContext.Provider>;
-}
+AppProvider.propTypes = {
+  children: PropTypes.any,
+};
+export default AppProvider;
