@@ -1,9 +1,24 @@
 import { AppContext } from "./AppContext.jsx";
 import { useState } from "react";
 import PropTypes from "prop-types";
+import { login } from "../api/api-server.js";
 
 const AppProvider = ({ children }) => {
   const [items, setItems] = useState([]);
+  const [user, setUser] = useState({});
+
+  const loginUser = async (userData) => {
+    const response = await login(userData);
+    console.log("response login", response.data);
+    setUser(response.data);
+    localStorage.setItem("token", response.token); // Lưu token vào localStorage
+  };
+
+  const logout = () => {
+    setUser(null);
+    localStorage.removeItem("token"); // Xóa token khỏi localStorage
+  };
+
   const addItemToCart = (item) => {
     setItems((prevItems) => [...prevItems, item]);
   };
@@ -24,6 +39,9 @@ const AppProvider = ({ children }) => {
         addItemToCart,
         updateItemQuantity,
         removeItemFromCart,
+        user,
+        loginUser,
+        logout,
       }}
     >
       {children}

@@ -1,35 +1,15 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { LuUser2 } from "react-icons/lu";
-import { useEffect, useState } from "react";
-import { getUserId } from "../../../api/api-server";
+import { useState } from "react";
+import { useContext } from "react";
+import { AppContext } from "../../../context/AppContext";
 
 const DropDownProfile = () => {
-  const [user, setUser] = useState(null);
+  const { user, logout } = useContext(AppContext);
   const [isOpen, setIsOpen] = useState(false);
-  const navigate = useNavigate();
-
   const toggleOpen = () => {
     setIsOpen(!isOpen);
   };
-  const fetchUser = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      const response = await getUserId(token);
-      setUser(response);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    setUser(null);
-    navigate("/login");
-  };
-
-  useEffect(() => {
-    fetchUser();
-  }, []);
   return (
     <li className="px-2 cursor-pointer">
       <span className="font-bold text-stone-800 " onClick={toggleOpen}>
@@ -74,7 +54,7 @@ const DropDownProfile = () => {
                 </NavLink>
                 <button
                   className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-left"
-                  onClick={handleLogout}
+                  onClick={logout}
                 >
                   Logout
                 </button>

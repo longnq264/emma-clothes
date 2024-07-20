@@ -1,29 +1,22 @@
 import { Button, Form, Input } from "antd";
-import { useState } from "react";
-import { login } from "../../api/api-server";
+import { useContext } from "react";
+import { AppContext } from "../../context/AppContext";
 
 const Signin = () => {
-  const [state, setState] = useState([]);
+  const { loginUser } = useContext(AppContext);
 
   const onFinish = async (values) => {
-    console.log("Success:", values);
+    console.log("values:", values);
     const formData = {
       ...values,
     };
-    console.log(formData);
-    try {
-      const response = await login(formData);
-      setState(response.data);
-      const token = response.token;
-      localStorage.setItem("token", token);
-    } catch (error) {
-      console.log(error);
-    }
+
+    await loginUser(formData);
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
-  console.log(state);
+
   return (
     <>
       <div className="bg-gradient-to-r from-orange-500 to-blue-500 min-h-screen pt-10">
