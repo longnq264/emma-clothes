@@ -377,56 +377,18 @@
       "categories_id": 1
     }
   ],
-  "product_variants": [
-    {
-      "id": 1,
-      "product_id": 1,
-      "color": "black",
-      "price": 47.0,
-      "stock": 50,
-      "main_image_url": "https://example.com/product1_black_main.png",
-      "images": [
-        "https://example.com/product1_black_1.png",
-        "https://example.com/product1_black_2.png"
-      ]
-    },
-    {
-      "id": 2,
-      "product_id": 1,
-      "color": "white",
-      "price": 47.0,
-      "stock": 30,
-      "main_image_url": "https://example.com/product1_white_main.png",
-      "images": [
-        "https://example.com/product1_white_1.png",
-        "https://example.com/product1_white_2.png"
-      ]
-    }
-  ],
-  "cart": [
-    {
-      "productID": "3",
-      "data": {
-        "name": "Odd Shade Oversized T-Shirt - Black",
-        "quantity": "50",
-        "img": "https://res.cloudinary.com/da7r4robk/image/upload/v1717590329/Products/product4_w4ocxz.png"
-      },
-      "id": 1
-    }
-  ],
-  "brand": [],
   "thumbnails": [
     {
       "id": 1,
-      "filename": "thumbnail1.jpg"
+      "url": "thumbnail1.jpg"
     },
     {
       "id": 2,
-      "filename": "thumbnail2.jpg"
+      "url": "thumbnail2.jpg"
     },
     {
       "id": 3,
-      "filename": "thumbnail3.jpg"
+      "url": "thumbnail3.jpg"
     }
   ],
   "contact": [

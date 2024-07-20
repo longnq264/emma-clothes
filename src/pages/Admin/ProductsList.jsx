@@ -94,7 +94,7 @@ const ProductsList = () => {
                   /> */}
                 </td>
                 <td className="py-2 px-4">{product.description}</td>
-                {/* <td className="py-2 px-4">{product.category}</td> */}
+                <td className="py-2 px-4">{product.category.name}</td>
                 <td className="py-2 px-4">
                   <div className="space-x-2">
                     <Link

@@ -37,6 +37,7 @@ const ProductPage = () => {
 
   return (
     <>
+      {/* ----- Breadcrumb ----------- */}
       <div className="container mx-auto py-2">
         <Breadcrumb
           items={[
@@ -53,8 +54,10 @@ const ProductPage = () => {
           ]}
         />
       </div>
+      {/* ------- Layout ---------- */}
       <div className="container mx-auto py-4">
         <div className="flex">
+          {/* nav bar filter */}
           <div className="basis-1/5 overflow-y-auto max-h-90">
             <h1 className="uppercase font-bold text-2xl text-stone-700 mb-5">
               {categoryName}
@@ -129,12 +132,13 @@ const ProductPage = () => {
               </div>
             </div>
           </div>
+          {/* layout */}
           <div className="basis-4/5 pl-4 min-h-screen">
             <div className="grid grid-cols-2 lg:grid-cols-4">
               {products.map((res) => (
                 <Link key={res.id} to={`/products/${res.id}`}>
                   <div className="mx-2 my-2 px-4 pb-4 rounded-lg shadow-md">
-                    <img src={res.main_image_url} />
+                    <img src="https://res.cloudinary.com/da7r4robk/image/upload/v1717590011/Products/product3_rymfed.png" />
                     <div className="content-product">
                       <h3 className="pb-2">{res.name}</h3>
                       <h1 className="price text-lg font-semibold">
@@ -150,6 +154,7 @@ const ProductPage = () => {
             </div>
           </div>
         </div>
+
         <Pagination
           className="flex justify-center my-4"
           defaultCurrent={1}
