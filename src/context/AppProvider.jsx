@@ -5,7 +5,7 @@ import { login } from "../api/api-server.js";
 
 const AppProvider = ({ children }) => {
   const [items, setItems] = useState([]);
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null);
 
   const loginUser = async (userData) => {
     const response = await login(userData);
