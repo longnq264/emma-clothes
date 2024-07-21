@@ -1,26 +1,12 @@
-import { useEffect, useState } from "react";
-import { getUserId } from "../../api/api-server";
+import { useContext } from "react";
+import { AppContext } from "../../context/AppContext";
 
 const DashBoad = () => {
-  const [user, setUser] = useState(null);
-
-  const fetchUser = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      const response = await getUserId(token);
-      setUser(response);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  useEffect(() => {
-    fetchUser();
-  }, []);
+  const { user } = useContext(AppContext);
 
   if (!user) {
     return <div>Loading...</div>;
   }
-
   return (
     <div className="max-w-md mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
       <div className="bg-gray-200 text-center p-4">

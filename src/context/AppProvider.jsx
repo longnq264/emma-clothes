@@ -1,17 +1,31 @@
 import { AppContext } from "./AppContext.jsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { login } from "../api/api-server.js";
+import { getUserId, login } from "../api/api-server.js";
 
 const AppProvider = ({ children }) => {
   const [items, setItems] = useState([]);
   const [user, setUser] = useState(null);
 
+  const fetchUser = async () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      try {
+        const response = await getUserId(token);
+        setUser(response);
+      } catch (error) {
+        console.error("Failed to fetch user:", error);
+        setUser(null);
+        localStorage.removeItem("token"); // Optional: Remove invalid token
+      }
+    }
+  };
+
   const loginUser = async (userData) => {
     const response = await login(userData);
     console.log("response login", response.data);
     setUser(response.data);
-    localStorage.setItem("token", response.token); // Lưu token vào localStorage
+    localStorage.setItem("token", response.token);
   };
 
   const logout = () => {
@@ -32,6 +46,9 @@ const AppProvider = ({ children }) => {
   const removeItemFromCart = (itemId) => {
     setItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
   };
+  useEffect(() => {
+    fetchUser();
+  }, []);
   return (
     <AppContext.Provider
       value={{

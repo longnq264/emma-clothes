@@ -7,6 +7,7 @@ import { AppContext } from "../../../context/AppContext";
 const DropDownProfile = () => {
   const { user, logout } = useContext(AppContext);
   const [isOpen, setIsOpen] = useState(false);
+
   const toggleOpen = () => {
     setIsOpen(!isOpen);
   };
