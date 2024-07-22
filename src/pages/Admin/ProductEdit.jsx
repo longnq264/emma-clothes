@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getProduct, updateProduct, getCategories } from "../../api/api-server";
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ProductEdit = () => {
   const { id } = useParams();
@@ -10,7 +10,7 @@ const ProductEdit = () => {
     name: "",
     price: "",
     description: "",
-    category: ""
+    category: "",
   });
   const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
@@ -60,11 +60,18 @@ const ProductEdit = () => {
 
   return (
     <div className="container mx-auto py-8 px-4">
-      <h1 className="text-4xl font-extrabold text-gray-900 mb-8">Chỉnh Sửa Sản Phẩm</h1>
-      <form onSubmit={handleSubmit} className="bg-white shadow-lg rounded-lg p-8">
+      <h1 className="text-4xl font-extrabold text-gray-900 mb-8">
+        Chỉnh Sửa Sản Phẩm
+      </h1>
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white shadow-lg rounded-lg p-8"
+      >
         <div className="space-y-6">
           <div>
-            <label className="block text-gray-800 text-lg font-medium mb-2">Tên sản phẩm</label>
+            <label className="block text-gray-800 text-lg font-medium mb-2">
+              Tên sản phẩm
+            </label>
             <input
               type="text"
               name="name"
@@ -76,7 +83,9 @@ const ProductEdit = () => {
             />
           </div>
           <div>
-            <label className="block text-gray-800 text-lg font-medium mb-2">Giá</label>
+            <label className="block text-gray-800 text-lg font-medium mb-2">
+              Giá
+            </label>
             <input
               type="number"
               name="price"
@@ -88,7 +97,9 @@ const ProductEdit = () => {
             />
           </div>
           <div>
-            <label className="block text-gray-800 text-lg font-medium mb-2">Mô tả</label>
+            <label className="block text-gray-800 text-lg font-medium mb-2">
+              Mô tả
+            </label>
             <textarea
               name="description"
               value={product.description}
@@ -100,7 +111,9 @@ const ProductEdit = () => {
             />
           </div>
           <div>
-            <label className="block text-gray-800 text-lg font-medium mb-2">Danh mục</label>
+            <label className="block text-gray-800 text-lg font-medium mb-2">
+              Danh mục
+            </label>
             <select
               name="category"
               value={product.category}
@@ -132,3 +145,4 @@ const ProductEdit = () => {
 };
 
 export default ProductEdit;
+
