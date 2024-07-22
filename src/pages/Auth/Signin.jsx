@@ -1,91 +1,93 @@
 import { Button, Form, Input } from "antd";
-import axios from "axios";
-import { useState } from "react";
+import { useContext } from "react";
+import { AppContext } from "../../context/AppContext";
 
 const Signin = () => {
-  const [state, setState] = useState([]);
+  const { loginUser } = useContext(AppContext);
 
   const onFinish = async (values) => {
-    console.log("Success:", values);
+    console.log("values:", values);
     const formData = {
       ...values,
     };
-    console.log(formData);
-    try {
-      const response = await axios.post(
-        "http://localhost:3000/login",
-        formData
-      );
-      localStorage.setItem("token", response.data.accessToken);
-      setState(response.data);
-    } catch (error) {
-      console.log(error);
-    }
+
+    await loginUser(formData);
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
-  console.log(state);
-  return (
-    <div>
-      <h1 className="title my-10">Login</h1>
-      <div className="form flex justify-center">
-        <Form
-          name="basic"
-          labelCol={{
-            span: 8,
-          }}
-          wrapperCol={{
-            span: 16,
-          }}
-          style={{
-            maxWidth: 600,
-          }}
-          initialValues={{
-            remember: true,
-          }}
-          onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
-          autoComplete="off"
-        >
-          <Form.Item
-            label="Email"
-            name="email"
-            rules={[
-              {
-                required: true,
-                message: "Please input your username!",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
 
-          <Form.Item
-            label="Password"
-            name="password"
-            rules={[
-              {
-                required: true,
-                message: "Please input your password!",
-              },
-            ]}
-          >
-            <Input.Password />
-          </Form.Item>
-          <Form.Item
+  return (
+    <>
+      <div className="bg-gradient-to-r from-orange-500 to-blue-500 min-h-screen pt-10">
+        <h1 className="font-bold text-center text-white text-4xl mb-8">
+          Login
+        </h1>
+        <div className="form flex justify-center">
+          <Form
+            name="basic"
+            labelCol={{
+              span: 8,
+            }}
             wrapperCol={{
-              offset: 8,
               span: 16,
             }}
+            style={{
+              maxWidth: 600,
+            }}
+            initialValues={{
+              remember: true,
+            }}
+            onFinish={onFinish}
+            onFinishFailed={onFinishFailed}
+            autoComplete="off"
+            className="bg-white p-10 rounded-lg shadow-lg max-w-md"
           >
-            <Button type="primary" htmlType="submit">
-              Submit
-            </Button>
-          </Form.Item>
-        </Form>
+            <Form.Item
+              label="Email"
+              name="email"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your username!",
+                },
+              ]}
+              className="mb-4 block text-sm font-medium text-gray-700"
+            >
+              <Input className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+            </Form.Item>
+
+            <Form.Item
+              label="Password"
+              name="password"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your password!",
+                },
+              ]}
+            >
+              <Input.Password className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+            </Form.Item>
+            <Form.Item
+              wrapperCol={{
+                offset: 8,
+                span: 16,
+              }}
+              className="flex items-center justify-center"
+            >
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="w-full flex justify-center py-2 px-10 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                Submit
+              </Button>
+            </Form.Item>
+          </Form>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

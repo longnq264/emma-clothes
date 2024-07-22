@@ -43,3 +43,9 @@ li.list.dropdown:hover {
 }
 /* dropdown menu */
 
+.form.flex.justify-center label.ant-form-item-required {
+  font-weight: 700;
+  color: rgb(42, 41, 41);
+  font-size: medium;
+}
+

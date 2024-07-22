@@ -18,17 +18,13 @@ import CollectionPage from "./pages/Collection/CollectionPage.jsx";
 import CollectionDetailPage from "./pages/Collection/CollectionDetailPage.jsx";
 import DashBoardPage from "./components/User/DashBoardPage.jsx";
 import AdminLayout from "./components/User/AdminLayout.jsx";
-
-
-
 import Sale from "./pages/Sale/Sale.jsx";
-import Products from "./pages/Admin/ProductsList.jsx";
+// import Products from "./pages/Admin/ProductsList.jsx";
 import CategoriesList from "./pages/Admin/CategoriesList.jsx";
 import ProductAdd from "./pages/Admin/ProductAdd.jsx";
 import ProductEdit from "./pages/Admin/ProductEdit.jsx";
 import ProductsList from "./pages/Admin/ProductsList.jsx";
-
-// import AppProvider from "./context/AppContext.jsx";
+import AppProvider from "./context/AppProvider.jsx";
 
 const router = createBrowserRouter([
   {
@@ -48,14 +44,13 @@ const router = createBrowserRouter([
       //role categories
       { path: "/category/:id", element: <ProductPage /> },
       { path: "/products/:id", element: <ProductDetail /> },
-
       { path: "/cart", element: <CartPage /> },
       { path: "/profile", element: <ProfilePage /> },
       { path: "/login", element: <Signin /> },
       { path: "/register", element: <Signup /> },
       { path: "/not-loggedin", element: <NotLoggedIn /> },
       { path: "/admin", element: <DashBoardPage /> },
-      { path: "/sale", element: <Sale/> },
+      { path: "/sale", element: <Sale /> },
     ],
   },
   {
@@ -69,14 +64,13 @@ const router = createBrowserRouter([
       { path: "categories", element: <CategoriesList /> },
     ],
   },
-  
 ]);
 
 function App() {
   return (
-    // <AppProvider>
-    // </AppProvider>
-    <RouterProvider router={router} />
+    <AppProvider>
+      <RouterProvider router={router} />
+    </AppProvider>
   );
 }
 

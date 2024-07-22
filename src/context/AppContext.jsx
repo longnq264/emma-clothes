@@ -6,7 +6,3 @@ export const AppContext = createContext({
   updateItemQuantity: () => {},
   removeItemFromCart: () => {},
 });
-
-// export const AppProvider = ({chidren}) => {
-
-// }

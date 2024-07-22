@@ -12,16 +12,15 @@ const categories = [
 const SuggestedProducts = () => {
   const [selectedCategory, setSelectedCategory] = useState(categories[0].id);
   // console.log(categories[0].id);
-  // const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([]);
 
-  const fetchProductsByCategory = async (id) => {
-    console.log(id);
+  const fetchProductsByCategory = async () => {
     try {
       const response = await axios.get(
-        `http://127.0.0.1:8000/api/products?category_id=${id}`
+        `http://127.0.0.1:8000/api/products?sort_by=created_at`
       );
       console.log("response", response.data);
-      // setProducts(response.data);
+      setProducts(response.data.data);
     } catch (error) {
       console.log(error);
     }
@@ -59,13 +58,17 @@ const SuggestedProducts = () => {
         </div>
       </div>
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mt-4">
-        {/* {products.map((product) => (
-          <div key={product.id} className="relative">
-            <h3 className="mt-2 text-lg font-semibold text-gray-700">
-              {product.name}
-            </h3>
-          </div>
-        ))} */}
+        {products.length > 0 ? (
+          products.map((product) => (
+            <div key={product.id} className="relative">
+              <h3 className="mt-2 text-lg font-semibold text-gray-700">
+                {product.name}
+              </h3>
+            </div>
+          ))
+        ) : (
+          <p>No data</p>
+        )}
       </div>
       <ShowMoreBtn />
     </div>

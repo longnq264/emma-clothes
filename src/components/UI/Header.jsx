@@ -4,8 +4,8 @@ import Navigation from "./Navigation/Navigation";
 import { NavLink } from "react-router-dom";
 import { AppContext } from "../../context/AppContext";
 import { PiBag } from "react-icons/pi";
-import { LuUser2 } from "react-icons/lu";
 import Search from "./Search";
+import DropDownProfile from "./Navigation/DropDownProfile";
 
 const Header = () => {
   const [isVisible, setIsVisible] = useState(true);
@@ -59,13 +59,7 @@ const Header = () => {
                 </span>
               </NavLink>
             </li>
-            <li className="px-2">
-              <NavLink to="/profile">
-                <span className="font-bold text-stone-800">
-                  <LuUser2 size={22} />
-                </span>
-              </NavLink>
-            </li>
+            <DropDownProfile />
           </ul>
         </div>
       </div>

@@ -9,14 +9,13 @@ import { NavLink } from "react-router-dom";
 const CartPage = () => {
   // const [quantity, setQuantity] = useState(0)
   const { items } = useContext(AppContext);
-
-  console.log("cart item context", items);
+  console.log("item", items);
   // const [cart, setCart] = useState([]);
 
-  const totalPrice = items.reduce(
-    (acc, item) => acc + item.price * item.quantity,
-    0
-  );
+  // const totalPrice = items.reduce(
+  //   (acc, item) => acc + item.price * item.quantity,
+  //   0
+  // );
   // const formarttedTotalPrice = ``
   useEffect(() => {}, []);
 
@@ -63,13 +62,11 @@ const CartPage = () => {
                     className="flex border-2 min-h-32 my-4 px-5 py-4"
                   >
                     <div className="max-w-6">
-                      <img src={data.data.img} alt="" />
+                      {/* <img src={data.data.img} alt="" /> */}
                     </div>
-                    <div>
-                      <p>Price: {data.data.price}</p>
-                    </div>
+                    <div>{/* <p>Price: {data.data.price}</p> */}</div>
                     <div className="flex justify-between flex-1">
-                      <h1 className="px-4">{data.data.name}</h1>
+                      {/* <h1 className="px-4">{data.data.name}</h1> */}
                       {
                         console.log("data", data)
                         /* 
@@ -86,7 +83,7 @@ const CartPage = () => {
                 ))}
                 <div className="cart-detail">
                   <h1 className="text-center font-bold">Detail</h1>
-                  <p>Total Price: {totalPrice}</p>
+                  {/* <p>Total Price: {totalPrice}</p> */}
                 </div>
               </div>
             )}

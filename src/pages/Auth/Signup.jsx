@@ -1,33 +1,37 @@
-import { Button, Form, Input } from "antd";
-import axios from "axios";
+import { Button, Form, Input, DatePicker } from "antd";
 import { useState } from "react";
+import { register } from "../../api/api-server";
 
 const Signup = () => {
   const [state, setState] = useState([]);
+  console.log(state);
+  const [notification, setNotification] = useState("");
   const onFinish = async (values) => {
     console.log("Success:", values);
     const formData = {
       ...values,
+      date_of_birth: values.date_of_birth.format("YYYY-MM-DD"),
     };
     console.log(formData);
+    // // console.log(formData);
     try {
-      const response = await axios.post(
-        "http://localhost:3000/register",
-        formData
-      );
+      const response = await register(formData);
       console.log("response", response);
       setState(response.data);
+      const token = response.token;
+      localStorage.setItem("token", token);
+      setNotification(response.message);
     } catch (error) {
       console.log(error);
     }
   };
+
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
-  console.log(state);
   return (
-    <div>
-      <h1 className="title my-10">Signup</h1>
+    <div className="bg-gradient-to-r from-orange-500 to-blue-500 min-h-screen">
+      <h1 className="font-bold text-center text-white text-4xl mb-8">Signup</h1>
       <div className="form flex justify-center">
         <Form
           name="basic"
@@ -46,10 +50,11 @@ const Signup = () => {
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           autoComplete="off"
+          className="bg-white p-10 rounded-lg shadow-lg max-w-md"
         >
           <Form.Item
             label="Full Name"
-            name="username"
+            name="name"
             rules={[
               {
                 required: true,
@@ -84,17 +89,21 @@ const Signup = () => {
           >
             <Input.Password />
           </Form.Item>
-
-          {/* <Form.Item
-            name="remember"
-            valuePropName="checked"
-            wrapperCol={{
-              offset: 8,
-              span: 16,
-            }}
+          <Form.Item
+            label="Re Password"
+            name="re_password"
+            rules={[
+              {
+                required: true,
+                message: "Please input your password!",
+              },
+            ]}
           >
-            <Checkbox>Remember me</Checkbox>
-          </Form.Item> */}
+            <Input.Password />
+          </Form.Item>
+          <Form.Item label="DatePicker" name="date_of_birth">
+            <DatePicker />
+          </Form.Item>
 
           <Form.Item
             wrapperCol={{
@@ -108,6 +117,7 @@ const Signup = () => {
           </Form.Item>
         </Form>
       </div>
+      <h2>{notification}</h2>
     </div>
   );
 };

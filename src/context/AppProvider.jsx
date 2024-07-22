@@ -1,30 +1,72 @@
-import { AppContext } from "./context/AppContext.jsx";
-import { useState } from "react";
+import { AppContext } from "./AppContext.jsx";
+import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import { getUserId, login } from "../api/api-server.js";
 
-export default function AppProvider({ chidren }) {
-  const [shoppingCart, setShoppingCart] = useState({
-    items: [],
-  });
+const AppProvider = ({ children }) => {
+  const [items, setItems] = useState([]);
+  const [user, setUser] = useState(null);
 
-  const handleAddToCart = (data) => {
-    setShoppingCart((prevCart) => ({
-      // Lấy mảng data trước đó và thêm món hàng mới vào
-      items: [...prevCart.items, data],
-    }));
+  const fetchUser = async () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      try {
+        const response = await getUserId(token);
+        setUser(response);
+      } catch (error) {
+        console.error("Failed to fetch user:", error);
+        setUser(null);
+        localStorage.removeItem("token"); // Optional: Remove invalid token
+      }
+    }
   };
 
-  const handleUpdateCartItem = (id, data) => {
-    console.log(id, data);
+  const loginUser = async (userData) => {
+    const response = await login(userData);
+    console.log("response login", response.data);
+    setUser(response.data);
+    localStorage.setItem("token", response.token);
   };
-  const handleRemoveCartItem = (id) => {
-    console.log(id);
+
+  const logout = () => {
+    setUser(null);
+    localStorage.removeItem("token"); // Xóa token khỏi localStorage
   };
-  const ctxValue = {
-    items: shoppingCart.items,
-    addItemToCart: handleAddToCart,
-    updateItemQuantity: handleUpdateCartItem,
-    removeItemFormCart: handleRemoveCartItem,
+
+  const addItemToCart = (item) => {
+    setItems((prevItems) => [...prevItems, item]);
   };
-  //   console.log(chidren);
-  return <AppContext.Provider value={ctxValue}>{chidren}</AppContext.Provider>;
-}
+  const updateItemQuantity = (itemId, quantity) => {
+    setItems((prevItems) =>
+      prevItems.map((item) =>
+        item.id === itemId ? { ...item, quantity } : item
+      )
+    );
+  };
+  const removeItemFromCart = (itemId) => {
+    setItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
+  };
+  useEffect(() => {
+    fetchUser();
+  }, []);
+  return (
+    <AppContext.Provider
+      value={{
+        items,
+        addItemToCart,
+        updateItemQuantity,
+        removeItemFromCart,
+        user,
+        loginUser,
+        logout,
+      }}
+    >
+      {children}
+    </AppContext.Provider>
+  );
+};
+
+AppProvider.propTypes = {
+  children: PropTypes.any,
+};
+export default AppProvider;

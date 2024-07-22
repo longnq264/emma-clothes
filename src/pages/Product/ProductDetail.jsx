@@ -10,6 +10,24 @@ const ProductDetail = () => {
   const [data, setData] = useState([]);
   const [quantity, setQuantity] = useState(1);
 
+  const thumb_nail = [
+    {
+      id: 1,
+      url: "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png",
+    },
+    {
+      id: 2,
+      url: "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png",
+    },
+    {
+      id: 3,
+      url: "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png",
+    },
+    {
+      id: 4,
+      url: "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png",
+    },
+  ];
   const { id } = useParams();
 
   // const { addItemToCart } = useContext(AppContext);
@@ -28,6 +46,7 @@ const ProductDetail = () => {
   //     console.log("error", error);
   //   }
   // };
+
   console.log("data", data.productVariants);
   const fetchProductDetail = async (id) => {
     const response = await getProductId(id);
@@ -78,12 +97,15 @@ const ProductDetail = () => {
         <div className="grid grid-cols-2">
           <div className="product-detail-image">
             <div className="product-image">
-              <img src={data.main_image_url} alt="" />
+              <img
+                src="https://res.cloudinary.com/da7r4robk/image/upload/v1717588304/Products/product1_rr8fhn.png"
+                alt=""
+              />
             </div>
             <div className="thumbail flex">
-              {data.thumbnail_image_url?.map((data, index) => (
-                <div key={index} className="m-4 border-4 p-4">
-                  <img src={data} alt="" />
+              {thumb_nail?.map((data, index) => (
+                <div key={index} className="m-4 border-2 p-2">
+                  <img src={data.url} alt="" />
                 </div>
               ))}
             </div>
@@ -96,44 +118,44 @@ const ProductDetail = () => {
                 {data.price_old}
               </p>
             </div>
-            <p>Color: </p>
-            <p>Size:</p>
-            <div className="grid grid-cols-2">
+            <div className="">
               <p>Quantity: {data.quantity}</p>
               {data.productVariants && data.productVariants.length > 0 ? (
                 <ul>
                   {data.productVariants.map((variant) => (
-                    <li key={variant.id}>
-                      SKU: {variant.sku}
-                      Stock: {variant.stock} Price: {variant.price}
-                    </li>
+                    <div key={variant.id}>
+                      <p>Color: {variant.sku}</p>
+                      {/* Stock: {variant.stock} Price: {variant.price} */}
+                    </div>
                   ))}
                 </ul>
               ) : (
                 <p>No variants available</p>
               )}
-              <div className="flex items-center">
-                <button
-                  className="px-3 py-1 border border-gray-400 rounded-l hover:bg-gray-200 font-bold"
-                  onClick={handleDecreaseQuantity}
-                >
-                  -
-                </button>
-                <span className="px-3">{quantity}</span>
-                <button
-                  className="px-3 py-1 border border-gray-400 rounded-r hover:bg-gray-200 font-bold"
-                  onClick={handleIncreaseQuantity}
-                >
-                  +
+              <div className="flex">
+                <div className="flex items-center basis-1/4">
+                  <button
+                    className="px-3 py-1 border border-gray-400 rounded-l hover:bg-gray-200 font-bold"
+                    onClick={handleDecreaseQuantity}
+                  >
+                    -
+                  </button>
+                  <span className="px-3">{quantity}</span>
+                  <button
+                    className="px-3 py-1 border border-gray-400 rounded-r hover:bg-gray-200 font-bold"
+                    onClick={handleIncreaseQuantity}
+                  >
+                    +
+                  </button>
+                </div>
+                <button className="px-10 py-2 border-2 border-black font-bold my-5 rounded basis-3/4">
+                  Add To Cart
                 </button>
               </div>
+              <button className="px-10 py-2 border-2 w-full text-white font-bold bg-stone-700 my-5 rounded basis-3/4 shadow-stone-500/50">
+                Buy Now
+              </button>
             </div>
-            {/* <button
-              onClick={() => addItemToCart(id)}
-              className="px-10 py-2 border-2 w-full text-white font-bold bg-stone-700 my-5 rounded"
-            >
-              Add To Cart
-            </button> */}
           </div>
         </div>
       </div>
