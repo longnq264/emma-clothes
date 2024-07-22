@@ -37,7 +37,7 @@ const ProductsList = () => {
               <th className="py-2 px-4">ID</th>
               <th className="py-2 px-4">Tên sản phẩm</th>
               <th className="py-2 px-4">Giá</th>
-              <th className="py-2 px-4">Ảnh</th>
+              {/* <th className="py-2 px-4">Ảnh</th> */}
               <th className="py-2 px-4">Mô tả</th>
               <th className="py-2 px-4">Danh mục</th>
               <th className="py-2 px-4">Hành động</th>
@@ -88,7 +88,7 @@ const ProductsList = () => {
                 <td className="py-2 px-4">{product.price}</td>
                 <td className="py-2 px-4">
                   {/* <img
-                    // src={product.main_image_url}
+                    src={product.main_image_url}
                     alt={product.name}
                     className="h-16 w-16 object-cover"
                   /> */}
@@ -98,7 +98,7 @@ const ProductsList = () => {
                 <td className="py-2 px-4">
                   <div className="space-x-2">
                     <Link
-                      to={`/admin/products/${product.id}/edit`}
+                      to={`/admin/products/edit/${product.id}`}
                       className="text-green-600 "
                     >
                       Chỉnh sửa
