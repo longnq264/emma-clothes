@@ -37,50 +37,13 @@ const ProductsList = () => {
               <th className="py-2 px-4">ID</th>
               <th className="py-2 px-4">Tên sản phẩm</th>
               <th className="py-2 px-4">Giá</th>
-              <th className="py-2 px-4">Ảnh</th>
+              {/* <th className="py-2 px-4">Ảnh</th> */}
               <th className="py-2 px-4">Mô tả</th>
               <th className="py-2 px-4">Danh mục</th>
               <th className="py-2 px-4">Hành động</th>
             </tr>
           </thead>
           <tbody>
-            {/* {products && products.length > 0 ? (
-              products.map((product) => (
-                <tr key={product.id} className="border-b">
-                  <td className="py-2 px-4">{product.id}</td>
-                  <td className="py-2 px-4">{product.name}</td>
-                  <td className="py-2 px-4">{product.price}</td>
-                  <td className="py-2 px-4">
-                    <img
-                      src={product.main_image_url}
-                      alt={product.name}
-                      className="h-16 w-16 object-cover"
-                    />
-                  </td>
-                  <td className="py-2 px-4">{product.description}</td>
-                  <td className="py-2 px-4">{product.category}</td>
-                  <td className="py-2 px-4">
-                    <div className="space-x-2">
-                      <Link
-                        to={`/admin/products/${product.id}/edit`}
-                        className="text-green-600 "
-                      >
-                        Chỉnh sửa
-                      </Link>
-                      <button
-                        onClick={() => handleDelete(product.id)}
-                        className="text-red-600"
-                      >
-                        Xoá
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <p>no data</p>
-            )} */}
-
             {products.map((product) => (
               <tr key={product.id} className="border-b">
                 <td className="py-2 px-4">{product.id}</td>
@@ -88,7 +51,7 @@ const ProductsList = () => {
                 <td className="py-2 px-4">{product.price}</td>
                 <td className="py-2 px-4">
                   {/* <img
-                    // src={product.main_image_url}
+                    src={product.main_image_url}
                     alt={product.name}
                     className="h-16 w-16 object-cover"
                   /> */}
