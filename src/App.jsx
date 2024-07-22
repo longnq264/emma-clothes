@@ -27,7 +27,7 @@ import AppProvider from "./context/AppProvider.jsx";
 // import Categories
 import CategoriesList from "./pages/Admin/Categories/CategoriesList.jsx";
 import CategoriesAdd from "./pages/Admin/Categories/CategoriesAdd.jsx";
-import Cart from "./pages/Cart/Cart.jsx";
+// import Cart from "./pages/Cart/Cart.jsx";
 
 const router = createBrowserRouter([
   {
@@ -48,7 +48,7 @@ const router = createBrowserRouter([
       { path: "/category/:id", element: <ProductPage /> },
       { path: "/products/:id", element: <ProductDetail /> },
       { path: "/CartPage", element: <CartPage /> },
-      { path: "/cart", element: <Cart /> },
+      // { path: "/cart", element: <Cart /> },
       { path: "/profile", element: <ProfilePage /> },
       { path: "/login", element: <Signin /> },
       { path: "/register", element: <Signup /> },
