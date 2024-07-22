@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { getProduct, updateProduct } from "../../api/api-server";
+import { useParams, useNavigate } from "react-router-dom";
+import { getProduct, updateProduct, getCategories } from "../../api/api-server";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ProductEdit = () => {
   const { id } = useParams();
   const [product, setProduct] = useState({
     name: "",
-    price: 0,
+    price: "",
     description: "",
+    category: ""
   });
+  const [categories, setCategories] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -19,15 +24,28 @@ const ProductEdit = () => {
         console.error("Lỗi không tìm được sản phẩm:", error);
       }
     };
+    const fetchCategories = async () => {
+      try {
+        const data = await getCategories();
+        setCategories(data);
+      } catch (error) {
+        console.error("Lỗi không lấy được danh mục:", error);
+      }
+    };
     fetchProduct();
+    fetchCategories();
   }, [id]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       await updateProduct(id, product);
-      console.log("Sản phẩm đã sửa đổi cập nhật thành công");
+      toast.success("Sản phẩm đã được cập nhật thành công!");
+      setTimeout(() => {
+        navigate("/admin/products");
+      }, 2000);
     } catch (error) {
+      toast.error("Có lỗi xảy ra khi cập nhật sản phẩm!");
       console.error("Lỗi cập nhật sản phẩm:", error);
     }
   };
@@ -41,60 +59,74 @@ const ProductEdit = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto my-8 bg-white p-6 rounded-md shadow-md">
-      <h1 className="text-2xl font-bold mb-4 text-center">Edit Product</h1>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-            Name:
-          </label>
-          <input
-            id="name"
-            type="text"
-            name="name"
-            value={product.name}
-            onChange={handleChange}
-            required
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="price" className="block text-sm font-medium text-gray-700">
-            Price:
-          </label>
-          <input
-            id="price"
-            type="number"
-            name="price"
-            value={product.price}
-            onChange={handleChange}
-            required
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="description" className="block text-sm font-medium text-gray-700">
-            Description:
-          </label>
-          <textarea
-            id="description"
-            name="description"
-            value={product.description}
-            onChange={handleChange}
-            required
-            rows="3"
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-          />
-        </div>
-        <div className="text-center">
-          <button
-            type="submit"
-            className="inline-block bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-          >
-            Edit Product
-          </button>
+    <div className="container mx-auto py-8 px-4">
+      <h1 className="text-4xl font-extrabold text-gray-900 mb-8">Chỉnh Sửa Sản Phẩm</h1>
+      <form onSubmit={handleSubmit} className="bg-white shadow-lg rounded-lg p-8">
+        <div className="space-y-6">
+          <div>
+            <label className="block text-gray-800 text-lg font-medium mb-2">Tên sản phẩm</label>
+            <input
+              type="text"
+              name="name"
+              value={product.name}
+              onChange={handleChange}
+              className="w-full border-gray-300 border-2 rounded-md p-2"
+              placeholder="Nhập tên sản phẩm"
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-gray-800 text-lg font-medium mb-2">Giá</label>
+            <input
+              type="number"
+              name="price"
+              value={product.price}
+              onChange={handleChange}
+              className="w-full border-gray-300 border-2 rounded-md p-2"
+              placeholder="Nhập giá sản phẩm"
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-gray-800 text-lg font-medium mb-2">Mô tả</label>
+            <textarea
+              name="description"
+              value={product.description}
+              onChange={handleChange}
+              className="w-full border-gray-300 border-2 rounded-md p-2"
+              rows="4"
+              placeholder="Nhập mô tả sản phẩm"
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-gray-800 text-lg font-medium mb-2">Danh mục</label>
+            <select
+              name="category"
+              value={product.category}
+              onChange={handleChange}
+              className="w-full border-gray-300 border-2 rounded-md p-2"
+              required
+            >
+              <option value="">Chọn danh mục</option>
+              {categories.map((cat) => (
+                <option key={cat.id} value={cat.id}>
+                  {cat.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="flex justify-end">
+            <button
+              type="submit"
+              className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg"
+            >
+              Cập Nhật Sản Phẩm
+            </button>
+          </div>
         </div>
       </form>
+      <ToastContainer />
     </div>
   );
 };
