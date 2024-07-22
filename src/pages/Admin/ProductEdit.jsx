@@ -13,13 +13,14 @@ const ProductEdit = () => {
     category: "",
   });
   const [categories, setCategories] = useState([]);
+  console.log(categories.data);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         const fetchedProduct = await getProduct(id);
-        setProduct(fetchedProduct);
+        setProduct(fetchedProduct.data);
       } catch (error) {
         console.error("Lỗi không tìm được sản phẩm:", error);
       }
@@ -122,11 +123,19 @@ const ProductEdit = () => {
               required
             >
               <option value="">Chọn danh mục</option>
-              {categories.map((cat) => (
-                <option key={cat.id} value={cat.id}>
-                  {cat.name}
-                </option>
-              ))}
+              {categories.length > 0 ? (
+                <div>
+                  {categories.map((cat) => (
+                    <option key={cat.id} value={cat.id}>
+                      {cat.name}
+                    </option>
+                  ))}
+                </div>
+              ) : (
+                <div>
+                  <h2>Nodata</h2>
+                </div>
+              )}
             </select>
           </div>
           <div className="flex justify-end">

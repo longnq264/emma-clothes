@@ -98,7 +98,7 @@ const ProductsList = () => {
                 <td className="py-2 px-4">
                   <div className="space-x-2">
                     <Link
-                      to={`/admin/products/${product.id}/edit`}
+                      to={`/admin/products/edit/${product.id}`}
                       className="text-green-600 "
                     >
                       Chỉnh sửa

@@ -16,7 +16,7 @@ const ProductAdd = () => {
     const fetchCategories = async () => {
       try {
         const data = await getCategories();
-        setCategories(data);
+        setCategories(data.data);
       } catch (error) {
         console.error("Lỗi không kết nối danh mục:", error);
       }
