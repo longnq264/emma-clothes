@@ -22,10 +22,10 @@ export const getUserId = async (token) => {
   return response.data;
 };
 
-export const getCategories = async () => {
-  const response = await axios.get(`${API_URL}/categories`);
-  return response.data;
-};
+// export const getCategories = async () => {
+//   const response = await axios.get(`${API_URL}/categories`);
+//   return response.data;
+// };
 
 export const getProducts = async () => {
   const response = await axios.get(`${API_URL}/products`);
@@ -88,5 +88,36 @@ export const updateProduct = async (productId, productData) => {
 export const getProduct = async (productId) => {
   const response = await axios.get(`${API_URL}/products/${productId}`);
   console.log(`Get product ${productId} data:`, response.data);
+  return response.data;
+};
+// phần admin Categories
+
+export const deleteCategory = async (categoryId) => {
+  const response = await axios.delete(`${API_URL}/categories/${categoryId}`);
+  console.log(`Delete category ${categoryId} response:`, response.data);
+  return response.data;
+};
+
+export const createCategory = async (categoryData) => {
+  const response = await axios.post(`${API_URL}/categories`, categoryData);
+  console.log("Create category response:", response.data);
+  return response.data;
+};
+
+export const updateCategory = async (categoryId, categoryData) => {
+  const response = await axios.put(`${API_URL}/categories/${categoryId}`, categoryData);
+  console.log(`Update category ${categoryId} response:`, response.data);
+  return response.data;
+};
+
+export const getCategory = async (categoryId) => {
+  const response = await axios.get(`${API_URL}/categories/${categoryId}`);
+  console.log(`Get category ${categoryId} data:`, response.data);
+  return response.data;
+};
+
+export const getCategories = async () => {
+  const response = await axios.get(`${API_URL}/categories`);
+  console.log("Get categories data:", response.data);
   return response.data;
 };

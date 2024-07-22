@@ -20,11 +20,14 @@ import DashBoardPage from "./components/User/DashBoardPage.jsx";
 import AdminLayout from "./components/User/AdminLayout.jsx";
 import Sale from "./pages/Sale/Sale.jsx";
 // import Products from "./pages/Admin/ProductsList.jsx";
-import CategoriesList from "./pages/Admin/CategoriesList.jsx";
 import ProductAdd from "./pages/Admin/ProductAdd.jsx";
 import ProductEdit from "./pages/Admin/ProductEdit.jsx";
 import ProductsList from "./pages/Admin/ProductsList.jsx";
 import AppProvider from "./context/AppProvider.jsx";
+// import Categories
+import CategoriesList from "./pages/Admin/Categories/CategoriesList.jsx";
+import CategoriesAdd from "./pages/Admin/Categories/CategoriesAdd.jsx";
+import Cart from "./pages/Cart/Cart.jsx";
 
 const router = createBrowserRouter([
   {
@@ -44,7 +47,8 @@ const router = createBrowserRouter([
       //role categories
       { path: "/category/:id", element: <ProductPage /> },
       { path: "/products/:id", element: <ProductDetail /> },
-      { path: "/cart", element: <CartPage /> },
+      { path: "/CartPage", element: <CartPage /> },
+      { path: "/cart", element: <Cart /> },
       { path: "/profile", element: <ProfilePage /> },
       { path: "/login", element: <Signin /> },
       { path: "/register", element: <Signup /> },
@@ -52,7 +56,7 @@ const router = createBrowserRouter([
       { path: "/admin", element: <DashBoardPage /> },
       { path: "/sale", element: <Sale /> },
     ],
-  },
+  }, 
   {
     path: "/admin",
     element: <AdminLayout />,
@@ -62,6 +66,7 @@ const router = createBrowserRouter([
       { path: "products/new", element: <ProductAdd /> },
       { path: "products/edit", element: <ProductEdit /> },
       { path: "categories", element: <CategoriesList /> },
+      { path: "categories/new", element: <CategoriesAdd /> },
     ],
   },
 ]);
