@@ -62,6 +62,10 @@ export const listCart = async () => {
   return response.data;
 };
 
+export const filterProduct = async (action) => {
+  const response = await axios.get(`${API_URL}/products?sort_by=${action}`);
+  return response.data;
+};
 //---------------------------------- admin --------------------------------------
 
 export const deleteProduct = async (productId) => {

@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import collectionImage from "../../../assets/img/collection-sport.jpg";
+
 const Collection = () => {
   return (
     <div className="container mx-auto py-4">

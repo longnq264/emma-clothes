@@ -1,33 +1,30 @@
 import { useEffect, useState } from "react";
 import ShowMoreBtn from "./ShowMoreBtn";
-// import { getProductByCategoryId } from "../../../api/api-server";
-import axios from "axios";
 
-const categories = [
-  { id: 30, name: "Best Sale" },
-  { id: 31, name: "New Arrivals" },
-  { id: 32, name: "Big Sale" },
+import { filterProduct } from "../../../api/api-server";
+import { NavLink } from "react-router-dom";
+
+const filters = [
+  { value: "popular", name: "New Arrivals" },
+  { value: "created_at", name: "Best Sale" },
+  { value: "discount", name: "Big Sale" },
 ];
 
 const SuggestedProducts = () => {
-  const [selectedCategory, setSelectedCategory] = useState(categories[0].id);
-  // console.log(categories[0].id);
+  const [selectedCategory, setSelectedCategory] = useState(filters[0].value);
   const [products, setProducts] = useState([]);
-
-  const fetchProductsByCategory = async () => {
+  console.log("data", products);
+  const fetchProductsByCategory = async (value) => {
     try {
-      const response = await axios.get(
-        `http://127.0.0.1:8000/api/products?sort_by=created_at`
-      );
+      const response = await filterProduct(value);
       console.log("response", response.data);
-      setProducts(response.data.data);
+      setProducts(response.data);
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    console.log(selectedCategory);
     fetchProductsByCategory(selectedCategory);
   }, [selectedCategory]);
 
@@ -48,10 +45,9 @@ const SuggestedProducts = () => {
             value={selectedCategory}
             onChange={handleCategoryChange}
           >
-            {categories.map((category) => (
-              <option key={category.id} value={category.id}>
-                {console.log(category)}
-                {category.name}
+            {filters.map((filter) => (
+              <option key={filter.value} value={filter.value}>
+                {filter.name}
               </option>
             ))}
           </select>
@@ -60,11 +56,17 @@ const SuggestedProducts = () => {
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mt-4">
         {products.length > 0 ? (
           products.map((product) => (
-            <div key={product.id} className="relative">
-              <h3 className="mt-2 text-lg font-semibold text-gray-700">
-                {product.name}
-              </h3>
-            </div>
+            <NavLink key={product.id} to={`/products/${product.id}`}>
+              <div className="relative">
+                <img
+                  src="https://res.cloudinary.com/da7r4robk/image/upload/v1720375784/jacket_tyvg36.png"
+                  alt=""
+                />
+                <h3 className="mt-2 text-lg font-semibold text-gray-700">
+                  {product.name}
+                </h3>
+              </div>
+            </NavLink>
           ))
         ) : (
           <p>No data</p>
