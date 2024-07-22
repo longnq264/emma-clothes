@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { createProduct } from "../../api/api-server";
 
 const ProductAdd = () => {
@@ -31,7 +31,10 @@ const ProductAdd = () => {
       <h1 className="text-2xl font-bold mb-4 text-center">Add Product</h1>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="name"
+            className="block text-sm font-medium text-gray-700"
+          >
             Name:
           </label>
           <input
@@ -45,7 +48,10 @@ const ProductAdd = () => {
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="price" className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="price"
+            className="block text-sm font-medium text-gray-700"
+          >
             Price:
           </label>
           <input
@@ -59,7 +65,10 @@ const ProductAdd = () => {
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="description" className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="description"
+            className="block text-sm font-medium text-gray-700"
+          >
             Description:
           </label>
           <textarea
@@ -86,3 +95,4 @@ const ProductAdd = () => {
 };
 
 export default ProductAdd;
+
