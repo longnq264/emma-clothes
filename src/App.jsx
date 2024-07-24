@@ -25,6 +25,7 @@ import ProductAdd from "./pages/Admin/ProductAdd.jsx";
 import ProductEdit from "./pages/Admin/ProductEdit.jsx";
 import ProductsList from "./pages/Admin/ProductsList.jsx";
 import AppProvider from "./context/AppProvider.jsx";
+import Checkout from "./pages/Checkout.jsx";
 
 const router = createBrowserRouter([
   {
@@ -63,6 +64,10 @@ const router = createBrowserRouter([
       { path: "products/edit/:id", element: <ProductEdit /> },
       { path: "categories", element: <CategoriesList /> },
     ],
+  },
+  {
+    path: "checkout",
+    element: <Checkout />,
   },
 ]);
 

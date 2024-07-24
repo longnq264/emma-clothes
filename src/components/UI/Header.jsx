@@ -11,9 +11,8 @@ const Header = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
-  const { items } = useContext(AppContext);
-  const cartQuantity = items ? items.length : 0;
-
+  const { totalQuantity } = useContext(AppContext);
+  console.log(totalQuantity);
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > lastScrollY) {
@@ -50,9 +49,9 @@ const Header = () => {
                 <span className="font-bold text-stone-800">
                   <div className="relative flex items-center">
                     <PiBag className="text-black" size={24} />
-                    {cartQuantity > 0 && (
+                    {totalQuantity > 0 && (
                       <span className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-red-700 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                        {cartQuantity}
+                        {totalQuantity}
                       </span>
                     )}
                   </div>

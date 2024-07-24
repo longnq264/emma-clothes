@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 // import { useContext } from "react";
-// import { AppContext } from "../../context/AppContext";
+import { AppContext } from "../../context/AppContext";
 import { Breadcrumb } from "antd";
 import Link from "antd/es/typography/Link";
 import { getProductId } from "../../api/api-server";
+import { useContext } from "react";
 
 const ProductDetail = () => {
+  const { id } = useParams();
   const [data, setData] = useState([]);
   const [quantity, setQuantity] = useState(1);
+  const { addItemToCart } = useContext(AppContext);
 
   const thumb_nail = [
     {
@@ -28,42 +31,17 @@ const ProductDetail = () => {
       url: "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png",
     },
   ];
-  const { id } = useParams();
 
-  // const { addItemToCart } = useContext(AppContext);
-
-  // const handleAddtoCart = async (idCart, dataCart) => {
-  //   const initCart = {
-  //     productID: idCart,
-  //     data: {
-  //       ...dataCart,
-  //     },
-  //   };
-  //   try {
-  //     const response = await addToCart(initCart);
-  //     console.log("handle Add", response);
-  //   } catch (error) {
-  //     console.log("error", error);
-  //   }
-  // };
-
-  console.log("data", data.productVariants);
   const fetchProductDetail = async (id) => {
     const response = await getProductId(id);
     setData(response.data);
     console.log(response);
   };
-
-  const handleIncreaseQuantity = () => {
-    setQuantity(quantity + 1);
-  };
-
-  const handleDecreaseQuantity = () => {
-    if (quantity > 1) {
-      setQuantity((prevQuantity) => prevQuantity - 1);
-    }
-  };
   console.log(id);
+
+  const handleAddToCart = () => {
+    addItemToCart(data, quantity);
+  };
 
   useEffect(() => {
     fetchProductDetail(id);
@@ -136,23 +114,26 @@ const ProductDetail = () => {
                 <div className="flex items-center basis-1/4">
                   <button
                     className="px-3 py-1 border border-gray-400 rounded-l hover:bg-gray-200 font-bold"
-                    onClick={handleDecreaseQuantity}
+                    onClick={() => setQuantity((q) => (q > 1 ? q - 1 : q))}
                   >
                     -
                   </button>
                   <span className="px-3">{quantity}</span>
                   <button
                     className="px-3 py-1 border border-gray-400 rounded-r hover:bg-gray-200 font-bold"
-                    onClick={handleIncreaseQuantity}
+                    onClick={() => setQuantity((q) => q + 1)}
                   >
                     +
                   </button>
                 </div>
-                <button className="px-10 py-2 border-2 border-black font-bold my-5 rounded basis-3/4">
-                  Add To Cart
+                <button
+                  className="px-10 py-2 border-2 border-black font-bold my-5 rounded basis-3/4 uppercase"
+                  onClick={handleAddToCart}
+                >
+                  Add To Bag
                 </button>
               </div>
-              <button className="px-10 py-2 border-2 w-full text-white font-bold bg-stone-700 my-5 rounded basis-3/4 shadow-stone-500/50">
+              <button className="uppercase px-10 py-2 border-2 w-full text-white font-bold bg-stone-700 my-5 rounded basis-3/4 shadow-stone-500/50">
                 Buy Now
               </button>
             </div>

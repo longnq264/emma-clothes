@@ -4,9 +4,14 @@ import PropTypes from "prop-types";
 import { getUserId, login } from "../api/api-server.js";
 
 const AppProvider = ({ children }) => {
-  const [items, setItems] = useState([]);
   const [user, setUser] = useState(null);
+  const [items, setItems] = useState([]);
+  const [selectedItems, setSelectedItems] = useState([]);
+  const [isAllSelected, setIsAllSelected] = useState(false);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [totalQuantity, setTotalQuantity] = useState(0);
 
+  // get user
   const fetchUser = async () => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -33,9 +38,23 @@ const AppProvider = ({ children }) => {
     localStorage.removeItem("token"); // Xóa token khỏi localStorage
   };
 
-  const addItemToCart = (item) => {
-    setItems((prevItems) => [...prevItems, item]);
+  // cart
+
+  // add
+  const addItemToCart = (item, quantity = 1) => {
+    setItems((prevItems) => {
+      const existingItem = prevItems.find((i) => i.id === item.id);
+      if (existingItem) {
+        return prevItems.map((i) =>
+          i.id === item.id ? { ...i, quantity: i.quantity + quantity } : i
+        );
+      } else {
+        return [...prevItems, { ...item, quantity }];
+      }
+    });
   };
+
+  // handle update quantity
   const updateItemQuantity = (itemId, quantity) => {
     setItems((prevItems) =>
       prevItems.map((item) =>
@@ -43,12 +62,57 @@ const AppProvider = ({ children }) => {
       )
     );
   };
+
+  // handle remove
   const removeItemFromCart = (itemId) => {
     setItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
   };
+
+  // handle checkbox item
+  const handleItemChange = (item) => {
+    setSelectedItems((prevSelectedItems) => {
+      const isSelected = prevSelectedItems.some(
+        (selectedItem) => selectedItem.id === item.id
+      );
+
+      if (isSelected) {
+        return prevSelectedItems.filter(
+          (selectedItem) => selectedItem.id !== item.id
+        );
+      } else {
+        return [...prevSelectedItems, item];
+      }
+    });
+  };
+
+  // handle checkbox all item
+  const handleSelectAllChange = (isChecked) => {
+    if (isChecked) {
+      setSelectedItems(items);
+    } else {
+      setSelectedItems([]);
+    }
+    setIsAllSelected(isChecked);
+  };
+
   useEffect(() => {
     fetchUser();
   }, []);
+
+  useEffect(() => {
+    const newTotalPrice = selectedItems.reduce(
+      (total, item) => total + item.price * item.quantity,
+      0
+    );
+    setTotalPrice(newTotalPrice);
+
+    const newTotalQuantity = items.reduce(
+      (total, item) => total + item.quantity,
+      0
+    );
+    setTotalQuantity(newTotalQuantity);
+  }, [selectedItems, items]);
+
   return (
     <AppContext.Provider
       value={{
@@ -56,6 +120,12 @@ const AppProvider = ({ children }) => {
         addItemToCart,
         updateItemQuantity,
         removeItemFromCart,
+        totalQuantity,
+        totalPrice,
+        selectedItems,
+        isAllSelected,
+        handleItemChange,
+        handleSelectAllChange,
         user,
         loginUser,
         logout,
@@ -69,4 +139,5 @@ const AppProvider = ({ children }) => {
 AppProvider.propTypes = {
   children: PropTypes.any,
 };
+
 export default AppProvider;
