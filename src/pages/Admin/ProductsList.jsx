@@ -29,10 +29,13 @@ const ProductsList = () => {
 
   return (
     <div className="container mx-auto py-8">
-      <h1 className="text-4xl font-bold text-gray-900 mb-6">Danh Sách Sản Phẩm</h1>
       <div className="overflow-x-auto">
+      <h1 className="text-4xl font-bold mb-6">Danh Sách Sản Phẩm</h1>
+        
         <table className="min-w-full bg-white border border-gray-200 rounded-lg shadow-md">
+          <div></div>
           <thead className="bg-gray-100 border-b border-gray-300">
+            
             <tr>
               <th className="py-3 px-4 text-left text-gray-600 font-semibold">ID</th>
               <th className="py-3 px-4 text-left text-gray-600 font-semibold">Tên Sản Phẩm</th>

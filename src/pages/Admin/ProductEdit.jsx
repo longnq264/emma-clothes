@@ -64,7 +64,7 @@ const ProductEdit = () => {
 
   return (
     <div className="container mx-auto py-8 px-4">
-      <h1 className="text-4xl font-extrabold text-gray-900 mb-8">Chỉnh Sửa Sản Phẩm</h1>
+      <h1 className="text-4xl font-extrabold mb-8">Chỉnh Sửa Sản Phẩm</h1>
       <form onSubmit={handleSubmit} className="bg-white shadow-lg rounded-lg p-8">
         <div className="space-y-6">
           <div>
