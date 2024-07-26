@@ -5,193 +5,117 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const ProductAdd = () => {
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
-  const [description, setDescription] = useState("");
-  const [quantity, setQuantity] = useState("");
-  const [category, setCategory] = useState("");
+  const [product, setProduct] = useState({
+    name: "",
+    price: "",
+    description: "",
+    category: "",
+  });
   const [categories, setCategories] = useState([]);
-  const [mainImageUrl, setMainImageUrl] = useState("");
-  const [thumbnailImages, setThumbnailImages] = useState("");
-  const [variants, setVariants] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
         const response = await getCategories();
-        console.log("Danh mục từ API:", response); // Kiểm tra phản hồi từ API
-        const data = response.data || []; // Đảm bảo rằng bạn lấy dữ liệu đúng cách
-        setCategories(data);
+        setCategories(response.data || []);
       } catch (error) {
-        console.error("Lỗi không kết nối danh mục:", error);
+        console.error("Lỗi không lấy được danh mục:", error);
       }
     };
+
     fetchCategories();
   }, []);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     try {
-      // Xử lý dữ liệu thumbnailImages
-      const thumbnailImageArray = thumbnailImages.split(',').map(img => img.trim());
-      
-      // Xử lý dữ liệu variants
-      const variantArray = variants.split(';').map(v => {
-        const [sku, price, stock, img] = v.split(',').map(v => v.trim());
-        return {
-          sku,
-          price: parseFloat(price),
-          stock: parseInt(stock, 10),
-          main_image_url: img,
-          attributes: [] // Bạn cần cung cấp thuộc tính nếu yêu cầu
-        };
-      });
-
-      const productData = {
-        name,
-        price: parseFloat(price),
-        description,
-        quantity: parseInt(quantity, 10),
-        category_id: category,
-        main_image_url: mainImageUrl,
-        thumbnail_images: thumbnailImageArray,
-        variants: variantArray,
-        status: "active" // Hoặc giá trị phù hợp nếu cần
-      };
-
-      const response = await createProduct(productData);
-      console.log("Create product response:", response); // Xem phản hồi từ API
+      await createProduct(product);
       toast.success("Sản phẩm đã được thêm thành công!");
       setTimeout(() => {
         navigate("/admin/products");
       }, 2000);
     } catch (error) {
-      if (error.response) {
-        console.error("Thất bại khi tạo sản phẩm:", error.response.data);
-        toast.error(`Có lỗi xảy ra khi thêm sản phẩm: ${error.response.data.message}`);
+      if (error.response && error.response.data) {
+        console.error("API error response:", error.response.data);
+        toast.error("Có lỗi xảy ra khi thêm sản phẩm!");
       } else {
-        console.error("Thất bại khi tạo sản phẩm:", error);
+        console.error("Error adding product:", error);
         toast.error("Có lỗi xảy ra khi thêm sản phẩm!");
       }
     }
   };
 
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setProduct((prevProduct) => ({
+      ...prevProduct,
+      [name]: value,
+    }));
+  };
+
   return (
     <div className="container mx-auto py-8 px-4">
-      <h1 className="text-4xl font-extrabold text-gray-900 mb-8">Thêm Sản Phẩm</h1>
+      <h1 className="text-4xl font-extrabold text-gray-900 mb-8">Thêm Sản Phẩm Mới</h1>
       <form onSubmit={handleSubmit} className="bg-white shadow-lg rounded-lg p-8">
         <div className="space-y-6">
-          {/* Tên sản phẩm */}
           <div>
             <label className="block text-gray-800 text-lg font-medium mb-2">Tên sản phẩm</label>
             <input
               type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="w-full border-gray-300 border-2 rounded-md p-2"
+              name="name"
+              value={product.name}
+              onChange={handleChange}
+              className="w-full border-gray-300 border-2 rounded-md p-3"
               placeholder="Nhập tên sản phẩm"
               required
             />
           </div>
-
-          {/* Giá */}
           <div>
             <label className="block text-gray-800 text-lg font-medium mb-2">Giá</label>
             <input
               type="number"
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
-              className="w-full border-gray-300 border-2 rounded-md p-2"
+              name="price"
+              value={product.price}
+              onChange={handleChange}
+              className="w-full border-gray-300 border-2 rounded-md p-3"
               placeholder="Nhập giá sản phẩm"
               required
             />
           </div>
-
-          {/* Mô tả */}
           <div>
             <label className="block text-gray-800 text-lg font-medium mb-2">Mô tả</label>
             <textarea
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              className="w-full border-gray-300 border-2 rounded-md p-2"
+              name="description"
+              value={product.description}
+              onChange={handleChange}
+              className="w-full border-gray-300 border-2 rounded-md p-3"
               rows="4"
               placeholder="Nhập mô tả sản phẩm"
               required
             />
           </div>
-
-          {/* Số lượng */}
-          <div>
-            <label className="block text-gray-800 text-lg font-medium mb-2">Số lượng</label>
-            <input
-              type="number"
-              value={quantity}
-              onChange={(e) => setQuantity(e.target.value)}
-              className="w-full border-gray-300 border-2 rounded-md p-2"
-              placeholder="Nhập số lượng sản phẩm"
-              required
-            />
-          </div>
-
-          {/* Danh mục */}
           <div>
             <label className="block text-gray-800 text-lg font-medium mb-2">Danh mục</label>
             <select
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              className="w-full border-gray-300 border-2 rounded-md p-2"
+              name="category"
+              value={product.category}
+              onChange={handleChange}
+              className="w-full border-gray-300 border-2 rounded-md p-3"
               required
             >
               <option value="">Chọn danh mục</option>
-              {categories.map((cat) => (
-                <option key={cat.id} value={cat.id}>
-                  {cat.name}
-                </option>
-              ))}
+              {categories.length > 0 ? (
+                categories.map((cat) => (
+                  <option key={cat.id} value={cat.id}>
+                    {cat.name}
+                  </option>
+                ))
+              ) : (
+                <option disabled>Không có danh mục</option>
+              )}
             </select>
           </div>
-
-          {/* Ảnh chính */}
-          <div>
-            <label className="block text-gray-800 text-lg font-medium mb-2">Ảnh chính</label>
-            <input
-              type="text"
-              value={mainImageUrl}
-              onChange={(e) => setMainImageUrl(e.target.value)}
-              className="w-full border-gray-300 border-2 rounded-md p-2"
-              placeholder="Nhập URL ảnh chính"
-              required
-            />
-          </div>
-
-          {/* Ảnh thu nhỏ */}
-          <div>
-            <label className="block text-gray-800 text-lg font-medium mb-2">Ảnh thu nhỏ</label>
-            <input
-              type="text"
-              value={thumbnailImages}
-              onChange={(e) => setThumbnailImages(e.target.value)}
-              className="w-full border-gray-300 border-2 rounded-md p-2"
-              placeholder="Nhập URL ảnh thu nhỏ (cách nhau bằng dấu phẩy)"
-              required
-            />
-          </div>
-
-          {/* Biến thể */}
-          <div>
-            <label className="block text-gray-800 text-lg font-medium mb-2">Biến thể</label>
-            <input
-              type="text"
-              value={variants}
-              onChange={(e) => setVariants(e.target.value)}
-              className="w-full border-gray-300 border-2 rounded-md p-2"
-              placeholder="Nhập biến thể (cách nhau bằng dấu chấm phẩy, ví dụ: SKU, giá, số lượng, URL ảnh)"
-              required
-            />
-          </div>
-
-          {/* Nút thêm sản phẩm */}
           <div className="flex justify-end">
             <button
               type="submit"
