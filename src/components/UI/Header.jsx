@@ -12,7 +12,7 @@ const Header = () => {
   const [lastScrollY, setLastScrollY] = useState(0);
 
   const { totalQuantity } = useContext(AppContext);
-  console.log(totalQuantity);
+
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > lastScrollY) {

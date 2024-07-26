@@ -35,10 +35,10 @@ const AppProvider = ({ children }) => {
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem("token"); // Xóa token khỏi localStorage
+    localStorage.removeItem("token");
+    setItems([]);
+    localStorage.removeItem("cartItems");
   };
-
-  // cart
 
   // add
   const addItemToCart = (item, quantity = 1) => {
@@ -96,10 +96,6 @@ const AppProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    fetchUser();
-  }, []);
-
-  useEffect(() => {
     const newTotalPrice = selectedItems.reduce(
       (total, item) => total + item.price * item.quantity,
       0
@@ -112,6 +108,19 @@ const AppProvider = ({ children }) => {
     );
     setTotalQuantity(newTotalQuantity);
   }, [selectedItems, items]);
+
+  useEffect(() => {
+    console.log("Saving items to localStorage:", items);
+    localStorage.setItem("cartItems", JSON.stringify(items));
+  }, [items]);
+
+  useEffect(() => {
+    const storedItems = localStorage.getItem("cartItems");
+    if (storedItems) {
+      setItems(JSON.parse(storedItems));
+    }
+    fetchUser();
+  }, []);
 
   return (
     <AppContext.Provider
