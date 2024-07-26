@@ -1,105 +1,95 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { FaTachometerAlt, FaBox, FaTag, FaCartPlus, FaUsers } from "react-icons/fa";
+import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 
 const NavBar = () => {
   const [isProductsOpen, setIsProductsOpen] = useState(false);
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
 
   return (
-    <div className="w-64 h-screen bg-gray-800 text-white flex flex-col">
-      <div className="p-4">
-        <h1 className="text-2xl font-semibold">Admin Panel</h1>
-      </div>
-      <nav className="flex-1 px-2 space-y-2">
+    <div className="w-72 h-screen flex flex-col bg-gray-900 text-gray-300 shadow-xl transition-transform duration-300 ease-in-out">
+
+      {/* Navigation Links */}
+      <nav className="flex-1 px-4 py-2 space-y-2">
         <NavLink
           to="/admin"
-          className="block px-4 py-2 rounded hover:bg-gray-700"
+          className="flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors duration-300 group"
         >
-          Dashboard
+          <FaTachometerAlt className="text-2xl text-indigo-500 mr-3" />
+          <span className="text-lg font-medium group-hover:text-white transition-colors duration-300">Dashboard</span>
         </NavLink>
+
+        {/* Products Dropdown */}
         <div className="relative">
           <button
             onClick={() => setIsProductsOpen(!isProductsOpen)}
-            className="w-full px-4 py-2 rounded hover:bg-gray-700 flex justify-between items-center"
+            className="w-full flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors duration-300 group"
           >
-            Products
-            <svg
-              className={`w-4 h-4 transition-transform ${isProductsOpen ? "rotate-180" : "rotate-0"}`}
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M19 9l-7 7-7-7" />
-            </svg>
+            <FaBox className="text-2xl text-indigo-500 mr-3" />
+            <span className="flex-1 text-lg font-medium">Products</span>
+            {isProductsOpen ? <IoMdArrowDropup className="ml-auto text-2xl text-indigo-500" /> : <IoMdArrowDropdown className="ml-auto text-2xl text-indigo-500" />}
           </button>
           <div
-            className={`transition-all duration-300 overflow-hidden ${isProductsOpen ? "max-h-40" : "max-h-0"}`}
+            className={`transition-max-height duration-300 ease-in-out overflow-hidden ${isProductsOpen ? "max-h-48 opacity-100" : "max-h-0 opacity-0"} bg-gray-800 rounded-lg`}
           >
             <NavLink
-              to="/admin/products/add"
-              className="block px-4 py-2 bg-gray-700 hover:bg-gray-600"
+              to="/admin/products/new"
+              className="block px-4 py-3 hover:bg-gray-700 rounded-lg transition-colors duration-300"
             >
               Add Product
             </NavLink>
             <NavLink
               to="/admin/products"
-              className="block px-4 py-2 bg-gray-700 hover:bg-gray-600"
+              className="block px-4 py-3 hover:bg-gray-700 rounded-lg transition-colors duration-300"
             >
               View Products
             </NavLink>
           </div>
         </div>
+
+        {/* Categories Dropdown */}
         <div className="relative">
           <button
             onClick={() => setIsCategoriesOpen(!isCategoriesOpen)}
-            className="w-full px-4 py-2 rounded hover:bg-gray-700 flex justify-between items-center"
+            className="w-full flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors duration-300 group"
           >
-            Categories
-            <svg
-              className={`w-4 h-4 transition-transform ${isCategoriesOpen ? "rotate-180" : "rotate-0"}`}
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M19 9l-7 7-7-7" />
-            </svg>
+            <FaTag className="text-2xl text-indigo-500 mr-3" />
+            <span className="flex-1 text-lg font-medium">Categories</span>
+            {isCategoriesOpen ? <IoMdArrowDropup className="ml-auto text-2xl text-indigo-500" /> : <IoMdArrowDropdown className="ml-auto text-2xl text-indigo-500" />}
           </button>
           <div
-            className={`transition-all duration-300 overflow-hidden ${isCategoriesOpen ? "max-h-40" : "max-h-0"}`}
+            className={`transition-max-height duration-300 ease-in-out overflow-hidden ${isCategoriesOpen ? "max-h-48 opacity-100" : "max-h-0 opacity-0"} bg-gray-800 rounded-lg`}
           >
             <NavLink
               to="/admin/categories/add"
-              className="block px-4 py-2 bg-gray-700 hover:bg-gray-600"
+              className="block px-4 py-3 hover:bg-gray-700 rounded-lg transition-colors duration-300"
             >
               Add Category
             </NavLink>
             <NavLink
               to="/admin/categories"
-              className="block px-4 py-2 bg-gray-700 hover:bg-gray-600"
+              className="block px-4 py-3 hover:bg-gray-700 rounded-lg transition-colors duration-300"
             >
               View Categories
             </NavLink>
           </div>
         </div>
+
+        {/* Orders and Users */}
         <NavLink
-          to="/admin/orders"
-          className="block px-4 py-2 rounded hover:bg-gray-700"
+          to="/admin/order"
+          className="flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors duration-300 group"
         >
-          Orders
+          <FaCartPlus className="text-2xl text-indigo-500 mr-3" />
+          <span className="text-lg font-medium group-hover:text-white transition-colors duration-300">Orders</span>
         </NavLink>
         <NavLink
           to="/admin/users"
-          className="block px-4 py-2 rounded hover:bg-gray-700"
+          className="flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors duration-300 group"
         >
-          Users
+          <FaUsers className="text-2xl text-indigo-500 mr-3" />
+          <span className="text-lg font-medium group-hover:text-white transition-colors duration-300">Users</span>
         </NavLink>
       </nav>
     </div>
