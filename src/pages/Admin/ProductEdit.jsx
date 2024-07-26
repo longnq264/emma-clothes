@@ -29,7 +29,7 @@ const ProductEdit = () => {
       try {
         const response = await getCategories();
         console.log("Danh mục từ API:", response); // Kiểm tra phản hồi từ API
-        const data = response.data || []; // Đảm bảo rằng bạn lấy dữ liệu đúng cách
+        const data = response.data || []; // check lấy dữ liệu xem có ok đúng không ? 
         setCategories(data);
       } catch (error) {
         console.error("Lỗi không lấy được danh mục:", error);
