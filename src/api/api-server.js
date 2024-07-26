@@ -23,10 +23,10 @@ export const getUserId = async (token) => {
   return response.data;
 };
 
-export const getCategories = async () => {
-  const response = await axios.get(`${API_URL}/categories`);
-  return response.data;
-};
+// export const getCategories = async () => {
+//   const response = await axios.get(`${API_URL}/categories`);
+//   return response.data;
+// };
 
 export const getProducts = async () => {
   const response = await axios.get(`${API_URL}/products`);
@@ -94,4 +94,46 @@ export const getProduct = async (productId) => {
   const response = await axios.get(`${API_URL}/products/${productId}`);
   console.log(`Get product ${productId} data:`, response.data);
   return response.data;
+};
+// phần admin Categories
+
+// export const deleteCategory = async (categoryId) => {
+//   const response = await axios.delete(`${API_URL}/categories/${categoryId}`);
+//   console.log(`Delete category ${categoryId} response:`, response.data);
+//   return response.data;
+// };
+
+export const createCategory = async (categoryData) => {
+  const response = await axios.post(`${API_URL}/categories`, categoryData);
+  console.log("Create category response:", response.data);
+  return response.data;
+};
+
+export const updateCategory = async (categoryId, categoryData) => {
+  try {
+    const response = await axios.put(`${API_URL}/categories/${categoryId}`, categoryData);
+    console.log(`Cập nhật danh mục ${categoryId} thành công:`, response.data);
+    return response.data;
+  } catch (error) {
+    console.error(`Lỗi khi cập nhật danh mục ${categoryId}:`, error.message);
+    throw error;
+  }
+};
+
+export const getCategory = async (categoryId) => {
+  const response = await axios.get(`${API_URL}/categories/${categoryId}`);
+  console.log(`Get category ${categoryId} data:`, response.data);
+  return response.data;
+};
+
+export const getCategories = async () => {
+  const response = await axios.get(`${API_URL}/categories`);
+  console.log("Get categories data:", response.data);
+  return response.data;
+};
+export const deleteCategory = async (id) => {
+  return axios.delete(`/api/categories/${id}`);
+};
+export const getCategoryByName = async (name) => {
+  return axios.get(`/api/categories?name=${name}`);
 };
