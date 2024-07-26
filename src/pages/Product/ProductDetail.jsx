@@ -1,11 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
-// import { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
+import { getProductId } from "../../api/api-server";
 import { Breadcrumb } from "antd";
 import Link from "antd/es/typography/Link";
-import { getProductId } from "../../api/api-server";
-import { useContext } from "react";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -37,7 +35,6 @@ const ProductDetail = () => {
     setData(response.data);
     console.log(response);
   };
-  console.log(id);
 
   const handleAddToCart = () => {
     addItemToCart(data, quantity);

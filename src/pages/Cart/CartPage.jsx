@@ -19,7 +19,7 @@ const CartPage = () => {
 
   const freeShipThreshold = 1000000; // 1 triệu VND
 
-  console.log("item", items);
+  console.log("cart items", items);
 
   const handleQuantityChange = (itemId, newQuantity) => {
     if (newQuantity <= 0) {
