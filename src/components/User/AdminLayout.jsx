@@ -2,6 +2,7 @@ import { useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import NavBar from "./NavBar";
 import { FaMoon, FaSun } from "react-icons/fa";
+import SearchBar from "./SearchBar";
 
 const AdminLayout = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -23,6 +24,9 @@ const AdminLayout = () => {
           Emmaclothes
         </NavLink>
         <div className="flex items-center space-x-4">
+          <div>
+          <SearchBar />
+          </div>
           <button
             onClick={toggleDarkMode}
             className={`flex items-center px-4 py-2 rounded-lg ${darkMode ? 'bg-gray-700 text-gray-200 hover:bg-gray-600' : 'bg-gray-300 text-gray-800 hover:bg-gray-200'} transition duration-300`}

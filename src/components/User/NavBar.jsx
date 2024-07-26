@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { FaTachometerAlt, FaBox, FaTag, FaCartPlus, FaUsers, FaSignOutAlt } from "react-icons/fa";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 
@@ -7,10 +7,14 @@ const NavBar = ({ isOpen, darkMode }) => {
   const [isProductsOpen, setIsProductsOpen] = useState(false);
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
   const [isStaffsOpen, setIsStaffsOpen] = useState(false);
+  const navigate = useNavigate(); // Hook để điều hướng
 
   const handleLogout = () => {
-    // Implement your logout logic here, e.g., clearing auth tokens, redirecting, etc.
-    // For example, you could use history.push('/login') to redirect to the login page.
+    // Xóa token hoặc dữ liệu đăng nhập
+    localStorage.removeItem('authToken'); 
+
+    // Chuyển hướng đến trang đăng nhập
+    navigate('/login'); // Đổi '/login' thành đường dẫn trang đăng nhập của bạn
   };
 
   return (
@@ -103,7 +107,7 @@ const NavBar = ({ isOpen, darkMode }) => {
           </div>
         </div>
 
-        {/* Orders and Users */}
+        {/* Orders và Users */}
         <NavLink
           to="/admin/order"
           className={`flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors duration-300 group ${darkMode ? 'text-gray-200' : 'text-gray-800'}`}

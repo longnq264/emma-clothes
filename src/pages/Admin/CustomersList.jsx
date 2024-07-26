@@ -12,7 +12,7 @@ const StaffList = () => {
   // const fetchCustomers = async () => {
   //   try {
   //     const response = await getCustomers();
-  //     setCustomers(response.data || []); // Đảm bảo response.data là mảng
+  //     setCustomers(response.data || []);
   //   } catch (error) {
   //     console.error("Failed to fetch customers:", error);
   //   }
