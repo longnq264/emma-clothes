@@ -7,7 +7,7 @@ const Header = () => {
   const { totalQuantity } = useContext(AppContext);
   console.log("total", totalQuantity);
   return (
-    <div className="header-checkout">
+    <div className="header-checkout border-b ">
       <div className="container mx-auto px-40 py-4">
         <div className="flex justify-between">
           <Logo />

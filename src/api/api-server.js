@@ -3,6 +3,11 @@ import axios from "axios";
 
 const API_URL = "http://localhost:8000/api";
 
+export const getBanners = async () => {
+  const response = await axios.get(`${API_URL}/banners`);
+  return response.data;
+};
+
 export const register = async (data) => {
   const response = await axios.post(`${API_URL}/register`, data);
   return response.data;
@@ -22,10 +27,17 @@ export const getUserId = async (token) => {
   return response.data;
 };
 
+<<<<<<< HEAD
 // export const getCategories = async () => {
 //   const response = await axios.get(`${API_URL}/categories`);
 //   return response.data;
 // };
+=======
+export const getCategories = async () => {
+  const response = await axios.get(`${API_URL}/categories`);
+  return response.data.data;
+};
+>>>>>>> 3b9e8f3 (longnq)
 
 export const getProducts = async () => {
   const response = await axios.get(`${API_URL}/products`);
@@ -66,6 +78,7 @@ export const filterProduct = async (action) => {
   const response = await axios.get(`${API_URL}/products?sort_by=${action}`);
   return response.data;
 };
+
 //---------------------------------- admin --------------------------------------
 
 export const deleteProduct = async (productId) => {

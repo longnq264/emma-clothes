@@ -1,4 +1,4 @@
-import { Button, Form, Input, DatePicker } from "antd";
+import { Button, Form, Input, DatePicker, Checkbox } from "antd";
 import { useState } from "react";
 import { register } from "../../api/api-server";
 
@@ -103,6 +103,17 @@ const Signup = () => {
           </Form.Item>
           <Form.Item label="DatePicker" name="date_of_birth">
             <DatePicker />
+          </Form.Item>
+
+          <Form.Item
+            name="remember"
+            valuePropName="checked"
+            wrapperCol={{
+              offset: 8,
+              span: 16,
+            }}
+          >
+            <Checkbox>Remember me</Checkbox>
           </Form.Item>
 
           <Form.Item

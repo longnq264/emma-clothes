@@ -8,8 +8,8 @@ const Navigation = () => {
 
   const fetchCategories = async () => {
     const response = await getCategories();
-    setCategories(response.data);
-    // console.log(response.data);
+    setCategories(response[0].children);
+    console.log("categories nav", response[0].children);
   };
 
   useEffect(() => {
@@ -40,6 +40,11 @@ const Navigation = () => {
                 >
                   <div className="container mx-auto py-4">
                     <ul className="flex">
+                      <li className="w-1/3 border-r-2 pb-4">
+                        <NavLink to={"/products"} className="font-bold">
+                          Tất Cả Sản Phẩm
+                        </NavLink>
+                      </li>
                       {item.children.map((child, childIndex) => (
                         <li key={childIndex} className="w-1/3 border-r-2 pb-4">
                           <NavLink
