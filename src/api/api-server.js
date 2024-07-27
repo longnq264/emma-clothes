@@ -27,11 +27,6 @@ export const getUserId = async (token) => {
   return response.data;
 };
 
-// export const getCategories = async () => {
-//   const response = await axios.get(`${API_URL}/categories`);
-//   return response.data;
-// };
-
 export const getProducts = async () => {
   const response = await axios.get(`${API_URL}/products`);
   return response.data;
@@ -139,9 +134,11 @@ export const getCategories = async () => {
   console.log("Get categories data:", response.data);
   return response.data;
 };
+
 export const deleteCategory = async (id) => {
   return axios.delete(`/api/categories/${id}`);
 };
+
 export const getCategoryByName = async (name) => {
   return axios.get(`/api/categories?name=${name}`);
 };
