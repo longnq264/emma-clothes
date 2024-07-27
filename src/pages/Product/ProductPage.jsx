@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { Breadcrumb } from "antd";
 import { Link, useLocation } from "react-router-dom";
-import { getProductByCategoryId } from "../../api/api-server.js";
+import { getProductByCategoryId, getProducts } from "../../api/api-server.js";
 import { useParams } from "react-router-dom";
 import DropdownItem from "../../components/UI/Home/DropDownItem.jsx";
 
@@ -18,9 +18,15 @@ const ProductPage = () => {
 
   console.log(id, categoryName);
 
-  const fetchProductByCategory = async (categoryId) => {
+  const fetchProducts = async () => {
     try {
-      const response = await getProductByCategoryId(categoryId);
+      let response;
+      if (id) {
+        response = await getProductByCategoryId(id);
+      } else {
+        response = await getProducts();
+      }
+
       const productsData = response.data;
       setProducts(productsData);
 
@@ -32,7 +38,7 @@ const ProductPage = () => {
   };
 
   useEffect(() => {
-    fetchProductByCategory(id);
+    fetchProducts();
   }, [id]);
 
   return (

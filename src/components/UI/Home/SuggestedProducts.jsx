@@ -5,9 +5,9 @@ import { filterProduct } from "../../../api/api-server";
 import { NavLink } from "react-router-dom";
 
 const filters = [
-  { value: "popular", name: "New Arrivals" },
-  { value: "created_at", name: "Best Sale" },
-  { value: "discount", name: "Big Sale" },
+  { value: "popular", name: "San pham pho bien" },
+  { value: "created_at", name: "Hang moi ve" },
+  { value: "discount", name: "Hang khuyen mai" },
 ];
 
 const SuggestedProducts = () => {
@@ -37,7 +37,7 @@ const SuggestedProducts = () => {
     <div className="container mx-auto my-8">
       <div className="flex justify-center">
         <h2 className="text-2xl font-semibold text-stone-700 mb-4">
-          Product suggestions
+          Goi y san pham
         </h2>
         <div className="relative inline-block text-left ml-4">
           <select

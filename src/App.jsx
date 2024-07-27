@@ -44,6 +44,7 @@ const router = createBrowserRouter([
       { path: "/collection/:role", element: <CollectionDetailPage /> },
       //role categories
       { path: "/category/:id", element: <ProductPage /> },
+      { path: "/products", element: <ProductPage /> },
       { path: "/products/:id", element: <ProductDetail /> },
       { path: "/cart", element: <CartPage /> },
       { path: "/profile", element: <ProfilePage /> },

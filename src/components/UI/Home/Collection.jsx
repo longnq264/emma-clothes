@@ -5,7 +5,7 @@ const Collection = () => {
   return (
     <div className="container mx-auto py-4">
       <h1 className="title my-6 font-semibold text-stone-700">
-        Popular Collection
+        Bộ Sưu Tập Nổi Bật
       </h1>
       <div className="grid grid-cols-4 gap-x-4 text-center">
         <div className="relative ">
@@ -29,7 +29,7 @@ const Collection = () => {
           </NavLink>
         </div>
         <div className="relative">
-          <NavLink to="hoodie">
+          <NavLink to="/collection/hoodie">
             <div className="relative">
               <img src={collectionImage} alt="" className="w-full" />
               <h1 className="absolute bottom-16 left-0 w-full text-white py-2 text-logo text-3xl">
