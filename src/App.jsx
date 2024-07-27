@@ -58,6 +58,7 @@ const router = createBrowserRouter([
       { path: "/sale", element: <Sale /> },
     ],
   },
+  //role admin
   {
     path: "/admin",
     element: <AdminLayout />,
@@ -69,7 +70,7 @@ const router = createBrowserRouter([
       { path: "products/new", element: <ProductAdd /> },
       { path: "products/edit/:id", element: <ProductEdit /> },
       { path: "categories", element: <CategoriesList /> },
-      { path: "staffs", element: <StaffList/> },
+      { path: "staffs", element: <StaffList /> },
       { path: "staffs/new", element: <ProductAdd /> },
       { path: "staffs/edit/:id", element: <ProductEdit /> },
     ],
@@ -89,4 +90,3 @@ function App() {
 }
 
 export default App;
-
