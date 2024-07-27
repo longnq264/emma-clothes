@@ -23,10 +23,10 @@ export const getUserId = async (token) => {
   return response.data;
 };
 
-// export const getCategories = async () => {
-//   const response = await axios.get(`${API_URL}/categories`);
-//   return response.data;
-// };
+export const getCategories = async () => {
+  const response = await axios.get(`${API_URL}/categories`);
+  return response.data;
+};
 
 export const getProducts = async () => {
   const response = await axios.get(`${API_URL}/products`);
@@ -97,11 +97,8 @@ export const getProduct = async (productId) => {
 };
 // phần admin Categories
 
-// export const deleteCategory = async (categoryId) => {
-//   const response = await axios.delete(`${API_URL}/categories/${categoryId}`);
-//   console.log(`Delete category ${categoryId} response:`, response.data);
-//   return response.data;
-// };
+// Category APIs
+ 
 
 export const createCategory = async (categoryData) => {
   const response = await axios.post(`${API_URL}/categories`, categoryData);
@@ -126,14 +123,69 @@ export const getCategory = async (categoryId) => {
   return response.data;
 };
 
-export const getCategories = async () => {
-  const response = await axios.get(`${API_URL}/categories`);
-  console.log("Get categories data:", response.data);
+export const deleteCategory = async (categoryId) => {
+  const response = await axios.delete(`${API_URL}/categories/${categoryId}`);
+  console.log(`Delete category ${categoryId} response:`, response.data);
   return response.data;
 };
-export const deleteCategory = async (id) => {
-  return axios.delete(`/api/categories/${id}`);
+
+// phần admin users
+
+// Lấy danh sách người dùng
+export const getUsers = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/users`);
+    return response.data.data.data;
+  } catch (error) {
+    console.error('Failed to fetch users:', error);
+    throw error;
+  }
 };
-export const getCategoryByName = async (name) => {
-  return axios.get(`/api/categories?name=${name}`);
+
+// Thêm người dùng mới
+export const addUser = async (userData) => {
+  try {
+    const response = await axios.post(`${API_URL}/users`, userData);
+    return response.data;
+  } catch (error) {
+    console.error('Failed to add user:', error);
+    throw error;
+  }
+};
+
+// Chỉnh sửa thông tin người dùng
+export const updateUser = async (userId, userData) => {
+  try {
+    const response = await axios.put(`${API_URL}/users/${userId}`, userData);
+    return response.data;
+  } catch (error) {
+    console.error('Failed to update user:', error);
+    throw error;
+  }
+};
+
+// Xóa người dùng
+export const deleteUser = async (userId) => {
+  try {
+    const response = await axios.delete(`${API_URL}/users/${userId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Failed to delete user:', error);
+    throw error;
+  }
+};
+
+// Import users
+export const importUsers = async (formData) => {
+  try {
+    const response = await axios.post(`${API_URL}/users/import`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Failed to import users:', error);
+    throw error;
+  }
 };

@@ -20,12 +20,16 @@ import DashBoardPage from "./components/User/DashBoardPage.jsx";
 import AdminLayout from "./components/User/AdminLayout.jsx";
 import Sale from "./pages/Sale/Sale.jsx";
 // import Products from "./pages/Admin/ProductsList.jsx";
-import CategoriesList from "./pages/Admin/CategoriesList.jsx";
+import CategoriesList from "./pages/Admin/Categories/CategoriesList.jsx";
 import ProductAdd from "./pages/Admin/ProductAdd.jsx";
 import ProductEdit from "./pages/Admin/ProductEdit.jsx";
 import ProductsList from "./pages/Admin/ProductsList.jsx";
 import AppProvider from "./context/AppProvider.jsx";
 import Checkout from "./pages/Checkout.jsx";
+import CategoriesAdd from "./pages/Admin/Categories/CategoriesAdd.jsx";
+import CategoriesEdit from "./pages/Admin/Categories/CategoriesEdit.jsx";
+ 
+// import UserAdminPage from "./pages/Admin/UserAdminPage.jsx";
  
  
 const router = createBrowserRouter([
@@ -64,6 +68,11 @@ const router = createBrowserRouter([
       { path: "products/new", element: <ProductAdd /> },
       { path: "products/edit/:id", element: <ProductEdit /> },
       { path: "categories", element: <CategoriesList /> },
+      { path: "categories", element: <CategoriesList /> },
+      { path: "categories", element: <CategoriesList /> },
+      { path: "categories/add", element: <CategoriesAdd /> },
+      { path: "categories/edit/:id", element: <CategoriesEdit /> },
+      // { path: "users", element: <UserAdminPage /> },
  
       
     ],
