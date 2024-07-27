@@ -27,17 +27,10 @@ export const getUserId = async (token) => {
   return response.data;
 };
 
-<<<<<<< HEAD
 // export const getCategories = async () => {
 //   const response = await axios.get(`${API_URL}/categories`);
 //   return response.data;
 // };
-=======
-export const getCategories = async () => {
-  const response = await axios.get(`${API_URL}/categories`);
-  return response.data.data;
-};
->>>>>>> 3b9e8f3 (longnq)
 
 export const getProducts = async () => {
   const response = await axios.get(`${API_URL}/products`);
@@ -123,7 +116,10 @@ export const createCategory = async (categoryData) => {
 
 export const updateCategory = async (categoryId, categoryData) => {
   try {
-    const response = await axios.put(`${API_URL}/categories/${categoryId}`, categoryData);
+    const response = await axios.put(
+      `${API_URL}/categories/${categoryId}`,
+      categoryData
+    );
     console.log(`Cập nhật danh mục ${categoryId} thành công:`, response.data);
     return response.data;
   } catch (error) {
