@@ -18,7 +18,8 @@ const ProductAdd = () => {
     const fetchCategories = async () => {
       try {
         const response = await getCategories();
-        setCategories(response.data || []);
+        setCategories(response.data[0].children || []);
+        console.log(response.data[0].children);
       } catch (error) {
         console.error("Lỗi không lấy được danh mục:", error);
       }
@@ -57,10 +58,15 @@ const ProductAdd = () => {
   return (
     <div className="container mx-auto py-8 px-4">
       <h1 className="text-4xl font-extrabold mb-8">Thêm Sản Phẩm Mới</h1>
-      <form onSubmit={handleSubmit} className="bg-white shadow-lg rounded-lg p-8">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white shadow-lg rounded-lg p-8"
+      >
         <div className="space-y-6">
           <div>
-            <label className="block text-gray-800 text-lg font-medium mb-2">Tên sản phẩm</label>
+            <label className="block text-gray-800 text-lg font-medium mb-2">
+              Tên sản phẩm
+            </label>
             <input
               type="text"
               name="name"
@@ -72,7 +78,9 @@ const ProductAdd = () => {
             />
           </div>
           <div>
-            <label className="block text-gray-800 text-lg font-medium mb-2">Giá</label>
+            <label className="block text-gray-800 text-lg font-medium mb-2">
+              Giá
+            </label>
             <input
               type="number"
               name="price"
@@ -84,7 +92,9 @@ const ProductAdd = () => {
             />
           </div>
           <div>
-            <label className="block text-gray-800 text-lg font-medium mb-2">Mô tả</label>
+            <label className="block text-gray-800 text-lg font-medium mb-2">
+              Mô tả
+            </label>
             <textarea
               name="description"
               value={product.description}
@@ -96,7 +106,9 @@ const ProductAdd = () => {
             />
           </div>
           <div>
-            <label className="block text-gray-800 text-lg font-medium mb-2">Danh mục</label>
+            <label className="block text-gray-800 text-lg font-medium mb-2">
+              Danh mục
+            </label>
             <select
               name="category"
               value={product.category}
@@ -132,3 +144,4 @@ const ProductAdd = () => {
 };
 
 export default ProductAdd;
+

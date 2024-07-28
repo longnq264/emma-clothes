@@ -30,26 +30,43 @@ const ProductsList = () => {
   return (
     <div className="container mx-auto py-8">
       <div className="overflow-x-auto">
-      <h1 className="text-4xl font-bold mb-6">Danh Sách Sản Phẩm</h1>
-        
+        <h1 className="text-4xl font-bold mb-6">Danh Sách Sản Phẩm</h1>
+
         <table className="min-w-full bg-white border border-gray-200 rounded-lg shadow-md">
-          <div></div>
           <thead className="bg-gray-100 border-b border-gray-300">
-            
             <tr>
-              <th className="py-3 px-4 text-left text-gray-600 font-semibold">ID</th>
-              <th className="py-3 px-4 text-left text-gray-600 font-semibold">Tên Sản Phẩm</th>
-              <th className="py-3 px-4 text-left text-gray-600 font-semibold">Giá</th>
-              <th className="py-3 px-4 text-left text-gray-600 font-semibold">Ảnh</th>
-              <th className="py-3 px-4 text-left text-gray-600 font-semibold">Mô Tả</th>
-              <th className="py-3 px-4 text-left text-gray-600 font-semibold">Số Lượng</th>
-              <th className="py-3 px-4 text-left text-gray-600 font-semibold">Danh Mục</th>
-              <th className="py-3 px-4 text-left text-gray-600 font-semibold">Hành Động</th>
+              <th className="py-3 px-4 text-left text-gray-600 font-semibold">
+                ID
+              </th>
+              <th className="py-3 px-4 text-left text-gray-600 font-semibold">
+                Tên Sản Phẩm
+              </th>
+              <th className="py-3 px-4 text-left text-gray-600 font-semibold">
+                Giá
+              </th>
+              <th className="py-3 px-4 text-left text-gray-600 font-semibold">
+                Ảnh
+              </th>
+              <th className="py-3 px-4 text-left text-gray-600 font-semibold">
+                Mô Tả
+              </th>
+              <th className="py-3 px-4 text-left text-gray-600 font-semibold">
+                Số Lượng
+              </th>
+              <th className="py-3 px-4 text-left text-gray-600 font-semibold">
+                Danh Mục
+              </th>
+              <th className="py-3 px-4 text-left text-gray-600 font-semibold">
+                Hành Động
+              </th>
             </tr>
           </thead>
           <tbody>
             {products.map((product) => (
-              <tr key={product.id} className="border-b border-gray-200 hover:bg-gray-50">
+              <tr
+                key={product.id}
+                className="border-b border-gray-200 hover:bg-gray-50"
+              >
                 <td className="py-3 px-4">
                   <Link
                     to={`/products/${product.id}`}
@@ -74,10 +91,14 @@ const ProductsList = () => {
                     className="h-16 w-16 object-cover rounded-md shadow-sm"
                   />
                 </td>
-                <td className="py-3 px-4 text-gray-700">{product.description}</td>
+                <td className="py-3 px-4 text-gray-700">
+                  {product.description}
+                </td>
                 <td className="py-3 px-4 text-gray-700">{product.quantity}</td>
                 <td className="py-3 px-4 text-gray-700">
-                  {product.category ? product.category.name : "Không có danh mục"}
+                  {product.category
+                    ? product.category.name
+                    : "Không có danh mục"}
                 </td>
                 <td className="py-3 px-4">
                   <div className="flex space-x-2">
