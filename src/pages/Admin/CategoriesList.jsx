@@ -32,14 +32,16 @@ const CategoriesList = () => {
 
   useEffect(() => {
     fetchCategories();
+    console.log(categories);
+    console.log("tree state", treeData);
   }, []);
 
   const fetchCategories = async () => {
     try {
       const response = await getCategories();
-      setCategories(response.data[0].children);
-      setTreeData(transformToTreeData(response.data));
-      console.log(response.data);
+      setCategories(response.children);
+      setTreeData(transformToTreeData(response));
+      console.log("response", response);
     } catch (error) {
       message.error("Không thể lấy danh sách danh mục");
     } finally {
@@ -48,6 +50,8 @@ const CategoriesList = () => {
   };
 
   const transformToTreeData = (categories) => {
+    console.log("transform", categories);
+
     return categories.map((category) => ({
       title: category.name,
       value: category.id,
