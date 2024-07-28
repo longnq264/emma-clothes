@@ -55,8 +55,8 @@ const CategoriesList = () => {
       dataIndex: 'status',
       key: 'status',
       render: (status) => (
-        <Tag color={status === 'active' ? 'green' : 'red'}>
-          {status === 'active' ? 'Hoạt động' : 'Không hoạt động'}
+        <Tag color={status === 'Active' ? 'green' : 'red'}>
+          {status === 'Active' ? 'Hoạt động' : 'Không hoạt động'}
         </Tag>
       ),
     },

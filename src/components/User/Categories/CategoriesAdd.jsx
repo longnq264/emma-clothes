@@ -104,8 +104,8 @@ const CategoriesAdd = () => {
             rules={[{ required: true, message: 'Vui lòng chọn trạng thái!' }]}
           >
             <Select placeholder="Chọn trạng thái">
-              <Option value="active">Hoạt động</Option>
-              <Option value="inactive">Không hoạt động</Option>
+              <Option value="Active">Hoạt động</Option>
+              <Option value="Inactive">Không hoạt động</Option>
             </Select>
           </Form.Item>
           <Form.Item>
