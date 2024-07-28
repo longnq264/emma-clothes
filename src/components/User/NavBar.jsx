@@ -67,7 +67,7 @@ const NavBar = ({ isOpen, darkMode }) => {
           </button>
           <div className={`transition-max-height duration-300 ease-in-out overflow-hidden ${isCategoriesOpen ? "max-h-48 opacity-100" : "max-h-0 opacity-0"} ${darkMode ? 'bg-gray-700' : 'bg-gray-200'} rounded-lg`}>
             <NavLink
-              to="/admin/categories/add"
+              to="/admin/categories/new"
               className={`block px-4 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300 ${darkMode ? 'text-gray-200 hover:bg-gray-600' : 'text-gray-800 hover:bg-gray-300'}`}
             >
               Add Category
