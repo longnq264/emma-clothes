@@ -5,110 +5,115 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const ProductAdd = () => {
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
-  const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("");
+  const [product, setProduct] = useState({
+    name: "",
+    price: "",
+    description: "",
+    category: "",
+  });
   const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const data = await getCategories();
-        setCategories(data.data);
+        const response = await getCategories();
+        setCategories(response.data || []);
       } catch (error) {
-        console.error("Lỗi không kết nối danh mục:", error);
+        console.error("Lỗi không lấy được danh mục:", error);
       }
     };
+
     fetchCategories();
   }, []);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     try {
-      const productData = {
-        name,
-        price,
-        description,
-        category,
-      };
-      await createProduct(productData);
+      await createProduct(product);
       toast.success("Sản phẩm đã được thêm thành công!");
       setTimeout(() => {
         navigate("/admin/products");
       }, 2000);
     } catch (error) {
-      toast.error("Có lỗi xảy ra khi thêm sản phẩm!");
-      console.error("Thất bại khi tạo sản phẩm:", error);
+      if (error.response && error.response.data) {
+        console.error("API error response:", error.response.data);
+        toast.error("Có lỗi xảy ra khi thêm sản phẩm!");
+      } else {
+        console.error("Error adding product:", error);
+        toast.error("Có lỗi xảy ra khi thêm sản phẩm!");
+      }
     }
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setProduct((prevProduct) => ({
+      ...prevProduct,
+      [name]: value,
+    }));
   };
 
   return (
     <div className="container mx-auto py-8 px-4">
-      <h1 className="text-4xl font-extrabold text-gray-900 mb-8">
-        Thêm Sản Phẩm
-      </h1>
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white shadow-lg rounded-lg p-8"
-      >
+      <h1 className="text-4xl font-extrabold mb-8">Thêm Sản Phẩm Mới</h1>
+      <form onSubmit={handleSubmit} className="bg-white shadow-lg rounded-lg p-8">
         <div className="space-y-6">
           <div>
-            <label className="block text-gray-800 text-lg font-medium mb-2">
-              Tên sản phẩm
-            </label>
+            <label className="block text-gray-800 text-lg font-medium mb-2">Tên sản phẩm</label>
             <input
               type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="w-full border-gray-300 border-2 rounded-md p-2"
+              name="name"
+              value={product.name}
+              onChange={handleChange}
+              className="w-full border-gray-300 border-2 rounded-md p-3"
               placeholder="Nhập tên sản phẩm"
               required
             />
           </div>
           <div>
-            <label className="block text-gray-800 text-lg font-medium mb-2">
-              Giá
-            </label>
+            <label className="block text-gray-800 text-lg font-medium mb-2">Giá</label>
             <input
               type="number"
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
-              className="w-full border-gray-300 border-2 rounded-md p-2"
+              name="price"
+              value={product.price}
+              onChange={handleChange}
+              className="w-full border-gray-300 border-2 rounded-md p-3"
               placeholder="Nhập giá sản phẩm"
               required
             />
           </div>
           <div>
-            <label className="block text-gray-800 text-lg font-medium mb-2">
-              Mô tả
-            </label>
+            <label className="block text-gray-800 text-lg font-medium mb-2">Mô tả</label>
             <textarea
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              className="w-full border-gray-300 border-2 rounded-md p-2"
+              name="description"
+              value={product.description}
+              onChange={handleChange}
+              className="w-full border-gray-300 border-2 rounded-md p-3"
               rows="4"
               placeholder="Nhập mô tả sản phẩm"
               required
             />
           </div>
           <div>
-            <label className="block text-gray-800 text-lg font-medium mb-2">
-              Danh mục
-            </label>
+            <label className="block text-gray-800 text-lg font-medium mb-2">Danh mục</label>
             <select
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              className="w-full border-gray-300 border-2 rounded-md p-2"
+              name="category"
+              value={product.category}
+              onChange={handleChange}
+              className="w-full border-gray-300 border-2 rounded-md p-3"
               required
             >
               <option value="">Chọn danh mục</option>
-              {categories.map((cat) => (
-                <option key={cat.id} value={cat.id}>
-                  {cat.name}
-                </option>
-              ))}
+              {categories.length > 0 ? (
+                categories.map((cat) => (
+                  <option key={cat.id} value={cat.id}>
+                    {cat.name}
+                  </option>
+                ))
+              ) : (
+                <option disabled>Không có danh mục</option>
+              )}
             </select>
           </div>
           <div className="flex justify-end">
@@ -127,4 +132,3 @@ const ProductAdd = () => {
 };
 
 export default ProductAdd;
-

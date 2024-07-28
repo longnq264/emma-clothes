@@ -26,12 +26,11 @@ import ProductEdit from "./pages/Admin/ProductEdit.jsx";
 import ProductsList from "./pages/Admin/ProductsList.jsx";
 import AppProvider from "./context/AppProvider.jsx";
 import Checkout from "./pages/Checkout.jsx";
-import CategoriesAdd from "./pages/Admin/Categories/CategoriesAdd.jsx";
-import CategoriesEdit from "./pages/Admin/Categories/CategoriesEdit.jsx";
- 
-// import UserAdminPage from "./pages/Admin/UserAdminPage.jsx";
- 
- 
+import OrderPage from "./pages/Admin/Orders.jsx";
+import UsersPage from "./pages/Admin/Users.jsx";
+// import CustomersList from "./pages/Admin/CustomersList.jsx";
+import StaffList from "./pages/Admin/CustomersList.jsx";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -60,22 +59,21 @@ const router = createBrowserRouter([
       { path: "/sale", element: <Sale /> },
     ],
   },
+  //role admin
   {
     path: "/admin",
     element: <AdminLayout />,
     children: [
       { path: "", element: <DashBoardPage /> },
+      { path: "order", element: <OrderPage /> },
+      { path: "users", element: <UsersPage /> },
       { path: "products", element: <ProductsList /> },
       { path: "products/new", element: <ProductAdd /> },
       { path: "products/edit/:id", element: <ProductEdit /> },
       { path: "categories", element: <CategoriesList /> },
-      { path: "categories", element: <CategoriesList /> },
-      { path: "categories", element: <CategoriesList /> },
-      { path: "categories/add", element: <CategoriesAdd /> },
-      { path: "categories/edit/:id", element: <CategoriesEdit /> },
-      // { path: "users", element: <UserAdminPage /> },
- 
-      
+      { path: "staffs", element: <StaffList /> },
+      { path: "staffs/new", element: <ProductAdd /> },
+      { path: "staffs/edit/:id", element: <ProductEdit /> },
     ],
   },
   {

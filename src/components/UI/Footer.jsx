@@ -10,6 +10,7 @@ import {
 export const NAV_LINKS_FOOTER = [
   { href: "/about", label: "About Us" },
   { href: "/contact", label: "Contact Us" },
+  { href: "/blog", label: "Contact Us" },
   { href: "/privacy", label: "Privacy Policy" },
   { href: "/terms", label: "Terms & Conditions" },
 ];

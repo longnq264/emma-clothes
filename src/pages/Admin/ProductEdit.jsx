@@ -13,7 +13,6 @@ const ProductEdit = () => {
     category: "",
   });
   const [categories, setCategories] = useState([]);
-  console.log(categories.data);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,14 +24,18 @@ const ProductEdit = () => {
         console.error("Lỗi không tìm được sản phẩm:", error);
       }
     };
+
     const fetchCategories = async () => {
       try {
-        const data = await getCategories();
+        const response = await getCategories();
+        console.log("Danh mục từ API:", response); // Kiểm tra phản hồi từ API
+        const data = response.data || []; // Đảm bảo rằng bạn lấy dữ liệu đúng cách
         setCategories(data);
       } catch (error) {
         console.error("Lỗi không lấy được danh mục:", error);
       }
     };
+
     fetchProduct();
     fetchCategories();
   }, [id]);
@@ -61,80 +64,63 @@ const ProductEdit = () => {
 
   return (
     <div className="container mx-auto py-8 px-4">
-      <h1 className="text-4xl font-extrabold text-gray-900 mb-8">
-        Chỉnh Sửa Sản Phẩm
-      </h1>
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white shadow-lg rounded-lg p-8"
-      >
+      <h1 className="text-4xl font-extrabold mb-8">Chỉnh Sửa Sản Phẩm</h1>
+      <form onSubmit={handleSubmit} className="bg-white shadow-lg rounded-lg p-8">
         <div className="space-y-6">
           <div>
-            <label className="block text-gray-800 text-lg font-medium mb-2">
-              Tên sản phẩm
-            </label>
+            <label className="block text-gray-800 text-lg font-medium mb-2">Tên sản phẩm</label>
             <input
               type="text"
               name="name"
               value={product.name}
               onChange={handleChange}
-              className="w-full border-gray-300 border-2 rounded-md p-2"
+              className="w-full border-gray-300 border-2 rounded-md p-3"
               placeholder="Nhập tên sản phẩm"
               required
             />
           </div>
           <div>
-            <label className="block text-gray-800 text-lg font-medium mb-2">
-              Giá
-            </label>
+            <label className="block text-gray-800 text-lg font-medium mb-2">Giá</label>
             <input
               type="number"
               name="price"
               value={product.price}
               onChange={handleChange}
-              className="w-full border-gray-300 border-2 rounded-md p-2"
+              className="w-full border-gray-300 border-2 rounded-md p-3"
               placeholder="Nhập giá sản phẩm"
               required
             />
           </div>
           <div>
-            <label className="block text-gray-800 text-lg font-medium mb-2">
-              Mô tả
-            </label>
+            <label className="block text-gray-800 text-lg font-medium mb-2">Mô tả</label>
             <textarea
               name="description"
               value={product.description}
               onChange={handleChange}
-              className="w-full border-gray-300 border-2 rounded-md p-2"
+              className="w-full border-gray-300 border-2 rounded-md p-3"
               rows="4"
               placeholder="Nhập mô tả sản phẩm"
               required
             />
           </div>
           <div>
-            <label className="block text-gray-800 text-lg font-medium mb-2">
-              Danh mục
-            </label>
+            <label className="block text-gray-800 text-lg font-medium mb-2">Danh mục</label>
             <select
               name="category"
               value={product.category}
               onChange={handleChange}
-              className="w-full border-gray-300 border-2 rounded-md p-2"
+              className="w-full border-gray-300 border-2 rounded-md p-3"
               required
             >
               <option value="">Chọn danh mục</option>
               {categories.length > 0 ? (
-                <div>
-                  {categories.map((cat) => (
-                    <option key={cat.id} value={cat.id}>
-                      {cat.name}
-                    </option>
-                  ))}
-                </div>
+                categories.map((cat) => (
+                  <option key={cat.id} value={cat.id}>
+                    {cat.name}
+                  </option>
+                ))
               ) : (
-                <div>
-                  <h2>Nodata</h2>
-                </div>
+                <option disabled>Không có danh mục</option>
               )}
             </select>
           </div>
@@ -154,4 +140,3 @@ const ProductEdit = () => {
 };
 
 export default ProductEdit;
-
