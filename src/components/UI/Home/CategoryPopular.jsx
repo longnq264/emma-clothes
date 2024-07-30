@@ -2,20 +2,25 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import ShowMoreBtn from "./ShowMoreBtn";
 import { getProductByCategoryId } from "../../../api/api-server";
+import ProductImage from "../Product/ProductImage";
 
 const CategoryPopular = () => {
   const categories = [
-    { id: 34, name: "Hoodie" },
-    { id: 36, name: "Chinos" },
-    { id: 37, name: "Jacket" },
-    { id: 20, name: "Cargopants" },
+    { id: 33, name: "Áo polo" },
+    { id: 14, name: "Áo khoác" },
+    { id: 16, name: "Quần jeans" },
+    { id: 20, name: "Quần short" },
   ];
-  const [selectedCategory, setSelectedCategory] = useState(categories[0].id);
+  const [selectedCategory, setSelectedCategory] = useState(33);
   const [products, setProducts] = useState([]);
 
   const fetchProducts = async (id) => {
     try {
       const response = await getProductByCategoryId(id);
+      console.log(
+        "response category popular",
+        response.data[2].productImages[0].image_url
+      );
       console.log(response.data);
       setProducts(response.data);
     } catch (error) {
@@ -24,13 +29,13 @@ const CategoryPopular = () => {
   };
 
   useEffect(() => {
-    if (selectedCategory !== null) {
-      fetchProducts(selectedCategory);
-    }
+    fetchProducts(selectedCategory);
+    // if (selectedCategory !== null) {
+    // }
   }, [selectedCategory]);
 
   return (
-    <div className="container mx-auto ">
+    <div className="container mx-auto py-4">
       <h1 className="title my-6 font-semibold text-stone-700">
         Sản phẩm ưa chuộng
       </h1>
@@ -39,7 +44,7 @@ const CategoryPopular = () => {
         {categories.map((category) => (
           <button
             key={category.id}
-            className={`px-8 py-2 mx-4 bg-amber-600 text-black rounded-lg ${
+            className={`px-8 py-2 mx-4 bg-amber-600 text-black rounded-lg capitalize ${
               selectedCategory === category.id
                 ? "bg-orange-700 text-white font-bold"
                 : "bg-gray-100 text-neutral-500"
@@ -54,18 +59,21 @@ const CategoryPopular = () => {
         {products.slice(0, 4).map((product) => (
           <div key={product.id} className="relative">
             <NavLink to={`/products/${product.id}`}>
-              {product.productImages.map((data) => (
+              <ProductImage images={product.productImages} />
+              {/* {product.productImages[0].map((data) => (
                 <div key={data.id}>
                   <img src={data.image_url} alt="" />
                 </div>
-              ))}
+              ))} */}
+              {console.log(product)}
+
               <h2 className="font-bold mt-2 text-lg">{product.name}</h2>
               <p>{product.price}</p>
             </NavLink>
           </div>
         ))}
       </div>
-      <ShowMoreBtn />
+      <ShowMoreBtn props={`/category/${selectedCategory}`} />
     </div>
   );
 };

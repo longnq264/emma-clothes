@@ -2,22 +2,22 @@ import { Pagination } from "antd";
 import { useState } from "react";
 import { useEffect } from "react";
 import { Breadcrumb } from "antd";
-import { Link, useLocation } from "react-router-dom";
-import { getProductByCategoryId, getProducts } from "../../api/api-server.js";
+import { NavLink } from "react-router-dom";
+import {
+  getCategory,
+  getProductByCategoryId,
+  getProducts,
+} from "../../api/api-server.js";
 import { useParams } from "react-router-dom";
 import DropdownItem from "../../components/UI/Home/DropDownItem.jsx";
 
 const ProductPage = () => {
   const [products, setProducts] = useState([]);
   const [quantityProduct, setQuantityProduct] = useState(0);
-  // const [isOpen, setIsOpen] = useState(false);
+  const [categoryId, setCategoryId] = useState(products);
 
   const { id } = useParams();
-  const location = useLocation();
-  const { categoryName } = location.state || "";
-
-  console.log(id, categoryName);
-
+  console.log(id);
   const fetchProducts = async () => {
     try {
       let response;
@@ -29,18 +29,22 @@ const ProductPage = () => {
 
       const productsData = response.data;
       setProducts(productsData);
-
       setQuantityProduct(productsData.length);
       console.log("Products:", productsData);
     } catch (error) {
       console.error("Error fetching products:", error);
     }
   };
+  const fetchCategory = async (id) => {
+    const response = await getCategory(id);
+    setCategoryId(response.data);
+    console.log(response.data);
+  };
 
   useEffect(() => {
+    fetchCategory(id);
     fetchProducts();
   }, [id]);
-
   return (
     <>
       {/* ----- Breadcrumb ----------- */}
@@ -48,13 +52,13 @@ const ProductPage = () => {
         <Breadcrumb
           items={[
             {
-              title: <Link to="/">Home</Link>,
+              title: <NavLink to="/">Home</NavLink>,
             },
             {
               title: (
-                <Link to="/products/:role" className="capitalize text-black">
-                  {categoryName}
-                </Link>
+                <NavLink to="/products/:role" className="capitalize text-black">
+                  {categoryId.name}
+                </NavLink>
               ),
             },
           ]}
@@ -66,7 +70,7 @@ const ProductPage = () => {
           {/* nav bar filter */}
           <div className="basis-1/5 overflow-y-auto max-h-90">
             <h1 className="uppercase font-bold text-2xl text-stone-700 mb-5">
-              {categoryName}
+              {categoryId.name}
             </h1>
             <p className="font-semibold text-gray-600 my-4">
               <span className="font-semibold text-gray-600">
@@ -142,7 +146,7 @@ const ProductPage = () => {
           <div className="basis-4/5 pl-4 min-h-screen">
             <div className="grid grid-cols-2 lg:grid-cols-4">
               {products.map((res) => (
-                <Link key={res.id} to={`/products/${res.id}`}>
+                <NavLink key={res.id} to={`/products/${res.id}`}>
                   <div className="mx-2 my-2 px-4 pb-4 rounded-lg shadow-md">
                     <img src="https://res.cloudinary.com/da7r4robk/image/upload/v1717590011/Products/product3_rymfed.png" />
                     <div className="content-product">
@@ -155,7 +159,7 @@ const ProductPage = () => {
                       </h1>
                     </div>
                   </div>
-                </Link>
+                </NavLink>
               ))}
             </div>
           </div>

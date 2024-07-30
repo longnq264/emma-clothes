@@ -1,39 +1,31 @@
 import { useEffect, useState, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { AppContext } from "../../context/AppContext";
 import { getProductId } from "../../api/api-server";
 import { Breadcrumb } from "antd";
-import Link from "antd/es/typography/Link";
+// import ProductVariants from "../../components/UI/Product/ProductVariants";
+// import FilterVariants from "../../components/UI/Product/FilterVariants";
 
 const ProductDetail = () => {
   const { id } = useParams();
+  const { addItemToCart } = useContext(AppContext);
   const [data, setData] = useState([]);
   const [quantity, setQuantity] = useState(1);
-  const { addItemToCart } = useContext(AppContext);
+  const [mainImage, setMainImage] = useState([]);
+  const [selectedColor, setSelectedColor] = useState("");
+  const [selectedSize, setSelectedSize] = useState("");
+  const [selectedVariant, setSelectedVariant] = useState([]);
 
-  const thumb_nail = [
-    {
-      id: 1,
-      url: "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png",
-    },
-    {
-      id: 2,
-      url: "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png",
-    },
-    {
-      id: 3,
-      url: "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png",
-    },
-    {
-      id: 4,
-      url: "https://res.cloudinary.com/da7r4robk/image/upload/v1717679639/Products/emma_thumbnail/product-detail1_ogl52l.png",
-    },
-  ];
+  // const colorHexMapping = {
+  //   6: "#6f4f28",
+  // };
 
   const fetchProductDetail = async (id) => {
     const response = await getProductId(id);
     setData(response.data);
-    console.log(response);
+    console.log(response.data);
+    setSelectedVariant(response.data.productVariants[0]);
+    setMainImage(response.data.productImages);
   };
 
   const handleAddToCart = () => {
@@ -44,93 +36,193 @@ const ProductDetail = () => {
     fetchProductDetail(id);
   }, [id]);
 
+  // Gia tri state mac dinh
+  useEffect(() => {
+    if (data.productVariants && data.productVariants.length > 0) {
+      const firstVariant = data.productVariants[0];
+      console.log("init state variants", firstVariant);
+
+      const colors = firstVariant.attributes.filter(
+        (attr) => attr.attribute_id === 1
+      );
+
+      const sizes = firstVariant.attributes.filter(
+        (attr) => attr.attribute_id === 2
+      );
+
+      setSelectedColor(colors[0].value); // Chọn màu đầu tiên
+      setSelectedSize(sizes[0].value); // Chọn kích cỡ đầu tiên
+      setSelectedVariant(firstVariant); // Cập nhật variant đầu tiên
+    }
+  }, [data.productVariants]);
+
+  // Handle change color && size
+  useEffect(() => {
+    if (selectedColor && selectedSize) {
+      const variants = data.productVariants.find(
+        (variant) =>
+          variant.attributes.some(
+            (attr) => attr.value === selectedColor && attr.attribute_id === 1
+          ) &&
+          variant.attributes.some(
+            (attr) => attr.value === selectedSize && attr.attribute_id === 2
+          )
+      );
+      setSelectedVariant(variants);
+      console.log("selected variant", variants);
+    }
+  }, [selectedColor, selectedSize, data.productVariants]);
+
   return (
     <div>
-      <div className="container mx-auto py-2">
+      <div className="container mx-auto py-4">
         <Breadcrumb
           items={[
             {
-              title: <Link to="/">Home</Link>,
+              title: <NavLink to="/">Home</NavLink>,
             },
             {
               title: (
-                <Link
-                  to="/products/:role/:id"
+                <NavLink
+                  to={`/products/${data.category_id}/${id}`}
                   className="capitalize text-black"
                 >
                   {data.name}
-                </Link>
+                </NavLink>
               ),
             },
           ]}
         />
       </div>
       <div
-        className="content container mx-auto px-20"
+        className="content container mx-auto px-20 my-2"
         style={{ minHeight: "140vh" }}
       >
-        <div className="grid grid-cols-2">
+        <div className="grid grid-cols-2 ">
           <div className="product-detail-image">
-            <div className="product-image">
-              <img
-                src="https://res.cloudinary.com/da7r4robk/image/upload/v1717588304/Products/product1_rr8fhn.png"
-                alt=""
-              />
+            <div className="product-image border min-h-80">
+              {mainImage
+                .filter((image) => image.is_thumbnail === 1)
+                .map((image, index) => (
+                  <div key={index}>
+                    <img src={image.image_url} alt="" />
+                  </div>
+                ))}
             </div>
             <div className="thumbail flex">
-              {thumb_nail?.map((data, index) => (
-                <div key={index} className="m-4 border-2 p-2">
-                  <img src={data.url} alt="" />
-                </div>
-              ))}
+              {mainImage
+                .filter((image) => image.is_thumbnail === 0)
+                .map((image, index) => (
+                  <div key={index} className="pr-2 py-2 w-40 border">
+                    <img
+                      src={image.image_url}
+                      alt={`Thumbnail ${index}`}
+                      className="w-full border"
+                    />
+                  </div>
+                ))}
             </div>
           </div>
-          <div className="inner-detail min-h-40 p-5 text-stone-700">
-            <h1 className="font-bold text-3xl">{data.name}</h1>
-            <div className="price flex">
-              <p className="text-2xl my-2 font-bold">{data.price}</p>
-              <p className="text-stone-400 text-xl my-2 ml-2 line-through">
-                {data.price_old}
-              </p>
+          <div className="min-h-40 pl-16 text-stone-700">
+            <h1 className="font-bold text-2xl">{data.name}</h1>
+            <div className="variants flex">
+              {selectedVariant ? (
+                <div className="detail">
+                  <p className="text-xs font-bold text-stone-500">
+                    {selectedVariant.sku}
+                  </p>
+                  <p className="text-2xl font-bold my-2">
+                    {selectedVariant.price} đ
+                    <span className="text-stone-400 text-lg my-2 ml-2 line-through">
+                      {data.price_old} đ
+                    </span>
+                  </p>
+                </div>
+              ) : (
+                <div>No data</div>
+              )}
             </div>
             <div className="">
-              <p>Quantity: {data.quantity}</p>
               {data.productVariants && data.productVariants.length > 0 ? (
-                <ul>
-                  {data.productVariants.map((variant) => (
-                    <div key={variant.id}>
-                      <p>Color: {variant.sku}</p>
-                      {/* Stock: {variant.stock} Price: {variant.price} */}
+                <div>
+                  <div className="my-2">
+                    <h3 className="font-bold my-2 ">
+                      Màu sắc: {selectedColor}
+                    </h3>
+                    <div className="flex">
+                      {Array.from(
+                        new Set(
+                          data.productVariants.flatMap((variant) =>
+                            variant.attributes
+                              .filter(
+                                (attribute) => attribute.attribute_id === 1
+                              ) // Giả sử 1 là ID cho màu
+                              .map((attribute) => attribute.value)
+                          )
+                        )
+                      ).map((color, index) => (
+                        <button
+                          key={index}
+                          className="py-2 text-center border border-stone-400 rounded-lg mr-4 font-bold hover:border-black w-14 box-border"
+                          onClick={() => setSelectedColor(color)}
+                        >
+                          {color}
+                        </button>
+                      ))}
                     </div>
-                  ))}
-                </ul>
+                  </div>
+                  <div className="my-2">
+                    <h3 className="my-2 font-bold">Kích cỡ: {selectedSize}</h3>
+                    <div className="flex">
+                      {Array.from(
+                        new Set(
+                          data.productVariants.flatMap((variant) =>
+                            variant.attributes
+                              .filter(
+                                (attribute) => attribute.attribute_id === 2
+                              ) // Giả sử 2 là ID cho kích cỡ
+                              .map((attribute) => attribute.value)
+                          )
+                        )
+                      ).map((size, index) => (
+                        <button
+                          key={index}
+                          className="py-2 px-4 text-center border border-stone-400 rounded-lg mr-4 font-bold hover:border-black w-14 box-border"
+                          onClick={() => setSelectedSize(size)}
+                        >
+                          {size}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               ) : (
                 <p>No variants available</p>
               )}
               <div className="flex">
-                <div className="flex items-center basis-1/4">
+                <div className="flex justify-center items-center basis-1/4 border rounded-lg my-4 mr-6">
                   <button
-                    className="px-3 py-1 border border-gray-400 rounded-l hover:bg-gray-200 font-bold"
+                    className="font-bold basis-1/3"
                     onClick={() => setQuantity((q) => (q > 1 ? q - 1 : q))}
                   >
                     -
                   </button>
-                  <span className="px-3">{quantity}</span>
+                  <span className="basis-1/3 text-center">{quantity}</span>
                   <button
-                    className="px-3 py-1 border border-gray-400 rounded-r hover:bg-gray-200 font-bold"
+                    className="font-bold basis-1/3"
                     onClick={() => setQuantity((q) => q + 1)}
                   >
                     +
                   </button>
                 </div>
                 <button
-                  className="px-10 py-2 border-2 border-black font-bold my-5 rounded basis-3/4 uppercase"
+                  className="px-10 py-2 border-2 border-black font-bold my-5 rounded-lg basis-3/4 uppercase hover:bg-gray-100"
                   onClick={handleAddToCart}
                 >
                   Add To Bag
                 </button>
               </div>
-              <button className="uppercase px-10 py-2 border-2 w-full text-white font-bold bg-stone-700 my-5 rounded basis-3/4 shadow-stone-500/50">
+              <button className="uppercase px-10 py-2 border-2 w-full text-white font-bold bg-stone-700 hover:bg-stone-600 my-5 rounded-lg basis-3/4 shadow-stone-lg">
                 Buy Now
               </button>
             </div>

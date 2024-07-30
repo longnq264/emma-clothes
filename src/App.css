@@ -23,6 +23,7 @@ a {
 
 .title {
   text-align: center;
+  text-transform: capitalize;
   font-size: 30px;
   font-weight: 500;
 }

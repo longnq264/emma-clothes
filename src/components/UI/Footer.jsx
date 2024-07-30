@@ -10,7 +10,7 @@ import {
 export const NAV_LINKS_FOOTER = [
   { href: "/about", label: "About Us" },
   { href: "/contact", label: "Contact Us" },
-  { href: "/blog", label: "Contact Us" },
+  { href: "/blog", label: "Blog" },
   { href: "/privacy", label: "Privacy Policy" },
   { href: "/terms", label: "Terms & Conditions" },
 ];
@@ -22,18 +22,20 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Company Information */}
           <div className="space-y-4">
-            <h2 className="text-xl font-bold">Emma</h2>
-            <p>123 Main St, Anytown, USA</p>
-            <p>(123) 456-7890</p>
-            <p>email@example.com</p>
+            <h2 className="text-xl font-bold">Liên Hệ</h2>
+            <ul className="text-slate-300">
+              <li className="pb-2">165 Cau Giay , Ha Noi, VN</li>
+              <li className="pb-2">+84 4567890</li>
+              <li className="pb-2">emmaclothing@gmail.com</li>
+            </ul>
           </div>
 
           {/* Quick Links */}
           <div className="space-y-4">
-            <h2 className="text-xl font-bold">Quick Links</h2>
-            <ul>
+            <h2 className="text-xl font-bold">Về Emma</h2>
+            <ul className="text-slate-300">
               {NAV_LINKS_FOOTER.map((link, index) => (
-                <li key={index}>
+                <li key={index} className="pb-2">
                   <a href={link.href} className="hover:underline">
                     {link.label}
                   </a>
@@ -44,7 +46,7 @@ const Footer = () => {
 
           {/* Social Media Links */}
           <div className="space-y-4">
-            <h2 className="text-xl font-bold">Follow Us</h2>
+            <h2 className="text-xl font-bold">Theo Dõi Chúng Tôi</h2>
             <div className="flex space-x-4">
               <a href="https://facebook.com" className="hover:text-gray-400">
                 <FaFacebookF />
@@ -66,6 +68,33 @@ const Footer = () => {
 
           {/* Newsletter Subscription */}
           <div className="space-y-4">
+            <h2 className="text-xl font-bold">Hỗ trợ khách hàng</h2>
+            <ul className="text-slate-300">
+              <li className="pb-2">
+                Nếu có bất kỳ thắc mắc hoặc hỗ trợ nào, vui lòng liên hệ với
+                nhóm hỗ trợ khách hàng của chúng tôi.
+              </li>
+              <li className="pb-2">Email: emmaclothing@gmail.com</li>
+              <li>Phone: + 84 4567891</li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Additional Sections */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+          <div className="space-y-4">
+            <h2 className="text-xl font-bold">Chứng nhận và Giải thưởng</h2>
+            <p className="text-slate-300">
+              Công ty chúng tôi được chứng nhận bởi nhiều tổ chức khác nhau và
+              đã nhận được nhiều giải thưởng về sự xuất sắc.
+            </p>
+            <ul className="list-disc list-inside text-slate-300">
+              <li className="mb-2">Giải thưởng Công ty tốt nhất năm 2023</li>
+              <li className="mb-2">Chứng nhận ISO 9001</li>
+              <li>Chứng nhận doanh nghiệp xanh</li>
+            </ul>
+          </div>
+          <div className="space-y-4 mx-40">
             <h2 className="text-xl font-bold">Subscribe to our Newsletter</h2>
             <form className="flex space-x-2">
               <input
@@ -77,34 +106,6 @@ const Footer = () => {
                 Subscribe
               </button>
             </form>
-          </div>
-        </div>
-
-        {/* Additional Sections */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
-          {/* Customer Support Information */}
-          <div className="space-y-4">
-            <h2 className="text-xl font-bold">Customer Support</h2>
-            <p>
-              For any inquiries or assistance, please contact our customer
-              support team.
-            </p>
-            <p>Email: support@example.com</p>
-            <p>Phone: (123) 456-7891</p>
-          </div>
-
-          {/* Certifications and Awards */}
-          <div className="space-y-4">
-            <h2 className="text-xl font-bold">Certifications and Awards</h2>
-            <p>
-              Our company is certified by various organizations and has received
-              numerous awards for excellence.
-            </p>
-            <ul className="list-disc list-inside">
-              <li>Best Company Award 2023</li>
-              <li>ISO 9001 Certification</li>
-              <li>Green Business Certification</li>
-            </ul>
           </div>
         </div>
 

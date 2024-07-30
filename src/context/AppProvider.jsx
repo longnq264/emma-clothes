@@ -11,6 +11,7 @@ const AppProvider = ({ children }) => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalQuantity, setTotalQuantity] = useState(0);
 
+  console.log(items);
   // get user
   const fetchUser = async () => {
     const token = localStorage.getItem("token");
@@ -118,10 +119,13 @@ const AppProvider = ({ children }) => {
     const storedItems = localStorage.getItem("cartItems");
     if (storedItems) {
       setItems(JSON.parse(storedItems));
+      console.log(JSON.parse(storedItems));
     }
-    fetchUser();
   }, []);
 
+  useEffect(() => {
+    fetchUser();
+  }, []);
   return (
     <AppContext.Provider
       value={{
