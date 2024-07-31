@@ -65,8 +65,8 @@ const CategoriesList = () => {
       dataIndex: "status",
       key: "status",
       render: (status) => (
-        <Tag color={status === "active" ? "green" : "red"}>
-          {status === "active" ? "Hoạt động" : "Không hoạt động"}
+        <Tag color={status === "Active" ? "green" : "red"}>
+          {status === "Active" ? "Hoạt động" : "Không hoạt động"}
         </Tag>
       ),
     },
@@ -87,7 +87,7 @@ const CategoriesList = () => {
   return (
     <div>
       <h1>Danh Sách Danh Mục</h1>
-      <Button type="primary" onClick={() => navigate("/admin/categories/add")}>
+      <Button type="primary" onClick={() => navigate("/admin/categories/new")}>
         Thêm Danh Mục
       </Button>
       <Table

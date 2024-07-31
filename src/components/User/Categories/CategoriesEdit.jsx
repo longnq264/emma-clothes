@@ -27,6 +27,7 @@ const CategoriesEdit = () => {
   const [children, setChildren] = useState([]);
   const [parentIds, setParentIds] = useState([]);
 
+  console.log(parentIds);
   useEffect(() => {
     const fetchCategory = async () => {
       try {
@@ -42,7 +43,7 @@ const CategoriesEdit = () => {
         const status =
           typeof category.status === "string"
             ? category.status.toLowerCase()
-            : "inactive";
+            : "Inactive";
 
         form.setFieldsValue({
           name: category.name,
@@ -164,7 +165,7 @@ const CategoriesEdit = () => {
           >
             <TreeSelect
               treeData={treeData}
-              placeholder="Chọn danh mục cha"
+              placeholder="Chọn danh mục "
               treeDefaultExpandAll
               allowClear
             />
@@ -175,8 +176,8 @@ const CategoriesEdit = () => {
             rules={[{ required: true, message: "Vui lòng chọn trạng thái!" }]}
           >
             <Select placeholder="Chọn trạng thái">
-              <Option value="active">Hoạt động</Option>
-              <Option value="inactive">Không hoạt động</Option>
+              <Option value="Active">Hoạt động</Option>
+              <Option value="Inactive">Không hoạt động</Option>
             </Select>
           </Form.Item>
           <Form.Item>

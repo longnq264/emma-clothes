@@ -20,7 +20,9 @@ import DashBoardPage from "./components/User/DashBoardPage.jsx";
 import AdminLayout from "./components/User/AdminLayout.jsx";
 import Sale from "./pages/Sale/Sale.jsx";
 // import Products from "./pages/Admin/ProductsList.jsx";
-import CategoriesList from "./pages/Admin/Categories/CategoriesList.jsx";
+import CategoriesList from "./components/User/Categories/CategoriesList.jsx";
+import CategoriesAdd from "./components/User/Categories/CategoriesAdd.jsx";
+import CategoriesEdit from "./components/User/Categories/CategoriesEdit.jsx";
 import ProductAdd from "./pages/Admin/ProductAdd.jsx";
 import ProductEdit from "./pages/Admin/ProductEdit.jsx";
 import ProductsList from "./pages/Admin/ProductsList.jsx";
@@ -30,7 +32,7 @@ import OrderPage from "./pages/Admin/Orders.jsx";
 import UsersPage from "./pages/Admin/Users.jsx";
 // import CustomersList from "./pages/Admin/CustomersList.jsx";
 import StaffList from "./pages/Admin/CustomersList.jsx";
-
+ 
 const router = createBrowserRouter([
   {
     path: "/",
@@ -71,6 +73,8 @@ const router = createBrowserRouter([
       { path: "products/new", element: <ProductAdd /> },
       { path: "products/edit/:id", element: <ProductEdit /> },
       { path: "categories", element: <CategoriesList /> },
+      { path: "categories/new", element: <CategoriesAdd /> },
+      { path: "categories/edit/:id", element: <CategoriesEdit /> },
       { path: "staffs", element: <StaffList /> },
       { path: "staffs/new", element: <ProductAdd /> },
       { path: "staffs/edit/:id", element: <ProductEdit /> },
