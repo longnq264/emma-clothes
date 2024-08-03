@@ -28,8 +28,11 @@ import AppProvider from "./context/AppProvider.jsx";
 import Checkout from "./pages/Checkout.jsx";
 import OrderPage from "./pages/Admin/Orders.jsx";
 import UsersPage from "./pages/Admin/Users.jsx";
+import StaffList from "./pages/Admin/StaffList.jsx";
 // import CustomersList from "./pages/Admin/CustomersList.jsx";
-import StaffList from "./pages/Admin/CustomersList.jsx";
+// import StaffList from "./pages/Admin/CustomersList.jsx";
+// import StaffAdd from "./pages/Admin/StaffAdd.jsx";
+// import StaffEdit from "./pages/Admin/StaffEdit.jsx";
 
 const router = createBrowserRouter([
   {
@@ -72,8 +75,8 @@ const router = createBrowserRouter([
       { path: "products/edit/:id", element: <ProductEdit /> },
       { path: "categories", element: <CategoriesList /> },
       { path: "staffs", element: <StaffList /> },
-      { path: "staffs/new", element: <ProductAdd /> },
-      { path: "staffs/edit/:id", element: <ProductEdit /> },
+      // { path: "staffs/new", element: <StaffAdd /> }, // Sửa thành StaffAdd
+      // { path: "staffs/edit/:id", element: <StaffEdit /> }, // Sửa thành StaffEdit
     ],
   },
   {

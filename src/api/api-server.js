@@ -158,7 +158,7 @@ export const deleteCategory = async (categoryId) => {
 export const getUsers = async () => {
   try {
     const response = await axios.get(`${API_URL}/users`);
-    return response.data.data.data;
+    return response.data; // Hoặc response.data.data nếu API trả về nested data
   } catch (error) {
     console.error("Failed to fetch users:", error);
     throw error;
