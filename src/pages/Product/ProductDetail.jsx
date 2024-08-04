@@ -41,7 +41,6 @@ const ProductDetail = () => {
     if (data.productVariants && data.productVariants.length > 0) {
       const firstVariant = data.productVariants[0];
       console.log("init state variants", firstVariant);
-
       const colors = firstVariant.attributes.filter(
         (attr) => attr.attribute_id === 1
       );
@@ -49,9 +48,14 @@ const ProductDetail = () => {
       const sizes = firstVariant.attributes.filter(
         (attr) => attr.attribute_id === 2
       );
-
-      setSelectedColor(colors[0].value); // Chọn màu đầu tiên
-      setSelectedSize(sizes[0].value); // Chọn kích cỡ đầu tiên
+      if (colors.length > 0) {
+        setSelectedColor(colors[0].value); // Chọn màu đầu tiên
+        setSelectedSize(sizes.length > 0 ? sizes[0].value : ""); // Chọn kích cỡ đầu tiên nếu có
+      } else {
+        // Nếu không có màu, bạn có thể chọn kích cỡ đầu tiên nếu có
+        setSelectedColor("");
+        setSelectedSize(sizes.length > 0 ? sizes[0].value : ""); // Chọn kích cỡ đầu tiên nếu có
+      }
       setSelectedVariant(firstVariant); // Cập nhật variant đầu tiên
     }
   }, [data.productVariants]);

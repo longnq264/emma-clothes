@@ -1,18 +1,25 @@
 import { Button, Form, Input } from "antd";
 import { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
+import { useNavigate } from "react-router-dom";
 
 const Signin = () => {
   const { loginUser } = useContext(AppContext);
-
+  const navigate = useNavigate();
   const onFinish = async (values) => {
     console.log("values:", values);
     const formData = {
       ...values,
     };
 
-    await loginUser(formData);
+    try {
+      await loginUser(formData);
+      navigate("/");
+    } catch (error) {
+      console.error("Registration failed:", error);
+    }
   };
+
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };

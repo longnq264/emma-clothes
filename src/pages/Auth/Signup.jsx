@@ -1,28 +1,23 @@
 import { Button, Form, Input, DatePicker, Checkbox } from "antd";
-import { useState } from "react";
-import { register } from "../../api/api-server";
+import { useContext } from "react";
+import { AppContext } from "../../context/AppContext";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
-  const [state, setState] = useState([]);
-  console.log(state);
-  const [notification, setNotification] = useState("");
+  const navigate = useNavigate();
+  const { registerUser } = useContext(AppContext);
+
   const onFinish = async (values) => {
-    console.log("Success:", values);
     const formData = {
       ...values,
       date_of_birth: values.date_of_birth.format("YYYY-MM-DD"),
     };
-    console.log(formData);
-    // // console.log(formData);
+
     try {
-      const response = await register(formData);
-      console.log("response", response);
-      setState(response.data);
-      const token = response.token;
-      localStorage.setItem("token", token);
-      setNotification(response.message);
+      await registerUser(formData);
+      navigate("/");
     } catch (error) {
-      console.log(error);
+      console.error("Registration failed:", error);
     }
   };
 
@@ -128,7 +123,6 @@ const Signup = () => {
           </Form.Item>
         </Form>
       </div>
-      <h2>{notification}</h2>
     </div>
   );
 };

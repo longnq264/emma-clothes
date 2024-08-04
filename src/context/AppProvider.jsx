@@ -1,7 +1,7 @@
 import { AppContext } from "./AppContext.jsx";
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { getUserId, login } from "../api/api-server.js";
+import { getUserId, login, register } from "../api/api-server.js";
 
 const AppProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -29,6 +29,13 @@ const AppProvider = ({ children }) => {
 
   const loginUser = async (userData) => {
     const response = await login(userData);
+    console.log("response login", response.data);
+    setUser(response.data);
+    localStorage.setItem("token", response.token);
+  };
+
+  const registerUser = async (userData) => {
+    const response = await register(userData);
     console.log("response login", response.data);
     setUser(response.data);
     localStorage.setItem("token", response.token);
@@ -141,6 +148,7 @@ const AppProvider = ({ children }) => {
         handleSelectAllChange,
         user,
         loginUser,
+        registerUser,
         logout,
       }}
     >
