@@ -1,17 +1,63 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
+import { searchKey } from "../../api/api-server";
+import { Form, Input } from "antd";
 import Logo from "../UI/Home/Logo";
+
 const Search = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [mainImage, setMainImage] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [products, setProducts] = useState([]);
+  const [showAll, setShowAll] = useState(false);
 
-  console.log(searchTerm);
+  const onFinish = (values) => {
+    setSearchTerm(values.search);
+  };
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
+
   const handleSearchClick = () => {
     setIsDropdownOpen((prev) => !prev); // Toggle dropdown visibility
   };
 
-  const handleInputChange = (e) => {
-    setSearchTerm(e.target.value);
+  console.log(mainImage);
+
+  useEffect(() => {
+    if (searchTerm) {
+      const fetchProducts = async () => {
+        try {
+          const result = await searchKey(searchTerm);
+          setProducts(result.data);
+          setMainImage(result.data.productImages);
+          console.log("response", result.data);
+        } catch (error) {
+          console.error("Failed to fetch products:", error);
+        }
+      };
+      fetchProducts();
+    } else {
+      setProducts([]); // Clear products if searchTerm is empty
+    }
+  }, [searchTerm]);
+
+  useEffect(() => {
+    if (!searchTerm) {
+      setProducts([]); // Clear products when searchTerm is cleared
+      setShowAll(false); // Reset showAll state
+    }
+  }, [searchTerm]);
+
+  const handleShowMore = () => {
+    setShowAll(true);
+  };
+
+  const handleCloseDropdown = () => {
+    setIsDropdownOpen(false);
+    setSearchTerm("");
+    setProducts([]);
+    setShowAll(false);
   };
 
   return (
@@ -29,22 +75,102 @@ const Search = () => {
         />
       </div>
       {isDropdownOpen && (
-        <div className="absolute top-0 left-0 w-full z-10">
-          <div className="bg-white container mx-auto">
-            <div className="flex justify-between py-4">
-              <div className="search-wrap">
-                <Logo />
+        <div className="absolute bg-white top-0 left-0 w-full z-10">
+          <div className="header-wrap border-b">
+            <div className="container mx-auto">
+              <div className="flex justify-between py-4">
+                <div className="search-wrap">
+                  <Logo />
+                </div>
+                <Form
+                  className="relative"
+                  name="search"
+                  initialValues={{
+                    remember: true,
+                  }}
+                  onFinish={onFinish}
+                  onFinishFailed={onFinishFailed}
+                  autoComplete="off"
+                >
+                  <Form.Item
+                    name="search"
+                    rules={[
+                      {
+                        required: true,
+                      },
+                    ]}
+                  >
+                    <div className="search">
+                      <Input
+                        placeholder="Search"
+                        className="placeholder-gray-400 rounded-full focus:outline-none py-2 pl-9 w-full"
+                      />
+                      <FaSearch
+                        className="absolute left-4 top-3 text-grey-500"
+                        color="gray"
+                      />
+                    </div>
+                  </Form.Item>
+                </Form>
+
+                <button onClick={handleCloseDropdown} className="text-black">
+                  Đóng
+                </button>
               </div>
-              <input
-                onChange={handleInputChange}
-                type="text"
-                className="bg-gray-200 text-black placeholder-gray-400 py-2 rounded-full pl-10 focus:outline-none basis-2/6"
-                placeholder="Search"
-              />
-              <button onClick={handleSearchClick} className="text-black">
-                Đóng
-              </button>
             </div>
+          </div>
+          <div className="container mx-auto">
+            <div className="flex">
+              {products.length > 0 ? (
+                <>
+                  {products
+                    .slice(0, showAll ? products.length : 4)
+                    .map((product) => (
+                      <div
+                        className="text-black basis-1/4 px-2 my-12"
+                        key={product.id}
+                      >
+                        {mainImage && mainImage.length > 0 ? (
+                          <>
+                            {mainImage
+                              .filter((image) => image.is_thumbnail === 0)
+                              .map((image, index) => (
+                                <div
+                                  key={index}
+                                  className="pr-2 py-2 w-40 border "
+                                >
+                                  <img
+                                    src={image.image_url}
+                                    alt={`Thumbnail ${index}`}
+                                    className="w-full border"
+                                  />
+                                </div>
+                              ))}
+                          </>
+                        ) : (
+                          <div className="min-h-80 text-center border py-10">
+                            Nodata
+                          </div>
+                        )}
+                        <p className="py-2">{product.name}</p>
+                        <p className="font-bold">{product.price}</p>
+                      </div>
+                    ))}
+                </>
+              ) : (
+                <div></div>
+              )}
+            </div>
+            {!showAll && products.length > 4 && (
+              <div className="flex items-center justify-center">
+                <button
+                  onClick={handleShowMore}
+                  className="mb-20 mt-6 border border-black px-5 py-2 rounded-full font-bold text-black"
+                >
+                  Xem tất cả
+                </button>
+              </div>
+            )}
           </div>
         </div>
       )}

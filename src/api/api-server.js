@@ -8,6 +8,11 @@ export const getBanners = async () => {
   return response.data;
 };
 
+export const searchKey = async (key) => {
+  const response = await axios.get(`${API_URL}/products?search=${key}`);
+  return response.data;
+};
+
 export const register = async (data) => {
   const response = await axios.post(`${API_URL}/register`, data);
   return response.data;
@@ -100,7 +105,6 @@ export const createProduct = async (productData) => {
     throw error;
   }
 };
-
 
 export const updateProduct = async (productId, productData) => {
   const response = await axios.put(

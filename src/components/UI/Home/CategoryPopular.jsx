@@ -17,11 +17,6 @@ const CategoryPopular = () => {
   const fetchProducts = async (id) => {
     try {
       const response = await getProductByCategoryId(id);
-      console.log(
-        "response category popular",
-        response.data[2].productImages[0].image_url
-      );
-      console.log(response.data);
       setProducts(response.data);
     } catch (error) {
       console.error;
@@ -60,13 +55,6 @@ const CategoryPopular = () => {
           <div key={product.id} className="relative">
             <NavLink to={`/products/${product.id}`}>
               <ProductImage images={product.productImages} />
-              {/* {product.productImages[0].map((data) => (
-                <div key={data.id}>
-                  <img src={data.image_url} alt="" />
-                </div>
-              ))} */}
-              {console.log(product)}
-
               <h2 className="font-bold mt-2 text-lg">{product.name}</h2>
               <p>{product.price}</p>
             </NavLink>

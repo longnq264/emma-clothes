@@ -42,8 +42,8 @@ const ProductPage = () => {
   };
 
   useEffect(() => {
-    fetchCategory(id);
     fetchProducts();
+    fetchCategory(id);
   }, [id]);
   return (
     <>

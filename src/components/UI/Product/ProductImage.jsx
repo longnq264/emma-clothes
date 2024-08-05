@@ -17,16 +17,6 @@ const ProductImage = ({ images }) => {
           .map((image) => image.image_url)
       : [defaultImage]; // Sử dụng ảnh mặc định nếu không có ảnh nào
 
-  // const mainImage = images
-  //   .filter((image) => image.is_thumbnail === 1)
-  //   .map((image) => image.image_url);
-
-  console.log(mainImage);
-
-  // const hoverImages = images
-  //   .filter((image) => image.is_thumbnail === 0)
-  //   .map((image) => image.image_url);
-  // console.log(hoverImages);
   const hoverImages =
     images.length > 0
       ? images

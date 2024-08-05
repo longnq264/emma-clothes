@@ -2,7 +2,6 @@ import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
 
 const ShowMoreBtn = ({ props }) => {
-  console.log(props);
   // const { id, name } = props;
   return (
     <div className="flex justify-center my-6">
