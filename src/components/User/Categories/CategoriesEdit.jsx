@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Form,
   Input,
@@ -20,8 +20,6 @@ const CategoriesEdit = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [treeData, setTreeData] = useState([]);
-  const [children, setChildren] = useState([]);
-  const [parentIds, setParentIds] = useState([]);
 
   useEffect(() => {
     const fetchCategory = async () => {
@@ -38,7 +36,7 @@ const CategoriesEdit = () => {
         const status =
           typeof category.status === 'string'
             ? category.status.toLowerCase()
-            : 'Inactive';
+            : 'inactive';
 
         form.setFieldsValue({
           name: category.name,
@@ -47,7 +45,6 @@ const CategoriesEdit = () => {
           status: status,
         });
 
-        setChildren(category.children || []);
         setLoading(false);
       } catch (error) {
         console.error('Lỗi khi lấy danh mục:', error);
@@ -63,14 +60,9 @@ const CategoriesEdit = () => {
         const response = await getCategories();
         console.log('API response:', response);
         if (response.data && Array.isArray(response.data)) {
-          const rootCategory = response.data.find(
-            (category) => category.id === 1
-          );
-          if (rootCategory) {
-            const formattedData = formatTreeData(response.data);
-            console.log('Formatted tree data:', formattedData);
-            setTreeData(formattedData);
-          }
+          const formattedData = formatTreeData(response.data);
+          console.log('Formatted tree data:', formattedData);
+          setTreeData(formattedData);
         } else {
           console.error('Expected an array of categories but got:', response);
         }
@@ -85,13 +77,6 @@ const CategoriesEdit = () => {
     fetchCategory();
     fetchCategories();
   }, [id, form]);
-
-  useEffect(() => {
-    if (children.length > 0) {
-      const parentIds = children.map((child) => child.parent_id);
-      setParentIds(parentIds);
-    }
-  }, [children]);
 
   const formatTreeData = (categories) => {
     return categories.map((category) => ({
@@ -173,8 +158,8 @@ const CategoriesEdit = () => {
             rules={[{ required: true, message: 'Vui lòng chọn trạng thái!' }]}
           >
             <Select placeholder="Chọn trạng thái">
-              <Option value="Active">Hoạt động</Option>
-              <Option value="Inactive">Không hoạt động</Option>
+              <Option value="active">Hoạt động</Option>
+              <Option value="inactive">Không hoạt động</Option>
             </Select>
           </Form.Item>
           <Form.Item>

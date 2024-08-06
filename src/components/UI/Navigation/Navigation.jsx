@@ -8,9 +8,8 @@ const Navigation = () => {
 
   const fetchCategories = async () => {
     const response = await getCategories();
-    setCategories(response.data[0].children);
-    // console.log("categories nav", response.data);
-    console.log("categories nav", response.data[0].children);
+    setCategories(response.data);
+    // console.log(response.data);
   };
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Form, Input, Button, notification, TreeSelect, Card, Space, Select } from 'antd';
 import { createCategory, getCategories } from '../../../api/api-server'; // Adjust the path as necessary
 import { useNavigate } from 'react-router-dom';
@@ -104,8 +104,8 @@ const CategoriesAdd = () => {
             rules={[{ required: true, message: 'Vui lòng chọn trạng thái!' }]}
           >
             <Select placeholder="Chọn trạng thái">
-              <Option value="active">Hoạt động</Option>
-              <Option value="inactive">Không hoạt động</Option>
+              <Option value="Active">Hoạt động</Option>
+              <Option value="Inactive">Không hoạt động</Option>
             </Select>
           </Form.Item>
           <Form.Item>

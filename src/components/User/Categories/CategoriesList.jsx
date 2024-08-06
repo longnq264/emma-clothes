@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { Table, Button, Space, notification, Tag } from 'antd';
+import { useEffect, useState } from 'react';
+import { Table, Button, Space, notification, Tag, Tooltip, Popconfirm } from 'antd';
 import { getCategories, deleteCategory } from '../../../api/api-server'; // Adjust the path as necessary
 import { Link, useNavigate } from 'react-router-dom';
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
 const CategoriesList = () => {
   const [categories, setCategories] = useState([]);
@@ -63,10 +64,23 @@ const CategoriesList = () => {
     {
       title: 'Hành Động',
       key: 'action',
-      render: (text, record) => (
+      render: (_, record) => (
         <Space size="middle">
-          <Link to={`/admin/categories/edit/${record.id}`}>Chỉnh sửa</Link>
-          <Button type="link" onClick={() => handleDelete(record.id)}>Xóa</Button>
+          <Tooltip title="Chỉnh sửa">
+            <Link to={`/admin/categories/edit/${record.id}`}>
+              <Button type="primary" icon={<EditOutlined />} />
+            </Link>
+          </Tooltip>
+          <Tooltip title="Xóa">
+            <Popconfirm
+              title="Bạn Có Muốn Xóa Danh Mục Này Không ?"
+              onConfirm={() => handleDelete(record.id)}
+              okText="Có"
+              cancelText="Không"
+            >
+              <Button type="primary" danger icon={<DeleteOutlined />} />
+            </Popconfirm>
+          </Tooltip>
         </Space>
       ),
     },

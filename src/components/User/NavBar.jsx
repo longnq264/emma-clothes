@@ -6,7 +6,9 @@ import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 const NavBar = ({ isOpen, darkMode }) => {
   const [isProductsOpen, setIsProductsOpen] = useState(false);
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
+  const [isUsersOpen, setIsUsersOpen] = useState(false);
   const [isStaffsOpen, setIsStaffsOpen] = useState(false);
+  const [isBannerOpen, setIsBannerOpen] = useState(false);
   const navigate = useNavigate(); // Hook để điều hướng
 
   const handleLogout = () => {
@@ -115,14 +117,60 @@ const NavBar = ({ isOpen, darkMode }) => {
           <FaCartPlus className={`text-2xl mr-3 ${darkMode ? 'text-indigo-300' : 'text-indigo-600'}`} />
           <span className={`text-lg font-medium group-hover:text-white transition-colors duration-300 ${darkMode ? 'group-hover:text-gray-200' : 'group-hover:text-gray-900'}`}>Orders</span>
         </NavLink>
-        <NavLink
-          to="/admin/users"
-          className={`flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors duration-300 group ${darkMode ? 'text-gray-200' : 'text-gray-800'}`}
-        >
-          <FaUsers className={`text-2xl mr-3 ${darkMode ? 'text-indigo-300' : 'text-indigo-600'}`} />
-          <span className={`text-lg font-medium group-hover:text-white transition-colors duration-300 ${darkMode ? 'group-hover:text-gray-200' : 'group-hover:text-gray-900'}`}>Users</span>
-        </NavLink>
+ 
+
+        <div className="relative">
+          <button
+            onClick={() => setIsUsersOpen(!isUsersOpen)}
+            className={`w-full flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors duration-300 group ${darkMode ? 'text-gray-200' : 'text-gray-800'}`}
+          >
+            <FaUsers className={`text-2xl mr-3 ${darkMode ? 'text-indigo-300' : 'text-indigo-600'}`} />
+            <span className="flex-1 text-lg font-medium">Users</span>
+            {isUsersOpen ? <IoMdArrowDropup className={`ml-auto text-2xl ${darkMode ? 'text-indigo-300' : 'text-indigo-600'}`} /> : <IoMdArrowDropdown className={`ml-auto text-2xl ${darkMode ? 'text-indigo-300' : 'text-indigo-600'}`} />}
+          </button>
+          <div className={`transition-max-height duration-300 ease-in-out overflow-hidden ${isUsersOpen ? "max-h-48 opacity-100" : "max-h-0 opacity-0"} ${darkMode ? 'bg-gray-700' : 'bg-gray-200'} rounded-lg`}>
+            <NavLink
+              to="/admin/users/new"
+              className={`block px-4 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300 ${darkMode ? 'text-gray-200 hover:bg-gray-600' : 'text-gray-800 hover:bg-gray-300'}`}
+            >
+              Add Users
+            </NavLink>
+            <NavLink
+              to="/admin/users"
+              className={`block px-4 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300 ${darkMode ? 'text-gray-200 hover:bg-gray-600' : 'text-gray-800 hover:bg-gray-300'}`}
+            >
+              View Users
+            </NavLink>
+          </div>
+        </div>
+
+        <div className="relative">
+          <button
+            onClick={() => setIsBannerOpen(!isBannerOpen)}
+            className={`w-full flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors duration-300 group ${darkMode ? 'text-gray-200' : 'text-gray-800'}`}
+          >
+            <FaUsers className={`text-2xl mr-3 ${darkMode ? 'text-indigo-300' : 'text-indigo-600'}`} />
+            <span className="flex-1 text-lg font-medium">Banner</span>
+            {isBannerOpen ? <IoMdArrowDropup className={`ml-auto text-2xl ${darkMode ? 'text-indigo-300' : 'text-indigo-600'}`} /> : <IoMdArrowDropdown className={`ml-auto text-2xl ${darkMode ? 'text-indigo-300' : 'text-indigo-600'}`} />}
+          </button>
+          <div className={`transition-max-height duration-300 ease-in-out overflow-hidden ${isBannerOpen ? "max-h-48 opacity-100" : "max-h-0 opacity-0"} ${darkMode ? 'bg-gray-700' : 'bg-gray-200'} rounded-lg`}>
+            <NavLink
+              to="/admin/banners/new"
+              className={`block px-4 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300 ${darkMode ? 'text-gray-200 hover:bg-gray-600' : 'text-gray-800 hover:bg-gray-300'}`}
+            >
+              Add Banner
+            </NavLink>
+            <NavLink
+              to="/admin/banners"
+              className={`block px-4 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300 ${darkMode ? 'text-gray-200 hover:bg-gray-600' : 'text-gray-800 hover:bg-gray-300'}`}
+            >
+              View Banner
+            </NavLink>
+          </div>
+        </div>
+ 
       </nav>
+
 
       {/* Logout Button */}
       <button
