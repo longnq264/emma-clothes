@@ -32,7 +32,9 @@ import OrderPage from "./pages/Admin/Orders.jsx";
 import UsersPage from "./pages/Admin/Users.jsx";
 // import CustomersList from "./pages/Admin/CustomersList.jsx";
 import StaffList from "./pages/Admin/CustomersList.jsx";
- 
+import { Provider } from "react-redux";
+import store from "./store/store.js";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -88,9 +90,11 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <AppProvider>
-      <RouterProvider router={router} />
-    </AppProvider>
+    <Provider store={store}>
+      <AppProvider>
+        <RouterProvider router={router} />
+      </AppProvider>
+    </Provider>
   );
 }
 

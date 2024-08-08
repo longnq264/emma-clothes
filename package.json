@@ -36,6 +36,8 @@
     "react-slick": "^0.30.2",
     "react-toastify": "^10.0.5",
     "redux": "^5.0.1",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^3.1.0",
     "slick-carousel": "^1.8.1",
     "swiper": "^11.1.4",
     "webfontloader": "^1.6.28"
@@ -54,4 +56,3 @@
     "vite": "^5.2.0"
   }
 }
-

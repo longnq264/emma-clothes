@@ -57,8 +57,9 @@ export const getBrands = async () => {
   return response.data;
 };
 
+//////////////////////////
 export const addToCart = async (data) => {
-  const response = await axios.post(`${API_URL}/cart`, data);
+  const response = await axios.post(`${API_URL}/cart/add`, data);
   return response.data;
 };
 
@@ -67,9 +68,17 @@ export const removeCart = async (id) => {
   return response.data;
 };
 
-export const listCart = async () => {
-  const response = await axios.get(`${API_URL}/cart`);
-  return response.data;
+export const listCart = async (token) => {
+  try {
+    const response = await axios.get(`${API_URL}/cart`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const filterProduct = async (action) => {

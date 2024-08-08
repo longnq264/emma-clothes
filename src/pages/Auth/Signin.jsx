@@ -1,19 +1,19 @@
 import { Button, Form, Input } from "antd";
-import { useContext } from "react";
-import { AppContext } from "../../context/AppContext";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { loginUser } from "../../store/authThunk";
 
 const Signin = () => {
-  const { loginUser } = useContext(AppContext);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { status, error } = useSelector((state) => state.auth);
+
   const onFinish = async (values) => {
-    console.log("values:", values);
     const formData = {
       ...values,
     };
-
     try {
-      await loginUser(formData);
+      await dispatch(loginUser(formData)).unwrap();
       navigate("/");
     } catch (error) {
       console.error("Registration failed:", error);
@@ -86,11 +86,13 @@ const Signin = () => {
               <Button
                 type="primary"
                 htmlType="submit"
+                loading={status === "loading"}
                 className="w-full flex justify-center py-2 px-10 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
                 Submit
               </Button>
             </Form.Item>
+            {error && <div>Error</div>}
           </Form>
         </div>
       </div>

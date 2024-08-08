@@ -1,51 +1,35 @@
 import { AppContext } from "./AppContext.jsx";
 import { useEffect, useState } from "react";
+import { listCart } from "../api/api-server.js";
+import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
-import { getUserId, login, register } from "../api/api-server.js";
 
 const AppProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const token = useSelector((state) => state.auth.token);
   const [items, setItems] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
   const [isAllSelected, setIsAllSelected] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalQuantity, setTotalQuantity] = useState(0);
+  console.log("token", token);
 
-  console.log(items);
-  // get user
-  const fetchUser = async () => {
-    const token = localStorage.getItem("token");
+  console.log("state context items:", items);
+
+  const resetCart = () => {
+    setItems([]);
+    setTotalQuantity(0);
+  };
+
+  const fetchCartItems = async () => {
     if (token) {
       try {
-        const response = await getUserId(token);
-        setUser(response);
+        const response = await listCart(token);
+        console.log("fetch Cart", response);
+        setItems(response.items);
       } catch (error) {
-        console.error("Failed to fetch user:", error);
-        setUser(null);
-        localStorage.removeItem("token"); // Optional: Remove invalid token
+        console.log(error);
       }
     }
-  };
-
-  const loginUser = async (userData) => {
-    const response = await login(userData);
-    console.log("response login", response.data);
-    setUser(response.data);
-    localStorage.setItem("token", response.token);
-  };
-
-  const registerUser = async (userData) => {
-    const response = await register(userData);
-    console.log("response login", response.data);
-    setUser(response.data);
-    localStorage.setItem("token", response.token);
-  };
-
-  const logout = () => {
-    setUser(null);
-    localStorage.removeItem("token");
-    setItems([]);
-    localStorage.removeItem("cartItems");
   };
 
   // add
@@ -72,9 +56,9 @@ const AppProvider = ({ children }) => {
   };
 
   // handle remove
-  const removeItemFromCart = (itemId) => {
-    setItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
-  };
+  // const removeItemFromCart = (itemId) => {
+  //   setItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
+  // };
 
   // handle checkbox item
   const handleItemChange = (item) => {
@@ -123,33 +107,25 @@ const AppProvider = ({ children }) => {
   }, [items]);
 
   useEffect(() => {
-    const storedItems = localStorage.getItem("cartItems");
-    if (storedItems) {
-      setItems(JSON.parse(storedItems));
-      console.log(JSON.parse(storedItems));
-    }
-  }, []);
+    fetchCartItems(token);
+  }, [token]);
 
-  useEffect(() => {
-    fetchUser();
-  }, []);
   return (
     <AppContext.Provider
       value={{
         items,
+        setItems,
         addItemToCart,
         updateItemQuantity,
-        removeItemFromCart,
+        // removeItemFromCart,
         totalQuantity,
         totalPrice,
         selectedItems,
         isAllSelected,
         handleItemChange,
         handleSelectAllChange,
-        user,
-        loginUser,
-        registerUser,
-        logout,
+        setTotalQuantity,
+        resetCart,
       }}
     >
       {children}

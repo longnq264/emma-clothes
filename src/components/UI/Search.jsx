@@ -14,6 +14,7 @@ const Search = () => {
   const onFinish = (values) => {
     setSearchTerm(values.search);
   };
+
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
@@ -21,8 +22,6 @@ const Search = () => {
   const handleSearchClick = () => {
     setIsDropdownOpen((prev) => !prev); // Toggle dropdown visibility
   };
-
-  console.log(mainImage);
 
   useEffect(() => {
     if (searchTerm) {

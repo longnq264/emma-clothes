@@ -1,10 +1,9 @@
-import { useContext } from "react";
-import { AppContext } from "../../context/AppContext";
+import { useSelector } from "react-redux";
 
 const DashBoad = () => {
-  const { user } = useContext(AppContext);
-
-  if (!user) {
+  const token = useSelector((state) => state.auth.token);
+  const user = useSelector((state) => state.auth.user);
+  if (!token) {
     return <div>Loading...</div>;
   }
   return (
