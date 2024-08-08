@@ -116,6 +116,16 @@ export const getProduct = async (productId) => {
   console.log(`Get product ${productId} data:`, response.data);
   return response.data;
 };
+
+
+// export const getProduct = async () => {
+//   const response = await axios.get(`${API_URL}/products?include=categories`);
+//   console.log("API response data:", response.data); // Kiểm tra dữ liệu trả về từ API
+//   return response.data;
+// };
+
+
+
 // phần admin Categories
 
 // Category APIs
@@ -158,7 +168,7 @@ export const deleteCategory = async (categoryId) => {
 export const getUsers = async () => {
   try {
     const response = await axios.get(`${API_URL}/users`);
-    return response.data; // Hoặc response.data.data nếu API trả về nested data
+    return response.data; 
   } catch (error) {
     console.error("Failed to fetch users:", error);
     throw error;
