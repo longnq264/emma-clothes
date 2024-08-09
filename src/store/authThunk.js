@@ -7,7 +7,6 @@ export const loginUser = createAsyncThunk(
     try {
       const response = await login(userData);
       console.log(response);
-
       return { user: response.data, token: response.token };
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -17,16 +16,12 @@ export const loginUser = createAsyncThunk(
 
 export const fetchUser = createAsyncThunk(
   "auth/fetchUser",
-  async (_, { getState, rejectWithValue }) => {
-    const { token } = getState().auth;
-    if (!token) {
-      return rejectWithValue("No token available");
-    }
+  async (token, { rejectWithValue }) => {
     try {
       const response = await getUserId(token);
-      console.log("response", response);
+      console.log("response id", response);
 
-      return response.data;
+      return { user: response.data };
     } catch (error) {
       return rejectWithValue(error.response.data);
     }

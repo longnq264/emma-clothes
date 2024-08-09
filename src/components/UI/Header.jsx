@@ -1,17 +1,18 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Logo from "./Home/Logo";
 import Navigation from "./Navigation/Navigation";
 import { NavLink } from "react-router-dom";
-import { AppContext } from "../../context/AppContext";
+// import { AppContext } from "../../context/AppContext";
 import { PiBag } from "react-icons/pi";
 import Search from "./Search";
 import DropDownProfile from "./Navigation/DropDownProfile";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
-  const { totalQuantity } = useContext(AppContext);
+  const totalQuantity = useSelector((state) => state.cart.totalQuantity);
 
   useEffect(() => {
     const handleScroll = () => {

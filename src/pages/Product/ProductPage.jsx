@@ -17,7 +17,6 @@ const ProductPage = () => {
   const [categoryId, setCategoryId] = useState(products);
 
   const { id } = useParams();
-  console.log(id);
   const fetchProducts = async () => {
     try {
       let response;
@@ -43,7 +42,9 @@ const ProductPage = () => {
 
   useEffect(() => {
     fetchProducts();
-    fetchCategory(id);
+    if (id) {
+      fetchCategory(id);
+    }
   }, [id]);
   return (
     <>

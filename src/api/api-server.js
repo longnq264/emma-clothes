@@ -57,9 +57,13 @@ export const getBrands = async () => {
   return response.data;
 };
 
-//////////////////////////
-export const addToCart = async (data) => {
-  const response = await axios.post(`${API_URL}/cart/add`, data);
+////////////////////////// cart
+export const addToCart = async (data, token) => {
+  const response = await axios.post(`${API_URL}/cart/add`, data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
   return response.data;
 };
 

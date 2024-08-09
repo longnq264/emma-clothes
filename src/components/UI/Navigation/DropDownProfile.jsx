@@ -3,16 +3,17 @@ import { LuUser2 } from "react-icons/lu";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../../store/authSlice";
-import { useContext } from "react";
-import { AppContext } from "../../../context/AppContext";
+// import { useContext } from "react";
+// import { AppContext } from "../../../context/AppContext";
 
 const DropDownProfile = () => {
   const token = useSelector((state) => state.auth.token);
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
 
-  const { setTotalQuantity, resetCart } = useContext(AppContext);
+  // const { setTotalQuantity, resetCart } = useContext(AppContext);
   const [isOpen, setIsOpen] = useState(false);
+  console.log(user);
 
   const toggleOpen = () => {
     setIsOpen(!isOpen);
@@ -20,9 +21,10 @@ const DropDownProfile = () => {
 
   const handleLogout = () => {
     dispatch(logout());
-    resetCart();
-    setTotalQuantity(0);
+    // resetCart();
+    // setTotalQuantity(0);
   };
+  // console.log(user);
 
   return (
     <li className="px-2 cursor-pointer">

@@ -4,21 +4,21 @@ import { fetchUser, loginUser } from "./authThunk";
 const authSlice = createSlice({
   name: "auth",
   initialState: {
+    user: JSON.parse(localStorage.getItem("user")) || null,
     token: localStorage.getItem("token") || null,
-    user: null,
     status: "idle",
     error: null,
   },
   reducers: {
     setToken: (state, action) => {
       state.token = action.payload;
-      localStorage.setItem("token", action.payload);
     },
+
     logout(state) {
       state.token = null;
       state.user = null;
+      localStorage.removeItem("user");
       localStorage.removeItem("token");
-      localStorage.removeItem("cartItems");
     },
   },
   extraReducers: (builder) => {
@@ -31,6 +31,7 @@ const authSlice = createSlice({
         state.user = action.payload.user;
         state.token = action.payload.token;
         localStorage.setItem("token", action.payload.token);
+        localStorage.setItem("user", JSON.stringify(action.payload.user));
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.status = "failed"; // Khi thunk action gặp lỗi

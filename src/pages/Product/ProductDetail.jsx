@@ -1,20 +1,25 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
-import { AppContext } from "../../context/AppContext";
+// import { AppContext } from "../../context/AppContext";
 import { getProductId } from "../../api/api-server";
 import { Breadcrumb } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { addItemToCart } from "../../store/cartSlice";
+import { addToCartItems } from "../../store/cartThunk";
 // import ProductVariants from "../../components/UI/Product/ProductVariants";
 // import FilterVariants from "../../components/UI/Product/FilterVariants";
 
 const ProductDetail = () => {
   const { id } = useParams();
-  const { addItemToCart } = useContext(AppContext);
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.auth.token);
+  // const { addItemToCart } = useContext(AppContext);
   const [data, setData] = useState([]);
-  const [quantity, setQuantity] = useState(1);
   const [mainImage, setMainImage] = useState([]);
   const [selectedColor, setSelectedColor] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedVariant, setSelectedVariant] = useState([]);
+  const [quantity, setQuantity] = useState(1);
 
   // const colorHexMapping = {
   //   6: "#6f4f28",
@@ -28,8 +33,19 @@ const ProductDetail = () => {
     setMainImage(response.data.productImages);
   };
 
-  const handleAddToCart = () => {
-    addItemToCart(data, quantity);
+  const handleAddToCart = async () => {
+    const formValues = {
+      product_id: Number(id),
+      variant: selectedVariant.id,
+      quantity: quantity,
+    };
+    if (!token) {
+      dispatch(addItemToCart(formValues));
+    } else {
+      dispatch(addToCartItems(formValues));
+    }
+    // addItemToCart(data, quantity);
+    // console.log(data, quantity);
   };
 
   useEffect(() => {

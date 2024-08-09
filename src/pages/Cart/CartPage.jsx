@@ -1,34 +1,74 @@
-import { useContext } from "react";
-import { AppContext } from "../../context/AppContext";
+// import { useContext } from "react";
+// import { AppContext } from "../../context/AppContext";
 import emptyImg from "../../assets/img/emty.jpg";
 import { NavLink } from "react-router-dom";
-import ProgressBar from "./ProgressBar";
+// import ProgressBar from "./ProgressBar";
+// import { listCart } from "../../api/api-server";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { fetchCarts } from "../../store/cartThunk";
+import CartCheckbox from "../../components/UI/Cart/CartCheckbox";
 
 const CartPage = () => {
-  const {
-    items,
-    selectedItems,
-    isAllSelected,
-    handleItemChange,
-    handleSelectAllChange,
-    updateItemQuantity,
-    removeItemFromCart,
-    totalQuantity,
-    totalPrice,
-  } = useContext(AppContext);
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.auth.token);
+  const items = useSelector((state) => state.cart.items);
+  const cartStatus = useSelector((state) => state.cart.status);
+  const error = useSelector((state) => state.cart.error);
 
-  const freeShipThreshold = 1000000; // 1 triệu VND
+  console.log(items);
 
-  console.log("cart items", items);
-
-  const handleQuantityChange = (itemId, newQuantity) => {
-    if (newQuantity <= 0) {
-      removeItemFromCart(itemId);
-    } else {
-      updateItemQuantity(itemId, newQuantity);
+  useEffect(() => {
+    if (token) {
+      dispatch(fetchCarts(token));
     }
-  };
+  }, [token, dispatch]);
 
+  if (cartStatus === "loading") {
+    return <div>Loading...</div>;
+  }
+
+  if (cartStatus === "failed") {
+    return <div>Error loading cart: {error}</div>;
+  }
+
+  // const handleItemChange = (item) => {
+  //   setSelectedItems((prevSelectedItems) => {
+  //     const isSelected = prevSelectedItems.some(
+  //       (selectedItem) => selectedItem.id === item.id
+  //     );
+
+  //     if (isSelected) {
+  //       return prevSelectedItems.filter(
+  //         (selectedItem) => selectedItem.id !== item.id
+  //       );
+  //     } else {
+  //       return [...prevSelectedItems, item];
+  //     }
+  //   });
+  // };
+
+  // const handleQuantityChange = (itemId, newQuantity) => {
+  //   if (newQuantity <= 0) {
+  //     removeItemFromCart(itemId);
+  //   } else {
+  //     updateItemQuantity(itemId, newQuantity);
+  //   }
+  // };
+
+  // const fetchCart = async () => {
+  //   if (token) {
+  //     const response = await listCart(token);
+  //     // setItems(response.data);
+  //     console.log(response);
+  //   }
+  // };
+
+  // fetchCart();
+
+  //Note ---------------------------------------------------------------------------------------------------------------------------
+  // total Price
+  // api add, change quantity, remove all cart
   return (
     <>
       <div className="bg-gray-100 min-h-screen py-5">
@@ -62,8 +102,9 @@ const CartPage = () => {
                 <div className="cart-page basis-3/5">
                   {items.length > 0 && (
                     <>
+                      {/* Progcess */}
                       <div className="progcess bg-white mb-4">
-                        <div className="p-4">
+                        {/* <div className="p-4">
                           {totalPrice >= freeShipThreshold ? (
                             <p className="text-sm mb-2">
                               Bạn đã được freeship!
@@ -78,75 +119,9 @@ const CartPage = () => {
                             value={totalPrice}
                             maxValue={freeShipThreshold}
                           />
-                        </div>
+                        </div> */}
                       </div>
-                      <div className="cart bg-white">
-                        <div className="item px-4 py-2 flex items-center">
-                          <label className="flex items-center font-bold">
-                            {/* Select All Checkbox */}
-                            <input
-                              className="h-5 w-5 mr-4 bg-black"
-                              type="checkbox"
-                              checked={isAllSelected}
-                              onChange={(e) =>
-                                handleSelectAllChange(e.target.checked)
-                              }
-                            />
-                            Select All
-                          </label>
-                        </div>
-                        {items.map((item) => (
-                          <div
-                            key={item.id}
-                            className="border-t-4 border-gray-100 px-4 py-6 flex items-center"
-                          >
-                            <div className="flex">
-                              <label>
-                                <input
-                                  className="h-5 w-5 mr-4"
-                                  type="checkbox"
-                                  checked={selectedItems.some(
-                                    (selectedItem) =>
-                                      selectedItem.id === item.id
-                                  )}
-                                  onChange={() => handleItemChange(item)}
-                                />
-                              </label>
-                              <div className="content-detail">
-                                <p className="text-sm font-bold text-gray-700 mb-2">
-                                  {item.name}
-                                </p>
-                                <p className="font-semibold text-sm text-gray-700">
-                                  {item.price}
-                                </p>
-                                <div className="quantity-control mt-10">
-                                  <button
-                                    onClick={() =>
-                                      handleQuantityChange(
-                                        item.id,
-                                        item.quantity - 1
-                                      )
-                                    }
-                                  >
-                                    -
-                                  </button>
-                                  <span>{item.quantity}</span>
-                                  <button
-                                    onClick={() =>
-                                      handleQuantityChange(
-                                        item.id,
-                                        item.quantity + 1
-                                      )
-                                    }
-                                  >
-                                    +
-                                  </button>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
+                      <CartCheckbox />
                     </>
                   )}
                 </div>
@@ -154,8 +129,8 @@ const CartPage = () => {
                   <h1 className="font-bold text-xl pb-3">Order Summary</h1>
                   <div className="content order">
                     <div className="flex justify-between mb-2">
-                      <p>{totalQuantity} item</p>
-                      <p>{totalPrice}</p>
+                      {/* <p>{totalQuantity} item</p>
+                      <p>{totalPrice}</p> */}
                     </div>
                     <div className="delyvery flex justify-between mb-4">
                       <p>Delivery</p>
@@ -164,7 +139,7 @@ const CartPage = () => {
                   </div>
                   <p className="text-lg py-2 flex justify-between border-t-2 pt-6">
                     <span className="font-bold">Total</span>
-                    <span className="font-bold">{totalPrice}</span>
+                    {/* <span className="font-bold">{totalPrice}</span> */}
                   </p>
                   <NavLink
                     to={`/checkout`}
