@@ -101,7 +101,6 @@ export const createProduct = async (productData) => {
   }
 };
 
-
 export const updateProduct = async (productId, productData) => {
   const response = await axios.put(
     `${API_URL}/products/${productId}`,
@@ -117,14 +116,11 @@ export const getProduct = async (productId) => {
   return response.data;
 };
 
-
 // export const getProduct = async () => {
 //   const response = await axios.get(`${API_URL}/products?include=categories`);
 //   console.log("API response data:", response.data); // Kiểm tra dữ liệu trả về từ API
 //   return response.data;
 // };
-
-
 
 // phần admin Categories
 
@@ -168,7 +164,7 @@ export const deleteCategory = async (categoryId) => {
 export const getUsers = async () => {
   try {
     const response = await axios.get(`${API_URL}/users`);
-    return response.data; 
+    return response.data;
   } catch (error) {
     console.error("Failed to fetch users:", error);
     throw error;
