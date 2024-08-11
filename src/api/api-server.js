@@ -1,5 +1,6 @@
 // api-server.js
 import axios from "axios";
+import qs from "qs";
 
 const API_URL = "http://localhost:8000/api";
 
@@ -59,17 +60,37 @@ export const getBrands = async () => {
 
 ////////////////////////// cart
 export const addToCart = async (data, token) => {
-  const response = await axios.post(`${API_URL}/cart/add`, data, {
+  const response = await axios.post(`${API_URL}/cart/add`, qs.stringify(data), {
     headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
       Authorization: `Bearer ${token}`,
     },
   });
   return response.data;
 };
 
-export const removeCart = async (id) => {
-  const response = await axios.delete(`${API_URL}/cart/${id}`);
+export const updateCart = async (id, token, quantity) => {
+  console.log(id);
+
+  console.log(quantity);
+  console.log(token);
+
+  const response = await axios.put(`${API_URL}/cart/${id}`, quantity, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  });
   return response.data;
+};
+
+export const removeCart = async (id, token) => {
+  const response = await axios.delete(`http://127.0.0.1:8000/api/cart/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response;
 };
 
 export const listCart = async (token) => {

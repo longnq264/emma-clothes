@@ -1,25 +1,47 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchCarts } from "./cartThunk";
-import { saveCartToLocalStorage } from "../utils/indexUtils";
+import { fetchCarts, updateCartQuantity } from "./cartThunk";
+import {
+  getCartFromLocalStorage,
+  saveCartToLocalStorage,
+} from "../utils/indexUtils";
+
+const calculateTotalQuantity = (items) =>
+  items.reduce((total, item) => total + item.quantity, 0);
+
+const calculateTotalPrice = (items) =>
+  items.reduce((total, item) => total + item.price * item.quantity, 0);
 
 const cartSlice = createSlice({
   name: "cart",
   initialState: {
-    items: [],
+    items: getCartFromLocalStorage(),
     isAllSelected: false,
     totalQuantity: 0, // Tổng số lượng sản phẩm
     totalPrice: 0, // Tổng giá trị của giỏ hàng
   },
   reducers: {
     addItemToCart(state, action) {
-      const { id, quantity } = action.payload;
-      const existingItem = state.items.find((item) => item.id === id);
+      const { product_id, quantity } = action.payload;
+      const existingItem = state.items.find((item) => item.id === product_id);
 
       if (existingItem) {
-        existingItem.quantity += quantity;
+        // Cập nhật số lượng nếu sản phẩm đã có trong giỏ hàng
+        state.items = state.items.map((item) =>
+          item.id === product_id
+            ? { ...item, quantity: item.quantity + quantity }
+            : item
+        );
       } else {
+        // Thêm sản phẩm mới vào giỏ hàng
         state.items.push(action.payload);
       }
+
+      // Cập nhật tổng số lượng và tổng giá trị
+      state.totalQuantity = calculateTotalQuantity(state.items);
+      state.totalPrice = calculateTotalPrice(state.items);
+
+      // Lưu giỏ hàng vào localStorage
+      saveCartToLocalStorage(state.items);
     },
 
     updateItemQuantity(state, action) {
@@ -27,9 +49,16 @@ const cartSlice = createSlice({
       const item = state.items.find((i) => i.id === id);
 
       if (item) {
-        state.totalQuantity += quantity - item.quantity;
-        state.totalPrice += (quantity - item.quantity) * item.price;
-        item.quantity = quantity;
+        if (quantity > 0) {
+          state.totalQuantity += quantity - item.quantity;
+          state.totalPrice += (quantity - item.quantity) * item.price;
+          item.quantity = quantity;
+        } else if (quantity === 0) {
+          // Xóa sản phẩm khỏi giỏ hàng nếu số lượng bằng 0
+          state.totalQuantity -= item.quantity;
+          state.totalPrice -= item.price * item.quantity;
+          state.items = state.items.filter((i) => i.id !== id);
+        }
       }
     },
 
@@ -58,15 +87,24 @@ const cartSlice = createSlice({
       .addCase(fetchCarts.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.items = action.payload;
-        state.totalQuantity = action.payload.reduce(
-          (total, item) => total + item.quantity,
-          0
-        );
-        saveCartToLocalStorage(action.payload);
+        state.totalQuantity = calculateTotalQuantity(action.payload);
+        state.totalPrice = calculateTotalPrice(action.payload);
       })
       .addCase(fetchCarts.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
+      })
+      .addCase(updateCartQuantity.fulfilled, (state, action) => {
+        // Cập nhật trạng thái giỏ hàng khi cập nhật số lượng thành công
+        const updatedItem = action.payload;
+        const existingItem = state.items.find(
+          (item) => item.id === updatedItem.id
+        );
+        if (existingItem) {
+          existingItem.quantity = updatedItem.quantity;
+          state.totalQuantity = calculateTotalQuantity(state.items);
+          state.totalPrice = calculateTotalPrice(state.items);
+        }
       });
   },
 });

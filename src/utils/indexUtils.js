@@ -10,3 +10,8 @@ export const getCartFromLocalStorage = () => {
   const cartItems = localStorage.getItem("cartItems");
   return cartItems ? JSON.parse(cartItems) : [];
 };
+
+export const getTokenFromLocalStorage = () => {
+  const token = localStorage.getItem("token");
+  return token;
+};

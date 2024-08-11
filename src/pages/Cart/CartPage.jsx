@@ -32,38 +32,6 @@ const CartPage = () => {
     return <div>Error loading cart: {error}</div>;
   }
 
-  // const handleItemChange = (item) => {
-  //   setSelectedItems((prevSelectedItems) => {
-  //     const isSelected = prevSelectedItems.some(
-  //       (selectedItem) => selectedItem.id === item.id
-  //     );
-
-  //     if (isSelected) {
-  //       return prevSelectedItems.filter(
-  //         (selectedItem) => selectedItem.id !== item.id
-  //       );
-  //     } else {
-  //       return [...prevSelectedItems, item];
-  //     }
-  //   });
-  // };
-
-  // const handleQuantityChange = (itemId, newQuantity) => {
-  //   if (newQuantity <= 0) {
-  //     removeItemFromCart(itemId);
-  //   } else {
-  //     updateItemQuantity(itemId, newQuantity);
-  //   }
-  // };
-
-  // const fetchCart = async () => {
-  //   if (token) {
-  //     const response = await listCart(token);
-  //     // setItems(response.data);
-  //     console.log(response);
-  //   }
-  // };
-
   // fetchCart();
 
   //Note ---------------------------------------------------------------------------------------------------------------------------
@@ -100,11 +68,10 @@ const CartPage = () => {
               </div>
               <div className="flex">
                 <div className="cart-page basis-3/5">
-                  {items.length > 0 && (
-                    <>
-                      {/* Progcess */}
-                      <div className="progcess bg-white mb-4">
-                        {/* <div className="p-4">
+                  <>
+                    {/* Progcess */}
+                    <div className="progcess bg-white mb-4">
+                      {/* <div className="p-4">
                           {totalPrice >= freeShipThreshold ? (
                             <p className="text-sm mb-2">
                               Bạn đã được freeship!
@@ -120,10 +87,9 @@ const CartPage = () => {
                             maxValue={freeShipThreshold}
                           />
                         </div> */}
-                      </div>
-                      <CartCheckbox />
-                    </>
-                  )}
+                    </div>
+                    <CartCheckbox />
+                  </>
                 </div>
                 <div className="cart-detail bg-white basis-2/5 ml-4 p-6">
                   <h1 className="font-bold text-xl pb-3">Order Summary</h1>

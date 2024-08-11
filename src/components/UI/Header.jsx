@@ -7,6 +7,7 @@ import { PiBag } from "react-icons/pi";
 import Search from "./Search";
 import DropDownProfile from "./Navigation/DropDownProfile";
 import { useSelector } from "react-redux";
+// import { calculateTotalQuantity } from "../../utils/helperFunction";
 
 const Header = () => {
   const [isVisible, setIsVisible] = useState(true);

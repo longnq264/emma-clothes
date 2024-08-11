@@ -26,7 +26,7 @@ import CategoriesEdit from "./components/User/Categories/CategoriesEdit.jsx";
 import ProductAdd from "./pages/Admin/ProductAdd.jsx";
 import ProductEdit from "./pages/Admin/ProductEdit.jsx";
 import ProductsList from "./pages/Admin/ProductsList.jsx";
-// import AppProvider from "./context/AppProvider.jsx";
+import AppProvider from "./context/AppProvider.jsx";
 import Checkout from "./pages/Checkout.jsx";
 import OrderPage from "./pages/Admin/Orders.jsx";
 import UsersPage from "./pages/Admin/Users.jsx";
@@ -91,9 +91,9 @@ const router = createBrowserRouter([
 function App() {
   return (
     <Provider store={store}>
-      {/* <AppProvider>
-      </AppProvider> */}
-      <RouterProvider router={router} />
+      <AppProvider>
+        <RouterProvider router={router} />
+      </AppProvider>
     </Provider>
   );
 }

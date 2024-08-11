@@ -1,19 +1,15 @@
 import { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
-// import { AppContext } from "../../context/AppContext";
 import { getProductId } from "../../api/api-server";
 import { Breadcrumb } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart } from "../../store/cartSlice";
 import { addToCartItems } from "../../store/cartThunk";
-// import ProductVariants from "../../components/UI/Product/ProductVariants";
-// import FilterVariants from "../../components/UI/Product/FilterVariants";
 
 const ProductDetail = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const token = useSelector((state) => state.auth.token);
-  // const { addItemToCart } = useContext(AppContext);
   const [data, setData] = useState([]);
   const [mainImage, setMainImage] = useState([]);
   const [selectedColor, setSelectedColor] = useState("");
@@ -21,9 +17,7 @@ const ProductDetail = () => {
   const [selectedVariant, setSelectedVariant] = useState([]);
   const [quantity, setQuantity] = useState(1);
 
-  // const colorHexMapping = {
-  //   6: "#6f4f28",
-  // };
+  console.log(data);
 
   const fetchProductDetail = async (id) => {
     const response = await getProductId(id);
@@ -36,13 +30,22 @@ const ProductDetail = () => {
   const handleAddToCart = async () => {
     const formValues = {
       product_id: Number(id),
-      variant: selectedVariant.id,
+      variant_id: selectedVariant.id,
       quantity: quantity,
     };
+
+    const cartData = {
+      product_id: Number(id),
+      product_name: data.name,
+      variant_id: selectedVariant.id,
+      price: data.price,
+      quantity: quantity,
+    };
+
     if (!token) {
-      dispatch(addItemToCart(formValues));
+      dispatch(addItemToCart(cartData));
     } else {
-      dispatch(addToCartItems(formValues));
+      dispatch(addToCartItems({ data: formValues, token }));
     }
     // addItemToCart(data, quantity);
     // console.log(data, quantity);

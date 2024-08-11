@@ -1,14 +1,19 @@
 import { useState } from "react";
 import {
   getCartFromLocalStorage,
+  getTokenFromLocalStorage,
   saveCartToLocalStorage,
 } from "../../../utils/indexUtils";
+import { useDispatch } from "react-redux";
+import { removeCartItem, updateCartQuantity } from "../../../store/cartThunk";
 
 const CartCheckbox = () => {
   const [cartItems, setCartItems] = useState(getCartFromLocalStorage());
   const [selectedItems, setSelectedItems] = useState([]);
   const [isAllSelected, setIsAllSelected] = useState(false);
 
+  const dispatch = useDispatch();
+  const token = getTokenFromLocalStorage();
   // Xử lý thay đổi trạng thái chọn tất cả sản phẩm
   const handleSelectAllChange = (isChecked) => {
     if (isChecked) {
@@ -38,11 +43,30 @@ const CartCheckbox = () => {
 
   // Xử lý thay đổi số lượng sản phẩm
   const handleQuantityChange = (id, newQuantity) => {
-    const updatedItems = cartItems.map((item) =>
-      item.id === id ? { ...item, quantity: newQuantity } : item
-    );
-    setCartItems(updatedItems);
-    saveCartToLocalStorage(updatedItems);
+    if (newQuantity <= 0) {
+      // Nếu số lượng <= 0, xóa sản phẩm khỏi giỏ hàng
+      if (token) {
+        // Nếu có token, gọi API để xóa sản phẩm
+        dispatch(removeCartItem(id));
+      } else {
+        // Nếu không có token, chỉ cần cập nhật giỏ hàng trong state và localStorage
+        const updatedItems = cartItems.filter((item) => item.id !== id);
+        setCartItems(updatedItems);
+        saveCartToLocalStorage(updatedItems);
+      }
+    } else {
+      // Nếu số lượng > 0, cập nhật số lượng sản phẩm
+      if (token) {
+        // Nếu có token, gọi API để cập nhật số lượng sản phẩm
+        dispatch(updateCartQuantity({ id, quantity: newQuantity, token }));
+      }
+      // Cập nhật số lượng trong state và localStorage
+      const updatedItems = cartItems.map((item) =>
+        item.id === id ? { ...item, quantity: newQuantity } : item
+      );
+      setCartItems(updatedItems);
+      saveCartToLocalStorage(updatedItems);
+    }
   };
 
   // Tính tổng số lượng sản phẩm
