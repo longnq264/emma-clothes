@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { fetchCarts, updateCartQuantity } from "./cartThunk";
 import {
   getCartFromLocalStorage,
+  loadCartFromLocalStorage,
   saveCartToLocalStorage,
 } from "../utils/indexUtils";
 
@@ -14,9 +15,10 @@ const calculateTotalPrice = (items) =>
 const cartSlice = createSlice({
   name: "cart",
   initialState: {
-    items: getCartFromLocalStorage(),
+    // items: JSON.parse(localStorage.getItem("cartITems")) || [],
+    items: loadCartFromLocalStorage(),
     isAllSelected: false,
-    totalQuantity: 0, // Tổng số lượng sản phẩm
+    totalQuantity: calculateTotalQuantity(getCartFromLocalStorage()), // Tổng số lượng sản phẩm
     totalPrice: 0, // Tổng giá trị của giỏ hàng
   },
   reducers: {

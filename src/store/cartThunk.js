@@ -7,8 +7,9 @@ export const fetchCarts = createAsyncThunk(
   async (token, { rejectWithValue }) => {
     try {
       const response = await listCart(token);
-
-      saveCartToLocalStorage(response.items);
+      if (response.items.length > 0) {
+        saveCartToLocalStorage(response.items);
+      }
       return response.items;
     } catch (error) {
       return rejectWithValue(error.response.data);
