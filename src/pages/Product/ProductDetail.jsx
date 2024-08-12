@@ -30,6 +30,7 @@ const ProductDetail = () => {
   const handleAddToCart = async () => {
     const formValues = {
       id: Number(id),
+      product_id: Number(id),
       variant_id: selectedVariant.id,
       quantity: quantity,
     };
