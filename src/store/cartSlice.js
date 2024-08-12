@@ -21,13 +21,16 @@ const cartSlice = createSlice({
   },
   reducers: {
     addItemToCart(state, action) {
-      const { product_id, quantity } = action.payload;
-      const existingItem = state.items.find((item) => item.id === product_id);
+      const { id, quantity } = action.payload;
+      console.log(id);
+      console.log(quantity);
+
+      const existingItem = state.items.find((item) => item.id === id);
 
       if (existingItem) {
         // Cập nhật số lượng nếu sản phẩm đã có trong giỏ hàng
         state.items = state.items.map((item) =>
-          item.id === product_id
+          item.id === id
             ? { ...item, quantity: item.quantity + quantity }
             : item
         );

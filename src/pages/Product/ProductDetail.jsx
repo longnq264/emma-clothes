@@ -29,17 +29,19 @@ const ProductDetail = () => {
 
   const handleAddToCart = async () => {
     const formValues = {
-      product_id: Number(id),
+      id: Number(id),
       variant_id: selectedVariant.id,
       quantity: quantity,
     };
 
     const cartData = {
-      product_id: Number(id),
+      id: Number(id),
+      order_id: data.order_id,
+      price: data.price,
+      product_id: data.product_id,
+      quantity: quantity,
       product_name: data.name,
       variant_id: selectedVariant.id,
-      price: data.price,
-      quantity: quantity,
     };
 
     if (!token) {

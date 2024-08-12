@@ -41,3 +41,5 @@ npm run build: Builds the project for production.
 npm run server: Starts the JSON Server with data from db.json.
 npm run start: Runs both the Vite dev server and the JSON Server concurrently.
 
+note: add to cart khi chua login
+quantity khi chua login
