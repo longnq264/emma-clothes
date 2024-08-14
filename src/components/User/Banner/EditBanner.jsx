@@ -1,7 +1,6 @@
-// src/components/EditBanner.jsx
 import { useEffect } from 'react';
-import { Form, Input, Button, Card } from 'antd';
-import { updateBanner, getBanners } from '../../../api/banner';
+import { Form, Input, Button, Card, Switch, message } from 'antd';
+import { getBanners, updateBanner, toggleBannerStatus } from '../../../api/banner';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const EditBanner = () => {
@@ -11,48 +10,76 @@ const EditBanner = () => {
 
   useEffect(() => {
     const fetchBanner = async () => {
-      const response = await getBanners();
-      const banner = response.data.data.find((item) => item.id === parseInt(id));
-      form.setFieldsValue(banner);
+      try {
+        const response = await getBanners();
+        const banner = response.data.find((item) => item.id === parseInt(id));
+        if (banner) {
+          form.setFieldsValue(banner);
+        } else {
+          message.error('Không tìm thấy banner');
+          navigate('/admin/banners');
+        }
+      } catch (error) {
+        message.error('Lấy thông tin banner thất bại');
+      }
     };
+
     fetchBanner();
-  }, [id, form]);
+  }, [id, form, navigate]);
 
   const onFinish = async (values) => {
-    await updateBanner(id, values);
-    navigate('/admin/banners');
+    try {
+      await updateBanner(id, values);
+      message.success('Cập nhật banner thành công');
+      navigate('/admin/banners');
+    } catch (error) {
+      message.error('Cập nhật banner thất bại');
+    }
+  };
+
+  const handleToggleStatus = async (checked) => {
+    try {
+      await toggleBannerStatus(id, { active: checked ? 1 : 0 });
+      message.success('Cập nhật trạng thái banner thành công');
+      form.setFieldsValue({ active: checked });
+    } catch (error) {
+      message.error('Cập nhật trạng thái banner thất bại');
+    }
   };
 
   return (
-    <Card title="Edit Banner" style={{ maxWidth: 600, margin: 'auto' }}>
-      <Form
-        form={form}
-        onFinish={onFinish}
-        layout="vertical"
-      >
+    <Card title="Chỉnh sửa Banner" style={{ maxWidth: 600, margin: 'auto' }}>
+      <Form form={form} onFinish={onFinish} layout="vertical">
         <Form.Item
           name="title"
-          label="Title"
-          rules={[{ required: true, message: 'Please input the title!' }]}
+          label="Tiêu đề"
+          rules={[{ required: true, message: 'Vui lòng nhập tiêu đề!' }]}
         >
-          <Input placeholder="Enter banner title" />
+          <Input placeholder="Nhập tiêu đề banner" />
         </Form.Item>
-        <Form.Item
-          name="description"
-          label="Description"
-        >
-          <Input placeholder="Enter banner description" />
+        <Form.Item name="description" label="Mô tả">
+          <Input placeholder="Nhập mô tả banner" />
         </Form.Item>
         <Form.Item
           name="image_url"
-          label="Image URL"
-          rules={[{ required: true, message: 'Please input the image URL!' }]}
+          label="URL Hình ảnh"
+          rules={[{ required: true, message: 'Vui lòng nhập URL hình ảnh!' }]}
         >
-          <Input placeholder="Enter image URL" />
+          <Input placeholder="Nhập URL hình ảnh" />
+        </Form.Item>
+        <Form.Item
+          name="active"
+          label="Hoạt động"
+          valuePropName="checked"
+        >
+          <Switch
+            checked={form.getFieldValue('active')}
+            onChange={handleToggleStatus}
+          />
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit" block>
-            Submit
+            Xác nhận
           </Button>
         </Form.Item>
       </Form>
