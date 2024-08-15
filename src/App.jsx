@@ -30,8 +30,8 @@ import ProductsList from "./pages/Admin/ProductsList.jsx";
 import Checkout from "./pages/Checkout.jsx";
 import OrderPage from "./pages/Admin/Orders.jsx";
 import UsersPage from "./pages/Admin/Users.jsx";
+import StaffList from "./pages/Admin/StaffList.jsx";
 // import CustomersList from "./pages/Admin/CustomersList.jsx";
-import StaffList from "./pages/Admin/CustomersList.jsx";
 import { Provider } from "react-redux";
 import store from "./store/store.js";
 
@@ -78,8 +78,8 @@ const router = createBrowserRouter([
       { path: "categories/new", element: <CategoriesAdd /> },
       { path: "categories/edit/:id", element: <CategoriesEdit /> },
       { path: "staffs", element: <StaffList /> },
-      { path: "staffs/new", element: <ProductAdd /> },
-      { path: "staffs/edit/:id", element: <ProductEdit /> },
+      // { path: "staffs/new", element: <StaffAdd /> }, // Sửa thành StaffAdd
+      // { path: "staffs/edit/:id", element: <StaffEdit /> }, // Sửa thành StaffEdit
     ],
   },
   {
