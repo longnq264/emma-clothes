@@ -4,25 +4,19 @@ import emptyImg from "../../assets/img/emty.jpg";
 import { NavLink } from "react-router-dom";
 // import ProgressBar from "./ProgressBar";
 // import { listCart } from "../../api/api-server";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { fetchCarts } from "../../store/cartThunk";
+import { useSelector } from "react-redux";
+// import { useEffect } from "react";
+// import { fetchCarts } from "../../store/cartThunk";
 import CartCheckbox from "../../components/UI/Cart/CartCheckbox";
 
 const CartPage = () => {
-  const dispatch = useDispatch();
-  const token = useSelector((state) => state.auth.token);
+  // const dispatch = useDispatch();
+  // const token = useSelector((state) => state.auth.token);
   const items = useSelector((state) => state.cart.items);
   const cartStatus = useSelector((state) => state.cart.status);
   const error = useSelector((state) => state.cart.error);
 
   console.log(items);
-
-  useEffect(() => {
-    if (token) {
-      dispatch(fetchCarts(token));
-    }
-  }, [token, dispatch]);
 
   if (cartStatus === "loading") {
     return <div>Loading...</div>;

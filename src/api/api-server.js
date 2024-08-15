@@ -70,11 +70,6 @@ export const addToCart = async (data, token) => {
 };
 
 export const updateCart = async (id, token, quantity) => {
-  console.log(id);
-
-  console.log(quantity);
-  console.log(token);
-
   const response = await axios.put(`${API_URL}/cart/${id}`, quantity, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -100,6 +95,8 @@ export const listCart = async (token) => {
         Authorization: `Bearer ${token}`,
       },
     });
+    console.log("list-cart", response.data);
+
     return response.data;
   } catch (error) {
     console.log(error);

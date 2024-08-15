@@ -4,12 +4,10 @@ import { getProductId } from "../../api/api-server";
 import { Breadcrumb } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart } from "../../store/cartSlice";
-import { addToCartItems } from "../../store/cartThunk";
+import { addToCartItems, fetchCarts } from "../../store/cartThunk";
 
 const ProductDetail = () => {
   const { id } = useParams();
-  const dispatch = useDispatch();
-  const token = useSelector((state) => state.auth.token);
   const [data, setData] = useState([]);
   const [mainImage, setMainImage] = useState([]);
   const [selectedColor, setSelectedColor] = useState("");
@@ -17,18 +15,20 @@ const ProductDetail = () => {
   const [selectedVariant, setSelectedVariant] = useState([]);
   const [quantity, setQuantity] = useState(1);
 
-  console.log(data);
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.auth.token);
 
   const fetchProductDetail = async (id) => {
     const response = await getProductId(id);
-    setData(response.data);
     console.log(response.data);
+
+    setData(response.data);
     setSelectedVariant(response.data.productVariants[0]);
     setMainImage(response.data.productImages);
   };
 
   const handleAddToCart = async () => {
-    const formValues = {
+    const values = {
       id: Number(id),
       product_id: Number(id),
       variant_id: selectedVariant.id,
@@ -37,9 +37,8 @@ const ProductDetail = () => {
 
     const cartData = {
       id: Number(id),
-      order_id: data.order_id,
       price: data.price,
-      product_id: data.product_id,
+      product_id: data.id,
       quantity: quantity,
       product_name: data.name,
       variant_id: selectedVariant.id,
@@ -48,10 +47,10 @@ const ProductDetail = () => {
     if (!token) {
       dispatch(addItemToCart(cartData));
     } else {
-      dispatch(addToCartItems({ data: formValues, token }));
+      dispatch(addToCartItems({ values, token, data })).then(() => {
+        dispatch(fetchCarts(token));
+      });
     }
-    // addItemToCart(data, quantity);
-    // console.log(data, quantity);
   };
 
   useEffect(() => {

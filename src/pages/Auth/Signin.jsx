@@ -3,11 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../store/authThunk";
 
+import { getTokenFromLocalStorage } from "../../utils/indexUtils";
+import { syncLocalCartToServer } from "../../store/cartThunk";
+
 const Signin = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { status, error } = useSelector((state) => state.auth);
-
+  const { merged } = useSelector((state) => state.cart);
   const onFinish = async (values) => {
     const formData = {
       ...values,
@@ -15,6 +18,15 @@ const Signin = () => {
 
     try {
       await dispatch(loginUser(formData)).unwrap();
+      const token = getTokenFromLocalStorage();
+      console.log(merged);
+
+      if (!merged) {
+        // Đồng bộ giỏ hàng từ localStorage lên server
+        await dispatch(syncLocalCartToServer(token)).unwrap();
+
+        // await dispatch(fetchCarts(token));
+      }
       navigate("/");
     } catch (error) {
       console.error("Registration failed:", error);

@@ -2,12 +2,10 @@ import { useEffect, useState } from "react";
 import Logo from "./Home/Logo";
 import Navigation from "./Navigation/Navigation";
 import { NavLink } from "react-router-dom";
-// import { AppContext } from "../../context/AppContext";
 import { PiBag } from "react-icons/pi";
 import Search from "./Search";
 import DropDownProfile from "./Navigation/DropDownProfile";
 import { useSelector } from "react-redux";
-// import { calculateTotalQuantity } from "../../utils/helperFunction";
 
 const Header = () => {
   const [isVisible, setIsVisible] = useState(true);

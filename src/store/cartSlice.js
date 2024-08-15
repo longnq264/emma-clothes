@@ -1,8 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchCarts, updateCartQuantity } from "./cartThunk";
 import {
-  getCartFromLocalStorage,
-  loadCartFromLocalStorage,
+  addToCartItems,
+  fetchCarts,
+  removeCartItem,
+  syncLocalCartToServer,
+  updateCartQuantity,
+} from "./cartThunk";
+import {
+  // getCartFromLocalStorage,
   saveCartToLocalStorage,
 } from "../utils/indexUtils";
 
@@ -15,26 +20,28 @@ const calculateTotalPrice = (items) =>
 const cartSlice = createSlice({
   name: "cart",
   initialState: {
-    // items: JSON.parse(localStorage.getItem("cartITems")) || [],
-    items: loadCartFromLocalStorage(),
+    items: JSON.parse(localStorage.getItem("cartItems")) || [],
     isAllSelected: false,
-    totalQuantity: calculateTotalQuantity(getCartFromLocalStorage()), // Tổng số lượng sản phẩm
+    // totalQuantity: calculateTotalQuantity(getCartFromLocalStorage()),
+    status: "idle",
     totalPrice: 0, // Tổng giá trị của giỏ hàng
+    merged: false,
   },
   reducers: {
     addItemToCart(state, action) {
-      const { id, quantity } = action.payload;
+      const { product_id, quantity } = action.payload;
       console.log(action.payload);
-
-      console.log(id);
+      console.log(product_id);
       console.log(quantity);
 
-      const existingItem = state.items.find((item) => item.id === id);
+      const existingItem = state.items.find(
+        (item) => item.product_id === product_id
+      );
 
       if (existingItem) {
         // Cập nhật số lượng nếu sản phẩm đã có trong giỏ hàng
         state.items = state.items.map((item) =>
-          item.id === id
+          item.product_id === product_id
             ? { ...item, quantity: item.quantity + quantity }
             : item
         );
@@ -47,7 +54,6 @@ const cartSlice = createSlice({
       state.totalQuantity = calculateTotalQuantity(state.items);
       state.totalPrice = calculateTotalPrice(state.items);
 
-      // Lưu giỏ hàng vào localStorage
       saveCartToLocalStorage(state.items);
     },
 
@@ -91,16 +97,35 @@ const cartSlice = createSlice({
       .addCase(fetchCarts.pending, (state) => {
         state.status = "loading";
       })
+      // --------------------- fetch Cart ------------------------------
       .addCase(fetchCarts.fulfilled, (state, action) => {
-        state.status = "succeeded";
+        console.log(action.payload);
+
         state.items = action.payload;
-        state.totalQuantity = calculateTotalQuantity(action.payload);
-        state.totalPrice = calculateTotalPrice(action.payload);
+        state.totalQuantity = calculateTotalQuantity(state.items);
+        state.totalPrice = calculateTotalPrice(state.items);
+        localStorage.setItem("cartItems", JSON.stringify(state.items));
+
+        state.status = "succeeded";
       })
       .addCase(fetchCarts.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
       })
+      .addCase(addToCartItems.pending, (state) => {
+        state.status = "loading";
+      })
+      // ------------------- Add To Cart ---------------------
+      .addCase(addToCartItems.fulfilled, (state, action) => {
+        console.log(action.payload);
+
+        state.items = action.payload;
+        state.status = "succeeded";
+        console.log(state.items);
+
+        localStorage.setItem("cartItems", JSON.stringify(state.items));
+      })
+      // ---------------------- update Cart ----------------------------------
       .addCase(updateCartQuantity.fulfilled, (state, action) => {
         // Cập nhật trạng thái giỏ hàng khi cập nhật số lượng thành công
         const updatedItem = action.payload;
@@ -109,9 +134,36 @@ const cartSlice = createSlice({
         );
         if (existingItem) {
           existingItem.quantity = updatedItem.quantity;
-          state.totalQuantity = calculateTotalQuantity(state.items);
-          state.totalPrice = calculateTotalPrice(state.items);
+          // state.totalQuantity = calculateTotalQuantity(state.items);
+          // state.totalPrice = calculateTotalPrice(state.items);
         }
+      })
+      .addCase(syncLocalCartToServer.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(syncLocalCartToServer.fulfilled, (state, action) => {
+        state.items = action.payload;
+        console.log(action.payload);
+
+        // state.totalQuantity = calculateTotalQuantity(action.payload.items);
+        // state.totalPrice = calculateTotalPrice(action.payload.items);
+        state.status = "succeeded";
+        localStorage.setItem("cartItems", JSON.stringify(action.payload));
+        // state.merged = true; // Cập nhật trạng thái merged
+      })
+      .addCase(syncLocalCartToServer.rejected, (state, action) => {
+        state.status = "failed";
+        console.error("Failed to sync cart:", action.payload);
+      })
+      // ------------------- Remove Cart -------------------------------
+      .addCase(removeCartItem.fulfilled, (state, action) => {
+        const removedItemId = action.payload;
+        state.items = state.items.filter((item) => item.id !== removedItemId);
+        state.totalQuantity = calculateTotalQuantity(state.items);
+        state.totalPrice = calculateTotalPrice(state.items);
+
+        // Cập nhật localStorage
+        localStorage.setItem("cartItems", JSON.stringify(state.items));
       });
   },
 });

@@ -5,7 +5,11 @@ import {
   saveCartToLocalStorage,
 } from "../../../utils/indexUtils";
 import { useDispatch } from "react-redux";
-import { removeCartItem, updateCartQuantity } from "../../../store/cartThunk";
+import {
+  fetchCarts,
+  removeCartItem,
+  updateCartQuantity,
+} from "../../../store/cartThunk";
 
 const CartCheckbox = () => {
   const [cartItems, setCartItems] = useState(getCartFromLocalStorage());
@@ -48,6 +52,7 @@ const CartCheckbox = () => {
       if (token) {
         // Nếu có token, gọi API để xóa sản phẩm
         dispatch(removeCartItem(id));
+        dispatch(fetchCarts(token));
       } else {
         // Nếu không có token, chỉ cần cập nhật giỏ hàng trong state và localStorage
         const updatedItems = cartItems.filter((item) => item.id !== id);
