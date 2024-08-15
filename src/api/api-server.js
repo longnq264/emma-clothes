@@ -247,3 +247,9 @@ export const importUsers = async (formData) => {
     throw error;
   }
 };
+
+export const getListAddress = async () => {
+  const response = await axios.get(`https://esgoo.net/api-tinhthanh/1/0.htm`);
+  console.log(`Get address data`, response.data);
+  return response.data;
+};
