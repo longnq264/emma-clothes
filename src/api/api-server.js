@@ -197,9 +197,9 @@ export const deleteCategory = async (categoryId) => {
 // phần admin users
 
 // Lấy danh sách người dùng
-export const getUsers = async () => {
+export const getUsers = async (params = {}) => {
   try {
-    const response = await axios.get(`${API_URL}/users`);
+    const response = await axios.get(`${API_URL}/users`, { params });
     return response.data;
   } catch (error) {
     console.error("Failed to fetch users:", error);
@@ -260,3 +260,4 @@ export const getListAddress = async () => {
   console.log(`Get address data`, response.data);
   return response.data;
 };
+

@@ -1,20 +1,33 @@
-import { Button, Form, Input } from "antd";
-import { useContext } from "react";
-import { AppContext } from "../../context/AppContext";
+
+import { useState } from 'react';
+import { Button, Form, Input, message } from 'antd';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const SigninAdmin = () => {
-  const { loginUser } = useContext(AppContext);
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const onFinish = async (values) => {
-    console.log("values:", values);
-    const formData = { ...values };
-
+  const loginUser = async (formData) => {
+    setLoading(true);
+    setErrorMessage('');
     try {
-      await loginUser(formData);
-      // Redirect to admin dashboard or show a success message
+      const response = await axios.post('http://localhost:8000/api/login', formData);
+      localStorage.setItem('token', response.data.token);
+      message.success('Đăng nhập thành công!');
+      navigate('/admin');
     } catch (error) {
       console.error("Login failed:", error);
+      setErrorMessage("Đăng nhập không thành công. Vui lòng kiểm tra lại email hoặc mật khẩu.");
+    } finally {
+      setLoading(false);
     }
+  };
+
+  const onFinish = async (values) => {
+    const formData = { ...values };
+    await loginUser(formData);
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -27,6 +40,11 @@ const SigninAdmin = () => {
         <h1 className="font-bold text-center text-gray-800 text-4xl mb-8">
           Đăng nhập
         </h1>
+        {errorMessage && (
+          <div className="mb-4 text-red-600 text-center">
+            {errorMessage}
+          </div>
+        )}
         <Form
           name="signin"
           labelCol={{ span: 8 }}
@@ -43,6 +61,7 @@ const SigninAdmin = () => {
             rules={[{ required: true, message: "Vui lòng nhập email!" }]}
           >
             <Input
+              type="email"
               className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             />
           </Form.Item>
@@ -65,6 +84,7 @@ const SigninAdmin = () => {
               type="primary"
               htmlType="submit"
               className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              loading={loading}
             >
               Đăng nhập
             </Button>

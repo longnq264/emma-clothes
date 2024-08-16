@@ -29,11 +29,16 @@ import ProductsList from "./pages/Admin/ProductsList.jsx";
 // import AppProvider from "./context/AppProvider.jsx";
 import Checkout from "./pages/Checkout.jsx";
 import OrderPage from "./pages/Admin/Orders.jsx";
-import UsersPage from "./pages/Admin/Users.jsx";
+
 import StaffList from "./pages/Admin/StaffList.jsx";
 // import CustomersList from "./pages/Admin/CustomersList.jsx";
 import { Provider } from "react-redux";
 import store from "./store/store.js";
+import StaffAdd from "./pages/Admin/StaffAdd.jsx";
+import StaffEdit from "./pages/Admin/StaffEdit.jsx";
+// import UserAdminPage from "./pages/Admin/UserAdminPage.jsx";
+import LoginAdmin from "./pages/Auth/signinAdmin.jsx";
+
 
 const router = createBrowserRouter([
   {
@@ -61,6 +66,7 @@ const router = createBrowserRouter([
       { path: "/not-loggedin", element: <NotLoggedIn /> },
       { path: "/admin", element: <DashBoardPage /> },
       { path: "/sale", element: <Sale /> },
+      { path: "/loginadmin", element: <LoginAdmin /> },
     ],
   },
   //role admin
@@ -70,7 +76,7 @@ const router = createBrowserRouter([
     children: [
       { path: "", element: <DashBoardPage /> },
       { path: "order", element: <OrderPage /> },
-      { path: "users", element: <UsersPage /> },
+      // { path: "users", element: <UserAdminPage /> },
       { path: "products", element: <ProductsList /> },
       { path: "products/new", element: <ProductAdd /> },
       { path: "products/edit/:id", element: <ProductEdit /> },
@@ -78,8 +84,8 @@ const router = createBrowserRouter([
       { path: "categories/new", element: <CategoriesAdd /> },
       { path: "categories/edit/:id", element: <CategoriesEdit /> },
       { path: "staffs", element: <StaffList /> },
-      // { path: "staffs/new", element: <StaffAdd /> }, // Sửa thành StaffAdd
-      // { path: "staffs/edit/:id", element: <StaffEdit /> }, // Sửa thành StaffEdit
+      { path: "staffs/new", element: <StaffAdd /> }, 
+      { path: "staffs/edit/:id", element: <StaffEdit /> }, 
     ],
   },
   {
