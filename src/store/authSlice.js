@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchUser, loginUser } from "./authThunk";
+import { fetchUser, loginUser, registerUser } from "./authThunk";
 
 const authSlice = createSlice({
   name: "auth",
@@ -37,6 +37,15 @@ const authSlice = createSlice({
       .addCase(loginUser.rejected, (state, action) => {
         state.status = "failed"; // Khi thunk action gặp lỗi
         state.error = action.payload;
+      })
+      .addCase(registerUser.fulfilled, (state, action) => {
+        console.log(action.payload);
+
+        state.status = "succeeded";
+        state.user = action.payload;
+        state.token = action.payload.token;
+        localStorage.setItem("token", action.payload.token);
+        localStorage.setItem("user", JSON.stringify(action.payload.data));
       })
       .addCase(fetchUser.pending, (state) => {
         state.status = "loading"; // Khi thunk action bắt đầu chạy

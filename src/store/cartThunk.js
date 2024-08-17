@@ -65,9 +65,16 @@ export const syncLocalCartToServer = createAsyncThunk(
 
         if (existingItem) {
           console.log(existingItem);
+          console.log("quantity", existingItem.quantity);
+          console.log(existingItem.id);
+          console.log(item.id);
 
+          console.log(token);
+          const quantityUpdate = {
+            quantity: item.quantity + existingItem.quantity,
+          };
           // Nếu sản phẩm đã tồn tại trên server, cập nhật số lượng
-          await updateCart(existingItem.id, token, item.quantity);
+          await updateCart(existingItem.id, token, quantityUpdate);
         } else {
           // Nếu sản phẩm chưa tồn tại trên server, thêm mới
           await addToCart(item, token);

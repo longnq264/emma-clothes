@@ -1,11 +1,9 @@
 import { Button, Form, Input, DatePicker, Checkbox } from "antd";
-import { useContext } from "react";
-import { AppContext } from "../../context/AppContext";
 import { useNavigate } from "react-router-dom";
+import { registerUser } from "../../store/authThunk";
 
 const Signup = () => {
   const navigate = useNavigate();
-  const { registerUser } = useContext(AppContext);
 
   const onFinish = async (values) => {
     const formData = {
@@ -15,6 +13,7 @@ const Signup = () => {
 
     try {
       await registerUser(formData);
+
       navigate("/");
     } catch (error) {
       console.error("Registration failed:", error);

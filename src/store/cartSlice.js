@@ -143,12 +143,12 @@ const cartSlice = createSlice({
       })
       .addCase(syncLocalCartToServer.fulfilled, (state, action) => {
         state.items = action.payload;
-        console.log(action.payload);
+        console.log("payload reducer", action.payload);
+        state.status = "succeeded";
+        localStorage.setItem("cartItems", JSON.stringify(action.payload));
 
         // state.totalQuantity = calculateTotalQuantity(action.payload.items);
         // state.totalPrice = calculateTotalPrice(action.payload.items);
-        state.status = "succeeded";
-        localStorage.setItem("cartItems", JSON.stringify(action.payload));
         // state.merged = true; // Cập nhật trạng thái merged
       })
       .addCase(syncLocalCartToServer.rejected, (state, action) => {
