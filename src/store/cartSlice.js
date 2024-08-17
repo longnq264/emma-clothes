@@ -10,24 +10,22 @@ import {
   getCartFromLocalStorage,
   saveCartToLocalStorage,
 } from "../utils/indexUtils";
+import { calculateTotalPrice } from "../utils/helperFunction";
 
 const calculateTotalQuantity = (items) =>
   items.reduce((total, item) => total + item.quantity, 0);
-
-// const calculateTotalPrice = (items) =>
-//   items.reduce((total, item) => total + item.price * item.quantity, 0);
-
-// const totalQuantityfromCart = getCartFromLocalStorage();
 
 const cartSlice = createSlice({
   name: "cart",
   initialState: {
     items: JSON.parse(localStorage.getItem("cartItems")) || [],
-    isAllSelected: false,
+    merged: false,
     totalQuantity: calculateTotalQuantity(getCartFromLocalStorage()),
     status: "idle",
-    totalPrice: 0, // Tổng giá trị của giỏ hàng
-    merged: false,
+    totalPrice: 0,
+    totalPriceApi: 0,
+    shippingFee: 20,
+    discount: 0,
   },
   reducers: {
     addItemToCart(state, action) {
@@ -55,6 +53,7 @@ const cartSlice = createSlice({
       // Cập nhật tổng số lượng và tổng giá trị
       state.totalQuantity = calculateTotalQuantity(state.items);
       saveCartToLocalStorage(state.items);
+      state.totalPrice = calculateTotalPrice(state.items);
     },
 
     updateItemQuantity(state, action) {
@@ -72,6 +71,10 @@ const cartSlice = createSlice({
           state.items = state.items.filter((i) => i.id !== id);
         }
       }
+      state.totalPrice = state.items.reduce(
+        (total, item) => total + item.price * item.quantity,
+        0
+      );
     },
 
     removeItemFromCart(state, action) {
@@ -104,12 +107,12 @@ const cartSlice = createSlice({
       })
       // --------------------- fetch Cart ------------------------------
       .addCase(fetchCarts.fulfilled, (state, action) => {
-        console.log(action.payload);
-
-        state.items = action.payload;
+        const { items, totalPriceApi } = action.payload;
+        state.items = items;
         state.totalQuantity = calculateTotalQuantity(state.items);
+        // state.totalPrice = calculateTotalPrice(action.payload);
+        state.totalPriceApi = totalPriceApi;
         localStorage.setItem("cartItems", JSON.stringify(state.items));
-
         state.status = "succeeded";
       })
       .addCase(fetchCarts.rejected, (state, action) => {
@@ -122,17 +125,18 @@ const cartSlice = createSlice({
       // ------------------- Add To Cart ---------------------
       .addCase(addToCartItems.fulfilled, (state, action) => {
         console.log(action.payload);
-
         state.items = action.payload;
         state.status = "succeeded";
-        console.log(state.items);
 
+        console.log(state.items);
         localStorage.setItem("cartItems", JSON.stringify(state.items));
       })
       // ---------------------- update Cart ----------------------------------
       .addCase(updateCartQuantity.fulfilled, (state, action) => {
         // Cập nhật trạng thái giỏ hàng khi cập nhật số lượng thành công
         const updatedItem = action.payload;
+        console.log(updatedItem);
+
         const existingItem = state.items.find(
           (item) => item.id === updatedItem.id
         );
@@ -148,13 +152,12 @@ const cartSlice = createSlice({
       .addCase(syncLocalCartToServer.fulfilled, (state, action) => {
         state.items = action.payload;
         console.log("payload reducer", action.payload);
+
         state.totalQuantity = calculateTotalQuantity(action.payload);
         state.status = "succeeded";
         localStorage.setItem("cartItems", JSON.stringify(action.payload));
 
-        // state.totalQuantity = calculateTotalQuantity(action.payload.items);
-        // state.totalPrice = calculateTotalPrice(action.payload.items);
-        // state.merged = true; // Cập nhật trạng thái merged
+        console.log("totalPrice", state.totalPrice);
       })
       .addCase(syncLocalCartToServer.rejected, (state, action) => {
         state.status = "failed";

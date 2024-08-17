@@ -9,12 +9,17 @@ export const fetchCarts = createAsyncThunk(
   async (token, { rejectWithValue }) => {
     try {
       const response = await listCart(token);
+      console.log(response);
+
       if (response.items.length > 0) {
         saveCartToLocalStorage(response.items.products);
       }
       console.log(response.items);
 
-      return response.items;
+      return {
+        items: response.items,
+        totalPriceApi: response.total_amount,
+      };
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
@@ -31,7 +36,6 @@ export const addToCartItems = createAsyncThunk(
 
       const response = await addToCart(values, token);
       console.log(response);
-      console.log(data);
 
       return data;
     } catch (error) {

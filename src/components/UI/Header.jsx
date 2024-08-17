@@ -3,16 +3,11 @@ import Logo from "./Home/Logo";
 import Navigation from "./Navigation/Navigation";
 import Search from "./Search";
 import DropDownProfile from "./Navigation/DropDownProfile";
-import { useSelector } from "react-redux";
 import CartQuantity from "./Cart/CartQuantity";
 
 const Header = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
-
-  const totalQuantity = useSelector((state) => state.cart.totalQuantity);
-
-  console.log(totalQuantity);
 
   useEffect(() => {
     const handleScroll = () => {

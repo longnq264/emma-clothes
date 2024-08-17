@@ -70,10 +70,6 @@ export const addToCart = async (data, token) => {
 };
 
 export const updateCart = async (id, token, quantity) => {
-  console.log(id);
-  console.log(token);
-  console.log(quantity);
-
   const response = await axios.put(`${API_URL}/cart/${id}`, quantity, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -90,6 +86,20 @@ export const removeCart = async (id, token) => {
     },
   });
   return response;
+};
+
+export const clearCart = async (token) => {
+  try {
+    const response = await axios.delete(`${API_URL}/cart`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const listCart = async (token) => {

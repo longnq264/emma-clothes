@@ -45,7 +45,9 @@ li.list.dropdown:hover {
   font-size: medium;
 }
 .quantity-control {
+  width: 100px;
   display: flex;
+  justify-content: space-between;
   align-items: center;
   margin-top: 10px;
   border: 1px solid rgb(229, 229, 229);

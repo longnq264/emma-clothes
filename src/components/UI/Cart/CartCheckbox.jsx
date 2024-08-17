@@ -11,40 +11,13 @@ import {
   updateCartQuantity,
 } from "../../../store/cartThunk";
 import { updateItemQuantity } from "../../../store/cartSlice";
+import { clearCart } from "../../../api/api-server";
 
 const CartCheckbox = () => {
   const [cartItems, setCartItems] = useState(getCartFromLocalStorage());
-  const [selectedItems, setSelectedItems] = useState([]);
-  const [isAllSelected, setIsAllSelected] = useState(false);
 
   const dispatch = useDispatch();
   const token = getTokenFromLocalStorage();
-  // Xử lý thay đổi trạng thái chọn tất cả sản phẩm
-  const handleSelectAllChange = (isChecked) => {
-    if (isChecked) {
-      setSelectedItems(cartItems);
-    } else {
-      setSelectedItems([]);
-    }
-    setIsAllSelected(isChecked);
-  };
-
-  // Xử lý thay đổi trạng thái chọn từng sản phẩm
-  const handleItemChange = (item) => {
-    setSelectedItems((prevSelectedItems) => {
-      const isSelected = prevSelectedItems.some(
-        (selectedItem) => selectedItem.id === item.id
-      );
-
-      if (isSelected) {
-        return prevSelectedItems.filter(
-          (selectedItem) => selectedItem.id !== item.id
-        );
-      } else {
-        return [...prevSelectedItems, item];
-      }
-    });
-  };
 
   // Xử lý thay đổi số lượng sản phẩm
   const handleQuantityChange = (id, newQuantity) => {
@@ -83,37 +56,51 @@ const CartCheckbox = () => {
     (total, item) => total + item.quantity,
     0
   );
+  const handleRemoveAllItems = async () => {
+    try {
+      await clearCart(token);
+      console.log("clear cart");
+      await dispatch(fetchCarts(token));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
+  const handleRemoveItem = (id) => {
+    dispatch(removeCartItem(id));
+    dispatch(fetchCarts(token));
+  };
   return (
     <div className="bg-white">
-      <div className="item px-4 py-2 flex items-center">
-        <label className="flex items-center font-bold">
-          <input
-            type="checkbox"
-            checked={isAllSelected}
-            onChange={(e) => handleSelectAllChange(e.target.checked)}
-          />{" "}
+      <div className="item px-4 py-2 flex justify-between items-center">
+        <label className="flex  items-center font-bold">
           <p>Select All</p>
         </label>
+        <button
+          className="border px-4 py-2 font-bold"
+          onClick={handleRemoveAllItems}
+        >
+          X
+        </button>
       </div>
-      {/* <div></div> */}
       {cartItems.map((item) => (
         <div
           key={item.id}
-          className="border-t-4 border-gray-100 px-4 py-6 flex items-center"
+          className="border-t-4 border-gray-100 px-4 py-6 flex justify-between items-center"
         >
           <div className="flex">
-            <input
-              type="checkbox"
-              checked={selectedItems.includes(item)}
-              onChange={() => handleItemChange(item)}
-            />
-            <div>
+            <div className="w-32 p-2">
+              <img src={item.product.image} alt="" />
+            </div>
+            <div className="pl-4">
               <p className="text-sm font-bold text-gray-700 mb-2">
-                {item.name}
+                {item.product.name}
               </p>
               <p className="font-semibold text-sm text-gray-700">
-                {item.price}
+                {Number(item.price).toLocaleString("vi-VN", {
+                  style: "currency",
+                  currency: "VND",
+                })}
               </p>
 
               <div className="quantity-control mt-10">
@@ -133,11 +120,20 @@ const CartCheckbox = () => {
                   +
                 </button>
               </div>
+              <p className="text-stone-700 text-xs border py-2 pl-3 w-28 rounded-lg hover:bg-stone-300">
+                {item.variant.sku}
+              </p>
             </div>
           </div>
+          <button
+            className="border px-4 py-2 font-bold"
+            onClick={() => handleRemoveItem(item.id)}
+          >
+            X
+          </button>
         </div>
       ))}
-      <div>Total Quantity: {totalQuantity}</div>
+      <div className="pl-4 py-2">Total Quantity: {totalQuantity}</div>
     </div>
   );
 };
