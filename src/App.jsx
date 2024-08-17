@@ -92,7 +92,6 @@ function App() {
   return (
     <Provider store={store}>
       <RouterProvider router={router} />
-      {/* <AppProvider></AppProvider> */}
     </Provider>
   );
 }

@@ -11,6 +11,10 @@ export const getCartFromLocalStorage = () => {
   return cartItems ? JSON.parse(cartItems) : [];
 };
 
+// export const getTotalQauntity = () => {
+//   const totalQuantity = localStorage.getItem("cartItems")
+// }
+
 export const getTokenFromLocalStorage = () => {
   const token = localStorage.getItem("token");
   return token;

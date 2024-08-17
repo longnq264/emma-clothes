@@ -10,6 +10,7 @@ import {
   removeCartItem,
   updateCartQuantity,
 } from "../../../store/cartThunk";
+import { updateItemQuantity } from "../../../store/cartSlice";
 
 const CartCheckbox = () => {
   const [cartItems, setCartItems] = useState(getCartFromLocalStorage());
@@ -69,8 +70,11 @@ const CartCheckbox = () => {
       const updatedItems = cartItems.map((item) =>
         item.id === id ? { ...item, quantity: newQuantity } : item
       );
+      console.log(updatedItems);
+
       setCartItems(updatedItems);
       saveCartToLocalStorage(updatedItems);
+      dispatch(updateItemQuantity({ id, quantity: newQuantity }));
     }
   };
 

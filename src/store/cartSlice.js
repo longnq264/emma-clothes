@@ -7,22 +7,24 @@ import {
   updateCartQuantity,
 } from "./cartThunk";
 import {
-  // getCartFromLocalStorage,
+  getCartFromLocalStorage,
   saveCartToLocalStorage,
 } from "../utils/indexUtils";
 
 const calculateTotalQuantity = (items) =>
   items.reduce((total, item) => total + item.quantity, 0);
 
-const calculateTotalPrice = (items) =>
-  items.reduce((total, item) => total + item.price * item.quantity, 0);
+// const calculateTotalPrice = (items) =>
+//   items.reduce((total, item) => total + item.price * item.quantity, 0);
+
+// const totalQuantityfromCart = getCartFromLocalStorage();
 
 const cartSlice = createSlice({
   name: "cart",
   initialState: {
     items: JSON.parse(localStorage.getItem("cartItems")) || [],
     isAllSelected: false,
-    // totalQuantity: calculateTotalQuantity(getCartFromLocalStorage()),
+    totalQuantity: calculateTotalQuantity(getCartFromLocalStorage()),
     status: "idle",
     totalPrice: 0, // Tổng giá trị của giỏ hàng
     merged: false,
@@ -52,8 +54,6 @@ const cartSlice = createSlice({
 
       // Cập nhật tổng số lượng và tổng giá trị
       state.totalQuantity = calculateTotalQuantity(state.items);
-      state.totalPrice = calculateTotalPrice(state.items);
-
       saveCartToLocalStorage(state.items);
     },
 
@@ -64,7 +64,6 @@ const cartSlice = createSlice({
       if (item) {
         if (quantity > 0) {
           state.totalQuantity += quantity - item.quantity;
-          state.totalPrice += (quantity - item.quantity) * item.price;
           item.quantity = quantity;
         } else if (quantity === 0) {
           // Xóa sản phẩm khỏi giỏ hàng nếu số lượng bằng 0
@@ -85,7 +84,13 @@ const cartSlice = createSlice({
         state.items = state.items.filter((i) => i.id !== id);
       }
     },
-
+    setItems(state, action) {
+      state.items = action.payload;
+      state.totalQuantity = state.items.reduce(
+        (total, item) => total + item.quantity,
+        0
+      );
+    },
     clearCart(state) {
       state.items = [];
       state.totalQuantity = 0;
@@ -103,7 +108,6 @@ const cartSlice = createSlice({
 
         state.items = action.payload;
         state.totalQuantity = calculateTotalQuantity(state.items);
-        state.totalPrice = calculateTotalPrice(state.items);
         localStorage.setItem("cartItems", JSON.stringify(state.items));
 
         state.status = "succeeded";
@@ -134,8 +138,8 @@ const cartSlice = createSlice({
         );
         if (existingItem) {
           existingItem.quantity = updatedItem.quantity;
-          // state.totalQuantity = calculateTotalQuantity(state.items);
-          // state.totalPrice = calculateTotalPrice(state.items);
+          state.totalQuantity = calculateTotalQuantity(state.items);
+          console.log(state.totalQuantity);
         }
       })
       .addCase(syncLocalCartToServer.pending, (state) => {
@@ -144,6 +148,7 @@ const cartSlice = createSlice({
       .addCase(syncLocalCartToServer.fulfilled, (state, action) => {
         state.items = action.payload;
         console.log("payload reducer", action.payload);
+        state.totalQuantity = calculateTotalQuantity(action.payload);
         state.status = "succeeded";
         localStorage.setItem("cartItems", JSON.stringify(action.payload));
 
@@ -160,7 +165,6 @@ const cartSlice = createSlice({
         const removedItemId = action.payload;
         state.items = state.items.filter((item) => item.id !== removedItemId);
         state.totalQuantity = calculateTotalQuantity(state.items);
-        state.totalPrice = calculateTotalPrice(state.items);
 
         // Cập nhật localStorage
         localStorage.setItem("cartItems", JSON.stringify(state.items));
@@ -172,6 +176,7 @@ export const {
   addItemToCart,
   updateItemQuantity,
   removeItemFromCart,
+  setItems,
   clearCart,
 } = cartSlice.actions;
 
