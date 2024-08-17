@@ -3,11 +3,16 @@ import { useSelector } from "react-redux";
 import CartCheckbox from "../../components/UI/Cart/CartCheckbox";
 import OrderList from "../../components/UI/Cart/OrderList";
 import ClearCart from "../../components/UI/Cart/ClearCart";
+import ProgressBar from "./ProgressBar";
 
 const CartPage = () => {
   const items = useSelector((state) => state.cart.items);
   const cartStatus = useSelector((state) => state.cart.status);
   const error = useSelector((state) => state.cart.error);
+  const totalPrice = useSelector((state) => state.cart.totalPrice);
+  // const delivery = useSelector((state) => state.cart.shippingFee);
+  // const discount = useSelector((state) => state.cart.discount);
+  const freeShip = useSelector((state) => state.cart.freeship);
 
   if (cartStatus === "loading") {
     return <div>Loading...</div>;
@@ -30,24 +35,28 @@ const CartPage = () => {
               <div className="flex">
                 <div className="cart-page basis-3/5">
                   <>
-                    {/* Progcess */}
                     <div className="progcess bg-white mb-4">
-                      {/* <div className="p-4">
-                          {totalPrice >= freeShipThreshold ? (
-                            <p className="text-sm mb-2">
-                              Bạn đã được freeship!
-                            </p>
-                          ) : (
-                            <p className="text-sm mb-2">
-                              Bạn cần thêm {freeShipThreshold - totalPrice} VND
+                      <div className="p-4">
+                        {totalPrice >= freeShip ? (
+                          <p className="text-sm mb-2">Bạn đã được freeship!</p>
+                        ) : (
+                          <p className="text-base mb-2">
+                            Bạn cần thêm
+                            <span>
+                              {" "}
+                              {Number(freeShip - totalPrice).toLocaleString(
+                                "vi-VN",
+                                {
+                                  style: "currency",
+                                  currency: "VND",
+                                }
+                              )}{" "}
                               để được freeship.
-                            </p>
-                          )}
-                          <ProgressBar
-                            value={totalPrice}
-                            maxValue={freeShipThreshold}
-                          />
-                        </div> */}
+                            </span>
+                          </p>
+                        )}
+                        <ProgressBar value={totalPrice} maxValue={freeShip} />
+                      </div>
                     </div>
                     <CartCheckbox />
                   </>

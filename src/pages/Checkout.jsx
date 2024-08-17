@@ -12,15 +12,15 @@ const Checkout = () => {
       <main className="min-h-screen">
         <div className="flex flex-col my-4">
           <h1 className="uppercase text-center font-bold text-3xl mt-4">
-            Checkout
+            Thanh Toán
           </h1>
           <p className="text-center"></p>
         </div>
-        <div className="container mx-auto flex">
-          <div className="left-col basis-1/2">
+        <div className="flex justify-center h-full">
+          <div className="justify-end pl-10 pt-6 basis-1/2 pr-14">
             <UserForm />
           </div>
-          <div className="right-col basis-1/2">
+          <div className="bg-slate-50 justify-start basis-1/2 pl-10 pt-6 border-l-2 border-gray-300">
             <OrderSummary />
           </div>
         </div>

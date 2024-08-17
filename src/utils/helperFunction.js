@@ -5,3 +5,10 @@ export const calculateTotalQuantity = (items) => {
 };
 export const calculateTotalPrice = (items) =>
   items.reduce((total, item) => total + item.price * item.quantity, 0);
+
+export const formatPrice = (price) => {
+  return (price / 100).toLocaleString("vi-VN", {
+    style: "currency",
+    currency: "VND",
+  });
+};

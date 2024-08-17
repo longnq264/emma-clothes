@@ -15,6 +15,9 @@ import { calculateTotalPrice } from "../utils/helperFunction";
 const calculateTotalQuantity = (items) =>
   items.reduce((total, item) => total + item.quantity, 0);
 
+const calculateTotalPriceAll = (totalPrice, shippingFee, discount) => {
+  return totalPrice + shippingFee - discount;
+};
 const cartSlice = createSlice({
   name: "cart",
   initialState: {
@@ -24,8 +27,10 @@ const cartSlice = createSlice({
     status: "idle",
     totalPrice: 0,
     totalPriceApi: 0,
-    shippingFee: 20,
-    discount: 0,
+    shippingFee: 20000,
+    discount: 10000,
+    freeship: 1000000,
+    totalPriceAll: 0,
   },
   reducers: {
     addItemToCart(state, action) {
@@ -74,6 +79,11 @@ const cartSlice = createSlice({
       state.totalPrice = state.items.reduce(
         (total, item) => total + item.price * item.quantity,
         0
+      );
+      state.totalPriceAll = calculateTotalPriceAll(
+        state.totalPrice,
+        state.shippingFee,
+        state.discount
       );
     },
 
