@@ -18,6 +18,7 @@ const calculateTotalQuantity = (items) =>
 const calculateTotalPriceAll = (totalPrice, shippingFee, discount) => {
   return totalPrice + shippingFee - discount;
 };
+
 const cartSlice = createSlice({
   name: "cart",
   initialState: {
@@ -25,7 +26,7 @@ const cartSlice = createSlice({
     merged: false,
     totalQuantity: calculateTotalQuantity(getCartFromLocalStorage()),
     status: "idle",
-    totalPrice: 0,
+    totalPrice: calculateTotalPrice(getCartFromLocalStorage()),
     totalPriceApi: 0,
     shippingFee: 20000,
     discount: 10000,
@@ -109,6 +110,14 @@ const cartSlice = createSlice({
       state.totalQuantity = 0;
       state.totalPrice = 0;
     },
+    setFreeShip(state, action) {
+      const progress = action.payload;
+      if (progress >= 100) {
+        state.shippingFee = 0;
+      } else {
+        state.shippingFee = 20000;
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -119,6 +128,8 @@ const cartSlice = createSlice({
       .addCase(fetchCarts.fulfilled, (state, action) => {
         const { items, totalPriceApi } = action.payload;
         state.items = items;
+        console.log(items);
+
         state.totalQuantity = calculateTotalQuantity(state.items);
         // state.totalPrice = calculateTotalPrice(action.payload);
         state.totalPriceApi = totalPriceApi;
@@ -135,9 +146,12 @@ const cartSlice = createSlice({
       // ------------------- Add To Cart ---------------------
       .addCase(addToCartItems.fulfilled, (state, action) => {
         console.log(action.payload);
+        const price = action.payload;
+        console.log(price);
+
         state.items = action.payload;
         state.status = "succeeded";
-
+        // state.totalQuantity = calculateTotalQuantity(state.items);
         console.log(state.items);
         localStorage.setItem("cartItems", JSON.stringify(state.items));
       })
@@ -146,7 +160,6 @@ const cartSlice = createSlice({
         // Cập nhật trạng thái giỏ hàng khi cập nhật số lượng thành công
         const updatedItem = action.payload;
         console.log(updatedItem);
-
         const existingItem = state.items.find(
           (item) => item.id === updatedItem.id
         );
@@ -191,6 +204,7 @@ export const {
   removeItemFromCart,
   setItems,
   clearCart,
+  setFreeShip,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

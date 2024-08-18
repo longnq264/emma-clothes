@@ -76,3 +76,11 @@ li.list.dropdown:hover {
   padding: 8px 0;
 }
 
+#basic_paymentMethod label.ant-radio-wrapper.ant-radio-wrapper-in-form-item {
+  margin: 0;
+}
+
+.shipping-content label.ant-radio-wrapper {
+  margin: 0;
+}
+

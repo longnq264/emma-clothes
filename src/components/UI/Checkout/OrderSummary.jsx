@@ -1,15 +1,23 @@
+import { useSelector } from "react-redux";
 import { getCartFromLocalStorage } from "../../../utils/indexUtils";
+import { formatCurrency } from "../../../utils/helperFunction";
 
 const OrderSummary = () => {
   const cartItems = getCartFromLocalStorage();
+  const totalPrice = useSelector((state) => state.cart.totalPrice);
+  const delivery = useSelector((state) => state.cart.shippingFee);
+  const discount = useSelector((state) => state.cart.discount);
+  const priceCheckout = useSelector((state) => state.cart.totalPriceAll);
+  console.log(cartItems);
+
   return (
-    <div className="order-summary min-h-screen">
-      <h2 className="text-base font-bold pb-6">Thông tin sản phẩm</h2>
-      <div>
+    <div className="order-summary min-h-screen w-96">
+      <h2 className="text-base font-bold pb-5">Thông tin sản phẩm</h2>
+      <div className="border-b pb-4">
         {cartItems.map((item) => (
-          <div key={item.id} className="flex">
-            <div className="img w-24">
-              <img src={item.product.image} alt="" />
+          <div key={item.id} className="flex py-2">
+            <div className="img w-20 bg-stone-200">
+              <img className="object-fill" src={item.product.image} alt="" />
             </div>
             <div className="content-order pl-4 text-stone-800">
               <p className="text-sm font-bold">{item.product.name}</p>
@@ -25,7 +33,24 @@ const OrderSummary = () => {
           </div>
         ))}
       </div>
-      <div className="total-price"></div>
+      <div className="price py-2 text-stone-600 text-sm">
+        <div className="total-price flex justify-between pt-2">
+          <p>Tổng giá trị sản phẩm</p>
+          <p>{formatCurrency(totalPrice)}</p>
+        </div>
+        <div className="flex justify-between pt-2">
+          <p>Vận chuyển</p>
+          <p>{formatCurrency(delivery)}</p>
+        </div>
+        <div className="flex justify-between border-b py-2">
+          <p>Khuyến mãi</p>
+          <p>{formatCurrency(discount)}</p>
+        </div>
+      </div>
+      <div className="totalPrice flex justify-between text-xl py-2">
+        <p className="font-bold">Tổng thanh toán</p>
+        <p className="font-bold">{formatCurrency(priceCheckout)}</p>
+      </div>
     </div>
   );
 };

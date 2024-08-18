@@ -1,7 +1,20 @@
 import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
+import { setFreeShip } from "../../store/cartSlice";
+import { useEffect } from "react";
 
 const ProgressBar = ({ value, maxValue }) => {
   const progress = Math.min((value / maxValue) * 100, 100);
+  console.log(progress);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (progress >= 100) {
+      dispatch(setFreeShip(progress));
+    }
+    if (progress <= 100) {
+      dispatch(setFreeShip(progress));
+    }
+  }, [progress, dispatch]);
 
   return (
     <div className="w-full bg-gray-200 rounded-full h-2 mb-2">

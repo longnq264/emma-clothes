@@ -1,7 +1,8 @@
 import { Button, Form, Input } from "antd";
-import City from "../Address/City";
 import Payment from "../Payment";
-
+import SelectShiping from "./SelectShiping";
+import Address from "../Address/Address";
+import PaymentIcon from "../Cart/PaymentIcon";
 const UserForm = () => {
   //   const [formData, setFormData] = useState({
   //     name: "",
@@ -21,17 +22,18 @@ const UserForm = () => {
   return (
     <div className="user-form flex justify-end">
       <div className="size-2/4">
-        <h2 className="text-xl font-bold pb-6">Người Nhận</h2>
+        <h2 className="text-xl font-bold pb-6">Người nhận</h2>
         <Form
           name="basic"
           labelCol={{
-            span: 6,
+            span: 2,
           }}
           wrapperCol={{
             span: 30,
           }}
           style={{
             maxWidth: 800,
+            // height: 40,
           }}
           initialValues={{
             remember: true,
@@ -49,11 +51,11 @@ const UserForm = () => {
               },
             ]}
           >
-            <Input placeholder="Ten Khach Hang" />
+            <Input placeholder="Ten Khach Hang" className="py-2" />
           </Form.Item>
 
           <Form.Item
-            name="phone"
+            name="phone_number"
             rules={[
               {
                 required: true,
@@ -61,7 +63,7 @@ const UserForm = () => {
               },
             ]}
           >
-            <Input placeholder="So Dien Thoai" />
+            <Input placeholder="So Dien Thoai" className="py-2" />
           </Form.Item>
 
           <Form.Item
@@ -73,23 +75,33 @@ const UserForm = () => {
               },
             ]}
           >
-            <Input placeholder="Email" />
+            <Input placeholder="Email" className="py-2" />
           </Form.Item>
 
-          <City />
+          <Address />
+
+          <SelectShiping />
 
           <Payment />
 
           <Form.Item>
             <Button
-              className="w-full bg-orange-400 font-bold text-base hover:bg-orange-200 py-5"
+              className="w-full bg-orange-400 hover:bg-orange-200 py-5 shadow-lg shadow-stone-400/40"
               type="primary"
               htmlType="submit"
             >
-              Thanh toán bằng tiền mặt
+              <span className="font-bold text-base text-stone-700">
+                Thanh toán bằng tiền mặt
+              </span>
             </Button>
           </Form.Item>
         </Form>
+        <div>
+          <PaymentIcon />
+          <p className="text-center text-xs pt-2">
+            Đảm bảo thanh toán an toàn và bảo mật
+          </p>
+        </div>
       </div>
     </div>
   );

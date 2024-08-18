@@ -1,12 +1,13 @@
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import PaymentIcon from "./PaymentIcon";
+import { calculateTotalPriceAll } from "../../../utils/helperFunction";
 
 const OrderList = () => {
   const totalPrice = useSelector((state) => state.cart.totalPrice);
   const delivery = useSelector((state) => state.cart.shippingFee);
   const discount = useSelector((state) => state.cart.discount);
-  const priceCheckout = useSelector((state) => state.cart.totalPriceAll);
+  const priceCheckout = calculateTotalPriceAll(totalPrice, delivery, discount);
   return (
     <div className="cart-detail bg-white basis-2/5 ml-4 p-6">
       <h1 className="font-bold text-xl mb-5">Chi tiết đơn hàng</h1>

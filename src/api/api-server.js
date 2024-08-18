@@ -172,6 +172,13 @@ export const getProduct = async (productId) => {
 //   return response.data;
 // };
 
+export const getProductsByPriceRange = async (minPrice, maxPrice) => {
+  const response = await axios.get(
+    `http://127.0.0.1:8000/api/products?min_price=${minPrice}&max_price=${maxPrice}`
+  );
+  return response.data;
+};
+
 // phần admin Categories
 
 // Category APIs

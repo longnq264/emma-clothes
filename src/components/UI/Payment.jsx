@@ -9,21 +9,23 @@ const Payment = () => {
 
   return (
     <Form.Item name="paymentMethod">
-      <h2 className="text-xl">Phương thức thanh toán</h2>
-      <p className="text-sm text-gray-500 py-2">
-        Lựa chọn phương thức thanh toán phù hợp nhất cho bạn
-      </p>
-      <Radio.Group className="flex flex-col">
-        {paymentMethods.map((method) => (
-          <Radio
-            key={method.value}
-            value={method.value}
-            className="border-2 py-4 px-2"
-          >
-            {method.label}
-          </Radio>
-        ))}
-      </Radio.Group>
+      <div className="payment-content">
+        <h2 className="text-xl font-bold">Phương thức thanh toán</h2>
+        <p className="text-sm text-gray-500 py-2">
+          Lựa chọn phương thức thanh toán phù hợp nhất cho bạn
+        </p>
+        <Radio.Group className="flex flex-col border-t-2 my-2">
+          {paymentMethods.map((method) => (
+            <Radio
+              key={method.value}
+              value={method.value}
+              className={`border-x-2 py-4 px-4 border-b-2`}
+            >
+              <p className="pl-2">{method.label}</p>
+            </Radio>
+          ))}
+        </Radio.Group>
+      </div>
     </Form.Item>
   );
 };

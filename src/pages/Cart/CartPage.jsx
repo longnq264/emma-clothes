@@ -40,7 +40,7 @@ const CartPage = () => {
                         {totalPrice >= freeShip ? (
                           <p className="text-sm mb-2">Bạn đã được freeship!</p>
                         ) : (
-                          <p className="text-base mb-2">
+                          <p className="text-sm mb-2">
                             Bạn cần thêm
                             <span>
                               {" "}

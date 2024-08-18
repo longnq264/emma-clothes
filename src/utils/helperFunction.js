@@ -6,9 +6,13 @@ export const calculateTotalQuantity = (items) => {
 export const calculateTotalPrice = (items) =>
   items.reduce((total, item) => total + item.price * item.quantity, 0);
 
-export const formatPrice = (price) => {
-  return (price / 100).toLocaleString("vi-VN", {
+export const formatCurrency = (amount) => {
+  return Number(amount).toLocaleString("vi-VN", {
     style: "currency",
     currency: "VND",
   });
+};
+
+export const calculateTotalPriceAll = (totalPrice, shippingFee, discount) => {
+  return totalPrice + shippingFee - discount;
 };
