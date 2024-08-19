@@ -1,11 +1,10 @@
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
-import { setFreeShip } from "../../store/cartSlice";
+import { setFreeShip } from "../../../store/cartSlice";
 import { useEffect } from "react";
 
 const ProgressBar = ({ value, maxValue }) => {
   const progress = Math.min((value / maxValue) * 100, 100);
-  console.log(progress);
   const dispatch = useDispatch();
   useEffect(() => {
     if (progress >= 100) {

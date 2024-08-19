@@ -175,12 +175,16 @@ const cartSlice = createSlice({
       .addCase(syncLocalCartToServer.fulfilled, (state, action) => {
         state.items = action.payload;
         console.log("payload reducer", action.payload);
-
+        state.totalPrice = calculateTotalPrice(state.items);
+        // state.totalPriceAll = calculateTotalPriceAll(
+        //   state.totalPrice,
+        //   state.shippingFee,
+        //   state.discount
+        // );
         state.totalQuantity = calculateTotalQuantity(action.payload);
+        console.log("totalPrice", state.totalPrice);
         state.status = "succeeded";
         localStorage.setItem("cartItems", JSON.stringify(action.payload));
-
-        console.log("totalPrice", state.totalPrice);
       })
       .addCase(syncLocalCartToServer.rejected, (state, action) => {
         state.status = "failed";

@@ -23,7 +23,6 @@ const ProductPage = () => {
   const [categoryId, setCategoryId] = useState(products);
   const [quantityProduct, setQuantityProduct] = useState(0);
   const [selectedPriceRange, setSelectedPriceRange] = useState(null);
-  console.log(selectedPriceRange);
 
   const { id } = useParams();
   const fetchProducts = async () => {
@@ -42,7 +41,6 @@ const ProductPage = () => {
       const productsData = response.data;
       setProducts(productsData);
       setQuantityProduct(productsData.length);
-      console.log("Products:", productsData);
     } catch (error) {
       console.error("Error fetching products:", error);
     }
@@ -51,7 +49,7 @@ const ProductPage = () => {
   const fetchCategory = async (id) => {
     const response = await getCategory(id);
     setCategoryId(response.data);
-    console.log(response.data);
+    console.log(response.data.name);
   };
 
   useEffect(() => {

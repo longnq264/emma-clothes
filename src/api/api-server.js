@@ -109,7 +109,7 @@ export const listCart = async (token) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log("list-cart", response.data);
+    console.log("list-cart", response);
 
     return response.data;
   } catch (error) {
@@ -205,7 +205,6 @@ export const updateCategory = async (categoryId, categoryData) => {
 
 export const getCategory = async (categoryId) => {
   const response = await axios.get(`${API_URL}/categories/${categoryId}`);
-  console.log(`Get category ${categoryId} data:`, response.data);
   return response.data;
 };
 
@@ -279,5 +278,15 @@ export const importUsers = async (formData) => {
 export const getListAddress = async () => {
   const response = await axios.get(`https://esgoo.net/api-tinhthanh/1/0.htm`);
   console.log(`Get address data`, response.data);
+  return response.data;
+};
+
+export const checkout = async (data, token) => {
+  const response = await axios.post(`${API_URL}/cart/checkout`, data, {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      Authorization: `Bearer ${token}`,
+    },
+  });
   return response.data;
 };

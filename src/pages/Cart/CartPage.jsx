@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import CartCheckbox from "../../components/UI/Cart/CartCheckbox";
 import OrderList from "../../components/UI/Cart/OrderList";
 import ClearCart from "../../components/UI/Cart/ClearCart";
-import ProgressBar from "./ProgressBar";
+import ProgressBar from "../../components/UI/Cart/ProgressBar";
 
 const CartPage = () => {
   const items = useSelector((state) => state.cart.items);

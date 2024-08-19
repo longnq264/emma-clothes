@@ -1,14 +1,16 @@
 import { useSelector } from "react-redux";
 import { getCartFromLocalStorage } from "../../../utils/indexUtils";
-import { formatCurrency } from "../../../utils/helperFunction";
+import {
+  calculateTotalPriceAll,
+  formatCurrency,
+} from "../../../utils/helperFunction";
 
 const OrderSummary = () => {
   const cartItems = getCartFromLocalStorage();
   const totalPrice = useSelector((state) => state.cart.totalPrice);
   const delivery = useSelector((state) => state.cart.shippingFee);
   const discount = useSelector((state) => state.cart.discount);
-  const priceCheckout = useSelector((state) => state.cart.totalPriceAll);
-  console.log(cartItems);
+  const priceCheckout = calculateTotalPriceAll(totalPrice, delivery, discount);
 
   return (
     <div className="order-summary min-h-screen w-96">

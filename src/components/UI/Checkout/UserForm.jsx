@@ -1,22 +1,25 @@
-import { Button, Form, Input } from "antd";
+import { Form } from "antd";
 import Payment from "../Payment";
 import SelectShiping from "./SelectShiping";
 import Address from "../Address/Address";
 import PaymentIcon from "../Cart/PaymentIcon";
+import { useSelector } from "react-redux";
+import UserInput from "./UserInput";
+import SubmitForm from "./SubmitForm";
+import { useContext } from "react";
+import { AppContext } from "../../../context/AppContext";
+
 const UserForm = () => {
-  //   const [formData, setFormData] = useState({
-  //     name: "",
-  //     email: "",
-  //     address: "",
-  //     city: "",
-  //     postalCode: "",
-  //   });
+  const userData = useSelector((state) => state.auth.user);
+  const { orderDetail } = useContext(AppContext);
 
   const onFinish = (values) => {
     console.log("Success:", values);
+    console.log(orderDetail);
   };
+
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    console.log("Failed:", errorInfo.values);
   };
 
   return (
@@ -33,50 +36,17 @@ const UserForm = () => {
           }}
           style={{
             maxWidth: 800,
-            // height: 40,
           }}
           initialValues={{
-            remember: true,
+            name: userData.name,
+            phone_number: userData.phone_number,
+            email: userData.email,
           }}
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
-          <Form.Item
-            name="name"
-            rules={[
-              {
-                required: true,
-                message: "Please input your username!",
-              },
-            ]}
-          >
-            <Input placeholder="Ten Khach Hang" className="py-2" />
-          </Form.Item>
-
-          <Form.Item
-            name="phone_number"
-            rules={[
-              {
-                required: true,
-                message: "Please input your phone!",
-              },
-            ]}
-          >
-            <Input placeholder="So Dien Thoai" className="py-2" />
-          </Form.Item>
-
-          <Form.Item
-            name="email"
-            rules={[
-              {
-                required: true,
-                message: "Please input your email!",
-              },
-            ]}
-          >
-            <Input placeholder="Email" className="py-2" />
-          </Form.Item>
+          <UserInput />
 
           <Address />
 
@@ -84,17 +54,7 @@ const UserForm = () => {
 
           <Payment />
 
-          <Form.Item>
-            <Button
-              className="w-full bg-orange-400 hover:bg-orange-200 py-5 shadow-lg shadow-stone-400/40"
-              type="primary"
-              htmlType="submit"
-            >
-              <span className="font-bold text-base text-stone-700">
-                Thanh toán bằng tiền mặt
-              </span>
-            </Button>
-          </Form.Item>
+          <SubmitForm />
         </Form>
         <div>
           <PaymentIcon />

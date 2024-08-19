@@ -52,8 +52,13 @@ export const syncLocalCartToServer = createAsyncThunk(
       console.log(localCart);
 
       const response = await listCart(token);
-      const serverCart = response.items || [];
-      console.log(serverCart);
+      console.log(response);
+
+      let serverCart = [];
+
+      if (response.items && Array.isArray(response.items)) {
+        serverCart = response.items;
+      }
 
       // Đưa tất cả các sản phẩm từ localStorage lên server
       for (const item of localCart) {

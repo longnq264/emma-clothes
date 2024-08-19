@@ -20,7 +20,6 @@ const ProductDetail = () => {
 
   const fetchProductDetail = async (id) => {
     const response = await getProductId(id);
-    console.log(response.data);
 
     setData(response.data);
     setSelectedVariant(response.data.productVariants[0]);

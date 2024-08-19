@@ -2,13 +2,13 @@ import { Form, Radio } from "antd";
 
 const Payment = () => {
   const paymentMethods = [
-    { label: "Tiền mặt (COD)", value: "cash_on_delivery" },
-    { label: "Ví điện tử VNPAY", value: "bank_transfer" },
+    { label: "Tiền mặt (COD)", value: "COD" },
+    { label: "Ví điện tử VNPAY", value: "online" },
     { label: "Thẻ nội địa hoặc ngân hàng", value: "credit_card" },
   ];
 
   return (
-    <Form.Item name="paymentMethod">
+    <Form.Item name="payment">
       <div className="payment-content">
         <h2 className="text-xl font-bold">Phương thức thanh toán</h2>
         <p className="text-sm text-gray-500 py-2">
