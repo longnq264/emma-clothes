@@ -6,16 +6,49 @@ import PaymentIcon from "../Cart/PaymentIcon";
 import { useSelector } from "react-redux";
 import UserInput from "./UserInput";
 import SubmitForm from "./SubmitForm";
-import { useContext } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { AppContext } from "../../../context/AppContext";
+import { getTokenFromLocalStorage } from "../../../utils/indexUtils";
+import { useNavigate } from "react-router-dom";
 
 const UserForm = () => {
   const userData = useSelector((state) => state.auth.user);
-  const { orderDetail } = useContext(AppContext);
+  const { orderDetail, setOrderDetail, handleCheckoutDetail } =
+    useContext(AppContext);
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const submitRef = useRef(false);
 
-  const onFinish = (values) => {
+  const token = getTokenFromLocalStorage();
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (formSubmitted && submitRef.current) {
+      (async () => {
+        try {
+          await handleCheckoutDetail(orderDetail, token);
+          console.log("Request sent successfully");
+          // Reset submitRef để tránh gửi lại request không cần thiết
+          submitRef.current = false;
+        } catch (error) {
+          console.error("Request failed", error);
+        }
+      })();
+    }
+  }, [orderDetail, formSubmitted, token]);
+
+  const onFinish = async (values) => {
     console.log("Success:", values);
-    console.log(orderDetail);
+    setOrderDetail((prevOrderDetail) => ({
+      ...prevOrderDetail,
+      payment: values.payment,
+      address_detail: values.address_detail,
+      email: values.email,
+      phone_number: Number(values.phone_number),
+      name: values.name,
+    }));
+    setFormSubmitted(true);
+    submitRef.current = true;
+    console.log("orderDetail", orderDetail);
+    navigate("/products");
   };
 
   const onFinishFailed = (errorInfo) => {

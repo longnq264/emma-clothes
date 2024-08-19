@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { AppContext } from "../../../context/AppContext";
-// import { getCities } from "../../../api/addressApi";
-import { Form, Select } from "antd";
+
+import { Form, Input, Select } from "antd";
 
 const Address = () => {
   const { address, handleCityChange, handleDistrictChange, handleWardChange } =
@@ -54,6 +54,9 @@ const Address = () => {
               </Option>
             ))}
           </Select>
+        </Form.Item>
+        <Form.Item name="address_detail">
+          <Input type="text" placeholder="Địa chỉ cụ thể" className="h-10" />
         </Form.Item>
       </div>
     </div>

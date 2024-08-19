@@ -131,7 +131,7 @@ const cartSlice = createSlice({
         console.log(items);
 
         state.totalQuantity = calculateTotalQuantity(state.items);
-        // state.totalPrice = calculateTotalPrice(action.payload);
+        state.totalPrice = calculateTotalPrice(state.items);
         state.totalPriceApi = totalPriceApi;
         localStorage.setItem("cartItems", JSON.stringify(state.items));
         state.status = "succeeded";
@@ -148,9 +148,9 @@ const cartSlice = createSlice({
         console.log(action.payload);
         const price = action.payload;
         console.log(price);
-
         state.items = action.payload;
         state.status = "succeeded";
+        state.totalPrice = calculateTotalPrice(getCartFromLocalStorage());
         // state.totalQuantity = calculateTotalQuantity(state.items);
         console.log(state.items);
         localStorage.setItem("cartItems", JSON.stringify(state.items));

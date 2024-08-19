@@ -282,6 +282,8 @@ export const getListAddress = async () => {
 };
 
 export const checkout = async (data, token) => {
+  console.log("data checkout", data);
+
   const response = await axios.post(`${API_URL}/cart/checkout`, data, {
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",

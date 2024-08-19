@@ -2,6 +2,10 @@ import { AppContext } from "./AppContext.jsx";
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { getCities, getDistricts, getWards } from "../api/addressApi.js";
+import { checkout } from "../api/api-server.js";
+import { notification } from "antd";
+import { useDispatch } from "react-redux";
+import { clearCart } from "../store/cartSlice.js";
 
 const AppProvider = ({ children }) => {
   const [currentSelect, setCurrentSelect] = useState("city");
@@ -15,16 +19,21 @@ const AppProvider = ({ children }) => {
     selectedDistrictName: "",
     selectedWard: null,
     selectedWardName: "",
-    addressString: "",
   });
+
   const [orderDetail, setOrderDetail] = useState({
     shipping_method: "Tiêu chuẩn",
-    address_detail: "Nhà văn hóa",
     ward: "",
     district: "",
     city: "",
+    address_detail: "",
+    name: "",
+    phone_number: "",
+    email: "",
   });
+  console.log(orderDetail);
 
+  // Address
   useEffect(() => {
     const fetchCities = async () => {
       const response = await getCities();
@@ -36,6 +45,7 @@ const AppProvider = ({ children }) => {
     fetchCities();
   }, [setAddress]);
 
+  // Detail Order
   useEffect(() => {
     setOrderDetail((prevOrderDetail) => ({
       ...prevOrderDetail,
@@ -95,9 +105,46 @@ const AppProvider = ({ children }) => {
   const handleButtonClick = (type) => {
     setCurrentSelect(type);
   };
-  // const updtaeOrderDetail = () => {
-  //   setOrderDetail({});
-  // };
+  const dispatch = useDispatch();
+
+  const handleCheckoutSuccess = async () => {
+    try {
+      // Hiển thị thông báo thành công
+      notification.success({
+        message: "Thanh toán thành công",
+        description:
+          "Cảm ơn bạn đã mua hàng. Đơn hàng của bạn đang được xử lý.",
+      });
+
+      // Cập nhật giỏ hàng
+      dispatch(clearCart());
+      localStorage.removeItem("cartItems");
+
+      // Gửi email xác nhận (optional)
+      // await sendConfirmationEmail(orderDetail);
+
+      // Ghi nhận hành vi của người dùng (analytics)
+      // analytics.track('Checkout Success', {
+      //   orderId: orderDetail.id,
+      //   amount: orderDetail.total,
+      // });
+
+      // Cập nhật trạng thái đơn hàng trong hệ thống
+      // await updateOrderStatus(orderDetail.id, 'Processing');
+    } catch (error) {
+      console.error("Checkout success handling failed", error);
+    }
+  };
+  const handleCheckoutDetail = async (data, token) => {
+    try {
+      const response = await checkout(data, token);
+      handleCheckoutSuccess();
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -108,6 +155,7 @@ const AppProvider = ({ children }) => {
         handleDistrictChange,
         handleWardChange,
         handleButtonClick,
+        handleCheckoutDetail,
         orderDetail,
         setOrderDetail,
       }}
