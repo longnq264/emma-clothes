@@ -31,7 +31,6 @@ const AppProvider = ({ children }) => {
     phone_number: "",
     email: "",
   });
-  console.log(orderDetail);
 
   // Address
   useEffect(() => {

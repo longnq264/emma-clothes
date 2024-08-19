@@ -34,6 +34,7 @@ import StaffList from "./pages/Admin/StaffList.jsx";
 // import CustomersList from "./pages/Admin/CustomersList.jsx";
 import { Provider } from "react-redux";
 import store from "./store/store.js";
+import AuthLayout from "./components/Auth/Layout.jsx";
 
 const router = createBrowserRouter([
   {
@@ -56,11 +57,18 @@ const router = createBrowserRouter([
       { path: "/products/:id", element: <ProductDetail /> },
       { path: "/cart", element: <CartPage /> },
       { path: "/profile", element: <ProfilePage /> },
-      { path: "/login", element: <Signin /> },
-      { path: "/register", element: <Signup /> },
+
       { path: "/not-loggedin", element: <NotLoggedIn /> },
       { path: "/admin", element: <DashBoardPage /> },
       { path: "/sale", element: <Sale /> },
+    ],
+  },
+  {
+    path: "auth",
+    element: <AuthLayout />,
+    children: [
+      { path: "login", element: <Signin /> },
+      { path: "register", element: <Signup /> },
     ],
   },
   //role admin

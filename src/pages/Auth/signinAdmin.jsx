@@ -42,9 +42,7 @@ const SigninAdmin = () => {
             name="email"
             rules={[{ required: true, message: "Vui lòng nhập email!" }]}
           >
-            <Input
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            />
+            <Input className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
           </Form.Item>
 
           <Form.Item
@@ -52,9 +50,7 @@ const SigninAdmin = () => {
             name="password"
             rules={[{ required: true, message: "Vui lòng nhập mật khẩu!" }]}
           >
-            <Input.Password
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            />
+            <Input.Password className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
           </Form.Item>
 
           <Form.Item
@@ -76,3 +72,4 @@ const SigninAdmin = () => {
 };
 
 export default SigninAdmin;
+

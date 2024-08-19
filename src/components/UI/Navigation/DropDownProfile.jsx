@@ -74,7 +74,7 @@ const DropDownProfile = () => {
           ) : (
             <div className="py-1" role="none">
               <NavLink
-                to="/login"
+                to="auth/login"
                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 role="menuitem"
                 tabIndex="-1"
@@ -84,7 +84,7 @@ const DropDownProfile = () => {
                 Login
               </NavLink>
               <NavLink
-                to="/register"
+                to="auth/register"
                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 role="menuitem"
                 tabIndex="-1"
