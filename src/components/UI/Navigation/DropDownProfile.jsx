@@ -22,13 +22,13 @@ const DropDownProfile = () => {
   };
 
   return (
-    <li className="px-2 cursor-pointer">
+    <div className="px-2 cursor-pointer relative">
       <span className="font-bold text-stone-800 " onClick={toggleOpen}>
         <LuUser2 size={22} />
       </span>
       {isOpen && (
         <div
-          className="absolute right-40 w-48 mt-7 origin-top-right bg-white border border-gray-200 rounded-md shadow-lg ring-1 ring-black ring-opacity-5"
+          className="absolute right-0 w-60 mt-8 origin-top-right bg-white border border-gray-200 rounded shadow-lg ring-1 ring-black ring-opacity-5"
           role="menu"
           aria-orientation="vertical"
           aria-labelledby="menu-button"
@@ -97,7 +97,7 @@ const DropDownProfile = () => {
           )}
         </div>
       )}
-    </li>
+    </div>
   );
 };
 

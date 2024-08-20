@@ -11,11 +11,16 @@ import {
   removeCartItem,
   updateCartQuantity,
 } from "../../../store/cartThunk";
-import { updateItemQuantity } from "../../../store/cartSlice";
+import {
+  removeItemFromCart,
+  updateItemQuantity,
+  clearCart as removeCarts,
+} from "../../../store/cartSlice";
 import { clearCart } from "../../../api/api-server";
 
 const CartCheckbox = () => {
   const [cartItems, setCartItems] = useState(getCartFromLocalStorage());
+  console.log(cartItems);
 
   const dispatch = useDispatch();
   const token = getTokenFromLocalStorage();
@@ -58,18 +63,30 @@ const CartCheckbox = () => {
     0
   );
   const handleRemoveAllItems = async () => {
-    try {
-      await clearCart(token);
-      console.log("clear cart");
-      await dispatch(fetchCarts(token));
-    } catch (error) {
-      console.log(error);
+    if (!token) {
+      dispatch(removeCarts());
+      localStorage.removeItem("cartItems");
+    } else {
+      try {
+        await clearCart(token);
+        console.log("clear cart");
+        await dispatch(fetchCarts(token));
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
   const handleRemoveItem = (id) => {
-    dispatch(removeCartItem(id));
-    dispatch(fetchCarts(token));
+    if (token) {
+      dispatch(removeCartItem(id));
+      dispatch(fetchCarts(token));
+    } else {
+      dispatch(removeItemFromCart(id));
+      const updatedItems = cartItems.filter((item) => item.id !== id);
+      setCartItems(updatedItems);
+      saveCartToLocalStorage(updatedItems);
+    }
   };
   return (
     <div className="bg-white">

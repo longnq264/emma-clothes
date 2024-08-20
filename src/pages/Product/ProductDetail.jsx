@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { getProductId } from "../../api/api-server";
-import { Breadcrumb } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart } from "../../store/cartSlice";
 import { addToCartItems, fetchCarts } from "../../store/cartThunk";
@@ -14,9 +13,13 @@ const ProductDetail = () => {
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedVariant, setSelectedVariant] = useState([]);
   const [quantity, setQuantity] = useState(1);
+  console.log("sku", selectedVariant.sku);
+  console.log(mainImage);
 
   const dispatch = useDispatch();
   const token = useSelector((state) => state.auth.token);
+
+  console.log(data);
 
   const fetchProductDetail = async (id) => {
     const response = await getProductId(id);
@@ -36,11 +39,19 @@ const ProductDetail = () => {
 
     const cartData = {
       id: Number(id),
-      price: data.price,
       product_id: data.id,
-      quantity: quantity,
-      product_name: data.name,
       variant_id: selectedVariant.id,
+      quantity: quantity,
+      price: data.price,
+      product: {
+        id: Number(id),
+        name: data.name,
+        price: data.price,
+        image: "",
+      },
+      variant: {
+        sku: selectedVariant.sku,
+      },
     };
 
     if (!token) {
@@ -98,38 +109,19 @@ const ProductDetail = () => {
   }, [selectedColor, selectedSize, data.productVariants]);
 
   return (
-    <div>
-      <div className="container mx-auto py-4">
-        <Breadcrumb
-          items={[
-            {
-              title: <NavLink to="/">Home</NavLink>,
-            },
-            {
-              title: (
-                <NavLink
-                  to={`/products/${data.category_id}/${id}`}
-                  className="capitalize text-black"
-                >
-                  {data.name}
-                </NavLink>
-              ),
-            },
-          ]}
-        />
-      </div>
+    <div className="pt-10">
       <div
         className="content container mx-auto px-20 my-2"
         style={{ minHeight: "140vh" }}
       >
         <div className="grid grid-cols-2 ">
           <div className="product-detail-image">
-            <div className="product-image border min-h-80">
+            <div className="product-image">
               {mainImage
                 .filter((image) => image.is_thumbnail === 1)
                 .map((image, index) => (
                   <div key={index}>
-                    <img src={image.image_url} alt="" />
+                    <img src={image.image_url} alt="main image" />
                   </div>
                 ))}
             </div>
@@ -137,17 +129,17 @@ const ProductDetail = () => {
               {mainImage
                 .filter((image) => image.is_thumbnail === 0)
                 .map((image, index) => (
-                  <div key={index} className="pr-2 py-2 w-40 border">
+                  <div key={index} className="pr-2 py-2 w-40">
                     <img
                       src={image.image_url}
-                      alt={`Thumbnail ${index}`}
-                      className="w-full border"
+                      alt={`Thumbnail`}
+                      className="w-full"
                     />
                   </div>
                 ))}
             </div>
           </div>
-          <div className="min-h-40 pl-16 text-stone-700">
+          <div className="min-h-40 pl-16 pt-6 text-stone-700">
             <h1 className="font-bold text-2xl">{data.name}</h1>
             <div className="variants flex">
               {selectedVariant ? (
@@ -155,7 +147,7 @@ const ProductDetail = () => {
                   <p className="text-xs font-bold text-stone-500">
                     {selectedVariant.sku}
                   </p>
-                  <p className="text-2xl font-bold my-2">
+                  <p className="text-2xl font-bold my-2 pt-6">
                     {selectedVariant.price} đ
                     <span className="text-stone-400 text-lg my-2 ml-2 line-through">
                       {data.price_old} đ
@@ -195,7 +187,7 @@ const ProductDetail = () => {
                       ))}
                     </div>
                   </div>
-                  <div className="my-2">
+                  <div className="my-2 mt-6">
                     <h3 className="my-2 font-bold">Kích cỡ: {selectedSize}</h3>
                     <div className="flex">
                       {Array.from(
@@ -243,12 +235,16 @@ const ProductDetail = () => {
                   className="px-10 py-2 border-2 border-black font-bold my-5 rounded-lg basis-3/4 uppercase hover:bg-gray-100"
                   onClick={handleAddToCart}
                 >
-                  Add To Bag
+                  Thêm vào giỏ hàng
                 </button>
               </div>
-              <button className="uppercase px-10 py-2 border-2 w-full text-white font-bold bg-stone-700 hover:bg-stone-600 my-5 rounded-lg basis-3/4 shadow-stone-lg">
-                Buy Now
-              </button>
+              <NavLink
+                to="/cart"
+                onClick={handleAddToCart}
+                className="block uppercase px-10 py-3 border-2 w-full text-white text-center font-bold bg-stone-700 hover:bg-stone-600 my-5 rounded-lg basis-3/4 shadow-stone-lg"
+              >
+                Mua ngay
+              </NavLink>
             </div>
           </div>
         </div>

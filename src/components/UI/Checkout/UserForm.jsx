@@ -6,34 +6,20 @@ import PaymentIcon from "../Cart/PaymentIcon";
 import { useSelector } from "react-redux";
 import UserInput from "./UserInput";
 import SubmitForm from "./SubmitForm";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useState } from "react";
 import { AppContext } from "../../../context/AppContext";
 import { getTokenFromLocalStorage } from "../../../utils/indexUtils";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const UserForm = () => {
   const userData = useSelector((state) => state.auth.user);
   const { orderDetail, setOrderDetail, handleCheckoutDetail } =
     useContext(AppContext);
   const [formSubmitted, setFormSubmitted] = useState(false);
-  const submitRef = useRef(false);
 
   const token = getTokenFromLocalStorage();
   const navigate = useNavigate();
-  useEffect(() => {
-    if (formSubmitted && submitRef.current) {
-      (async () => {
-        try {
-          await handleCheckoutDetail(orderDetail, token);
-          console.log("Request sent successfully");
-          // Reset submitRef để tránh gửi lại request không cần thiết
-          submitRef.current = false;
-        } catch (error) {
-          console.error("Request failed", error);
-        }
-      })();
-    }
-  }, [orderDetail, formSubmitted, token]);
 
   const onFinish = async (values) => {
     console.log("Success:", values);
@@ -45,11 +31,23 @@ const UserForm = () => {
       phone_number: Number(values.phone_number),
       name: values.name,
     }));
+    console.log(orderDetail);
     setFormSubmitted(true);
-    submitRef.current = true;
-    console.log("orderDetail", orderDetail);
-    navigate("/products");
   };
+  useEffect(() => {
+    if (formSubmitted) {
+      const handleSubmitCheckout = async () => {
+        try {
+          await handleCheckoutDetail(orderDetail, token);
+          console.log("Request sent successfully");
+          navigate("/products");
+        } catch (error) {
+          console.error("Request failed", error);
+        }
+      };
+      handleSubmitCheckout();
+    }
+  }, [orderDetail, formSubmitted, handleCheckoutDetail, navigate, token]);
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo.values);
@@ -71,7 +69,7 @@ const UserForm = () => {
             maxWidth: 800,
           }}
           initialValues={{
-            name: userData.name,
+            name: userData.name || "",
             phone_number: userData.phone_number,
             email: userData.email,
           }}

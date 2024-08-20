@@ -35,6 +35,7 @@ import StaffList from "./pages/Admin/StaffList.jsx";
 import { Provider } from "react-redux";
 import store from "./store/store.js";
 import AuthLayout from "./components/Auth/Layout.jsx";
+import LandingPage from "./components/UI/LandingPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -57,7 +58,7 @@ const router = createBrowserRouter([
       { path: "/products/:id", element: <ProductDetail /> },
       { path: "/cart", element: <CartPage /> },
       { path: "/profile", element: <ProfilePage /> },
-
+      { path: "/member", element: <LandingPage /> },
       { path: "/not-loggedin", element: <NotLoggedIn /> },
       { path: "/admin", element: <DashBoardPage /> },
       { path: "/sale", element: <Sale /> },

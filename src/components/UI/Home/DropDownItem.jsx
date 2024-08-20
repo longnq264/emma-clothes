@@ -12,9 +12,9 @@ const DropdownItem = ({ title, children }) => {
   };
 
   return (
-    <li className="w-full py-3 border-b-2 pl-1 font-semibold flex flex-col cursor-pointer">
+    <li className="w-full my-3 font-semibold flex flex-col cursor-pointer">
       <div
-        className="flex items-center justify-between hover:bg-stone-100 py-2 rounded-lg"
+        className="flex items-center justify-between hover:bg-stone-100 py-2 rounded-lg pl-2"
         onClick={toggleOpen}
       >
         <p className="font-bold">{title}</p>

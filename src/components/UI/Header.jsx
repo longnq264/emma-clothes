@@ -39,10 +39,10 @@ const Header = () => {
         </div>
         <div className="flex">
           <Search />
-          <ul className="flex items-center">
+          <div className="flex items-center">
             <CartQuantity />
             <DropDownProfile />
-          </ul>
+          </div>
         </div>
       </div>
     </header>

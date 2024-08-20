@@ -35,7 +35,7 @@ const SuggestedProducts = () => {
   };
 
   return (
-    <div className="container mx-auto my-8">
+    <div className="container mx-auto py-8">
       <div className="flex justify-center items-center mb-10">
         <h2 className="text-2xl font-semibold text-gray-600 capitalize">
           Gợi ý sản phẩm
@@ -64,7 +64,7 @@ const SuggestedProducts = () => {
             <NavLink key={product.id} to={`/products/${product.id}`}>
               <div className="relative">
                 <ProductImage images={product.productImages} />
-                <h3 className="mt-2 text-lg font-semibold text-gray-700 capitalize">
+                <h3 className="mt-2 text-base font-semibold text-gray-700 capitalize">
                   {product.name}
                 </h3>
                 <p>{product.price}</p>

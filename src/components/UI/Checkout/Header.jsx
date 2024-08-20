@@ -7,9 +7,9 @@ const Header = () => {
       <div className="container mx-auto px-40 py-4">
         <div className="flex justify-between">
           <Logo />
-          <ul>
+          <div>
             <CartQuantity />
-          </ul>
+          </div>
         </div>
       </div>
     </div>

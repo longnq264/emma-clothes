@@ -35,6 +35,7 @@ export const addToCartItems = createAsyncThunk(
       console.log(token);
 
       const response = await addToCart(values, token);
+
       console.log(response);
 
       return data;
@@ -52,7 +53,7 @@ export const syncLocalCartToServer = createAsyncThunk(
       console.log(localCart);
 
       const response = await listCart(token);
-      console.log(response);
+      console.log("syncCartServer", response);
 
       let serverCart = [];
 
@@ -60,7 +61,6 @@ export const syncLocalCartToServer = createAsyncThunk(
         serverCart = response.items;
       }
 
-      // Đưa tất cả các sản phẩm từ localStorage lên server
       for (const item of localCart) {
         console.log(item);
 
@@ -82,14 +82,14 @@ export const syncLocalCartToServer = createAsyncThunk(
           const quantityUpdate = {
             quantity: item.quantity + existingItem.quantity,
           };
-          // Nếu sản phẩm đã tồn tại trên server, cập nhật số lượng
+          // updat quantity
           await updateCart(existingItem.id, token, quantityUpdate);
         } else {
-          // Nếu sản phẩm chưa tồn tại trên server, thêm mới
+          // post
           await addToCart(item, token);
         }
       }
-      // Lấy lại giỏ hàng từ server sau khi cập nhật
+      // update cart
       const updatedResponse = await listCart(token);
       console.log(updatedResponse.items);
 

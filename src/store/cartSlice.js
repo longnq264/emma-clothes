@@ -58,8 +58,8 @@ const cartSlice = createSlice({
 
       // Cập nhật tổng số lượng và tổng giá trị
       state.totalQuantity = calculateTotalQuantity(state.items);
-      saveCartToLocalStorage(state.items);
       state.totalPrice = calculateTotalPrice(state.items);
+      saveCartToLocalStorage(state.items);
     },
 
     updateItemQuantity(state, action) {

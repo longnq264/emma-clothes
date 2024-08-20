@@ -4,6 +4,7 @@ import CartCheckbox from "../../components/UI/Cart/CartCheckbox";
 import OrderList from "../../components/UI/Cart/OrderList";
 import ClearCart from "../../components/UI/Cart/ClearCart";
 import ProgressBar from "../../components/UI/Cart/ProgressBar";
+import LoadingCart from "../../components/UI/Cart/LoadingCart";
 
 const CartPage = () => {
   const items = useSelector((state) => state.cart.items);
@@ -15,11 +16,13 @@ const CartPage = () => {
   const freeShip = useSelector((state) => state.cart.freeship);
 
   if (cartStatus === "loading") {
-    return <div>Loading...</div>;
+    return <LoadingCart />;
   }
 
   if (cartStatus === "failed") {
-    return <div>Error loading cart: {error}</div>;
+    console.log(error);
+
+    return <ClearCart />;
   }
   return (
     <>
@@ -30,7 +33,9 @@ const CartPage = () => {
           ) : (
             <div className="active">
               <div className="bg-white py-4 px-6 mb-4">
-                <h2 className="font-bold text-2xl uppercase">Cart</h2>
+                <h2 className="font-bold text-2xl uppercase">
+                  Giỏ hàng của bạn
+                </h2>
               </div>
               <div className="flex">
                 <div className="cart-page basis-3/5">
