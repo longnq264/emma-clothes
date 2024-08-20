@@ -83,4 +83,7 @@ li.list.dropdown:hover {
 .shipping-content label.ant-radio-wrapper {
   margin: 0;
 }
+.mt-20 .bg-white.p-10.rounded-lg.shadow-lg.w-96 {
+  margin-left: -24px;
+}
 

@@ -63,11 +63,15 @@ const SuggestedProducts = () => {
           products.slice(0, 10).map((product) => (
             <NavLink key={product.id} to={`/products/${product.id}`}>
               <div className="relative">
-                <ProductImage images={product.productImages} />
-                <h3 className="mt-2 text-base font-semibold text-gray-700 capitalize">
-                  {product.name}
-                </h3>
-                <p>{product.price}</p>
+                <div className="">
+                  <ProductImage images={product.productImages} />
+                </div>
+                <div className="px-2">
+                  <h3 className="mt-2 text-base font-semibold text-gray-700 h-14 capitalize">
+                    {product.name}
+                  </h3>
+                  <p>{product.price}</p>
+                </div>
               </div>
             </NavLink>
           ))
