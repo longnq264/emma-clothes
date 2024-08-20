@@ -20,14 +20,13 @@ const Signin = () => {
       await dispatch(loginUser(formData)).unwrap();
       const token = getTokenFromLocalStorage();
       console.log(merged);
-
+      navigate("/member");
       if (!merged) {
         // Merge cartServer & cartLocal
         await dispatch(syncLocalCartToServer(token)).unwrap();
 
         // await dispatch(fetchCarts(token));
       }
-      navigate("/member");
     } catch (error) {
       console.error("Registration failed:", error);
     }
