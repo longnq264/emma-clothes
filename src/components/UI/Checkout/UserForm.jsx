@@ -1,89 +1,103 @@
-import { Button, Form, Input } from "antd";
+import { Form } from "antd";
+import Payment from "../Payment";
+import SelectShiping from "./SelectShiping";
+import Address from "../Address/Address";
+import PaymentIcon from "../Cart/PaymentIcon";
+import { useSelector } from "react-redux";
+import UserInput from "./UserInput";
+import SubmitForm from "./SubmitForm";
+import { useContext, useState } from "react";
+import { AppContext } from "../../../context/AppContext";
+import { getTokenFromLocalStorage } from "../../../utils/indexUtils";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const UserForm = () => {
-  //   const [formData, setFormData] = useState({
-  //     name: "",
-  //     email: "",
-  //     address: "",
-  //     city: "",
-  //     postalCode: "",
-  //   });
+  const userData = useSelector((state) => state.auth.user);
+  const { orderDetail, setOrderDetail, handleCheckoutDetail } =
+    useContext(AppContext);
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
-  const onFinish = (values) => {
+  const token = getTokenFromLocalStorage();
+  const navigate = useNavigate();
+  console.log(token);
+
+  const onFinish = async (values) => {
     console.log("Success:", values);
+    setOrderDetail((prevOrderDetail) => ({
+      ...prevOrderDetail,
+      payment: values.payment,
+      address_detail: values.address_detail,
+      email: values.email,
+      phone_number: Number(values.phone_number),
+      name: values.name,
+    }));
+    console.log(orderDetail);
+    setFormSubmitted(true);
   };
+  useEffect(() => {
+    if (formSubmitted) {
+      const handleSubmitCheckout = async () => {
+        try {
+          console.log(token);
+
+          const response = await handleCheckoutDetail(orderDetail, token);
+          console.log(response);
+
+          console.log("Request sent successfully");
+        } catch (error) {
+          console.error("Request failed", error);
+        }
+      };
+      handleSubmitCheckout();
+    }
+  }, [orderDetail, formSubmitted, handleCheckoutDetail, navigate, token]);
+
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    console.log("Failed:", errorInfo.values);
   };
 
   return (
-    <div className="user-form">
-      <h2>Người Nhận</h2>
-      <Form
-        name="basic"
-        labelCol={{
-          span: 8,
-        }}
-        wrapperCol={{
-          span: 16,
-        }}
-        style={{
-          maxWidth: 600,
-        }}
-        initialValues={{
-          remember: true,
-        }}
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-        autoComplete="off"
-      >
-        <Form.Item
-          name="name"
-          rules={[
-            {
-              required: true,
-              message: "Please input your username!",
-            },
-          ]}
-        >
-          <Input placeholder="Ten Khach Hang" />
-        </Form.Item>
-
-        <Form.Item
-          name="phone"
-          rules={[
-            {
-              required: true,
-              message: "Please input your phone!",
-            },
-          ]}
-        >
-          <Input placeholder="So Dien Thoai" />
-        </Form.Item>
-
-        <Form.Item
-          name="email"
-          rules={[
-            {
-              required: true,
-              message: "Please input your email!",
-            },
-          ]}
-        >
-          <Input placeholder="Email" />
-        </Form.Item>
-
-        <Form.Item
-          wrapperCol={{
-            offset: 8,
-            span: 16,
+    <div className="user-form flex justify-end">
+      <div className="size-2/4">
+        <h2 className="text-xl font-bold pb-6">Người nhận</h2>
+        <Form
+          name="basic"
+          labelCol={{
+            span: 2,
           }}
+          wrapperCol={{
+            span: 30,
+          }}
+          style={{
+            maxWidth: 800,
+          }}
+          initialValues={{
+            name: userData.name || "",
+            phone_number: userData.phone_number,
+            email: userData.email,
+          }}
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+          autoComplete="off"
         >
-          <Button type="primary" htmlType="submit">
-            Submit
-          </Button>
-        </Form.Item>
-      </Form>
+          <UserInput />
+
+          <Address />
+
+          <SelectShiping />
+
+          <Payment />
+
+          <SubmitForm />
+        </Form>
+        <div>
+          <PaymentIcon />
+          <p className="text-center text-xs pt-2">
+            Đảm bảo thanh toán an toàn và bảo mật
+          </p>
+        </div>
+      </div>
     </div>
   );
 };

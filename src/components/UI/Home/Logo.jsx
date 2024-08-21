@@ -4,7 +4,7 @@ const Logo = () => {
   return (
     <div className="logo-site pr-6">
       <Link to={"/"}>
-        <h1 className="text-5xl text-logo text-sky-800">
+        <h1 className="text-5xl text-logo text-sky-800 uppercase">
           Em<span className="text-logo text-amber-600">ma</span>
         </h1>
       </Link>

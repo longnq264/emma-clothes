@@ -1,11 +1,24 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { getUserId, login } from "../api/api-server";
+import { getUserId, login, register } from "../api/api-server";
 
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async (userData, { rejectWithValue }) => {
     try {
       const response = await login(userData);
+      console.log(response);
+      return { user: response.data, token: response.token };
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const registerUser = createAsyncThunk(
+  "auth/registerUser",
+  async (userData, { rejectWithValue }) => {
+    try {
+      const response = await register(userData);
       console.log(response);
       return { user: response.data, token: response.token };
     } catch (error) {

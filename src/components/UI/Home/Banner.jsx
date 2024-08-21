@@ -3,7 +3,7 @@ import { Carousel } from "antd";
 import banner2 from "../../../assets/img/banner-homepage2.png";
 import { useEffect, useState } from "react";
 import { getBanners } from "../../../api/api-server";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 const Banner = () => {
   const [state, setState] = useState([]);
   const getBannerPage = async () => {
@@ -27,6 +27,12 @@ const Banner = () => {
           </div>
         ))}
       </Carousel>
+      <div className="w-full bg-stone-100 text-center py-2">
+        <p className="">
+          Get UPTO 40% OFF on your 1st order{" "}
+          <Link to="/products">SHOP NOW</Link>
+        </p>
+      </div>
     </div>
   );
 };

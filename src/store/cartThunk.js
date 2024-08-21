@@ -9,12 +9,17 @@ export const fetchCarts = createAsyncThunk(
   async (token, { rejectWithValue }) => {
     try {
       const response = await listCart(token);
+      console.log(response);
+
       if (response.items.length > 0) {
         saveCartToLocalStorage(response.items.products);
       }
       console.log(response.items);
 
-      return response.items;
+      return {
+        items: response.items,
+        totalPriceApi: response.total_amount,
+      };
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
@@ -30,8 +35,8 @@ export const addToCartItems = createAsyncThunk(
       console.log(token);
 
       const response = await addToCart(values, token);
+
       console.log(response);
-      console.log(data);
 
       return data;
     } catch (error) {
@@ -48,10 +53,14 @@ export const syncLocalCartToServer = createAsyncThunk(
       console.log(localCart);
 
       const response = await listCart(token);
-      const serverCart = response.items || [];
-      console.log(serverCart);
+      console.log("syncCartServer", response);
 
-      // Đưa tất cả các sản phẩm từ localStorage lên server
+      let serverCart = [];
+
+      if (response.items && Array.isArray(response.items)) {
+        serverCart = response.items;
+      }
+
       for (const item of localCart) {
         console.log(item);
 
@@ -65,15 +74,22 @@ export const syncLocalCartToServer = createAsyncThunk(
 
         if (existingItem) {
           console.log(existingItem);
+          console.log("quantity", existingItem.quantity);
+          console.log(existingItem.id);
+          console.log(item.id);
 
-          // Nếu sản phẩm đã tồn tại trên server, cập nhật số lượng
-          await updateCart(existingItem.id, token, item.quantity);
+          console.log(token);
+          const quantityUpdate = {
+            quantity: item.quantity + existingItem.quantity,
+          };
+          // updat quantity
+          await updateCart(existingItem.id, token, quantityUpdate);
         } else {
-          // Nếu sản phẩm chưa tồn tại trên server, thêm mới
+          // post
           await addToCart(item, token);
         }
       }
-      // Lấy lại giỏ hàng từ server sau khi cập nhật
+      // update cart
       const updatedResponse = await listCart(token);
       console.log(updatedResponse.items);
 

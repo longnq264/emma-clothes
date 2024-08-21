@@ -2,12 +2,11 @@ import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
 
 const ShowMoreBtn = ({ props }) => {
-  // const { id, name } = props;
   return (
-    <div className="flex justify-center my-6">
+    <div className="flex justify-center my-12">
       <NavLink to={props}>
-        <button className="border border-black px-32 py-2 rounded-full font-bold ">
-          Show More
+        <button className="border bg-stone-100 px-32 py-2 rounded-full font-bold text-stone-700 hover:bg-stone-50 hover:text-stone-500">
+          Hiển thị thêm
         </button>
       </NavLink>
     </div>
@@ -17,4 +16,5 @@ const ShowMoreBtn = ({ props }) => {
 ShowMoreBtn.propTypes = {
   props: PropTypes.any,
 };
+
 export default ShowMoreBtn;

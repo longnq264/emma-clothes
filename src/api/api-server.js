@@ -88,6 +88,20 @@ export const removeCart = async (id, token) => {
   return response;
 };
 
+export const clearCart = async (token) => {
+  try {
+    const response = await axios.delete(`${API_URL}/cart`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const listCart = async (token) => {
   try {
     const response = await axios.get(`${API_URL}/cart`, {
@@ -95,7 +109,7 @@ export const listCart = async (token) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log("list-cart", response.data);
+    console.log("list-cart", response);
 
     return response.data;
   } catch (error) {
@@ -158,6 +172,23 @@ export const getProduct = async (productId) => {
 //   return response.data;
 // };
 
+export const getProductsByPriceRange = async (minPrice, maxPrice) => {
+  const response = await axios.get(
+    `http://127.0.0.1:8000/api/products?min_price=${minPrice}&max_price=${maxPrice}`
+  );
+  return response.data;
+};
+
+export const getAttributes = async () => {
+  const response = await axios.get(`${API_URL}/attributes`);
+  return response.data;
+};
+
+// export const createAttributes = async () => {
+//   const response = await axios.get(`${API_URL}/attributes`);
+//   return response.data;
+// };
+
 // phần admin Categories
 
 // Category APIs
@@ -184,7 +215,6 @@ export const updateCategory = async (categoryId, categoryData) => {
 
 export const getCategory = async (categoryId) => {
   const response = await axios.get(`${API_URL}/categories/${categoryId}`);
-  console.log(`Get category ${categoryId} data:`, response.data);
   return response.data;
 };
 
@@ -258,6 +288,19 @@ export const importUsers = async (formData) => {
 export const getListAddress = async () => {
   const response = await axios.get(`https://esgoo.net/api-tinhthanh/1/0.htm`);
   console.log(`Get address data`, response.data);
+  return response.data;
+};
+
+
+export const checkout = async (data, token) => {
+  console.log("data checkout", data);
+
+  const response = await axios.post(`${API_URL}/cart/checkout`, data, {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      Authorization: `Bearer ${token}`,
+    },
+  });
   return response.data;
 };
 

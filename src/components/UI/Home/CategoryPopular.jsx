@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import ShowMoreBtn from "./ShowMoreBtn";
 import { getProductByCategoryId } from "../../../api/api-server";
 import ProductImage from "../Product/ProductImage";
+import { formatCurrency } from "../../../utils/helperFunction";
 
 const CategoryPopular = () => {
   const categories = [
@@ -31,11 +32,11 @@ const CategoryPopular = () => {
 
   return (
     <div className="container mx-auto py-4">
-      <h1 className="title my-6 font-semibold text-stone-700">
+      <h1 className="title my-12 font-semibold text-stone-700">
         Sản phẩm ưa chuộng
       </h1>
 
-      <div className="flex justify-center mb-6">
+      <div className="flex justify-center mb-16">
         {categories.map((category) => (
           <button
             key={category.id}
@@ -55,8 +56,10 @@ const CategoryPopular = () => {
           <div key={product.id} className="relative">
             <NavLink to={`/products/${product.id}`}>
               <ProductImage images={product.productImages} />
-              <h2 className="font-bold mt-2 text-lg">{product.name}</h2>
-              <p>{product.price}</p>
+              <div className="px-2">
+                <h2 className="font-bold mt-4 text-sm h-14">{product.name}</h2>
+                <p className="">{formatCurrency(product.price)}</p>
+              </div>
             </NavLink>
           </div>
         ))}

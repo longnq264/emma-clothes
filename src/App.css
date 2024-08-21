@@ -1,15 +1,17 @@
-@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Changa+One:ital@0;1&family=Hammersmith+One&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Ultra&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Changa+One:ital@0;1&family=Hammersmith+One&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Ultra&display=swap");
 
 * {
   margin: 0;
   padding: 0;
-  font-family: "Roboto", sans-serif;
+  font-family: "Noto Sans", sans-serif;
+  font-optical-sizing: auto;
   font-weight: 400;
 }
+
 .text-logo {
-  font-family: "Bebas Neue", sans-serif;
-  font-weight: 600;
+  font-family: "Changa One", sans-serif;
+  font-weight: 400;
   font-style: normal;
   letter-spacing: 2px;
 }
@@ -45,7 +47,9 @@ li.list.dropdown:hover {
   font-size: medium;
 }
 .quantity-control {
+  width: 100px;
   display: flex;
+  justify-content: space-between;
   align-items: center;
   margin-top: 10px;
   border: 1px solid rgb(229, 229, 229);
@@ -72,5 +76,16 @@ li.list.dropdown:hover {
   width: 40px;
   text-align: center;
   padding: 8px 0;
+}
+
+#basic_paymentMethod label.ant-radio-wrapper.ant-radio-wrapper-in-form-item {
+  margin: 0;
+}
+
+.shipping-content label.ant-radio-wrapper {
+  margin: 0;
+}
+.mt-20 .bg-white.p-10.rounded-lg.shadow-lg.w-96 {
+  margin-left: -24px;
 }
 

@@ -26,7 +26,7 @@ import CategoriesEdit from "./components/User/Categories/CategoriesEdit.jsx";
 import ProductAdd from "./pages/Admin/ProductAdd.jsx";
 import ProductEdit from "./pages/Admin/ProductEdit.jsx";
 import ProductsList from "./pages/Admin/ProductsList.jsx";
-// import AppProvider from "./context/AppProvider.jsx";
+import AppProvider from "./context/AppProvider.jsx";
 import Checkout from "./pages/Checkout.jsx";
 import OrderPage from "./pages/Admin/Orders.jsx";
 
@@ -34,10 +34,15 @@ import StaffList from "./pages/Admin/StaffList.jsx";
 // import CustomersList from "./pages/Admin/CustomersList.jsx";
 import { Provider } from "react-redux";
 import store from "./store/store.js";
+
 import StaffAdd from "./pages/Admin/StaffAdd.jsx";
 import StaffEdit from "./pages/Admin/StaffEdit.jsx";
 // import UserAdminPage from "./pages/Admin/UserAdminPage.jsx";
 import LoginAdmin from "./pages/Auth/signinAdmin.jsx";
+
+
+import AuthLayout from "./components/Auth/Layout.jsx";
+import LandingPage from "./components/UI/LandingPage.jsx";
 
 
 const router = createBrowserRouter([
@@ -61,12 +66,19 @@ const router = createBrowserRouter([
       { path: "/products/:id", element: <ProductDetail /> },
       { path: "/cart", element: <CartPage /> },
       { path: "/profile", element: <ProfilePage /> },
-      { path: "/login", element: <Signin /> },
-      { path: "/register", element: <Signup /> },
+      { path: "/member", element: <LandingPage /> },
       { path: "/not-loggedin", element: <NotLoggedIn /> },
       { path: "/admin", element: <DashBoardPage /> },
       { path: "/sale", element: <Sale /> },
-      { path: "/loginadmin", element: <LoginAdmin /> },
+    ],
+  },
+  {
+    path: "auth",
+    element: <AuthLayout />,
+    children: [
+      { path: "login", element: <Signin /> },
+      { path: "register", element: <Signup /> },
+      { path: "loginadmin", element: <LoginAdmin /> },
     ],
   },
   //role admin
@@ -97,8 +109,9 @@ const router = createBrowserRouter([
 function App() {
   return (
     <Provider store={store}>
-      <RouterProvider router={router} />
-      {/* <AppProvider></AppProvider> */}
+      <AppProvider>
+        <RouterProvider router={router} />
+      </AppProvider>
     </Provider>
   );
 }

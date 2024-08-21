@@ -16,7 +16,7 @@ const Navigation = () => {
   }, []);
   return (
     <>
-      <nav>
+      <nav className="pl-10">
         <ul className="flex">
           {categories.map((item, index) => (
             <li
@@ -29,7 +29,7 @@ const Navigation = () => {
                 to={`/category/${item.id}`}
                 state={{ categoryName: item.name }}
               >
-                <span className="text-base text-stone-700 font-semibold capitalize">
+                <span className="text-lg text-stone-700 font-semibold capitalize">
                   {item.name}
                 </span>
               </NavLink>
@@ -60,7 +60,7 @@ const Navigation = () => {
                                   <NavLink
                                     to={`/category/${sub.id}`}
                                     state={{ categoryName: sub.name }}
-                                    className="block py-1 text-gray-600 hover:text-gray-300 capitalize"
+                                    className="block py-1 text-gray-500 text-sm font-semibold hover:text-gray-300 capitalize"
                                   >
                                     {sub.name}
                                   </NavLink>
