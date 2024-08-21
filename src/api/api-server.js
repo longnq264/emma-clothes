@@ -179,6 +179,16 @@ export const getProductsByPriceRange = async (minPrice, maxPrice) => {
   return response.data;
 };
 
+export const getAttributes = async () => {
+  const response = await axios.get(`${API_URL}/attributes`);
+  return response.data;
+};
+
+// export const createAttributes = async () => {
+//   const response = await axios.get(`${API_URL}/attributes`);
+//   return response.data;
+// };
+
 // phần admin Categories
 
 // Category APIs
