@@ -2,8 +2,10 @@ import Banner from "../components/UI/Home/Banner";
 import Collection from "../components/UI/Home/Collection";
 import CategoryPopular from "../components/UI/Home/CategoryPopular";
 import SuggestedProducts from "../components/UI/Home/SuggestedProducts";
-import FlashSaleCom from "../components/UI/Home/FlashSale";
+// import FlashSaleCom from "../components/UI/Home/FlashSale";
 import BannerDesign from "../components/UI/Home/BannerDesign";
+import NewCollection from "../components/UI/Home/NewCollection";
+import AboutUs from "../components/UI/Home/AboutUs";
 // import Lorem from "../components/UI/Home/Lorem";
 
 function HomePage() {
@@ -11,10 +13,12 @@ function HomePage() {
     <>
       <Banner />
       {/* <Lorem /> */}
+      <AboutUs />
       <Collection />
       <BannerDesign />
-      <FlashSaleCom />
+      {/* <FlashSaleCom /> */}
       <CategoryPopular />
+      <NewCollection />
       <SuggestedProducts />
     </>
   );

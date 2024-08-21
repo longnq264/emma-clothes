@@ -4,6 +4,7 @@ import ShowMoreBtn from "./ShowMoreBtn";
 import { filterProduct } from "../../../api/api-server";
 import { NavLink } from "react-router-dom";
 import ProductImage from "../Product/ProductImage";
+import { formatCurrency } from "../../../utils/helperFunction";
 
 const filters = [
   { value: "popular", name: "San pham pho bien" },
@@ -14,7 +15,7 @@ const filters = [
 const SuggestedProducts = () => {
   const [selectedCategory, setSelectedCategory] = useState(filters[1].value);
   const [products, setProducts] = useState([]);
-  // console.log("data", products);
+
   const fetchProductsByCategory = async (value) => {
     try {
       const response = await filterProduct(value);
@@ -62,15 +63,15 @@ const SuggestedProducts = () => {
         {products.length > 0 ? (
           products.slice(0, 10).map((product) => (
             <NavLink key={product.id} to={`/products/${product.id}`}>
-              <div className="relative">
+              <div className="relative mb-8">
                 <div className="">
                   <ProductImage images={product.productImages} />
                 </div>
                 <div className="px-2">
-                  <h3 className="mt-2 text-base font-semibold text-gray-700 h-14 capitalize">
+                  <h3 className="mt-4 text-base font-semibold text-gray-700 h-14 capitalize">
                     {product.name}
                   </h3>
-                  <p>{product.price}</p>
+                  <p className="pt-2"> {formatCurrency(product.price)}</p>
                 </div>
               </div>
             </NavLink>
@@ -79,7 +80,7 @@ const SuggestedProducts = () => {
           <p>No data</p>
         )}
       </div>
-      <ShowMoreBtn props={`/collection/Hang Moi Ve`} />
+      <ShowMoreBtn props={`/collection/77`} />
     </div>
   );
 };

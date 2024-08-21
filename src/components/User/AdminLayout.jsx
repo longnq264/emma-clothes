@@ -3,6 +3,7 @@ import { NavLink, Outlet } from "react-router-dom";
 import NavBar from "./NavBar";
 import { FaMoon, FaSun } from "react-icons/fa";
 import SearchBar from "./SearchBar";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 const AdminLayout = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -64,16 +65,6 @@ const AdminLayout = () => {
                   {darkMode ? "Light Mode" : "Dark Mode"}
                 </span>
               </button>
-              <button
-                onClick={toggleNavBar}
-                className={`text-lg font-medium ${
-                  darkMode
-                    ? "text-gray-200 hover:text-gray-400"
-                    : "text-gray-800 hover:text-gray-600"
-                } transition duration-300`}
-              >
-                {isNavBarOpen ? "Ẩn Menu" : "Hiện Menu"}
-              </button>
             </div>
           </div>
         </div>
@@ -83,8 +74,22 @@ const AdminLayout = () => {
       <div className="mt-20 flex flex-1 transition-transform duration-300 ease-in-out">
         <NavBar isOpen={isNavBarOpen} darkMode={darkMode} />
         <main
-          className={`flex-1 overflow-y-auto ${isNavBarOpen ? "pl-72" : ""} `}
+          className={`flex-1 overflow-y-auto ${isNavBarOpen ? "pl-64" : ""} `}
         >
+          <button
+            onClick={toggleNavBar}
+            className={`text-lg font-medium py-2 px-4 hover:bg-stone-500${
+              darkMode
+                ? "text-white hover:text-gray-400"
+                : "text-stone=700 bg-stone-700 "
+            } transition duration-300`}
+          >
+            {isNavBarOpen ? (
+              <FaArrowLeft color="white" />
+            ) : (
+              <FaArrowRight color="white" />
+            )}
+          </button>
           <Outlet />
         </main>
       </div>

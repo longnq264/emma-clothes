@@ -58,7 +58,7 @@ const CategoryPopular = () => {
               <ProductImage images={product.productImages} />
               <div className="px-2">
                 <h2 className="font-bold mt-4 text-sm h-14">{product.name}</h2>
-                <p className="font-bold">{formatCurrency(product.price)}</p>
+                <p className="">{formatCurrency(product.price)}</p>
               </div>
             </NavLink>
           </div>

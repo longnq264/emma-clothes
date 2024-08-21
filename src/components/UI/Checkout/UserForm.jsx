@@ -20,6 +20,7 @@ const UserForm = () => {
 
   const token = getTokenFromLocalStorage();
   const navigate = useNavigate();
+  console.log(token);
 
   const onFinish = async (values) => {
     console.log("Success:", values);
@@ -38,9 +39,12 @@ const UserForm = () => {
     if (formSubmitted) {
       const handleSubmitCheckout = async () => {
         try {
-          await handleCheckoutDetail(orderDetail, token);
+          console.log(token);
+
+          const response = await handleCheckoutDetail(orderDetail, token);
+          console.log(response);
+
           console.log("Request sent successfully");
-          navigate("/products");
         } catch (error) {
           console.error("Request failed", error);
         }
