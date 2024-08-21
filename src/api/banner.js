@@ -5,6 +5,7 @@ export const getBanners = async () => {
   const response = await axios.get(`${API_URL}/banners`);
   return response.data;
 };
+ 
 
 export const deleteBanner = async (id) => {
   const response = await axios.delete(`${API_URL}/banners/${id}`);
