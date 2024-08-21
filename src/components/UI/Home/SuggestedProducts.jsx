@@ -63,11 +63,11 @@ const SuggestedProducts = () => {
         {products.length > 0 ? (
           products.slice(0, 10).map((product) => (
             <NavLink key={product.id} to={`/products/${product.id}`}>
-              <div className="relative mb-8">
-                <div className="">
+              <div className="relative mb-8 shadow-md">
+                <div className="min-h-96">
                   <ProductImage images={product.productImages} />
                 </div>
-                <div className="px-2">
+                <div className="px-2 pb-4">
                   <h3 className="mt-4 text-base font-semibold text-gray-700 h-14 capitalize">
                     {product.name}
                   </h3>

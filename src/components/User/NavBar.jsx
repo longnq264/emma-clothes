@@ -20,7 +20,6 @@ const NavBar = ({ isOpen, darkMode }) => {
   const navigate = useNavigate(); // Hook để điều hướng
 
   const handleLogout = () => {
-    // Xóa token hoặc dữ liệu đăng nhập
     localStorage.removeItem("authToken");
 
     // Chuyển hướng đến trang đăng nhập
@@ -37,28 +36,53 @@ const NavBar = ({ isOpen, darkMode }) => {
     >
       {/* Navigation Links */}
       <nav className="flex-1 px-4 py-2 space-y-2">
-        <NavLink
-          to="/admin"
-          className={`flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors duration-300 group ${
-            darkMode ? "hover:bg-gray-600" : "hover:bg-gray-200"
-          }`}
-        >
-          <FaTachometerAlt
-            className={`text-2xl mr-3 ${
-              darkMode ? "text-indigo-300" : "text-indigo-600"
-            }`}
-          />
-          <span
-            className={`text-lg font-medium group-hover:text-white transition-colors duration-300 ${
-              darkMode
-                ? "group-hover:text-gray-200"
-                : "group-hover:text-gray-900"
+        <div className="relative">
+          <NavLink
+            to="/admin"
+            className={`flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors duration-300 group ${
+              darkMode ? "hover:bg-gray-600" : "hover:bg-gray-200"
             }`}
           >
-            Dashboard
-          </span>
-        </NavLink>
-
+            <FaTachometerAlt
+              className={`text-2xl mr-3 ${
+                darkMode ? "text-indigo-300" : "text-indigo-600"
+              }`}
+            />
+            <span
+              className={`text-base font-medium group-hover:text-white transition-colors duration-300 ${
+                darkMode
+                  ? "group-hover:text-gray-200"
+                  : "group-hover:text-gray-900"
+              }`}
+            >
+              Dashboard
+            </span>
+          </NavLink>
+        </div>
+        {/* Orders và Users */}
+        <div className="relative">
+          <NavLink
+            to="/admin/order"
+            className={`flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors duration-300 group ${
+              darkMode ? "text-gray-200" : "text-gray-800"
+            }`}
+          >
+            <FaCartPlus
+              className={`text-2xl mr-3 ${
+                darkMode ? "text-indigo-300" : "text-indigo-600"
+              }`}
+            />
+            <span
+              className={`text-lg font-medium group-hover:text-white transition-colors duration-300 ${
+                darkMode
+                  ? "group-hover:text-gray-200"
+                  : "group-hover:text-gray-900"
+              }`}
+            >
+              Orders
+            </span>
+          </NavLink>
+        </div>
         {/* Products Dropdown */}
         <div className="relative">
           <button
@@ -68,11 +92,11 @@ const NavBar = ({ isOpen, darkMode }) => {
             }`}
           >
             <FaBox
-              className={`text-2xl mr-3 ${
+              className={`text-xl mr-3 ${
                 darkMode ? "text-indigo-300" : "text-indigo-600"
               }`}
             />
-            <span className="flex-1 text-lg font-medium">Products</span>
+            <span className="flex-1 text-base font-medium">Products</span>
             {isProductsOpen ? (
               <IoMdArrowDropup
                 className={`ml-auto text-2xl ${
@@ -227,35 +251,55 @@ const NavBar = ({ isOpen, darkMode }) => {
           </div>
         </div>
 
-        {/* Orders và Users */}
-        <NavLink
-          to="/admin/order"
-          className={`flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors duration-300 group ${darkMode ? 'text-gray-200' : 'text-gray-800'}`}
-        >
-          <FaCartPlus className={`text-2xl mr-3 ${darkMode ? 'text-indigo-300' : 'text-indigo-600'}`} />
-          <span className={`text-lg font-medium group-hover:text-white transition-colors duration-300 ${darkMode ? 'group-hover:text-gray-200' : 'group-hover:text-gray-900'}`}>Orders</span>
-        </NavLink>
- 
-
         <div className="relative">
           <button
             onClick={() => setIsUsersOpen(!isUsersOpen)}
-            className={`w-full flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors duration-300 group ${darkMode ? 'text-gray-200' : 'text-gray-800'}`}
+            className={`w-full flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors duration-300 group ${
+              darkMode ? "text-gray-200" : "text-gray-800"
+            }`}
           >
-            <FaUsers className={`text-2xl mr-3 ${darkMode ? 'text-indigo-300' : 'text-indigo-600'}`} />
+            <FaUsers
+              className={`text-2xl mr-3 ${
+                darkMode ? "text-indigo-300" : "text-indigo-600"
+              }`}
+            />
             <span className="flex-1 text-lg font-medium">Users</span>
-            {isUsersOpen ? <IoMdArrowDropup className={`ml-auto text-2xl ${darkMode ? 'text-indigo-300' : 'text-indigo-600'}`} /> : <IoMdArrowDropdown className={`ml-auto text-2xl ${darkMode ? 'text-indigo-300' : 'text-indigo-600'}`} />}
+            {isUsersOpen ? (
+              <IoMdArrowDropup
+                className={`ml-auto text-2xl ${
+                  darkMode ? "text-indigo-300" : "text-indigo-600"
+                }`}
+              />
+            ) : (
+              <IoMdArrowDropdown
+                className={`ml-auto text-2xl ${
+                  darkMode ? "text-indigo-300" : "text-indigo-600"
+                }`}
+              />
+            )}
           </button>
-          <div className={`transition-max-height duration-300 ease-in-out overflow-hidden ${isUsersOpen ? "max-h-48 opacity-100" : "max-h-0 opacity-0"} ${darkMode ? 'bg-gray-700' : 'bg-gray-200'} rounded-lg`}>
+          <div
+            className={`transition-max-height duration-300 ease-in-out overflow-hidden ${
+              isUsersOpen ? "max-h-48 opacity-100" : "max-h-0 opacity-0"
+            } ${darkMode ? "bg-gray-700" : "bg-gray-200"} rounded-lg`}
+          >
             <NavLink
               to="/admin/users/new"
-              className={`block px-4 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300 ${darkMode ? 'text-gray-200 hover:bg-gray-600' : 'text-gray-800 hover:bg-gray-300'}`}
+              className={`block px-4 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300 ${
+                darkMode
+                  ? "text-gray-200 hover:bg-gray-600"
+                  : "text-gray-800 hover:bg-gray-300"
+              }`}
             >
               Add Users
             </NavLink>
             <NavLink
               to="/admin/users"
-              className={`block px-4 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300 ${darkMode ? 'text-gray-200 hover:bg-gray-600' : 'text-gray-800 hover:bg-gray-300'}`}
+              className={`block px-4 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300 ${
+                darkMode
+                  ? "text-gray-200 hover:bg-gray-600"
+                  : "text-gray-800 hover:bg-gray-300"
+              }`}
             >
               View Users
             </NavLink>
@@ -265,43 +309,71 @@ const NavBar = ({ isOpen, darkMode }) => {
         <div className="relative">
           <button
             onClick={() => setIsBannerOpen(!isBannerOpen)}
-            className={`w-full flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors duration-300 group ${darkMode ? 'text-gray-200' : 'text-gray-800'}`}
+            className={`w-full flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors duration-300 group ${
+              darkMode ? "text-gray-200" : "text-gray-800"
+            }`}
           >
-            <FaUsers className={`text-2xl mr-3 ${darkMode ? 'text-indigo-300' : 'text-indigo-600'}`} />
+            <FaUsers
+              className={`text-2xl mr-3 ${
+                darkMode ? "text-indigo-300" : "text-indigo-600"
+              }`}
+            />
             <span className="flex-1 text-lg font-medium">Banner</span>
-            {isBannerOpen ? <IoMdArrowDropup className={`ml-auto text-2xl ${darkMode ? 'text-indigo-300' : 'text-indigo-600'}`} /> : <IoMdArrowDropdown className={`ml-auto text-2xl ${darkMode ? 'text-indigo-300' : 'text-indigo-600'}`} />}
+            {isBannerOpen ? (
+              <IoMdArrowDropup
+                className={`ml-auto text-2xl ${
+                  darkMode ? "text-indigo-300" : "text-indigo-600"
+                }`}
+              />
+            ) : (
+              <IoMdArrowDropdown
+                className={`ml-auto text-2xl ${
+                  darkMode ? "text-indigo-300" : "text-indigo-600"
+                }`}
+              />
+            )}
           </button>
-          <div className={`transition-max-height duration-300 ease-in-out overflow-hidden ${isBannerOpen ? "max-h-48 opacity-100" : "max-h-0 opacity-0"} ${darkMode ? 'bg-gray-700' : 'bg-gray-200'} rounded-lg`}>
+          <div
+            className={`transition-max-height duration-300 ease-in-out overflow-hidden ${
+              isBannerOpen ? "max-h-48 opacity-100" : "max-h-0 opacity-0"
+            } ${darkMode ? "bg-gray-700" : "bg-gray-200"} rounded-lg`}
+          >
             <NavLink
               to="/admin/banners/new"
-              className={`block px-4 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300 ${darkMode ? 'text-gray-200 hover:bg-gray-600' : 'text-gray-800 hover:bg-gray-300'}`}
+              className={`block px-4 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300 ${
+                darkMode
+                  ? "text-gray-200 hover:bg-gray-600"
+                  : "text-gray-800 hover:bg-gray-300"
+              }`}
             >
               Add Banner
             </NavLink>
             <NavLink
               to="/admin/banners"
-              className={`block px-4 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300 ${darkMode ? 'text-gray-200 hover:bg-gray-600' : 'text-gray-800 hover:bg-gray-300'}`}
+              className={`block px-4 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300 ${
+                darkMode
+                  ? "text-gray-200 hover:bg-gray-600"
+                  : "text-gray-800 hover:bg-gray-300"
+              }`}
             >
               View Banner
             </NavLink>
           </div>
         </div>
+        {/* Logout Button */}
+        <div className="fixed bottom-10 left-2">
+          <button
+            onClick={handleLogout}
+            className={`flex items-center px-4 py-3 rounded-lg hover:bg-stone-600 transition-colors duration-300 `}
+          >
+            <FaSignOutAlt
+              className={`text-2xl ${
+                darkMode ? "text-gray-200" : "text-gray-900"
+              }`}
+            />
+          </button>
+        </div>
       </nav>
-
-      {/* Logout Button */}
-      <button
-        onClick={handleLogout}
-        className={`flex items-center px-4 py-3 rounded-lg hover:bg-red-600 transition-colors duration-300 ${
-          darkMode ? "bg-red-700 text-gray-200" : "bg-red-500 text-gray-900"
-        }`}
-      >
-        <FaSignOutAlt
-          className={`text-2xl mr-3 ${
-            darkMode ? "text-gray-200" : "text-gray-900"
-          }`}
-        />
-        <span className={`text-lg font-medium`}>Logout</span>
-      </button>
     </div>
   );
 };

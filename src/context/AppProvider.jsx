@@ -1,6 +1,6 @@
+import PropTypes from "prop-types";
 import { AppContext } from "./AppContext.jsx";
 import { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import { getCities, getDistricts, getWards } from "../api/addressApi.js";
 import { checkout } from "../api/api-server.js";
 import { notification } from "antd";
@@ -8,7 +8,9 @@ import { useDispatch } from "react-redux";
 import { clearCart } from "../store/cartSlice.js";
 
 const AppProvider = ({ children }) => {
+  const dispatch = useDispatch();
   const [currentSelect, setCurrentSelect] = useState("city");
+  const [variants, setVariants] = useState([]);
   const [address, setAddress] = useState({
     cities: [],
     districts: [],
@@ -20,7 +22,6 @@ const AppProvider = ({ children }) => {
     selectedWard: null,
     selectedWardName: "",
   });
-
   const [orderDetail, setOrderDetail] = useState({
     shipping_method: "Tiêu chuẩn",
     ward: "",
@@ -30,6 +31,17 @@ const AppProvider = ({ children }) => {
     name: "",
     phone_number: "",
     email: "",
+  });
+  const [formProduct, setFormProduct] = useState({
+    name: "",
+    description: "",
+    price: "",
+    price_old: "",
+    quantity: "",
+    category_id: "",
+    promotion: "Giảm giá đặc biệt",
+    status: "Active",
+    variants: variants,
   });
 
   // Address
@@ -101,14 +113,10 @@ const AppProvider = ({ children }) => {
     }
   };
 
-  const handleButtonClick = (type) => {
-    setCurrentSelect(type);
-  };
-  const dispatch = useDispatch();
-
+  // if true
   const handleCheckoutSuccess = async () => {
     try {
-      // Hiển thị thông báo thành công
+      // Sucss order
       notification.success({
         message: "Thanh toán thành công",
         description:
@@ -134,6 +142,7 @@ const AppProvider = ({ children }) => {
       console.error("Checkout success handling failed", error);
     }
   };
+  // handle checkout
   const handleCheckoutDetail = async (data, token) => {
     try {
       const response = await checkout(data, token);
@@ -142,6 +151,12 @@ const AppProvider = ({ children }) => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handleButtonClick = (type) => {
+    console.log("type", type);
+
+    setCurrentSelect(type);
   };
 
   return (

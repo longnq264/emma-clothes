@@ -16,9 +16,6 @@ const ProductVariants = ({ variants }) => {
     });
   });
 
-  const colors = Array.from(colorsSet);
-  const sizes = Array.from(sizesSet);
-
   return (
     <div>
       <h1 className="text-2xl my-4">Product variants</h1>

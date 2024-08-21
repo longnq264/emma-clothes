@@ -1,6 +1,4 @@
-import { Breadcrumb } from "antd";
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import DashBoad from "./DashBoad";
 import EditProfile from "./EditProfile";
 import Setting from "./Setting";
@@ -26,21 +24,9 @@ const ProfilePage = () => {
 
   return (
     <>
-      <div className="container mx-auto py-2">
-        <Breadcrumb
-          items={[
-            {
-              title: <Link to="/">Home</Link>,
-            },
-            {
-              title: <Link to="/products">Products</Link>,
-            },
-          ]}
-        />
-      </div>
-      <div className="container mx-auto py-2">
+      <div className="py-2">
         <div className="flex">
-          <div className="basis-1/4 bg-white shadow-md">
+          <div className=" basis-1/6 bg-white shadow-md">
             <div className="p-6">
               <h2 className="text-2xl font-bold mb-6">Profile</h2>
               <nav>
@@ -62,8 +48,8 @@ const ProfilePage = () => {
               </nav>
             </div>
           </div>
-          <div className="basis-3/4 p-6">
-            <div className="bg-white p-6 rounded-lg shadow-lg">
+          <div className="basis-5/6 p-6">
+            <div className="bg-white rounded-lg shadow-lg">
               {renderContent()}
             </div>
           </div>

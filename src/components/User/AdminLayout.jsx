@@ -1,8 +1,8 @@
+import NavBar from "./NavBar";
+import SearchBar from "./SearchBar";
 import { useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
-import NavBar from "./NavBar";
 import { FaMoon, FaSun } from "react-icons/fa";
-import SearchBar from "./SearchBar";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 const AdminLayout = () => {
@@ -41,7 +41,7 @@ const AdminLayout = () => {
                     : "text-gray-800 hover:text-gray-600"
                 } transition duration-300`}
               >
-                Emmaclothes
+                Emma
               </NavLink>
             </div>
             <div className="flex items-center space-x-4">
@@ -50,7 +50,7 @@ const AdminLayout = () => {
               </div>
               <button
                 onClick={toggleDarkMode}
-                className={`flex items-center px-4 py-2 rounded-lg ${
+                className={`flex items-center px-4 py-3 rounded-lg ${
                   darkMode
                     ? "bg-gray-700 text-gray-200 hover:bg-gray-600"
                     : "bg-gray-300 text-gray-800 hover:bg-gray-200"
@@ -61,9 +61,6 @@ const AdminLayout = () => {
                 ) : (
                   <FaMoon className="text-xl" />
                 )}
-                <span className="ml-2">
-                  {darkMode ? "Light Mode" : "Dark Mode"}
-                </span>
               </button>
             </div>
           </div>

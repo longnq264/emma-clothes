@@ -17,12 +17,18 @@ const Banner = () => {
     getBannerPage();
   }, []);
   return (
-    <div className="container mx-auto pt-5">
+    <div className="">
       <Carousel afterChange={onChange}>
         {state.map((data) => (
           <div key={data.id}>
             <NavLink to="/products">
-              <img src={banner2} alt="" />
+              <img
+                className="w-full"
+                src={
+                  "https://cdn.wconcept.com/contents/display/category/WUS/A01/contents/2372_27617_14_ENG_20240812175059.gif"
+                }
+                alt=""
+              />
             </NavLink>
           </div>
         ))}

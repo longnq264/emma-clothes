@@ -29,7 +29,7 @@ import ProductsList from "./pages/Admin/ProductsList.jsx";
 import AppProvider from "./context/AppProvider.jsx";
 import Checkout from "./pages/Checkout.jsx";
 import OrderPage from "./pages/Admin/Orders.jsx";
-import UsersPage from "./pages/Admin/Users.jsx";
+// import UsersPage from "./pages/Admin/Users.jsx";
 import StaffList from "./pages/Admin/StaffList.jsx";
 // import CustomersList from "./pages/Admin/CustomersList.jsx";
 import { Provider } from "react-redux";
@@ -95,13 +95,12 @@ const router = createBrowserRouter([
       { path: "staffs", element: <StaffList /> },
       // { path: "staffs/new", element: <StaffAdd /> }, // Sửa thành StaffAdd
       // { path: "staffs/edit/:id", element: <StaffEdit /> }, // Sửa thành StaffEdit
-      { path: "users", element: < UserList /> },
-      { path: "users/new", element: < AddUser /> },
-      { path: "user/edit/:id", element: < EditUser  /> },
-      { path: "banners", element: < BannerList /> },
-      { path: "banners/new", element: <AddBanner  /> },
+      { path: "users", element: <UserList /> },
+      { path: "users/new", element: <AddUser /> },
+      { path: "user/edit/:id", element: <EditUser /> },
+      { path: "banners", element: <BannerList /> },
+      { path: "banners/new", element: <AddBanner /> },
       { path: "banners/edit/:id", element: <EditBanner /> },
-     
     ],
   },
   {
