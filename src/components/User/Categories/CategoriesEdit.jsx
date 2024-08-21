@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 import {
   Form,
   Input,
@@ -8,13 +8,9 @@ import {
   Card,
   Space,
   Select,
-} from "antd";
-import {
-  getCategory,
-  updateCategory,
-  getCategories,
-} from "../../../api/api-server";
-import { useParams, useNavigate } from "react-router-dom";
+} from 'antd';
+import { getCategory, updateCategory, getCategories } from '../../../api/api-server';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const { Option } = Select;
 
@@ -24,26 +20,23 @@ const CategoriesEdit = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [treeData, setTreeData] = useState([]);
-  const [children, setChildren] = useState([]);
-  const [parentIds, setParentIds] = useState([]);
 
-  console.log(parentIds);
   useEffect(() => {
     const fetchCategory = async () => {
       try {
         const response = await getCategory(id);
         const category = response.data;
 
-        console.log("Danh mục đã lấy:", category);
+        console.log('Danh mục đã lấy:', category);
 
         if (!category) {
-          throw new Error("Không tìm thấy danh mục với ID đã cho");
+          throw new Error('Không tìm thấy danh mục với ID đã cho');
         }
 
         const status =
-          typeof category.status === "string"
+          typeof category.status === 'string'
             ? category.status.toLowerCase()
-            : "Inactive";
+            : 'Inactive';
 
         form.setFieldsValue({
           name: category.name,
@@ -52,12 +45,11 @@ const CategoriesEdit = () => {
           status: status,
         });
 
-        setChildren(category.children || []);
         setLoading(false);
       } catch (error) {
-        console.error("Lỗi khi lấy danh mục:", error);
+        console.error('Lỗi khi lấy danh mục:', error);
         notification.error({
-          message: "Lỗi khi tải danh mục!",
+          message: 'Lỗi khi tải danh mục!',
           description: error.message,
         });
       }
@@ -66,22 +58,17 @@ const CategoriesEdit = () => {
     const fetchCategories = async () => {
       try {
         const response = await getCategories();
-        console.log("API response:", response);
+        console.log('API response:', response);
         if (response.data && Array.isArray(response.data)) {
-          const rootCategory = response.data.find(
-            (category) => category.id === 1
-          );
-          if (rootCategory) {
-            const formattedData = formatTreeData(response.data);
-            console.log("Formatted tree data:", formattedData);
-            setTreeData(formattedData);
-          }
+          const formattedData = formatTreeData(response.data);
+          console.log('Formatted tree data:', formattedData);
+          setTreeData(formattedData);
         } else {
-          console.error("Expected an array of categories but got:", response);
+          console.error('Expected an array of categories but got:', response);
         }
       } catch (error) {
         notification.error({
-          message: "Lỗi khi tải danh sách danh mục!",
+          message: 'Lỗi khi tải danh sách danh mục!',
           description: error.message,
         });
       }
@@ -90,13 +77,6 @@ const CategoriesEdit = () => {
     fetchCategory();
     fetchCategories();
   }, [id, form]);
-
-  useEffect(() => {
-    if (children.length > 0) {
-      const parentIds = children.map((child) => child.parent_id);
-      setParentIds(parentIds);
-    }
-  }, [children]);
 
   const formatTreeData = (categories) => {
     return categories.map((category) => ({
@@ -108,24 +88,24 @@ const CategoriesEdit = () => {
 
   const onFinish = async (values) => {
     try {
-      console.log("Giá trị form:", values);
+      console.log('Giá trị form:', values);
       const response = await updateCategory(id, values);
-      console.log("Cập nhật danh mục:", response);
+      console.log('Cập nhật danh mục:', response);
       notification.success({
-        message: "Danh mục đã được cập nhật thành công!",
+        message: 'Danh mục đã được cập nhật thành công!',
       });
-      navigate("/admin/categories");
+      navigate('/admin/categories');
     } catch (error) {
-      console.error("Lỗi khi cập nhật danh mục:", error);
+      console.error('Lỗi khi cập nhật danh mục:', error);
       if (error.response && error.response.data) {
-        console.error("Phản hồi từ server:", error.response.data);
+        console.error('Phản hồi từ server:', error.response.data);
         notification.error({
-          message: "Lỗi khi cập nhật danh mục!",
+          message: 'Lỗi khi cập nhật danh mục!',
           description: error.response.data.message,
         });
       } else {
         notification.error({
-          message: "Lỗi khi cập nhật danh mục!",
+          message: 'Lỗi khi cập nhật danh mục!',
           description: error.message,
         });
       }
@@ -133,7 +113,7 @@ const CategoriesEdit = () => {
   };
 
   const onExit = () => {
-    navigate("/admin/categories");
+    navigate('/admin/categories');
   };
 
   if (loading) {
@@ -141,17 +121,17 @@ const CategoriesEdit = () => {
   }
 
   return (
-    <div style={{ padding: "20px" }}>
+    <div style={{ padding: '20px' }}>
       <Card
         title="Chỉnh Sửa Danh Mục"
         bordered={false}
-        style={{ maxWidth: "600px", margin: "0 auto" }}
+        style={{ maxWidth: '600px', margin: '0 auto' }}
       >
         <Form form={form} layout="vertical" onFinish={onFinish}>
           <Form.Item
             name="name"
             label="Tên Danh Mục"
-            rules={[{ required: true, message: "Vui lòng nhập tên danh mục!" }]}
+            rules={[{ required: true, message: 'Vui lòng nhập tên danh mục!' }]}
           >
             <Input />
           </Form.Item>
@@ -160,8 +140,10 @@ const CategoriesEdit = () => {
           </Form.Item>
           <Form.Item
             name="parent_id"
-            label="Danh Mục Cha"
-            rules={[{ required: true, message: "Vui lòng chọn danh mục cha!" }]}
+            label="Danh Mục "
+            rules={[
+              { required: true, message: 'Vui lòng chọn danh mục !' },
+            ]}
           >
             <TreeSelect
               treeData={treeData}
@@ -173,7 +155,7 @@ const CategoriesEdit = () => {
           <Form.Item
             name="status"
             label="Trạng Thái"
-            rules={[{ required: true, message: "Vui lòng chọn trạng thái!" }]}
+            rules={[{ required: true, message: 'Vui lòng chọn trạng thái!' }]}
           >
             <Select placeholder="Chọn trạng thái">
               <Option value="Active">Hoạt động</Option>
@@ -200,4 +182,3 @@ const CategoriesEdit = () => {
 };
 
 export default CategoriesEdit;
-

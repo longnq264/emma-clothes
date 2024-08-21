@@ -36,6 +36,12 @@ import { Provider } from "react-redux";
 import store from "./store/store.js";
 import AuthLayout from "./components/Auth/Layout.jsx";
 import LandingPage from "./components/UI/LandingPage.jsx";
+import BannerList from "./components/User/Banner/BannerList.jsx";
+import AddBanner from "./components/User/Banner/AddBanner.jsx";
+import EditBanner from "./components/User/Banner/EditBanner.jsx";
+import EditUser from "./components/User/Users/EditUser.jsx";
+import UserList from "./components/User/Users/UserList.jsx";
+import AddUser from "./components/User/Users/AddUser.jsx";
 
 const router = createBrowserRouter([
   {
@@ -79,7 +85,7 @@ const router = createBrowserRouter([
     children: [
       { path: "", element: <DashBoardPage /> },
       { path: "order", element: <OrderPage /> },
-      { path: "users", element: <UsersPage /> },
+      // { path: "users", element: <UsersPage /> },
       { path: "products", element: <ProductsList /> },
       { path: "products/new", element: <ProductAdd /> },
       { path: "products/edit/:id", element: <ProductEdit /> },
@@ -89,6 +95,13 @@ const router = createBrowserRouter([
       { path: "staffs", element: <StaffList /> },
       // { path: "staffs/new", element: <StaffAdd /> }, // Sửa thành StaffAdd
       // { path: "staffs/edit/:id", element: <StaffEdit /> }, // Sửa thành StaffEdit
+      { path: "users", element: < UserList /> },
+      { path: "users/new", element: < AddUser /> },
+      { path: "user/edit/:id", element: < EditUser  /> },
+      { path: "banners", element: < BannerList /> },
+      { path: "banners/new", element: <AddBanner  /> },
+      { path: "banners/edit/:id", element: <EditBanner /> },
+     
     ],
   },
   {
