@@ -78,7 +78,7 @@ const router = createBrowserRouter([
     children: [
       { path: "login", element: <Signin /> },
       { path: "register", element: <Signup /> },
-      { path: "loginadmin", element: <LoginAdmin /> },
+      { path: "loginAdmin", element: <LoginAdmin /> },
     ],
   },
   //role admin

@@ -42,7 +42,7 @@ const SigninAdmin = () => {
     <div className="bg-gradient-to-r from-orange-500 to-blue-500 min-h-screen flex items-center justify-center">
       <div className="bg-white p-10 rounded-lg shadow-lg max-w-md w-full">
         <h1 className="font-bold text-center text-gray-800 text-4xl mb-8">
-          Đăng nhập
+          Đăng nhập Admin
         </h1>
         {errorMessage && (
           <div className="mb-4 text-red-600 text-center">{errorMessage}</div>
@@ -64,7 +64,6 @@ const SigninAdmin = () => {
           >
 
             <Input className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
-
           </Form.Item>
 
           <Form.Item
