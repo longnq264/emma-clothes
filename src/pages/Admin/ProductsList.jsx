@@ -7,6 +7,9 @@ const ProductsList = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 10;
 
   useEffect(() => {
     fetchData();
@@ -52,14 +55,10 @@ const ProductsList = () => {
     return findInCategories(categories);
   };
 
-  // danh mục cha
-
   const getParentCategory = (parentId) => {
     const category = findCategoryById(parentId);
     return category ? category.name : "Không có danh mục cha";
   };
-
-  // hàm danh mục con
 
   const getChildCategory = (parentId, id) => {
     const parentCategory = findCategoryById(parentId);
@@ -78,6 +77,21 @@ const ProductsList = () => {
     printWindow.print();
   };
 
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+    setCurrentPage(1); // Reset to first page when searching
+  };
+
+  const filteredProducts = products.filter(product =>
+    product.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   if (loading) return <div className="flex justify-center items-center"><div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full text-blue-500"></div></div>;
   if (error) return <p>{error}</p>;
 
@@ -85,20 +99,31 @@ const ProductsList = () => {
     <div className="container mx-auto py-8">
       <div className="overflow-x-auto">
         <h1 className="text-4xl font-bold mb-6">Danh Sách Sản Phẩm</h1>
-        <div className="mt-8 flex justify-between">
+        <div className="mt-8 flex justify-between items-center">
           <Link
             to="/admin/products/new"
             className="inline-block bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md"
           >
             Tạo Sản Phẩm Mới
           </Link>
-          <button
+          <br />
+          <input
+            type="text"
+            placeholder="Tìm kiếm sản phẩm"
+            value={searchTerm}
+            onChange={handleSearch}
+            className="border border-gray-300 rounded-lg py-2 px-4"
+          />
+          
+        </div>
+        <br />
+        <button
             onClick={printProductsList}
             className="inline-block bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md"
           >
             Xuất Danh Sách
           </button>
-        </div>
+        <br />
         <br />
         <div className="print-container">
           <table className="min-w-full bg-white border border-gray-200 rounded-lg shadow-md">
@@ -119,7 +144,7 @@ const ProductsList = () => {
               </tr>
             </thead>
             <tbody>
-              {products.map((product) => (
+              {currentProducts.map((product) => (
                 <tr key={product.id} className="border-b border-gray-200 hover:bg-gray-50">
                   <td className="py-3 px-4">
                     <Link to={`/products/${product.id}`} className="text-blue-600 hover:underline">
@@ -178,9 +203,33 @@ const ProductsList = () => {
             </tbody>
           </table>
         </div>
+        <div className="mt-4 flex justify-between items-center">
+          <div>
+            <span className="text-gray-700">
+              Trang {currentPage} / {Math.ceil(filteredProducts.length / productsPerPage)}
+            </span>
+          </div>
+          <div>
+            <button
+              onClick={() => paginate(currentPage - 1)}
+              disabled={currentPage === 1}
+              className="bg-gray-300 hover:bg-gray-400 text-black font-semibold py-2 px-4 rounded-lg"
+            >
+              Trước
+            </button>
+            <button
+              onClick={() => paginate(currentPage + 1)}
+              disabled={currentPage === Math.ceil(filteredProducts.length / productsPerPage)}
+              className="bg-gray-300 hover:bg-gray-400 text-black font-semibold py-2 px-4 rounded-lg ml-2"
+            >
+              Sau
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
 
 export default ProductsList;
+  
