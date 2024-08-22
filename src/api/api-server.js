@@ -304,3 +304,28 @@ export const checkout = async (data, token) => {
   return response.data;
 };
 
+
+// // Lấy bài viết theo ID
+// export const getPostById = async (id) => {
+//   const response = await axios.get(`${API_URL}/posts/${id}`);
+//   return response.data;
+// };
+
+// // Thêm bài viết mới
+// export const addPost = async (post) => {
+//   const response = await axios.post(`${API_URL}/posts`, post);
+//   return response.data;
+// };
+
+// // Cập nhật bài viết
+// export const updatePost = async (post) => {
+//   const response = await axios.put(`${API_URL}/posts/${post.id}`, post);
+//   return response.data;
+// };
+
+// // Xóa bài viết
+// export const deletePost = async (id) => {
+//   const response = await axios.delete(`${API_URL}/posts/${id}`);
+//   return response.data;
+// };
+
