@@ -43,6 +43,7 @@ import LoginAdmin from "./pages/Auth/signinAdmin.jsx";
 
 import AuthLayout from "./components/Auth/Layout.jsx";
 import LandingPage from "./components/UI/LandingPage.jsx";
+import PrivacyPage from "./pages/Privacy/PrivacyPage.jsx";
 
 
 const router = createBrowserRouter([
@@ -57,6 +58,7 @@ const router = createBrowserRouter([
       { path: "/blog/:id", element: <BlogDetail /> },
       { path: "/about", element: <AboutPage /> },
       { path: "/contact", element: <ContactPage /> },
+      { path: "/privacy", element: <PrivacyPage /> },
       //role collection
       { path: "/collection", element: <CollectionPage /> },
       { path: "/collection/:role", element: <CollectionDetailPage /> },

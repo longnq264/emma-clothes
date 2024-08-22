@@ -145,6 +145,10 @@ export const NAV_LINKS = [
   { href: "/", key: "about", label: "About" },
   { href: "/", key: "blog", label: "Blog" },
   { href: "/", key: "sale", label: "Sale" },
+  // update 
+  { href: "/", key: "privacy", label: "Privacy" },
+  { href: "/", key: "terms", label: "Terms" },
+  
 
 ];
 

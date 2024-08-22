@@ -79,7 +79,7 @@ const ProductsList = () => {
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
-    setCurrentPage(1); // Reset to first page when searching
+    setCurrentPage(1); 
   };
 
   const filteredProducts = products.filter(product =>
