@@ -23,7 +23,7 @@ const NavBar = ({ isOpen, darkMode }) => {
       <nav className="flex-1">
         {/* Dashboard */}
         <NavLink
-          to="/"
+          to=""
           className={`${baseButtonClass} ${
             darkMode
               ? "text-gray-200 hover:bg-gray-600"

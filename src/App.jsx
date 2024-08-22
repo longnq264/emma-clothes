@@ -40,12 +40,11 @@ import StaffEdit from "./pages/Admin/StaffEdit.jsx";
 // import UserAdminPage from "./pages/Admin/UserAdminPage.jsx";
 import LoginAdmin from "./pages/Auth/signinAdmin.jsx";
 
-
 import AuthLayout from "./components/Auth/Layout.jsx";
 import LandingPage from "./components/UI/LandingPage.jsx";
 import PrivacyPage from "./pages/Privacy/PrivacyPage.jsx";
 import TermsPage from "./pages/Term/TermsPage.jsx";
-
+import OverviewDashboard from "./pages/Admin/Dashboard/OverviewDashboard.jsx";
 
 const router = createBrowserRouter([
   {
@@ -100,8 +99,9 @@ const router = createBrowserRouter([
       { path: "categories/new", element: <CategoriesAdd /> },
       { path: "categories/edit/:id", element: <CategoriesEdit /> },
       { path: "staffs", element: <StaffList /> },
-      { path: "staffs/new", element: <StaffAdd /> }, 
-      { path: "staffs/edit/:id", element: <StaffEdit /> }, 
+      { path: "staffs/new", element: <StaffAdd /> },
+      { path: "staffs/edit/:id", element: <StaffEdit /> },
+      { path: "overview", element: <OverviewDashboard /> },
     ],
   },
   {
@@ -121,4 +121,3 @@ function App() {
 }
 
 export default App;
-
