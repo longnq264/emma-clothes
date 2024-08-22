@@ -73,7 +73,7 @@ const PrivacyPage = () => {
                 <li><strong>“Hệ thống”</strong> là website, ứng dụng hoặc các cửa hàng của Công ty Cổ phần Thời trang Emma và các Công ty liên kết của Công ty Cổ phần Thời trang Emma.</li>
               </ul>
             </section>
-            {/* Add more sections here as needed */}
+            
           </div>
         </div>
       </div>
