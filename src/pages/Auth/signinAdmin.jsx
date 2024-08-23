@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Button, Form, Input, message } from "antd";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -17,12 +17,24 @@ const SigninAdmin = () => {
         formData
       );
       localStorage.setItem("token", response.data.token);
-      message.success("Đăng nhập thành công!");
-      navigate("/admin");
+      localStorage.setItem("user", JSON.stringify(response.data.data)); // Lưu thông tin người dùng
+
+      // Điều hướng dựa trên vai trò
+      if (response.data.data.role === "admin") {
+        message.success("Đăng nhập thành công!");
+        navigate("/admin");
+      } else {
+        message.error("Bạn không có quyền truy cập trang admin.");
+      }
     } catch (error) {
-      console.error("Login failed:", error);
+      console.error(
+        "Login failed:",
+        error.response ? error.response.data : error.message
+      );
       setErrorMessage(
-        "Đăng nhập không thành công. Vui lòng kiểm tra lại email hoặc mật khẩu."
+        error.response
+          ? error.response.data.message
+          : "Đăng nhập không thành công. Vui lòng kiểm tra lại email hoặc mật khẩu."
       );
     } finally {
       setLoading(false);
@@ -62,7 +74,6 @@ const SigninAdmin = () => {
             name="email"
             rules={[{ required: true, message: "Vui lòng nhập email!" }]}
           >
-
             <Input className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
           </Form.Item>
 
@@ -94,4 +105,3 @@ const SigninAdmin = () => {
 };
 
 export default SigninAdmin;
-

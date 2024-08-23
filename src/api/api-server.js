@@ -20,8 +20,16 @@ export const register = async (data) => {
 };
 
 export const login = async (data) => {
-  const response = await axios.post(`${API_URL}/login`, data);
-  return response.data;
+  try {
+    const response = await axios.post(`${API_URL}/login`, data);
+    return response.data;
+  } catch (error) {
+    console.error(
+      "Login failed:",
+      error.response ? error.response.data : error.message
+    );
+    throw error; // Ném lỗi ra ngoài để có thể xử lý ở nơi gọi hàm
+  }
 };
 
 export const getUserId = async (token) => {
@@ -232,7 +240,10 @@ export const getUsers = async (params = {}) => {
     const response = await axios.get(`${API_URL}/users`, { params });
     return response.data;
   } catch (error) {
-    console.error("Failed to fetch users:", error);
+    console.error(
+      "Failed to fetch users:",
+      error.response ? error.response.data : error.message
+    );
     throw error;
   }
 };
@@ -291,7 +302,6 @@ export const getListAddress = async () => {
   return response.data;
 };
 
-
 export const checkout = async (data, token) => {
   console.log("data checkout", data);
 
@@ -303,7 +313,6 @@ export const checkout = async (data, token) => {
   });
   return response.data;
 };
-
 
 // // Lấy bài viết theo ID
 // export const getPostById = async (id) => {
@@ -328,4 +337,3 @@ export const checkout = async (data, token) => {
 //   const response = await axios.delete(`${API_URL}/posts/${id}`);
 //   return response.data;
 // };
-

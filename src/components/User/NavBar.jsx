@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
 import { FaTachometerAlt, FaBox, FaTag, FaUsers } from "react-icons/fa";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
-
 const NavBar = ({ isOpen, darkMode }) => {
   const [isProductsOpen, setIsProductsOpen] = useState(false);
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
@@ -23,7 +22,7 @@ const NavBar = ({ isOpen, darkMode }) => {
       <nav className="flex-1">
         {/* Dashboard */}
         <NavLink
-          to=""
+          to="/admin/"
           className={`${baseButtonClass} ${
             darkMode
               ? "text-gray-200 hover:bg-gray-600"
@@ -42,8 +41,9 @@ const NavBar = ({ isOpen, darkMode }) => {
                 : "group-hover:text-gray-900"
             }`}
           >
-            Dashboard
+            Dashboard     
           </span>
+          
         </NavLink>
 
         {/* Products */}
