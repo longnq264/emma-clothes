@@ -98,7 +98,6 @@ const router = createBrowserRouter([
     children: [
       { path: "", element: <DashBoardPage /> },
       { path: "order", element: <OrderPage /> },
-      // { path: "users", element: <UserAdminPage /> },
       { path: "products", element: <ProductsList /> },
       { path: "products/new", element: <ProductAdd /> },
       { path: "products/edit/:id", element: <ProductEdit /> },
@@ -107,8 +106,9 @@ const router = createBrowserRouter([
       { path: "categories/edit/:id", element: <CategoriesEdit /> },
       { path: "staffs", element: <StaffList /> },
       { path: "staffs/new", element: <StaffAdd /> },
-      { path: "staffs/edit/:id", element: <StaffEdit /> },
       { path: "overview", element: <OverviewDashboard /> },
+      { path: "staffs/edit/:id", element: <StaffEdit /> },
+      
     ],
   },
   {

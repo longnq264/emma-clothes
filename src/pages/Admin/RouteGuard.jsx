@@ -11,7 +11,7 @@ const RouteGuard = ({ children, allowedRoles }) => {
     }
   
     if (allowedRoles && !allowedRoles.includes(user?.role)) {
-      return <Navigate to="/not-loggedin" />;
+      return <Navigate to="/admin" />;
     }
   
     return children;
