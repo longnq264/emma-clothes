@@ -10,7 +10,7 @@ import AboutUs from "../components/UI/Home/AboutUs";
 
 function HomePage() {
   return (
-    <>
+    <div className="bg-gray-50">
       <Banner />
       {/* <Lorem /> */}
       <AboutUs />
@@ -20,7 +20,7 @@ function HomePage() {
       <CategoryPopular />
       <NewCollection />
       <SuggestedProducts />
-    </>
+    </div>
   );
 }
 

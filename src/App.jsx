@@ -30,6 +30,10 @@ import AppProvider from "./context/AppProvider.jsx";
 import Checkout from "./pages/Checkout.jsx";
 import OrderPage from "./pages/Admin/Orders.jsx";
 
+
+
+// import UsersPage from "./pages/Admin/Users.jsx";
+
 import StaffList from "./pages/Admin/StaffList.jsx";
 // import CustomersList from "./pages/Admin/CustomersList.jsx";
 import { Provider } from "react-redux";
@@ -45,7 +49,15 @@ import LandingPage from "./components/UI/LandingPage.jsx";
 import PrivacyPage from "./pages/Privacy/PrivacyPage.jsx";
 import TermsPage from "./pages/Term/TermsPage.jsx";
 import OverviewDashboard from "./pages/Admin/Dashboard/OverviewDashboard.jsx";
-import RouteGuard from "./pages/Admin/RouteGuard.jsx";
+// import RouteGuard from "./pages/Admin/RouteGuard.jsx";
+
+import BannerList from "./components/User/Banner/BannerList.jsx";
+import AddBanner from "./components/User/Banner/AddBanner.jsx";
+import EditBanner from "./components/User/Banner/EditBanner.jsx";
+import EditUser from "./components/User/Users/EditUser.jsx";
+import UserList from "./components/User/Users/UserList.jsx";
+import AddUser from "./components/User/Users/AddUser.jsx";
+
 
 const router = createBrowserRouter([
   {
@@ -87,17 +99,20 @@ const router = createBrowserRouter([
   },
   //role admin
   {
-    // path: "/admin",
-    // element: <AdminLayout />,
+    path: "/admin",
+    element: <AdminLayout />,
 
-    element: (
-      <RouteGuard allowedRoles={["admin"]}>
-        <AdminLayout />
-      </RouteGuard>
-    ), // Đã thêm RouteGuard
+    // element: (
+    //   <RouteGuard allowedRoles={["admin"]}>
+    //     <AdminLayout />
+    //   </RouteGuard>
+    // ), // Đã thêm RouteGuard
     children: [
       { path: "", element: <DashBoardPage /> },
       { path: "order", element: <OrderPage /> },
+
+      // { path: "users", element: <UsersPage /> },
+
       { path: "products", element: <ProductsList /> },
       { path: "products/new", element: <ProductAdd /> },
       { path: "products/edit/:id", element: <ProductEdit /> },
@@ -108,7 +123,12 @@ const router = createBrowserRouter([
       { path: "staffs/new", element: <StaffAdd /> },
       { path: "overview", element: <OverviewDashboard /> },
       { path: "staffs/edit/:id", element: <StaffEdit /> },
-      
+      { path: "users", element: <UserList /> },
+      { path: "users/new", element: <AddUser /> },
+      { path: "user/edit/:id", element: <EditUser /> },
+      { path: "banners", element: <BannerList /> },
+      { path: "banners/new", element: <AddBanner /> },
+      { path: "banners/edit/:id", element: <EditBanner /> },
     ],
   },
   {

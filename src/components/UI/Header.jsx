@@ -28,10 +28,16 @@ const Header = () => {
 
   return (
     <header
-      className={`bg-white text-white border-b shadow fixed w-full top-0 left-0 z-50 transition-transform duration-300 ${
+      className={`bg-slate-50 text-white shadow fixed w-full top-0 left-0 z-50 transition-transform duration-300 ${
         isVisible ? "transform translate-y-0" : "transform -translate-y-full "
       }`}
     >
+      <div className="bg-stone-900 py-1 text-center text-sm">
+        Get UPTO 40% OFF on your 1st order
+      </div>
+      <div className="bg-slate-50 py-3 text-center text-xl text-stone-600 border-b">
+        Get UPTO 40% OFF on your 1st order
+      </div>
       <div className="container mx-auto flex justify-between">
         <div className="flex items-center">
           <Logo />

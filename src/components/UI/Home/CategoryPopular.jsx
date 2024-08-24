@@ -53,10 +53,10 @@ const CategoryPopular = () => {
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
         {products.slice(0, 4).map((product) => (
-          <div key={product.id} className="relative">
+          <div key={product.id} className="relative shadow-md">
             <NavLink to={`/products/${product.id}`}>
               <ProductImage images={product.productImages} />
-              <div className="px-2">
+              <div className="px-4 pb-4">
                 <h2 className="font-bold mt-4 text-sm h-14">{product.name}</h2>
                 <p className="">{formatCurrency(product.price)}</p>
               </div>
