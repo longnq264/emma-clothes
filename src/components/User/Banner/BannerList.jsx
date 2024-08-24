@@ -41,9 +41,10 @@ const BannerList = () => {
     }
   };
 
-  const handleStatusChange = async (id) => {
+  const handleStatusChange = async (id, currentStatus) => {
     try {
-      await toggleBannerStatus(id);
+      const newStatus = currentStatus === 1 ? 0 : 1;
+      await toggleBannerStatus(id, { active: newStatus });
       message.success("Trạng thái banner đã được cập nhật.");
       fetchBanners();
     } catch (error) {
@@ -71,13 +72,13 @@ const BannerList = () => {
       render: (text) => <img src={text} alt="Banner" style={{ width: '100px' }} />,
     },
     {
-      title: 'Hoạt động',
+      title: 'Trạng thái',
       dataIndex: 'active',
       key: 'active',
       render: (text, record) => (
         <Switch
           checked={record.active === 1}
-          onChange={() => handleStatusChange(record.id)}
+          onChange={() => handleStatusChange(record.id, record.active)}
         />
       ),
     },

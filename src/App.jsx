@@ -42,6 +42,7 @@ import EditBanner from "./components/User/Banner/EditBanner.jsx";
 import EditUser from "./components/User/Users/EditUser.jsx";
 import UserList from "./components/User/Users/UserList.jsx";
 import AddUser from "./components/User/Users/AddUser.jsx";
+import AdminOrders from "./components/User/Order/ListOrder.jsx";
 
 const router = createBrowserRouter([
   {
@@ -85,7 +86,7 @@ const router = createBrowserRouter([
     children: [
       { path: "", element: <DashBoardPage /> },
       { path: "order", element: <OrderPage /> },
-      // { path: "users", element: <UsersPage /> },
+      { path: "AdminOrders", element: <AdminOrders /> },
       { path: "products", element: <ProductsList /> },
       { path: "products/new", element: <ProductAdd /> },
       { path: "products/edit/:id", element: <ProductEdit /> },

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Form, Input, Button, DatePicker, Select, message } from 'antd';
-import { updateUser, getUsers } from '../../../api/api-server';
+import { updateUser, getUsers } from '../../../api/users';
 import moment from 'moment';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -18,14 +18,21 @@ const EditUser = () => {
 
   const fetchUserDetails = async () => {
     try {
-      const user = await getUsers(id);
-      form.setFieldsValue({
-        ...user,
-        date_of_birth: moment(user.date_of_birth),
-      });
-      setLoading(false);
+      const response = await getUsers(); // Fetch all users
+      const user = response.data.data.find((user) => user.id === parseInt(id)); // Find the specific user by ID
+      if (user) {
+        form.setFieldsValue({
+          ...user,
+          date_of_birth: user.date_of_birth ? moment(user.date_of_birth) : null,
+        });
+        setLoading(false);
+      } else {
+        message.error('Người dùng không tồn tại.');
+        navigate('/admin/users');
+      }
     } catch (error) {
       message.error('Lỗi khi lấy dữ liệu người dùng.');
+      setLoading(false);
     }
   };
 
@@ -33,7 +40,7 @@ const EditUser = () => {
     try {
       await updateUser(id, values);
       message.success('Cập nhật người dùng thành công');
-      navigate('/users');
+      navigate('/admin/users');
     } catch (error) {
       message.error('Lỗi khi cập nhật người dùng.');
     }
@@ -45,7 +52,7 @@ const EditUser = () => {
 
   return (
     <div>
-      <Button onClick={() => navigate('/users')} style={{ marginBottom: '16px' }}>
+      <Button onClick={() => navigate('/admin/users')} style={{ marginBottom: '16px' }}>
         Quay lại danh sách người dùng
       </Button>
       <Form

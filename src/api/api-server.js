@@ -302,3 +302,48 @@ export const checkout = async (data, token) => {
   });
   return response.data;
 };
+
+// Lấy danh sách đơn hàng của người dùng
+// Hàm lấy danh sách đơn hàng của người dùng
+export const getUserOrders = async (token) => {
+  try {
+    const { data } = await axios.get(`${API_URL}/list-order`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return data;
+  } catch (error) {
+    handleOrderError(error);
+    throw error; // Ném lỗi để xử lý ở nơi gọi hàm
+  }
+};
+
+// Hàm xử lý lỗi khi lấy đơn hàng
+const handleOrderError = (error) => {
+  if (error.response) {
+    console.error(`Lỗi ${error.response.status}:`, error.response.data);
+    if (error.response.status === 401) {
+      console.error('Không có quyền truy cập: Kiểm tra lại token.');
+      // Thực hiện hành động khác nếu cần (refresh token hoặc chuyển hướng)
+    }
+  } else if (error.request) {
+    console.error('Không nhận được phản hồi từ server:', error.request);
+  } else {
+    console.error('Lỗi:', error.message);
+  }
+};
+
+// Lấy danh sách tất cả các đơn hàng (có thể dùng cho Admin)
+export const listOrders = async (token) => {
+  try {
+    const response = await axios.get(`${API_URL}/list-order`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error("Failed to fetch orders:", error);
+    throw error;
+  }
+};

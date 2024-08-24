@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Table, Button, Input, message, Upload } from 'antd';
-import { getUsers, deleteUser, importUsers } from '../../../api/api-server';
+import { getUsers, deleteUser, importUsers } from '../../../api/users';
 import moment from 'moment';
 import { SearchOutlined, UploadOutlined } from '@ant-design/icons';
 import FileSaver from 'file-saver';
@@ -17,7 +17,9 @@ const UserList = () => {
 
   const fetchUsers = async () => {
     try {
-      const usersData = await getUsers();
+      const response = await getUsers();
+      // Extract the 'data' array from the response structure
+      const usersData = response.data.data;
       setUsers(usersData);
     } catch (error) {
       message.error('Lỗi khi lấy dữ liệu người dùng.');
@@ -38,17 +40,18 @@ const UserList = () => {
     setSearchTerm(value);
   };
 
-  const filteredUsers = users.filter(user =>
+  const filteredUsers = users.filter((user) =>
     user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
     user.role.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    user.address.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    user.phone_number.includes(searchTerm)
+    (user.address && user.address.toLowerCase().includes(searchTerm.toLowerCase())) ||
+    (user.phone_number && user.phone_number.includes(searchTerm))
   );
 
   const handleExport = async () => {
     try {
-      const usersData = await getUsers();
+      const response = await getUsers();
+      const usersData = response.data.data;
       const blob = new Blob([JSON.stringify(usersData)], { type: 'application/json' });
       FileSaver.saveAs(blob, 'users.json');
       message.success('Xuất dữ liệu người dùng thành công');
@@ -107,7 +110,7 @@ const UserList = () => {
       key: 'actions',
       render: (text, record) => (
         <span>
-          <Button type="link" onClick={() => navigate(`/users/edit/${record.id}`)}>
+          <Button type="link" onClick={() => navigate(`/admin/user/edit/${record.id}`)}>
             Sửa
           </Button>
           <Button type="link" danger onClick={() => handleDeleteUser(record.id)}>
