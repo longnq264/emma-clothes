@@ -87,7 +87,7 @@ const router = createBrowserRouter([
   },
   //role admin
   {
-    path: "/admin",
+    // path: "/admin",
     // element: <AdminLayout />,
 
     element: (

@@ -19,27 +19,44 @@ export const register = async (data) => {
   return response.data;
 };
 
+// Hàm đăng nhập người dùng
 export const login = async (data) => {
   try {
     const response = await axios.post(`${API_URL}/login`, data);
     return response.data;
   } catch (error) {
+    // Xử lý lỗi khi đăng nhập thất bại
     console.error(
       "Login failed:",
       error.response ? error.response.data : error.message
     );
-    throw error; // Ném lỗi ra ngoài để có thể xử lý ở nơi gọi hàm
+    throw error; // ném lỗi ra ngoài để xử láy hàm taị chỗ
   }
 };
 
+// export const getUserId = async (token) => {
+//   const response = await axios.get(`${API_URL}/user`, {
+//     headers: {
+//       Authorization: `Bearer ${token}`,
+//     },
+//   });
+//   return response.data;
+// };
+
 export const getUserId = async (token) => {
-  const response = await axios.get(`${API_URL}/user`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  return response.data;
+  try {
+    const response = await axios.get(`${API_URL}/user`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Failed to get user ID:", error.response ? error.response.data : error.message);
+    throw error;
+  }
 };
+
 
 export const getCategories = async () => {
   const response = await axios.get(`${API_URL}/categories`);
@@ -313,6 +330,28 @@ export const checkout = async (data, token) => {
   });
   return response.data;
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // // Lấy bài viết theo ID
 // export const getPostById = async (id) => {
