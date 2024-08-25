@@ -30,8 +30,6 @@ import AppProvider from "./context/AppProvider.jsx";
 import Checkout from "./pages/Checkout.jsx";
 import OrderPage from "./pages/Admin/Orders.jsx";
 
-
-
 // import UsersPage from "./pages/Admin/Users.jsx";
 
 import StaffList from "./pages/Admin/StaffList.jsx";
@@ -50,14 +48,13 @@ import PrivacyPage from "./pages/Privacy/PrivacyPage.jsx";
 import TermsPage from "./pages/Term/TermsPage.jsx";
 import OverviewDashboard from "./pages/Admin/Dashboard/OverviewDashboard.jsx";
 
-
 import BannerList from "./components/User/Banner/BannerList.jsx";
 import AddBanner from "./components/User/Banner/AddBanner.jsx";
 import EditBanner from "./components/User/Banner/EditBanner.jsx";
 import EditUser from "./components/User/Users/EditUser.jsx";
 import UserList from "./components/User/Users/UserList.jsx";
 import AddUser from "./components/User/Users/AddUser.jsx";
-
+import AdminOrders from "./components/User/Order/ListOrder.jsx";
 
 const router = createBrowserRouter([
   {
@@ -105,9 +102,7 @@ const router = createBrowserRouter([
     children: [
       { path: "", element: <DashBoardPage /> },
       { path: "order", element: <OrderPage /> },
-
-      // { path: "users", element: <UsersPage /> },
-
+      { path: "AdminOrders", element: <AdminOrders /> },
       { path: "products", element: <ProductsList /> },
       { path: "products/new", element: <ProductAdd /> },
       { path: "products/edit/:id", element: <ProductEdit /> },
@@ -143,3 +138,4 @@ function App() {
 }
 
 export default App;
+
