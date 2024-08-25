@@ -49,7 +49,7 @@ import LandingPage from "./components/UI/LandingPage.jsx";
 import PrivacyPage from "./pages/Privacy/PrivacyPage.jsx";
 import TermsPage from "./pages/Term/TermsPage.jsx";
 import OverviewDashboard from "./pages/Admin/Dashboard/OverviewDashboard.jsx";
-// import RouteGuard from "./pages/Admin/RouteGuard.jsx";
+
 
 import BannerList from "./components/User/Banner/BannerList.jsx";
 import AddBanner from "./components/User/Banner/AddBanner.jsx";
@@ -102,11 +102,6 @@ const router = createBrowserRouter([
     path: "/admin",
     element: <AdminLayout />,
 
-    // element: (
-    //   <RouteGuard allowedRoles={["admin"]}>
-    //     <AdminLayout />
-    //   </RouteGuard>
-    // ), // Đã thêm RouteGuard
     children: [
       { path: "", element: <DashBoardPage /> },
       { path: "order", element: <OrderPage /> },
