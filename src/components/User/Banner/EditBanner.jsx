@@ -41,6 +41,7 @@ const EditBanner = () => {
     try {
       await toggleBannerStatus(id, { active: checked ? 1 : 0 });
       message.success('Cập nhật trạng thái banner thành công');
+      // Cập nhật giá trị trong form để đồng bộ với trạng thái của switch
       form.setFieldsValue({ active: checked });
     } catch (error) {
       message.error('Cập nhật trạng thái banner thất bại');
@@ -49,7 +50,12 @@ const EditBanner = () => {
 
   return (
     <Card title="Chỉnh sửa Banner" style={{ maxWidth: 600, margin: 'auto' }}>
-      <Form form={form} onFinish={onFinish} layout="vertical">
+      <Form
+        form={form}
+        onFinish={onFinish}
+        layout="vertical"
+        initialValues={{ active: false }} // Đảm bảo rằng switch có giá trị mặc định
+      >
         <Form.Item
           name="title"
           label="Tiêu đề"
@@ -74,7 +80,7 @@ const EditBanner = () => {
         >
           <Switch
             checked={form.getFieldValue('active')}
-            onChange={handleToggleStatus}
+            onChange={handleToggleStatus} // Gọi hàm cập nhật trạng thái khi thay đổi
           />
         </Form.Item>
         <Form.Item>
