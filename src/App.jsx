@@ -28,7 +28,7 @@ import ProductEdit from "./pages/Admin/ProductEdit.jsx";
 import ProductsList from "./pages/Admin/ProductsList.jsx";
 import AppProvider from "./context/AppProvider.jsx";
 import Checkout from "./pages/Checkout.jsx";
-import OrderPage from "./pages/Admin/Orders.jsx";
+// import OrderPage from "./pages/Admin/Orders.jsx";
 // import UsersPage from "./pages/Admin/Users.jsx";
 import StaffList from "./pages/Admin/StaffList.jsx";
 // import CustomersList from "./pages/Admin/CustomersList.jsx";
@@ -42,7 +42,9 @@ import EditBanner from "./components/User/Banner/EditBanner.jsx";
 import EditUser from "./components/User/Users/EditUser.jsx";
 import UserList from "./components/User/Users/UserList.jsx";
 import AddUser from "./components/User/Users/AddUser.jsx";
-import AdminOrders from "./components/User/Order/ListOrder.jsx";
+import OrderDetails from "./components/User/Order/OrderDetails.jsx";
+import ListOrder from "./components/User/Order/ListOrder.jsx";
+import AddOrders from "./components/User/Order/Addorder.jsx";
 
 const router = createBrowserRouter([
   {
@@ -85,8 +87,11 @@ const router = createBrowserRouter([
     element: <AdminLayout />,
     children: [
       { path: "", element: <DashBoardPage /> },
-      { path: "order", element: <OrderPage /> },
-      { path: "AdminOrders", element: <AdminOrders /> },
+      // { path: "order", element: <OrderPage /> },
+      // { path: "Addorder", element: < /> },
+      { path: "orders", element: <ListOrder /> },
+      { path: "orders/new", element: <AddOrders /> },
+      { path: "orders/:orderId", element: <OrderDetails /> },
       { path: "products", element: <ProductsList /> },
       { path: "products/new", element: <ProductAdd /> },
       { path: "products/edit/:id", element: <ProductEdit /> },

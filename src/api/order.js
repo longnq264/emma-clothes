@@ -1,8 +1,28 @@
 import axios from 'axios';
 
 const API_URL = 'http://127.0.0.1:8000/api';
-const AUTH_TOKEN = 'Bearer 28|EqKaELX2fVXOrXquaiFqzcvZVkkeaxOGfe8yKlgGd86d7c8a';
+const AUTH_TOKEN = 'Bearer 46|VVmgwGGGyXwpFnQvU7oiChlSncm0NqIOyBUKY63P2848f6ec';
 
+// Hàm để tạo đơn hàng mới
+export const addOrder = async (orderData) => {
+  try {
+    const response = await axios.post(
+      `${API_URL}/orders`,
+      orderData,
+      {
+        headers: {
+          Authorization: AUTH_TOKEN,
+        },
+      }
+    );
+
+    console.log('Đơn hàng đã được tạo:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Lỗi khi tạo đơn hàng:', error);
+    throw error;
+  }
+};
 // Hàm để lấy tất cả các đơn hàng
 export const fetchOrders = async () => {
   try {
@@ -29,7 +49,7 @@ export const fetchOrders = async () => {
 export const updateOrderStatus = async (orderId, newStatus) => {
   try {
     const response = await axios.put(
-      `${API_URL}/order/${orderId}/status`,
+      `${API_URL}/update-status/${orderId}`,
       { status_id: newStatus },
       {
         headers: {
@@ -44,10 +64,53 @@ export const updateOrderStatus = async (orderId, newStatus) => {
   }
 };
 
+// Hàm để hủy một đơn hàng
+export const cancelOrder = async (orderId) => {
+  try {
+    const response = await axios.post(
+      `${API_URL}/orders/${orderId}/cancel`,
+      {},
+      {
+        headers: {
+          Authorization: AUTH_TOKEN,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Lỗi khi hủy đơn hàng:', error);
+    throw error;
+  }
+};
+
+// Hàm để lấy chi tiết của một đơn hàng cụ thể
+// export const fetchOrderDetails = async (orderId) => {
+//   try {
+//     const response = await axios.get(`${API_URL}/orders/${orderId}/detail`, {
+//       headers: {
+//         Authorization: AUTH_TOKEN,
+//       },
+//     });
+
+//     console.log('API response:', response.data); // Kiểm tra toàn bộ phản hồi từ API
+
+//     if (response.data && response.data.data) {
+//       console.log('Chi tiết đơn hàng:', response.data.data);
+//       return response.data.data;
+//     } else {
+//       console.warn('Không tìm thấy chi tiết đơn hàng, trả về null.');
+//       return null;
+//     }
+//   } catch (error) {
+//     console.error('Lỗi khi lấy chi tiết đơn hàng:', error);
+//     throw error;
+//   }
+// };
+
 // Hàm để lấy chi tiết của một đơn hàng cụ thể
 export const fetchOrderDetails = async (orderId) => {
   try {
-    const response = await axios.get(`${API_URL}/order/${orderId}`, {
+    const response = await axios.get(`${API_URL}/orders/${orderId}/detail`, {
       headers: {
         Authorization: AUTH_TOKEN,
       },

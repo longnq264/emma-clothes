@@ -17,13 +17,12 @@ const NavBar = ({ isOpen, darkMode }) => {
   const [isStaffsOpen, setIsStaffsOpen] = useState(false);
   const [isUsersOpen, setIsUsersOpen] = useState(false);
   const [isBannerOpen, setIsBannerOpen] = useState(false);
-  const navigate = useNavigate(); // Hook để điều hướng
+  const [isOrdersOpen, setIsOrdersOpen] = useState(false); // State for Orders dropdown
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     localStorage.removeItem("authToken");
-
-    // Chuyển hướng đến trang đăng nhập
-    navigate("/login"); // Đổi '/login' thành đường dẫn trang đăng nhập của bạn
+    navigate("/login");
   };
 
   return (
@@ -34,8 +33,8 @@ const NavBar = ({ isOpen, darkMode }) => {
         isOpen ? "transform-none" : "-translate-x-full"
       } h-screen flex flex-col`}
     >
-      {/* Navigation Links */}
       <nav className="flex-1 px-4 py-2 space-y-2">
+        {/* Dashboard */}
         <div className="relative">
           <NavLink
             to="/admin"
@@ -59,30 +58,63 @@ const NavBar = ({ isOpen, darkMode }) => {
             </span>
           </NavLink>
         </div>
-        {/* Orders và Users */}
+
+        {/* Orders Dropdown */}
         <div className="relative">
-          <NavLink
-            to="/admin/order"
-            className={`flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors duration-300 group ${
+          <button
+            onClick={() => setIsOrdersOpen(!isOrdersOpen)}
+            className={`w-full flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors duration-300 group ${
               darkMode ? "text-gray-200" : "text-gray-800"
             }`}
           >
             <FaCartPlus
-              className={`text-2xl mr-3 ${
+              className={`text-xl mr-3 ${
                 darkMode ? "text-indigo-300" : "text-indigo-600"
               }`}
             />
-            <span
-              className={`text-lg font-medium group-hover:text-white transition-colors duration-300 ${
+            <span className="flex-1 text-base font-medium">Orders</span>
+            {isOrdersOpen ? (
+              <IoMdArrowDropup
+                className={`ml-auto text-2xl ${
+                  darkMode ? "text-indigo-300" : "text-indigo-600"
+                }`}
+              />
+            ) : (
+              <IoMdArrowDropdown
+                className={`ml-auto text-2xl ${
+                  darkMode ? "text-indigo-300" : "text-indigo-600"
+                }`}
+              />
+            )}
+          </button>
+          <div
+            className={`transition-max-height duration-300 ease-in-out overflow-hidden ${
+              isOrdersOpen ? "max-h-48 opacity-100" : "max-h-0 opacity-0"
+            } ${darkMode ? "bg-gray-700" : "bg-gray-200"} rounded-lg`}
+          >
+            <NavLink
+              to="/admin/orders/new"
+              className={`block px-4 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300 ${
                 darkMode
-                  ? "group-hover:text-gray-200"
-                  : "group-hover:text-gray-900"
+                  ? "text-gray-200 hover:bg-gray-600"
+                  : "text-gray-800 hover:bg-gray-300"
               }`}
             >
-              Orders
-            </span>
-          </NavLink>
+              Add Order
+            </NavLink>
+            <NavLink
+              to="/admin/orders"
+              className={`block px-4 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300 ${
+                darkMode
+                  ? "text-gray-200 hover:bg-gray-600"
+                  : "text-gray-800 hover:bg-gray-300"
+              }`}
+            >
+              List Order
+            </NavLink>
+          </div>
         </div>
+
         {/* Products Dropdown */}
         <div className="relative">
           <button
@@ -236,7 +268,7 @@ const NavBar = ({ isOpen, darkMode }) => {
                   : "text-gray-800 hover:bg-gray-300"
               }`}
             >
-              Add Staffs
+              Add Staff
             </NavLink>
             <NavLink
               to="/admin/staffs"
@@ -251,6 +283,7 @@ const NavBar = ({ isOpen, darkMode }) => {
           </div>
         </div>
 
+        {/* Users Dropdown */}
         <div className="relative">
           <button
             onClick={() => setIsUsersOpen(!isUsersOpen)}
@@ -291,7 +324,7 @@ const NavBar = ({ isOpen, darkMode }) => {
                   : "text-gray-800 hover:bg-gray-300"
               }`}
             >
-              Add Users
+              Add User
             </NavLink>
             <NavLink
               to="/admin/users"
@@ -306,6 +339,7 @@ const NavBar = ({ isOpen, darkMode }) => {
           </div>
         </div>
 
+        {/* Banners Dropdown */}
         <div className="relative">
           <button
             onClick={() => setIsBannerOpen(!isBannerOpen)}
@@ -313,12 +347,12 @@ const NavBar = ({ isOpen, darkMode }) => {
               darkMode ? "text-gray-200" : "text-gray-800"
             }`}
           >
-            <FaUsers
+            <FaTag
               className={`text-2xl mr-3 ${
                 darkMode ? "text-indigo-300" : "text-indigo-600"
               }`}
             />
-            <span className="flex-1 text-lg font-medium">Banner</span>
+            <span className="flex-1 text-lg font-medium">Banners</span>
             {isBannerOpen ? (
               <IoMdArrowDropup
                 className={`ml-auto text-2xl ${
@@ -356,21 +390,33 @@ const NavBar = ({ isOpen, darkMode }) => {
                   : "text-gray-800 hover:bg-gray-300"
               }`}
             >
-              View Banner
+              View Banners
             </NavLink>
           </div>
         </div>
-        {/* Logout Button */}
-        <div className="fixed bottom-10 left-2">
+
+        {/* Logout */}
+        <div className="relative">
           <button
             onClick={handleLogout}
-            className={`flex items-center px-4 py-3 rounded-lg hover:bg-stone-600 transition-colors duration-300 `}
+            className={`w-full flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors duration-300 group ${
+              darkMode ? "text-gray-200" : "text-gray-800"
+            }`}
           >
             <FaSignOutAlt
-              className={`text-2xl ${
-                darkMode ? "text-gray-200" : "text-gray-900"
+              className={`text-2xl mr-3 ${
+                darkMode ? "text-red-500" : "text-red-600"
               }`}
             />
+            <span
+              className={`text-base font-medium ${
+                darkMode
+                  ? "text-gray-200 group-hover:text-white"
+                  : "text-gray-800 group-hover:text-gray-900"
+              }`}
+            >
+              Logout
+            </span>
           </button>
         </div>
       </nav>
@@ -379,7 +425,8 @@ const NavBar = ({ isOpen, darkMode }) => {
 };
 
 NavBar.propTypes = {
-  isOpen: PropTypes.any,
-  darkMode: PropTypes.any,
+  isOpen: PropTypes.bool.isRequired,
+  darkMode: PropTypes.bool.isRequired,
 };
+
 export default NavBar;
