@@ -72,11 +72,15 @@ const UserForm = () => {
           style={{
             maxWidth: 800,
           }}
-          initialValues={{
-            name: userData.name || "",
-            phone_number: userData.phone_number,
-            email: userData.email,
-          }}
+          initialValues={
+            token
+              ? {
+                  name: userData.name || "",
+                  phone_number: userData.phone_number,
+                  email: userData.email,
+                }
+              : ""
+          }
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           autoComplete="off"
