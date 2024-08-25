@@ -19,18 +19,45 @@ export const register = async (data) => {
   return response.data;
 };
 
+// Hàm đăng nhập người dùng
 export const login = async (data) => {
-  const response = await axios.post(`${API_URL}/login`, data);
-  return response.data;
+  try {
+    const response = await axios.post(`${API_URL}/login`, data);
+    return response.data;
+  } catch (error) {
+    // Xử lý lỗi khi đăng nhập thất bại
+    console.error(
+      "Login failed:",
+      error.response ? error.response.data : error.message
+    );
+    throw error; // ném lỗi ra ngoài để xử láy hàm taị chỗ
+  }
 };
 
+// export const getUserId = async (token) => {
+//   const response = await axios.get(`${API_URL}/user`, {
+//     headers: {
+//       Authorization: `Bearer ${token}`,
+//     },
+//   });
+//   return response.data;
+// };
+
 export const getUserId = async (token) => {
-  const response = await axios.get(`${API_URL}/user`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  return response.data;
+  try {
+    const response = await axios.get(`${API_URL}/user`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error(
+      "Failed to get user ID:",
+      error.response ? error.response.data : error.message
+    );
+    throw error;
+  }
 };
 
 export const getCategories = async () => {
@@ -227,12 +254,15 @@ export const deleteCategory = async (categoryId) => {
 // phần admin users
 
 // Lấy danh sách người dùng
-export const getUsers = async () => {
+export const getUsers = async (params = {}) => {
   try {
-    const response = await axios.get(`${API_URL}/users`);
+    const response = await axios.get(`${API_URL}/users`, { params });
     return response.data;
   } catch (error) {
-    console.error("Failed to fetch users:", error);
+    console.error(
+      "Failed to fetch users:",
+      error.response ? error.response.data : error.message
+    );
     throw error;
   }
 };
@@ -322,13 +352,13 @@ const handleOrderError = (error) => {
   if (error.response) {
     console.error(`Lỗi ${error.response.status}:`, error.response.data);
     if (error.response.status === 401) {
-      console.error('Không có quyền truy cập: Kiểm tra lại token.');
+      console.error("Không có quyền truy cập: Kiểm tra lại token.");
       // Thực hiện hành động khác nếu cần (refresh token hoặc chuyển hướng)
     }
   } else if (error.request) {
-    console.error('Không nhận được phản hồi từ server:', error.request);
+    console.error("Không nhận được phản hồi từ server:", error.request);
   } else {
-    console.error('Lỗi:', error.message);
+    console.error("Lỗi:", error.message);
   }
 };
 

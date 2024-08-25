@@ -1,16 +1,274 @@
 {
   "posts": [
     {
-      "id": "1",
-      "title": "Blog1",
-      "img": "./public",
-      "views": 100
+      "id": 1,
+      "title": "Xu hướng thời trang mùa hè 2024",
+      "body": "Mùa hè năm 2024 mang đến nhiều xu hướng thời trang mới lạ. Từ những bộ trang phục phong cách bohemian đến các kiểu dáng thể thao hiện đại, đây là thời điểm lý tưởng để làm mới tủ đồ của bạn...",
+      "author": "Nguyễn Thị A",
+      "created_at": "2024-08-22T10:00:00Z",
+      "updated_at": "2024-08-22T10:00:00Z",
+      "image_url": "https://via.placeholder.com/600x400?text=Xu+h%C6%B0%E1%BB%9Dng+Th%E1%BB%9D+Trang"
     },
     {
-      "id": "2",
-      "title": "Blog2",
-      "img": "",
-      "views": 200
+      "id": 2,
+      "title": "Cách phối đồ cho một bữa tiệc cocktail",
+      "body": "Đi dự tiệc cocktail không chỉ cần bạn chọn trang phục đẹp mà còn phải biết cách phối đồ sao cho phù hợp. Hãy thử những bộ váy sang trọng kết hợp với phụ kiện nổi bật để tỏa sáng...",
+      "author": "Lê Văn B",
+      "created_at": "2024-08-22T12:00:00Z",
+      "updated_at": "2024-08-22T12:00:00Z",
+      "image_url": "https://via.placeholder.com/600x400?text=Ti%E1%BB%87c+Cocktail"
+    },
+    {
+      "id": 3,
+      "title": "Những mẫu giày xu hướng 2024",
+      "body": "Giày là phần quan trọng không thể thiếu trong bộ trang phục của bạn. Xu hướng giày năm 2024 sẽ có nhiều kiểu dáng mới lạ, từ giày thể thao đến giày cao gót quyến rũ...",
+      "author": "Trần Thị C",
+      "created_at": "2024-08-22T14:00:00Z",
+      "updated_at": "2024-08-22T14:00:00Z",
+      "image_url": "https://via.placeholder.com/600x400?text=M%E1%BA%ABu+Gi%C3%A0y+Xu+H%C6%B0%E1%BB%9Dng"
+    },
+    {
+      "id": 4,
+      "title": "Top 10 áo sơ mi nam cần có trong tủ đồ",
+      "body": "Áo sơ mi là một món đồ cơ bản nhưng vô cùng quan trọng trong tủ đồ của mỗi người đàn ông. Đây là danh sách 10 mẫu áo sơ mi nam không thể thiếu để tạo phong cách thời trang thanh lịch...",
+      "author": "Hoàng Văn D",
+      "created_at": "2024-08-22T16:00:00Z",
+      "updated_at": "2024-08-22T16:00:00Z",
+      "image_url": "https://via.placeholder.com/600x400?text=%C3%82o+S%C6%A0+Mi+Nam"
+    },
+    {
+      "id": 5,
+      "title": "Mặc gì khi đi du lịch biển?",
+      "body": "Khi chuẩn bị cho chuyến đi biển, việc chọn trang phục thoải mái và thời trang là rất quan trọng. Dưới đây là những gợi ý về trang phục để bạn luôn nổi bật và tự tin...",
+      "author": "Nguyễn Thị E",
+      "created_at": "2024-08-22T18:00:00Z",
+      "updated_at": "2024-08-22T18:00:00Z",
+      "image_url": "https://via.placeholder.com/600x400?text=Trang+Ph%E1%BB%A9c+Du+L%E1%BB%8Bch+Bi%E1%BB%83n"
+    },
+    {
+      "id": 6,
+      "title": "Những phong cách thời trang mùa thu 2024",
+      "body": "Mùa thu là thời điểm lý tưởng để thử nghiệm với những phong cách thời trang mới. Hãy xem các xu hướng và phong cách nổi bật mùa thu năm nay...",
+      "author": "Lê Văn F",
+      "created_at": "2024-08-23T10:00:00Z",
+      "updated_at": "2024-08-23T10:00:00Z",
+      "image_url": "https://via.placeholder.com/600x400?text=Phong+C%C3%A1ch+Th%E1%BB%9D+Trang+M%C3%B9a+Thu"
+    },
+    {
+      "id": 7,
+      "title": "Top 5 trang phục công sở cần thiết",
+      "body": "Trang phục công sở không chỉ cần sự chỉn chu mà còn phải thể hiện phong cách cá nhân. Dưới đây là 5 trang phục công sở cần thiết mà mỗi người nên có...",
+      "author": "Nguyễn Thị G",
+      "created_at": "2024-08-23T12:00:00Z",
+      "updated_at": "2024-08-23T12:00:00Z",
+      "image_url": "https://via.placeholder.com/600x400?text=Trang+Ph%E1%BB%A9c+C%C3%B4ng+S%E1%BB%9F"
+    },
+    {
+      "id": 8,
+      "title": "Làm thế nào để chọn phụ kiện phù hợp?",
+      "body": "Phụ kiện là phần quan trọng không thể thiếu trong mỗi bộ trang phục. Hãy cùng khám phá cách chọn phụ kiện phù hợp để nâng tầm phong cách của bạn...",
+      "author": "Trần Thị H",
+      "created_at": "2024-08-23T14:00:00Z",
+      "updated_at": "2024-08-23T14:00:00Z",
+      "image_url": "https://via.placeholder.com/600x400?text=Ph%E1%BB%A5+Ki%E1%BB%87n"
+    },
+    {
+      "id": 9,
+      "title": "Cách chọn giày phù hợp với từng loại trang phục",
+      "body": "Giày là yếu tố quyết định phong cách của trang phục. Tìm hiểu cách chọn giày phù hợp với từng loại trang phục để hoàn thiện bộ outfit của bạn...",
+      "author": "Hoàng Văn I",
+      "created_at": "2024-08-23T16:00:00Z",
+      "updated_at": "2024-08-23T16:00:00Z",
+      "image_url": "https://via.placeholder.com/600x400?text=Ch%E1%BB%8Dn+Gi%C3%A0y"
+    },
+    {
+      "id": 10,
+      "title": "Các xu hướng màu sắc năm 2024",
+      "body": "Màu sắc là một yếu tố quan trọng trong thời trang. Khám phá các xu hướng màu sắc nổi bật năm 2024 để cập nhật cho tủ đồ của bạn...",
+      "author": "Nguyễn Thị J",
+      "created_at": "2024-08-23T18:00:00Z",
+      "updated_at": "2024-08-23T18:00:00Z",
+      "image_url": "https://via.placeholder.com/600x400?text=Xu+H%C6%B0%E1%BB%9Dng+M%C3%A0u+S%E1%BA%B9c+2024"
+    },
+    {
+      "id": 11,
+      "title": "Thời trang công sở mùa đông",
+      "body": "Mùa đông yêu cầu những trang phục ấm áp nhưng vẫn cần sự thời trang. Hãy cùng khám phá những xu hướng thời trang công sở mùa đông để giữ ấm và phong cách...",
+      "author": "Lê Văn K",
+      "created_at": "2024-08-24T10:00:00Z",
+      "updated_at": "2024-08-24T10:00:00Z",
+      "image_url": "https://via.placeholder.com/600x400?text=Th%E1%BB%9Di+Trang+C%C3%B4ng+S%E1%BB%9F+M%C3%B9a+Đ%C3%B4ng"
+    },
+    {
+      "id": 12,
+      "title": "Cách phối đồ với áo khoác da",
+      "body": "Áo khoác da là món đồ không thể thiếu trong mùa thu và đông. Tìm hiểu cách phối đồ với áo khoác da để có một phong cách nổi bật và ấn tượng...",
+      "author": "Nguyễn Thị L",
+      "created_at": "2024-08-24T12:00:00Z",
+      "updated_at": "2024-08-24T12:00:00Z",
+      "image_url": "https://via.placeholder.com/600x400?text=%C3%82o+Kho%C3%A1c+Da"
+    },
+    {
+      "id": 13,
+      "title": "Trang phục thể thao cho mùa thu",
+      "body": "Thời trang thể thao không chỉ dành cho phòng tập gym mà còn có thể được ứng dụng trong đời sống hàng ngày. Hãy cùng xem các xu hướng trang phục thể thao mùa thu này...",
+      "author": "Trần Thị M",
+      "created_at": "2024-08-24T14:00:00Z",
+      "updated_at": "2024-08-24T14:00:00Z",
+      "image_url": "https://via.placeholder.com/600x400?text=Trang+Ph%E1%BB%A9c+Th%E1%BB%83+Thao"
+    },
+    {
+      "id": 14,
+      "title": "Làm thế nào để chọn trang phục cho buổi phỏng vấn?",
+      "body": "Trang phục khi đi phỏng vấn đóng vai trò quan trọng trong việc tạo ấn tượng đầu tiên. Đây là những mẹo giúp bạn chọn trang phục phù hợp và nổi bật trong buổi phỏng vấn...",
+      "author": "Hoàng Văn N",
+      "created_at": "2024-08-24T16:00:00Z",
+      "updated_at": "2024-08-24T16:00:00Z",
+      "image_url": "https://via.placeholder.com/600x400?text=Trang+Ph%E1%BB%A9c+Ph%E1%BB%8Fng+V%E1%BA%ABn"
+    },
+    {
+      "id": 15,
+      "title": "Cách bảo quản trang phục da",
+      "body": "Trang phục da cần được chăm sóc đặc biệt để giữ được độ bền và vẻ đẹp. Đây là những hướng dẫn cơ bản để bảo quản trang phục da của bạn...",
+      "author": "Nguyễn Thị O",
+      "created_at": "2024-08-24T18:00:00Z",
+      "updated_at": "2024-08-24T18:00:00Z",
+      "image_url": "https://via.placeholder.com/600x400?text=B%E1%BA%A3o+Qu%E1%BA%A3n+Trang+Ph%E1%BB%A9c+Da"
+    },
+    {
+      "id": 16,
+      "title": "Những kiểu tóc phù hợp với trang phục công sở",
+      "body": "Kiểu tóc cũng là một phần quan trọng trong phong cách công sở. Hãy cùng khám phá những kiểu tóc phù hợp với trang phục công sở để hoàn thiện hình ảnh của bạn...",
+      "author": "Lê Văn P",
+      "created_at": "2024-08-25T10:00:00Z",
+      "updated_at": "2024-08-25T10:00:00Z",
+      "image_url": "https://via.placeholder.com/600x400?text=Ki%E1%BB%83u+T%C3%B3c+C%C3%B4ng+S%E1%BB%9F"
+    },
+    {
+      "id": 17,
+      "title": "Trang phục dạo phố mùa thu",
+      "body": "Mùa thu là thời điểm lý tưởng để dạo phố với những bộ trang phục ấm áp và phong cách. Khám phá các gợi ý trang phục dạo phố mùa thu này...",
+      "author": "Nguyễn Thị Q",
+      "created_at": "2024-08-25T12:00:00Z",
+      "updated_at": "2024-08-25T12:00:00Z",
+      "image_url": "https://via.placeholder.com/600x400?text=Trang+Ph%E1%BB%A9c+D%E1%BA%A1o+Ph%E1%BB%91"
+    },
+    {
+      "id": 18,
+      "title": "Thời trang cho kỳ nghỉ cuối tuần",
+      "body": "Kỳ nghỉ cuối tuần là cơ hội để bạn thử nghiệm các phong cách thời trang thoải mái nhưng vẫn sành điệu. Đây là những gợi ý trang phục cho kỳ nghỉ cuối tuần của bạn...",
+      "author": "Trần Thị R",
+      "created_at": "2024-08-25T14:00:00Z",
+      "updated_at": "2024-08-25T14:00:00Z",
+      "image_url": "https://via.placeholder.com/600x400?text=Th%E1%BB%9Di+Trang+Cu%E1%BB%91i+Tu%E1%BA%A7n"
+    },
+    {
+      "id": 19,
+      "title": "Phong cách thời trang vintage",
+      "body": "Thời trang vintage luôn có một sức hút đặc biệt. Khám phá các phong cách thời trang vintage để làm mới tủ đồ của bạn với những món đồ cổ điển nhưng vẫn hiện đại...",
+      "author": "Hoàng Văn S",
+      "created_at": "2024-08-25T16:00:00Z",
+      "updated_at": "2024-08-25T16:00:00Z",
+      "image_url": "https://via.placeholder.com/600x400?text=Phong+C%C3%A1ch+Vintage"
+    },
+    {
+      "id": 20,
+      "title": "Những lỗi thời trang cần tránh",
+      "body": "Thời trang là một lĩnh vực phong phú, nhưng cũng dễ mắc phải các lỗi không mong muốn. Hãy cùng tìm hiểu những lỗi thời trang phổ biến và cách tránh chúng...",
+      "author": "Nguyễn Thị T",
+      "created_at": "2024-08-25T18:00:00Z",
+      "updated_at": "2024-08-25T18:00:00Z",
+      "image_url": "https://via.placeholder.com/600x400?text=L%E1%BB%99i+Th%E1%BB%9Di+Trang"
+    },
+    {
+      "id": 21,
+      "title": "Cách chọn trang phục cho buổi hẹn hò",
+      "body": "Buổi hẹn hò là cơ hội để thể hiện phong cách cá nhân và sự tự tin. Hãy tìm hiểu cách chọn trang phục phù hợp để tạo ấn tượng tốt nhất...",
+      "author": "Lê Văn U",
+      "created_at": "2024-08-26T10:00:00Z",
+      "updated_at": "2024-08-26T10:00:00Z",
+      "image_url": "https://via.placeholder.com/600x400?text=Trang+Ph%E1%BB%A9c+H%E1%BB%87n+H%E1%BB%8D"
+    },
+    {
+      "id": 22,
+      "title": "Thời trang cho các buổi dạ tiệc",
+      "body": "Dạ tiệc là dịp để bạn thể hiện sự sang trọng và phong cách cá nhân. Khám phá những xu hướng và phong cách thời trang cho các buổi dạ tiệc...",
+      "author": "Nguyễn Thị V",
+      "created_at": "2024-08-26T12:00:00Z",
+      "updated_at": "2024-08-26T12:00:00Z",
+      "image_url": "https://via.placeholder.com/600x400?text=Th%E1%BB%9Di+Trang+D%C3%A0+Ti%E1%BB%87c"
+    },
+    {
+      "id": 23,
+      "title": "Cách phối đồ với trang phục denim",
+      "body": "Denim là một chất liệu phổ biến và dễ phối đồ. Hãy khám phá cách phối đồ với trang phục denim để tạo nên những bộ outfit phong cách và năng động...",
+      "author": "Trần Thị W",
+      "created_at": "2024-08-26T14:00:00Z",
+      "updated_at": "2024-08-26T14:00:00Z",
+      "image_url": "https://via.placeholder.com/600x400?text=Trang+Ph%E1%BB%A9c+Denim"
+    },
+    {
+      "id": 24,
+      "title": "Phong cách thời trang đường phố",
+      "body": "Thời trang đường phố mang đến sự năng động và cá tính. Tìm hiểu các phong cách thời trang đường phố để làm nổi bật phong cách của bạn...",
+      "author": "Nguyễn Thị X",
+      "created_at": "2024-08-26T16:00:00Z",
+      "updated_at": "2024-08-26T16:00:00Z",
+      "image_url": "https://via.placeholder.com/600x400?text=Th%E1%BB%9Di+Trang+%C4%90%C6%B0%E1%BB%9Dng+Ph%E1%BB%91"
+    },
+    {
+      "id": 25,
+      "title": "Những xu hướng áo khoác mùa đông 2024",
+      "body": "Mùa đông năm 2024 mang đến những xu hướng mới cho áo khoác. Khám phá các mẫu áo khoác mới nhất và cách kết hợp chúng với trang phục mùa đông...",
+      "author": "Hoàng Văn Y",
+      "created_at": "2024-08-26T18:00:00Z",
+      "updated_at": "2024-08-26T18:00:00Z",
+      "image_url": "https://via.placeholder.com/600x400?text=Xu+H%C6%B0%E1%BB%9Fng+%C3%81o+Kho%C3%A1c+M%C5%A9a+Đ%C3%B4ng"
+    },
+    {
+      "id": 26,
+      "title": "Cách chọn trang phục cho buổi lễ cưới",
+      "body": "Lễ cưới là dịp đặc biệt để bạn thể hiện phong cách và sự tinh tế. Hãy cùng tìm hiểu cách chọn trang phục hoàn hảo cho buổi lễ cưới...",
+      "author": "Lê Văn Z",
+      "created_at": "2024-08-27T10:00:00Z",
+      "updated_at": "2024-08-27T10:00:00Z",
+      "image_url": "https://via.placeholder.com/600x400?text=Trang+Ph%E1%BB%A9c+C%C6%B0%E1%BB%9Bi"
+    },
+    {
+      "id": 27,
+      "title": "Trang phục mùa đông cho trẻ em",
+      "body": "Mùa đông không chỉ là thời điểm của người lớn mà trẻ em cũng cần được chăm sóc với những bộ trang phục ấm áp và dễ thương. Khám phá các gợi ý trang phục mùa đông cho trẻ em...",
+      "author": "Nguyễn Thị AA",
+      "created_at": "2024-08-27T12:00:00Z",
+      "updated_at": "2024-08-27T12:00:00Z",
+      "image_url": "https://via.placeholder.com/600x400?text=Trang+Ph%E1%BB%A9c+Tr%E1%BA%BB+Em"
+    },
+    {
+      "id": 28,
+      "title": "Phong cách thời trang của người nổi tiếng",
+      "body": "Người nổi tiếng luôn có ảnh hưởng lớn đến các xu hướng thời trang. Hãy cùng khám phá phong cách thời trang của những ngôi sao và cách áp dụng chúng vào cuộc sống hàng ngày...",
+      "author": "Hoàng Văn BB",
+      "created_at": "2024-08-27T14:00:00Z",
+      "updated_at": "2024-08-27T14:00:00Z",
+      "image_url": "https://via.placeholder.com/600x400?text=Phong+C%C3%A1ch+Th%E1%BB%9Di+Trang+C%E1%BB%A7a+Ng%C6%B0%E1%BB%9Di+N%E1%BB%9Bi+Ti%E1%BB%83u"
+    },
+    {
+      "id": 29,
+      "title": "Những cách phối đồ với giày thể thao",
+      "body": "Giày thể thao không chỉ dành cho thể thao mà còn có thể trở thành phần quan trọng của trang phục hàng ngày. Tìm hiểu những cách phối đồ sáng tạo với giày thể thao...",
+      "author": "Nguyễn Thị CC",
+      "created_at": "2024-08-27T16:00:00Z",
+      "updated_at": "2024-08-27T16:00:00Z",
+      "image_url": "https://via.placeholder.com/600x400?text=Ph%C3%B3i+%C4%90%C3%B3+V%E1%BB%9Bi+Gi%C3%A0y+Th%E1%BB%9Di+Trang"
+    },
+    {
+      "id": 30,
+      "title": "Trang phục cho mùa hè sôi động",
+      "body": "Mùa hè là thời điểm lý tưởng để thể hiện phong cách cá nhân với các bộ trang phục mát mẻ và sôi động. Khám phá những xu hướng trang phục cho mùa hè này...",
+      "author": "Lê Văn DD",
+      "created_at": "2024-08-27T18:00:00Z",
+      "updated_at": "2024-08-27T18:00:00Z",
+      "image_url": "https://via.placeholder.com/600x400?text=Trang+Ph%E1%BB%A9c+M%C5%A9a+H%C3%A8"
     }
   ],
   "comments": [

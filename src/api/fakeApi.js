@@ -36,3 +36,15 @@ export const listCart = async () => {
   const response = await axios.get(`${API_URL}/cart`);
   return response.data;
 };
+
+// Lấy danh sách bài viết
+export const getPosts = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/posts`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching data: ", error);
+    throw error;
+  }
+};
+
