@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import {
@@ -15,7 +14,6 @@ import {
 import SearchBar from "./SearchBar";
 import NavBar from "./NavBar";
 import { useNavigate } from "react-router-dom";
-
 
 const AdminLayout = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -70,7 +68,6 @@ const AdminLayout = () => {
             : "bg-gray-100 border-gray-200"
         } transition-colors duration-300 ease-in-out`}
       >
-
         <div className="container mx-auto flex justify-between items-center">
           <NavLink
             to="/"
@@ -113,7 +110,6 @@ const AdminLayout = () => {
                     darkMode ? "text-indigo-300" : "text-indigo-600"
                   }`}
                 />
-
               </button>
               {showUserMenu && (
                 <div

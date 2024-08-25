@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { addUser } from "../../api/api-server";
 import { useNavigate } from "react-router-dom";
 
@@ -115,3 +115,4 @@ const StaffAdd = () => {
 };
 
 export default StaffAdd;
+

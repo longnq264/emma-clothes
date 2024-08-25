@@ -30,8 +30,6 @@ import AppProvider from "./context/AppProvider.jsx";
 import Checkout from "./pages/Checkout.jsx";
 import OrderPage from "./pages/Admin/Orders.jsx";
 
-
-
 // import UsersPage from "./pages/Admin/Users.jsx";
 
 import StaffList from "./pages/Admin/StaffList.jsx";
@@ -58,7 +56,6 @@ import EditUser from "./components/User/Users/EditUser.jsx";
 import UserList from "./components/User/Users/UserList.jsx";
 import AddUser from "./components/User/Users/AddUser.jsx";
 import AdminOrders from "./components/User/Order/ListOrder.jsx";
-
 
 const router = createBrowserRouter([
   {
@@ -111,13 +108,7 @@ const router = createBrowserRouter([
     children: [
       { path: "", element: <DashBoardPage /> },
       { path: "order", element: <OrderPage /> },
-<<<<<<< HEAD
       { path: "AdminOrders", element: <AdminOrders /> },
-=======
-
-      // { path: "users", element: <UsersPage /> },
-
->>>>>>> binhdtph
       { path: "products", element: <ProductsList /> },
       { path: "products/new", element: <ProductAdd /> },
       { path: "products/edit/:id", element: <ProductEdit /> },
@@ -153,3 +144,4 @@ function App() {
 }
 
 export default App;
+
