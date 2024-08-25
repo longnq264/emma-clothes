@@ -10,7 +10,6 @@ import { clearCart } from "../store/cartSlice.js";
 const AppProvider = ({ children }) => {
   const dispatch = useDispatch();
   const [currentSelect, setCurrentSelect] = useState("city");
-  const [variants, setVariants] = useState([]);
   const [address, setAddress] = useState({
     cities: [],
     districts: [],
@@ -31,17 +30,6 @@ const AppProvider = ({ children }) => {
     name: "",
     phone_number: "",
     email: "",
-  });
-  const [formProduct, setFormProduct] = useState({
-    name: "",
-    description: "",
-    price: "",
-    price_old: "",
-    quantity: "",
-    category_id: "",
-    promotion: "Giảm giá đặc biệt",
-    status: "Active",
-    variants: variants,
   });
 
   // Address

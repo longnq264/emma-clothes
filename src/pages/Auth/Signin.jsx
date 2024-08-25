@@ -2,7 +2,6 @@ import { Button, Form, Input } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../../store/authThunk";
-
 import { getTokenFromLocalStorage } from "../../utils/indexUtils";
 import { syncLocalCartToServer } from "../../store/cartThunk";
 import imglogin from "../../assets/img/mountain.jpg";

@@ -204,7 +204,8 @@ const ProductsList = () => {
                           </button>
                         </div>
                       ) : (
-                        <span>{product.description.slice(0, 50)}...</span>
+                        // <span>{product.description.slice(0, 50)}...</span>
+                        <></>
                       )}
                     </div>
                   </td>
