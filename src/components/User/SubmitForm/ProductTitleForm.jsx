@@ -6,7 +6,7 @@ const ProductTitleForm = () => {
       <div className="grid grid-cols-4">
         <div className="pr-6">
           <label
-            htmlFor="product-name"
+            htmlFor="name"
             className="block text-lg font-medium text-gray-900 pb-2"
           >
             Tên sản phẩm
@@ -21,6 +21,7 @@ const ProductTitleForm = () => {
             ]}
           >
             <Input
+              autoComplete="on"
               placeholder="Nhập tên sản phẩm"
               className="w-full border-gray-300 border-2 rounded-md p-3"
             />
@@ -29,7 +30,7 @@ const ProductTitleForm = () => {
 
         <div className="pr-6">
           <label
-            htmlFor="product-price"
+            htmlFor="price"
             className="block text-lg font-medium text-gray-900 pb-2"
           >
             Price
@@ -52,7 +53,7 @@ const ProductTitleForm = () => {
 
         <div className="pr-6">
           <label
-            htmlFor="priceOld"
+            htmlFor="price_old"
             className="block text-lg font-medium text-gray-900 pb-2"
           >
             Giá cũ

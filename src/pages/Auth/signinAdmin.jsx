@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button, Form, Input, message } from "antd";
-import axios from "axios";
+
 import { useNavigate } from "react-router-dom";
 import { login, getUserId } from "../../api/api-server"; // Import phương thức từ api-server
 
@@ -27,9 +27,13 @@ const SigninAdmin = () => {
         message.error("Bạn không có quyền truy cập trang admin.");
       }
     } catch (error) {
-      console.error("Login failed:", error.response ? error.response.data : error.message);
+      console.error(
+        "Login failed:",
+        error.response ? error.response.data : error.message
+      );
       setErrorMessage(
-        error.response?.data?.message || "Đăng nhập không thành công. Vui lòng kiểm tra lại email hoặc mật khẩu."
+        error.response?.data?.message ||
+          "Đăng nhập không thành công. Vui lòng kiểm tra lại email hoặc mật khẩu."
       );
     } finally {
       setLoading(false);
@@ -47,8 +51,12 @@ const SigninAdmin = () => {
   return (
     <div className="bg-gradient-to-r from-orange-500 to-blue-500 min-h-screen flex items-center justify-center">
       <div className="bg-white p-10 rounded-lg shadow-lg max-w-md w-full">
-        <h1 className="font-bold text-center text-gray-800 text-4xl mb-8">Đăng nhập Admin</h1>
-        {errorMessage && <div className="mb-4 text-red-600 text-center">{errorMessage}</div>}
+        <h1 className="font-bold text-center text-gray-800 text-4xl mb-8">
+          Đăng nhập Admin
+        </h1>
+        {errorMessage && (
+          <div className="mb-4 text-red-600 text-center">{errorMessage}</div>
+        )}
         <Form
           name="signin"
           labelCol={{ span: 8 }}
@@ -73,7 +81,10 @@ const SigninAdmin = () => {
           >
             <Input.Password className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
           </Form.Item>
-          <Form.Item wrapperCol={{ span: 24 }} className="flex items-center justify-center">
+          <Form.Item
+            wrapperCol={{ span: 24 }}
+            className="flex items-center justify-center"
+          >
             <Button
               type="primary"
               htmlType="submit"
@@ -90,3 +101,4 @@ const SigninAdmin = () => {
 };
 
 export default SigninAdmin;
+

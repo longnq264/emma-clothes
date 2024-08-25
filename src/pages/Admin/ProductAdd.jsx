@@ -12,6 +12,7 @@ const ProductAdd = () => {
   const [variants, setVariants] = useState([]);
   const [images, setImages] = useState([]);
   console.log(images);
+  console.log(variants);
 
   const onFinish = async (values) => {
     console.log("Success:", values);
@@ -20,9 +21,9 @@ const ProductAdd = () => {
       name: values.name,
       description: values.description,
       images: images,
-      price: values.price,
-      price_old: values.price_old,
-      quantity: values.quantity,
+      price: Number(values.price),
+      price_old: Number(values.price_old),
+      quantity: Number(values.quantity),
       category_id: values.category,
       promotion: "Giảm giá đặc biệt", //khuyến mãi
       status: "Active", //trạng thái

@@ -6,10 +6,6 @@ const { Option } = Select;
 const AttributesProduct = ({ variants, setVariants }) => {
   const [attributes, setAttributes] = useState([]);
   const [selectedAttributes, setSelectedAttributes] = useState([]);
-  //   const [variants, setVariants] = useState([]);
-
-  console.log("selected attribute", selectedAttributes);
-  console.log("selected variant", variants);
 
   useEffect(() => {
     const fetchAttributes = async () => {
@@ -31,19 +27,16 @@ const AttributesProduct = ({ variants, setVariants }) => {
     setSelectedAttributes((prevItem) => {
       console.log(prevItem);
 
-      // Tìm kiếm xem attribute đã tồn tại trong mảng chưa
       const existingAttributeIndex = prevItem.findIndex(
         (attr) => attr.attribute_id === attributeId
       );
       console.log(existingAttributeIndex);
 
       if (existingAttributeIndex > -1) {
-        // Nếu tồn tại, cập nhật giá trị mới
         const updatedAttributes = [...prevItem];
         updatedAttributes[existingAttributeIndex].value_id = valueId;
         return updatedAttributes;
       } else {
-        // Nếu không tồn tại, thêm thuộc tính mới vào mảng
         return [
           ...prevItem,
           {
@@ -81,13 +74,11 @@ const AttributesProduct = ({ variants, setVariants }) => {
     console.log(existingVariantIndex);
 
     if (existingVariantIndex !== -1) {
-      // Kiểm tra xem có thuộc tính nào mới không
       const existingVariant = variants[existingVariantIndex];
       const existingAttributeCount = existingVariant.attributes.length;
       const selectedAttributeCount = selectedAttributes.length;
 
       if (existingAttributeCount + selectedAttributeCount <= 3) {
-        // Nếu tổng số thuộc tính <= 3, cập nhật biến thể hiện có
         const updatedAttributes = [
           ...existingVariant.attributes.filter((attr) =>
             selectedAttributes.some(
@@ -106,42 +97,43 @@ const AttributesProduct = ({ variants, setVariants }) => {
                   ...variant,
                   sku,
                   attributes: updatedAttributes,
-                  stock: 0, // Giá trị mặc định hoặc nhập từ người dùng
-                  price: 0, // Giá trị mặc định hoặc nhập từ người dùng
+                  stock: 0,
+                  price: 0,
                 }
               : variant
           )
         );
       } else {
-        // Nếu đã đủ 3 thuộc tính, thêm biến thể mới
         const newVariant = {
-          id: new Date().getTime(), // Tạo ID duy nhất
+          id: new Date().getTime(),
           sku,
-          stock: 0, // Giá trị mặc định hoặc nhập từ người dùng
-          price: 0, // Giá trị mặc định hoặc nhập từ người dùng
+          stock: 0,
+          price: 0,
           attributes: [...selectedAttributes],
         };
 
         setVariants((prevVariants) => [...prevVariants, newVariant]);
       }
     } else {
-      // Thêm biến thể mới với ID duy nhất
       const newVariant = {
-        id: new Date().getTime(), // Tạo ID duy nhất
+        id: new Date().getTime(),
         sku,
-        stock: 0, // Giá trị mặc định hoặc nhập từ người dùng
-        price: 0, // Giá trị mặc định hoặc nhập từ người dùng
+        stock: 0,
+        price: 0,
         attributes: [...selectedAttributes],
       };
 
       setVariants((prevVariants) => [...prevVariants, newVariant]);
     }
     alert("Biến thể đã được thêm thành công!");
-    // Xóa thuộc tính đã chọn sau khi thêm hoặc cập nhật
+
     setSelectedAttributes([]);
   };
 
   const handleInputChange = (index, field, value) => {
+    console.log(field);
+    console.log(value);
+
     setVariants((prevVariants) =>
       prevVariants.map((variant, i) =>
         i === index ? { ...variant, [field]: value } : variant
@@ -166,6 +158,7 @@ const AttributesProduct = ({ variants, setVariants }) => {
             <div key={attribute.id} className="mb-6">
               <p className="text-sm pb-2">{attribute.name}</p>
               <Select
+                name="option"
                 placeholder="Chọn giá trị"
                 style={{ width: "100%" }}
                 value={
@@ -210,22 +203,33 @@ const AttributesProduct = ({ variants, setVariants }) => {
                   <div>{variant.sku}</div>
                   <div className="border">
                     <input
+                      name="price"
                       type="text"
                       onChange={(e) =>
-                        handleInputChange(index, "price", e.target.value)
+                        handleInputChange(
+                          index,
+                          "price",
+                          Number(e.target.value)
+                        )
                       }
                     />
                   </div>
                   <div className="border mx-2">
                     <input
-                      type="text"
+                      name="stock"
+                      type="number"
                       onChange={(e) =>
-                        handleInputChange(index, "quantity", e.target.value)
+                        handleInputChange(
+                          index,
+                          "stock",
+                          Number(e.target.value)
+                        )
                       }
                     />
                   </div>
                   <div className="border">
                     <input
+                      name="thumb_nail"
                       type="text"
                       onChange={(e) =>
                         handleInputChange(index, "thumb_nail", e.target.value)
