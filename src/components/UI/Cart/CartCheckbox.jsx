@@ -62,6 +62,7 @@ const CartCheckbox = () => {
     (total, item) => total + item.quantity,
     0
   );
+
   const handleRemoveAllItems = async () => {
     if (!token) {
       dispatch(removeCarts());

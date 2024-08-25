@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getProductId } from "../../api/api-server";
 import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart } from "../../store/cartSlice";
@@ -18,7 +18,7 @@ const ProductDetail = () => {
 
   const dispatch = useDispatch();
   const token = useSelector((state) => state.auth.token);
-
+  const navigate = useNavigate();
   console.log(data);
 
   const fetchProductDetail = async (id) => {
@@ -61,6 +61,11 @@ const ProductDetail = () => {
         dispatch(fetchCarts(token));
       });
     }
+  };
+
+  const handleBuyNow = () => {
+    handleAddToCart();
+    navigate("/cart");
   };
 
   useEffect(() => {
@@ -238,13 +243,12 @@ const ProductDetail = () => {
                   Thêm vào giỏ hàng
                 </button>
               </div>
-              <NavLink
-                to="/cart"
-                onClick={handleAddToCart}
+              <button
+                onClick={handleBuyNow}
                 className="block uppercase px-10 py-3 border-2 w-full text-white text-center font-bold bg-stone-700 hover:bg-stone-600 my-5 rounded-lg basis-3/4 shadow-stone-lg"
               >
                 Mua ngay
-              </NavLink>
+              </button>
             </div>
           </div>
         </div>

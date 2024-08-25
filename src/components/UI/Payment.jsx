@@ -2,9 +2,23 @@ import { Form, Radio } from "antd";
 
 const Payment = () => {
   const paymentMethods = [
-    { label: "Tiền mặt (COD)", value: "COD" },
-    { label: "Ví điện tử VNPAY", value: "online" },
-    { label: "Thẻ nội địa hoặc ngân hàng", value: "credit_card" },
+    { label: "Tiền mặt (COD)", payment: "COD" },
+    {
+      label: "Thanh toán quét mã VNPay",
+      payment: "online_qr",
+    },
+    {
+      label: "Thanh toán thẻ nội địa",
+      payment: "online_card",
+    },
+    {
+      label: "Thanh toán thẻ quốc tế",
+      payment: "online_visa",
+    },
+    {
+      label: "Lựa chọn thanh toán khác",
+      payment: "online",
+    },
   ];
 
   return (
@@ -15,10 +29,10 @@ const Payment = () => {
           Lựa chọn phương thức thanh toán phù hợp nhất cho bạn
         </p>
         <Radio.Group className="flex flex-col border-t-2 my-2">
-          {paymentMethods.map((method) => (
+          {paymentMethods.map((method, index) => (
             <Radio
-              key={method.value}
-              value={method.value}
+              key={index}
+              value={method.payment}
               className={`border-x-2 py-4 px-4 border-b-2`}
             >
               <p className="pl-2">{method.label}</p>

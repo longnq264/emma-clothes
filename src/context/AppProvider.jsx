@@ -135,7 +135,7 @@ const AppProvider = ({ children }) => {
     try {
       const response = await checkout(data, token);
       handleCheckoutSuccess();
-      console.log(response);
+      console.log(response.url);
     } catch (error) {
       console.log(error);
     }

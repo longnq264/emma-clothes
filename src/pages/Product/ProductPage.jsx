@@ -12,6 +12,7 @@ import {
 import { useParams } from "react-router-dom";
 import DropdownItem from "../../components/UI/Home/DropDownItem.jsx";
 import { formatCurrency } from "../../utils/helperFunction.js";
+import ProductImage from "../../components/UI/Product/ProductImage.jsx";
 
 const priceRanges = [
   { label: "Dưới 350.000đ", min: 0, max: 350000 },
@@ -90,7 +91,7 @@ const ProductPage = () => {
       <div className="container mx-auto py-4">
         <div className="flex">
           {/* nav bar filter */}
-          <div className="basis-1/5 overflow-y-auto max-h-90">
+          <div className="basis-1/6 overflow-y-auto max-h-90">
             <h1 className="uppercase font-bold text-2xl text-stone-700 mb-14">
               {id ? (
                 <span className="text-4xl">{categoryId.name}</span>
@@ -102,7 +103,7 @@ const ProductPage = () => {
               <h1 className="font-bold text-2xl">Bộ lọc</h1>
               <div>
                 <ul className="text-stone-800">
-                  <DropdownItem title="Gender">
+                  {/* <DropdownItem title="Gender">
                     <label className="flex items-center my-2 hover:bg-stone-100 py-2 rounded-lg">
                       <input
                         type="checkbox"
@@ -124,7 +125,7 @@ const ProductPage = () => {
                       />
                       Women
                     </label>
-                  </DropdownItem>
+                  </DropdownItem> */}
                   <DropdownItem title="Màu sắc">
                     <p>Red</p>
                     <p>Blue</p>
@@ -160,7 +161,7 @@ const ProductPage = () => {
             </div>
           </div>
           {/* layout */}
-          <div className="basis-4/5 pl-10 min-h-screen">
+          <div className="basis-5/6 pl-10 min-h-screen">
             <div className="mx-2 py-2">
               <p className="font-bold text-stone-600">
                 {quantityProduct} sản phẩm
@@ -169,10 +170,11 @@ const ProductPage = () => {
             <div className="grid grid-cols-2 lg:grid-cols-4">
               {products.map((res) => (
                 <NavLink key={res.id} to={`/products/${res.id}`}>
-                  <div className="mx-2 my-2 pb-8 shadow-md">
-                    <img src="https://res.cloudinary.com/da7r4robk/image/upload/v1717590011/Products/product3_rymfed.png" />
-                    <div className="content-product px-4">
-                      <h3 className="h-10 box-border text-sm font-semibold text-stone-700">
+                  <div className="mx-2 my-2 pb-4 shadow-md">
+                    {/* <img src={res.productImages[0].image_url} /> */}
+                    <ProductImage images={res.productImages} />
+                    <div className="content-product px-4 py-2">
+                      <h3 className="h-10 box-border text-sm font-semibold text-stone-700 pt-2">
                         {res.name}
                       </h3>
                       <h1 className="price text-base font-semibold mt-4 text-stone-700">
