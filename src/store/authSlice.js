@@ -39,13 +39,15 @@ const authSlice = createSlice({
         state.error = action.payload;
       })
       .addCase(registerUser.fulfilled, (state, action) => {
-        console.log(action.payload);
+        const { user, token } = action.payload;
+        console.log(user);
+        console.log(token);
 
         state.status = "succeeded";
-        state.user = action.payload;
+        state.user = user;
         state.token = action.payload.token;
         localStorage.setItem("token", action.payload.token);
-        localStorage.setItem("user", JSON.stringify(action.payload.data));
+        localStorage.setItem("user", JSON.stringify(user));
       })
       .addCase(fetchUser.pending, (state) => {
         state.status = "loading"; // Khi thunk action bắt đầu chạy

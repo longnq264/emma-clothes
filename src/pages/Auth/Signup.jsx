@@ -2,17 +2,21 @@ import { Button, Form, Input, DatePicker, Checkbox } from "antd";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../../store/authThunk";
 import imgRegister from "../../assets/img/registerImage.jpg";
+import { useDispatch } from "react-redux";
 const Signup = () => {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const onFinish = async (values) => {
+    console.log(values);
+
     const formData = {
       ...values,
       date_of_birth: values.date_of_birth.format("YYYY-MM-DD"),
     };
+    console.log(formData.date_of_birth);
 
     try {
-      await registerUser(formData);
+      await dispatch(registerUser(formData));
 
       navigate("/");
     } catch (error) {
@@ -92,7 +96,7 @@ const Signup = () => {
               <DatePicker className="w-full" />
             </Form.Item>
 
-            <Form.Item name="remember" valuePropName="checked">
+            <Form.Item valuePropName="checked">
               <Checkbox>Remember me</Checkbox>
             </Form.Item>
 
