@@ -126,7 +126,6 @@ const AttributesProduct = ({ variants, setVariants }) => {
       setVariants((prevVariants) => [...prevVariants, newVariant]);
     }
     alert("Biến thể đã được thêm thành công!");
-
     setSelectedAttributes([]);
   };
 

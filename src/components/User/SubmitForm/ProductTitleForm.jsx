@@ -30,7 +30,7 @@ const ProductTitleForm = () => {
 
         <div className="pr-6">
           <label
-            htmlFor="price"
+            htmlFor="product-price"
             className="block text-lg font-medium text-gray-900 pb-2"
           >
             Price
