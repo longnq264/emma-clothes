@@ -61,6 +61,10 @@ import ForgotPassword from "./pages/Auth/ForgotPassword.jsx";
 import ProtectedRoute from "./ProtectedRoute.jsx";
 import GetData from "./pages/Auth/GetData.jsx";
 import { getRoleFromLocalStorage } from "./utils/indexUtils.js";
+import AttributeList from "./components/User/Attributes/AttributeList.jsx";
+import EditAttribute from "./components/User/Attributes/EditAttribute.jsx";
+import AddAttribute from "./components/User/Attributes/AddAttribute.jsx";
+ 
 
 // const getAccessToken = () => {
 //   return localStorage.getItem("admin");
@@ -140,11 +144,14 @@ const router = createBrowserRouter([
       //
       { path: "staffs/edit/:id", element: <StaffEdit /> },
       { path: "users", element: <UserList /> },
-      { path: "users/add", element: <AddUser /> },
+      { path: "users/new", element: <AddUser /> },
       { path: "user/edit/:id", element: <EditUser /> },
       { path: "banners", element: <BannerList /> },
       { path: "banners/new", element: <AddBanner /> },
       { path: "banners/edit/:id", element: <EditBanner /> },
+      { path: "attributes", element: <AttributeList /> },
+      { path: "attributes/edit/:id", element: <EditAttribute /> },
+      { path: "attributes/new", element: <AddAttribute /> },
     ],
   },
   {

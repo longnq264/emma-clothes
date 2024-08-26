@@ -3,10 +3,10 @@ import { Form, Radio } from "antd";
 const Payment = () => {
   const paymentMethods = [
     { label: "Tiền mặt (COD)", payment: "COD" },
-    {
-      label: "Thanh toán quét mã VNPay",
-      payment: "online_qr",
-    },
+    // {
+    //   label: "Thanh toán quét mã VNPay",
+    //   payment: "online_qr",
+    // },
     {
       label: "Thanh toán thẻ nội địa",
       payment: "online_card",

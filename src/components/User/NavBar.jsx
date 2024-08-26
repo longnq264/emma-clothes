@@ -3,10 +3,12 @@ import { NavLink, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import {
   FaTachometerAlt,
-  FaBox,
-  FaTag,
-  FaCartPlus,
+  FaCartArrowDown,
+  FaBoxOpen,
+  FaTags,
+  FaCogs,
   FaUsers,
+  FaAd,
   FaSignOutAlt,
 } from "react-icons/fa";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
@@ -14,10 +16,10 @@ import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 const NavBar = ({ isOpen, darkMode }) => {
   const [isProductsOpen, setIsProductsOpen] = useState(false);
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
-  const [isStaffsOpen, setIsStaffsOpen] = useState(false);
+  const [isAttributeOpen, setIsAttributeOpen] = useState(false);
   const [isUsersOpen, setIsUsersOpen] = useState(false);
   const [isBannerOpen, setIsBannerOpen] = useState(false);
-  const [isOrdersOpen, setIsOrdersOpen] = useState(false); // State for Orders dropdown
+  const [isOrdersOpen, setIsOrdersOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -54,7 +56,7 @@ const NavBar = ({ isOpen, darkMode }) => {
                   : "group-hover:text-gray-900"
               }`}
             >
-              Dashboard
+              Bảng điều khiển
             </span>
           </NavLink>
         </div>
@@ -67,12 +69,12 @@ const NavBar = ({ isOpen, darkMode }) => {
               darkMode ? "text-gray-200" : "text-gray-800"
             }`}
           >
-            <FaCartPlus
+            <FaCartArrowDown
               className={`text-xl mr-3 ${
                 darkMode ? "text-indigo-300" : "text-indigo-600"
               }`}
             />
-            <span className="flex-1 text-base font-medium">Orders</span>
+            <span className="flex-1 text-base font-medium">Đơn hàng</span>
             {isOrdersOpen ? (
               <IoMdArrowDropup
                 className={`ml-auto text-2xl ${
@@ -94,23 +96,23 @@ const NavBar = ({ isOpen, darkMode }) => {
           >
             <NavLink
               to="/admin/orders/new"
-              className={`block px-4 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300 ${
+              className={`block pl-8 pr-4 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300 ${
                 darkMode
                   ? "text-gray-200 hover:bg-gray-600"
                   : "text-gray-800 hover:bg-gray-300"
               }`}
             >
-              Add Order
+              Thêm đơn hàng
             </NavLink>
             <NavLink
               to="/admin/orders"
-              className={`block px-4 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300 ${
+              className={`block pl-8 pr-4 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300 ${
                 darkMode
                   ? "text-gray-200 hover:bg-gray-600"
                   : "text-gray-800 hover:bg-gray-300"
               }`}
             >
-              List Order
+              Danh sách đơn hàng
             </NavLink>
           </div>
         </div>
@@ -123,12 +125,12 @@ const NavBar = ({ isOpen, darkMode }) => {
               darkMode ? "text-gray-200" : "text-gray-800"
             }`}
           >
-            <FaBox
+            <FaBoxOpen
               className={`text-xl mr-3 ${
                 darkMode ? "text-indigo-300" : "text-indigo-600"
               }`}
             />
-            <span className="flex-1 text-base font-medium">Products</span>
+            <span className="flex-1 text-base font-medium">Sản phẩm</span>
             {isProductsOpen ? (
               <IoMdArrowDropup
                 className={`ml-auto text-2xl ${
@@ -150,23 +152,23 @@ const NavBar = ({ isOpen, darkMode }) => {
           >
             <NavLink
               to="/admin/products/new"
-              className={`block px-4 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300 ${
+              className={`block pl-8 pr-4 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300 ${
                 darkMode
                   ? "text-gray-200 hover:bg-gray-600"
                   : "text-gray-800 hover:bg-gray-300"
               }`}
             >
-              Add Product
+              Thêm sản phẩm
             </NavLink>
             <NavLink
               to="/admin/products"
-              className={`block px-4 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300 ${
+              className={`block pl-8 pr-4 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300 ${
                 darkMode
                   ? "text-gray-200 hover:bg-gray-600"
                   : "text-gray-800 hover:bg-gray-300"
               }`}
             >
-              View Products
+              Xem sản phẩm
             </NavLink>
           </div>
         </div>
@@ -179,12 +181,12 @@ const NavBar = ({ isOpen, darkMode }) => {
               darkMode ? "text-gray-200" : "text-gray-800"
             }`}
           >
-            <FaTag
-              className={`text-2xl mr-3 ${
+            <FaTags
+              className={`text-xl mr-3 ${
                 darkMode ? "text-indigo-300" : "text-indigo-600"
               }`}
             />
-            <span className="flex-1 text-lg font-medium">Categories</span>
+            <span className="flex-1 text-base font-medium">Danh mục</span>
             {isCategoriesOpen ? (
               <IoMdArrowDropup
                 className={`ml-auto text-2xl ${
@@ -206,42 +208,42 @@ const NavBar = ({ isOpen, darkMode }) => {
           >
             <NavLink
               to="/admin/categories/new"
-              className={`block px-4 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300 ${
+              className={`block pl-8 pr-4 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300 ${
                 darkMode
                   ? "text-gray-200 hover:bg-gray-600"
                   : "text-gray-800 hover:bg-gray-300"
               }`}
             >
-              Add Category
+              Thêm danh mục
             </NavLink>
             <NavLink
               to="/admin/categories"
-              className={`block px-4 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300 ${
+              className={`block pl-8 pr-4 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300 ${
                 darkMode
                   ? "text-gray-200 hover:bg-gray-600"
                   : "text-gray-800 hover:bg-gray-300"
               }`}
             >
-              View Categories
+              Danh sách danh mục
             </NavLink>
           </div>
         </div>
 
-        {/* Staffs Dropdown */}
+        {/* Attributes Dropdown */}
         <div className="relative">
           <button
-            onClick={() => setIsStaffsOpen(!isStaffsOpen)}
+            onClick={() => setIsAttributeOpen(!isAttributeOpen)}
             className={`w-full flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors duration-300 group ${
               darkMode ? "text-gray-200" : "text-gray-800"
             }`}
           >
-            <FaUsers
-              className={`text-2xl mr-3 ${
+            <FaCogs
+              className={`text-xl mr-3 ${
                 darkMode ? "text-indigo-300" : "text-indigo-600"
               }`}
             />
-            <span className="flex-1 text-lg font-medium">Staffs</span>
-            {isStaffsOpen ? (
+            <span className="flex-1 text-base font-medium">Thuộc tính</span>
+            {isAttributeOpen ? (
               <IoMdArrowDropup
                 className={`ml-auto text-2xl ${
                   darkMode ? "text-indigo-300" : "text-indigo-600"
@@ -257,28 +259,28 @@ const NavBar = ({ isOpen, darkMode }) => {
           </button>
           <div
             className={`transition-max-height duration-300 ease-in-out overflow-hidden ${
-              isStaffsOpen ? "max-h-48 opacity-100" : "max-h-0 opacity-0"
+              isAttributeOpen ? "max-h-48 opacity-100" : "max-h-0 opacity-0"
             } ${darkMode ? "bg-gray-700" : "bg-gray-200"} rounded-lg`}
           >
             <NavLink
-              to="/admin/staffs/new"
-              className={`block px-4 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300 ${
+              to="/admin/attributes/new"
+              className={`block pl-8 pr-4 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300 ${
                 darkMode
                   ? "text-gray-200 hover:bg-gray-600"
                   : "text-gray-800 hover:bg-gray-300"
               }`}
             >
-              Add Staff
+              Thêm thuộc tính
             </NavLink>
             <NavLink
-              to="/admin/staffs"
-              className={`block px-4 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300 ${
+              to="/admin/attributes"
+              className={`block pl-8 pr-4 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300 ${
                 darkMode
                   ? "text-gray-200 hover:bg-gray-600"
                   : "text-gray-800 hover:bg-gray-300"
               }`}
             >
-              View Staffs
+              Danh sách thuộc tính
             </NavLink>
           </div>
         </div>
@@ -292,11 +294,11 @@ const NavBar = ({ isOpen, darkMode }) => {
             }`}
           >
             <FaUsers
-              className={`text-2xl mr-3 ${
+              className={`text-xl mr-3 ${
                 darkMode ? "text-indigo-300" : "text-indigo-600"
               }`}
             />
-            <span className="flex-1 text-lg font-medium">Users</span>
+            <span className="flex-1 text-base font-medium">Người dùng</span>
             {isUsersOpen ? (
               <IoMdArrowDropup
                 className={`ml-auto text-2xl ${
@@ -317,29 +319,29 @@ const NavBar = ({ isOpen, darkMode }) => {
             } ${darkMode ? "bg-gray-700" : "bg-gray-200"} rounded-lg`}
           >
             <NavLink
-              to="/admin/users/add"
-              className={`block px-4 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300 ${
+              to="/admin/users/new"
+              className={`block pl-8 pr-4 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300 ${
                 darkMode
                   ? "text-gray-200 hover:bg-gray-600"
                   : "text-gray-800 hover:bg-gray-300"
               }`}
             >
-              Add User
+              Thêm người dùng
             </NavLink>
             <NavLink
               to="/admin/users"
-              className={`block px-4 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300 ${
+              className={`block pl-8 pr-4 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300 ${
                 darkMode
                   ? "text-gray-200 hover:bg-gray-600"
                   : "text-gray-800 hover:bg-gray-300"
               }`}
             >
-              View Users
+              Danh sách người dùng
             </NavLink>
           </div>
         </div>
 
-        {/* Banners Dropdown */}
+        {/* Banner Dropdown */}
         <div className="relative">
           <button
             onClick={() => setIsBannerOpen(!isBannerOpen)}
@@ -347,12 +349,12 @@ const NavBar = ({ isOpen, darkMode }) => {
               darkMode ? "text-gray-200" : "text-gray-800"
             }`}
           >
-            <FaTag
-              className={`text-2xl mr-3 ${
+            <FaAd
+              className={`text-xl mr-3 ${
                 darkMode ? "text-indigo-300" : "text-indigo-600"
               }`}
             />
-            <span className="flex-1 text-lg font-medium">Banners</span>
+            <span className="flex-1 text-base font-medium">Quảng cáo</span>
             {isBannerOpen ? (
               <IoMdArrowDropup
                 className={`ml-auto text-2xl ${
@@ -374,52 +376,41 @@ const NavBar = ({ isOpen, darkMode }) => {
           >
             <NavLink
               to="/admin/banners/new"
-              className={`block px-4 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300 ${
+              className={`block pl-8 pr-4 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300 ${
                 darkMode
                   ? "text-gray-200 hover:bg-gray-600"
                   : "text-gray-800 hover:bg-gray-300"
               }`}
             >
-              Add Banner
+              Thêm quảng cáo
             </NavLink>
             <NavLink
               to="/admin/banners"
-              className={`block px-4 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300 ${
+              className={`block pl-8 pr-4 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300 ${
                 darkMode
                   ? "text-gray-200 hover:bg-gray-600"
                   : "text-gray-800 hover:bg-gray-300"
               }`}
             >
-              View Banners
+              Danh sách quảng cáo
             </NavLink>
           </div>
         </div>
-
-        {/* Logout */}
-        <div className="relative">
-          <button
-            onClick={handleLogout}
-            className={`w-full flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors duration-300 group ${
-              darkMode ? "text-gray-200" : "text-gray-800"
-            }`}
-          >
-            <FaSignOutAlt
-              className={`text-2xl mr-3 ${
-                darkMode ? "text-red-500" : "text-red-600"
-              }`}
-            />
-            <span
-              className={`text-base font-medium ${
-                darkMode
-                  ? "text-gray-200 group-hover:text-white"
-                  : "text-gray-800 group-hover:text-gray-900"
-              }`}
-            >
-              Logout
-            </span>
-          </button>
-        </div>
       </nav>
+
+      <button
+        onClick={handleLogout}
+        className={`flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors duration-300 ${
+          darkMode ? "text-gray-200 hover:bg-gray-600" : "text-gray-800 hover:bg-gray-300"
+        }`}
+      >
+        <FaSignOutAlt
+          className={`text-xl mr-3 ${
+            darkMode ? "text-indigo-300" : "text-indigo-600"
+          }`}
+        />
+        <span className="text-base font-medium">Đăng xuất</span>
+      </button>
     </div>
   );
 };

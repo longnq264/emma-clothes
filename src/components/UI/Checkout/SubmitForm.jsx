@@ -9,7 +9,7 @@ const SubmitForm = () => {
         htmlType="submit"
       >
         <span className="font-bold text-base text-stone-700">
-          Thanh toán bằng tiền mặt
+          Thanh toán
         </span>
       </Button>
     </Form.Item>
