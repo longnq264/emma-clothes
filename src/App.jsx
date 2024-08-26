@@ -58,8 +58,15 @@ import ListOrder from "./components/User/Order/ListOrder.jsx";
 import AddOrders from "./components/User/Order/Addorder.jsx";
 import Thanks from "./pages/Thanks.jsx";
 import ForgotPassword from "./pages/Auth/ForgotPassword.jsx";
+import ProtectedRoute from "./ProtectedRoute.jsx";
 
+const getAccessToken = () => {
+  return localStorage.getItem("admin");
+};
 
+const isAuthenticated = () => {
+  return !!getAccessToken();
+};
 const router = createBrowserRouter([
   {
     path: "/",
@@ -88,6 +95,7 @@ const router = createBrowserRouter([
       { path: "/checkout-done", element: <Thanks /> },
       { path: "/admin", element: <DashBoardPage /> },
       { path: "/sale", element: <Sale /> },
+      { path: "/resetPassword/:role", element: <ForgotPassword /> },
     ],
   },
   {
@@ -96,14 +104,13 @@ const router = createBrowserRouter([
     children: [
       { path: "login", element: <Signin /> },
       { path: "register", element: <Signup /> },
-      { path: "forgotpassword", element: <ForgotPassword /> },
       { path: "loginAdmin", element: <LoginAdmin /> },
     ],
   },
   //role admin
   {
     path: "/admin",
-    element: <AdminLayout />,
+    element: <ProtectedRoute isAuthenticated={isAuthenticated()} />,
 
     children: [
       { path: "", element: <DashBoardPage /> },
@@ -122,7 +129,7 @@ const router = createBrowserRouter([
       { path: "staffs/new", element: <StaffAdd /> },
       // Thống Kê
       { path: "overview", element: <OverviewDashboard /> },
-      // 
+      //
       { path: "staffs/edit/:id", element: <StaffEdit /> },
       { path: "users", element: <UserList /> },
       { path: "users/new", element: <AddUser /> },

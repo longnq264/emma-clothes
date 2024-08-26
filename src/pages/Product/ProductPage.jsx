@@ -24,7 +24,7 @@ const ProductPage = () => {
   const [quantityProduct, setQuantityProduct] = useState(0);
   const [selectedPriceRange, setSelectedPriceRange] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 2; // Số lượng sản phẩm hiển thị trên mỗi trang
+  const pageSize = 20; // Số lượng sản phẩm hiển thị trên mỗi trang
   console.log(products);
 
   const { id } = useParams();
@@ -97,9 +97,7 @@ const ProductPage = () => {
 
       <div className="container mx-auto py-4">
         <div className="flex">
-
           <div className="basis-1/5 overflow-y-auto max-h-90">
-
             <h1 className="uppercase font-bold text-2xl text-stone-700 mb-14">
               {id ? (
                 <span className="text-4xl">{categoryId?.name}</span>
@@ -169,9 +167,7 @@ const ProductPage = () => {
             </div>
           </div>
 
-
           <div className="basis-4/5 pl-10 min-h-screen">
-
             <div className="mx-2 py-2">
               <p className="font-bold text-stone-600">
                 {quantityProduct} sản phẩm

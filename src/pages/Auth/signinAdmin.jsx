@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button, Form, Input, message } from "antd";
 
 import { useNavigate } from "react-router-dom";
-import { login, getUserId } from "../../api/api-server"; // Import phương thức từ api-server
+import { login } from "../../api/api-server"; // Import phương thức từ api-server
 
 const SigninAdmin = () => {
   const navigate = useNavigate();
@@ -14,14 +14,14 @@ const SigninAdmin = () => {
     setErrorMessage("");
     try {
       const response = await login(formData); // Sử dụng phương thức login từ api-server
-      localStorage.setItem("token", response.token);
-      localStorage.setItem("user", JSON.stringify(response.data));
+      const user = response.data.role;
+      console.log(user);
 
-      const userResponse = await getUserId(response.token); // Lấy thông tin người dùng
-      const user = userResponse.data;
-
-      if (user.role === "admin") {
+      if (user === "admin") {
         message.success("Đăng nhập thành công!");
+        localStorage.setItem("token", response.token);
+        localStorage.setItem("user", JSON.stringify(response.data));
+        localStorage.setItem("admin", false);
         navigate("/admin");
       } else {
         message.error("Bạn không có quyền truy cập trang admin.");
@@ -49,18 +49,16 @@ const SigninAdmin = () => {
   };
 
   return (
-    <div className="bg-gradient-to-r from-orange-500 to-blue-500 min-h-screen flex items-center justify-center">
-      <div className="bg-white p-10 rounded-lg shadow-lg max-w-md w-full">
+    <div className="flex justify-center w-full">
+      <div className="bg-white p-10 rounded-lg shadow-lg">
         <h1 className="font-bold text-center text-gray-800 text-4xl mb-8">
-          Đăng nhập Admin
+          Admin
         </h1>
         {errorMessage && (
           <div className="mb-4 text-red-600 text-center">{errorMessage}</div>
         )}
         <Form
           name="signin"
-          labelCol={{ span: 8 }}
-          wrapperCol={{ span: 16 }}
           initialValues={{ remember: true }}
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
@@ -68,23 +66,18 @@ const SigninAdmin = () => {
           className="space-y-4"
         >
           <Form.Item
-            label="Email"
             name="email"
             rules={[{ required: true, message: "Vui lòng nhập email!" }]}
           >
             <Input className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
           </Form.Item>
           <Form.Item
-            label="Mật khẩu"
             name="password"
             rules={[{ required: true, message: "Vui lòng nhập mật khẩu!" }]}
           >
             <Input.Password className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
           </Form.Item>
-          <Form.Item
-            wrapperCol={{ span: 24 }}
-            className="flex items-center justify-center"
-          >
+          <Form.Item className="w-full">
             <Button
               type="primary"
               htmlType="submit"
