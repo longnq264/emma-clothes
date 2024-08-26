@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Table, Button, Input, message, Upload } from 'antd';
+import { Table, Button, Input, message, Upload, Popconfirm } from 'antd';
 import { getUsers, deleteUser, importUsers } from '../../../api/users';
 import moment from 'moment';
-import { SearchOutlined, UploadOutlined } from '@ant-design/icons';
+import { SearchOutlined, UploadOutlined, EditOutlined, DeleteOutlined, DownloadOutlined } from '@ant-design/icons';
 import FileSaver from 'file-saver';
 import { useNavigate } from 'react-router-dom';
 
@@ -18,7 +18,6 @@ const UserList = () => {
   const fetchUsers = async () => {
     try {
       const response = await getUsers();
-      // Extract the 'data' array from the response structure
       const usersData = response.data.data;
       setUsers(usersData);
     } catch (error) {
@@ -110,36 +109,63 @@ const UserList = () => {
       key: 'actions',
       render: (text, record) => (
         <span>
-          <Button type="link" onClick={() => navigate(`/admin/user/edit/${record.id}`)}>
+          <Button
+            type="link"
+            icon={<EditOutlined />}
+            onClick={() => navigate(`/admin/user/edit/${record.id}`)}
+          >
             Sửa
           </Button>
-          <Button type="link" danger onClick={() => handleDeleteUser(record.id)}>
-            Xóa
-          </Button>
+          <Popconfirm
+            title="Bạn có chắc chắn muốn xóa người dùng này?"
+            onConfirm={() => handleDeleteUser(record.id)}
+            okText="Có"
+            cancelText="Không"
+          >
+            <Button
+              type="link"
+              icon={<DeleteOutlined />}
+              danger
+            >
+              Xóa
+            </Button>
+          </Popconfirm>
         </span>
       ),
     },
   ];
 
   return (
-    <div>
+    <div style={{ padding: '24px' }}>
       <Input
         placeholder="Tìm kiếm người dùng"
         prefix={<SearchOutlined />}
         onChange={(e) => handleSearch(e.target.value)}
         style={{ width: '300px', marginBottom: '16px' }}
       />
-      <Button type="primary" onClick={() => navigate('/users/add')} style={{ marginBottom: '16px', marginLeft: '16px' }}>
+      <Button
+        type="primary"
+        icon={<EditOutlined />}
+        onClick={() => navigate('/admin/users/add')}
+        style={{ marginBottom: '16px', marginLeft: '16px' }}
+      >
         Thêm người dùng
       </Button>
-      <Button onClick={handleExport} style={{ marginBottom: '16px', marginLeft: '16px' }}>
+      <Button
+        onClick={handleExport}
+        style={{ marginBottom: '16px', marginLeft: '16px' }}
+        icon={<DownloadOutlined />}
+      >
         Xuất người dùng
       </Button>
       <Upload
         customRequest={handleImport}
         showUploadList={false}
       >
-        <Button icon={<UploadOutlined />} style={{ marginBottom: '16px', marginLeft: '16px' }}>
+        <Button
+          icon={<UploadOutlined />}
+          style={{ marginBottom: '16px', marginLeft: '16px' }}
+        >
           Nhập người dùng
         </Button>
       </Upload>

@@ -10,7 +10,7 @@ import {
 } from "antd";
 import { getCategories, deleteCategory } from "../../../api/api-server"; // Adjust the path as necessary
 import { Link, useNavigate } from "react-router-dom";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { EditOutlined, DeleteOutlined, PlusOutlined } from "@ant-design/icons";
 
 const CategoriesList = () => {
   const [categories, setCategories] = useState([]);
@@ -86,17 +86,17 @@ const CategoriesList = () => {
         <Space size="middle">
           <Tooltip title="Chỉnh sửa">
             <Link to={`/admin/categories/edit/${record.id}`}>
-              <Button type="primary" icon={<EditOutlined />} />
+              <Button type="link" icon={<EditOutlined />} />
             </Link>
           </Tooltip>
           <Tooltip title="Xóa">
             <Popconfirm
-              title="Bạn Có Muốn Xóa Danh Mục Này Không ?"
+              title="Bạn Có Muốn Xóa Danh Mục Này Không?"
               onConfirm={() => handleDelete(record.id)}
               okText="Có"
               cancelText="Không"
             >
-              <Button type="primary" danger icon={<DeleteOutlined />} />
+              <Button type="link" danger icon={<DeleteOutlined />} />
             </Popconfirm>
           </Tooltip>
         </Space>
@@ -105,9 +105,14 @@ const CategoriesList = () => {
   ];
 
   return (
-    <div className="container mx-auto">
-      <h1>Danh Sách Danh Mục</h1>
-      <Button type="primary" onClick={() => navigate("/admin/categories/new")}>
+    <div style={{ padding: '24px', backgroundColor: '#f0f2f5' }}>
+      <h1 style={{ marginBottom: '20px' }}>Danh Sách Danh Mục</h1>
+      <Button
+        type="primary"
+        icon={<PlusOutlined />}
+        onClick={() => navigate("/admin/categories/new")}
+        style={{ marginBottom: '16px' }}
+      >
         Thêm Danh Mục
       </Button>
       <Table
@@ -115,11 +120,11 @@ const CategoriesList = () => {
         dataSource={categories}
         rowKey="id"
         loading={loading}
-        style={{ marginTop: 20 }}
+        style={{ background: '#fff', borderRadius: '8px' }}
+        pagination={{ pageSize: 10 }}
       />
     </div>
   );
 };
 
 export default CategoriesList;
-

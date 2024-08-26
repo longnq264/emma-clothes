@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Form, Input, Button, notification, TreeSelect, Card, Space, Select } from 'antd';
 import { createCategory, getCategories } from '../../../api/api-server'; // Adjust the path as necessary
 import { useNavigate } from 'react-router-dom';
+import { PlusOutlined, ReloadOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
 
@@ -77,14 +78,14 @@ const CategoriesAdd = () => {
             label="Tên"
             rules={[{ required: true, message: 'Vui lòng nhập tên danh mục!' }]}
           >
-            <Input />
+            <Input prefix={<PlusOutlined />} />
           </Form.Item>
           <Form.Item
             name="description"
             label="Mô Tả"
             rules={[{ required: true, message: 'Vui lòng nhập mô tả!' }]} // Added required rule
           >
-            <Input.TextArea />
+            <Input.TextArea prefix={<PlusOutlined />} />
           </Form.Item>
           <Form.Item
             name="parent_id"
@@ -110,13 +111,13 @@ const CategoriesAdd = () => {
           </Form.Item>
           <Form.Item>
             <Space>
-              <Button type="primary" htmlType="submit">
+              <Button type="primary" htmlType="submit" icon={<PlusOutlined />}>
                 Thêm
               </Button>
-              <Button type="default" onClick={() => form.resetFields()}>
+              <Button type="default" onClick={() => form.resetFields()} icon={<ReloadOutlined />}>
                 Làm mới
               </Button>
-              <Button type="default" onClick={onExit}>
+              <Button type="default" onClick={onExit} >
                 Thoát
               </Button>
             </Space>

@@ -1,6 +1,6 @@
 import { Carousel } from "antd";
 // import banner from "../../../assets/img/banner-homepage.png";
-import banner2 from "../../../assets/img/banner-homepage2.png";
+// import banner2 from "../../../assets/img/banner-homepage2.png";
 import { useEffect, useState } from "react";
 import { getBanners } from "../../../api/api-server";
 import { Link, NavLink } from "react-router-dom";
