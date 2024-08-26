@@ -1,11 +1,14 @@
+// cartUtils.js
+
 import axios from 'axios';
+import { getTokenFromLocalStorage } from '../utils/indexUtils';
 
 const API_URL = 'http://localhost:8000/api'; 
-const AUTH_TOKEN = 'Bearer 48|BrCzrHwT0KFWVRqhtyCvy0u4QoJH2eIzrsPosWqDd524859f'; // Token Role Admin
 
 // Lấy danh sách người dùng
 export const getUsers = async () => {
   try {
+    const AUTH_TOKEN = `Bearer ${getTokenFromLocalStorage()}`;
     const response = await axios.get(`${API_URL}/users`, {
       headers: {
         Authorization: AUTH_TOKEN,
@@ -21,6 +24,7 @@ export const getUsers = async () => {
 // Thêm người dùng mới
 export const addUser = async (userData) => {
   try {
+    const AUTH_TOKEN = `Bearer ${getTokenFromLocalStorage()}`;
     const response = await axios.post(`${API_URL}/users`, userData, {
       headers: {
         Authorization: AUTH_TOKEN,
@@ -37,6 +41,7 @@ export const addUser = async (userData) => {
 // Chỉnh sửa thông tin người dùng
 export const updateUser = async (userId, userData) => {
   try {
+    const AUTH_TOKEN = `Bearer ${getTokenFromLocalStorage()}`;
     const response = await axios.put(`${API_URL}/users/${userId}`, userData, {
       headers: {
         Authorization: AUTH_TOKEN,
@@ -53,6 +58,7 @@ export const updateUser = async (userId, userData) => {
 // Xóa người dùng
 export const deleteUser = async (userId) => {
   try {
+    const AUTH_TOKEN = `Bearer ${getTokenFromLocalStorage()}`;
     const response = await axios.delete(`${API_URL}/users/${userId}`, {
       headers: {
         Authorization: AUTH_TOKEN,
@@ -68,6 +74,7 @@ export const deleteUser = async (userId) => {
 // Import users
 export const importUsers = async (formData) => {
   try {
+    const AUTH_TOKEN = `Bearer ${getTokenFromLocalStorage()}`;
     const response = await axios.post(`${API_URL}/users/import`, formData, {
       headers: {
         Authorization: AUTH_TOKEN,
