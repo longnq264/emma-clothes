@@ -1,12 +1,6 @@
-<<<<<<< HEAD
-import axios from "axios";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-=======
-import { useEffect, useState } from 'react';
-import { listOrder, cancelOrder } from '../../../api/order'; // Import các hàm API mới
-import { getTokenFromLocalStorage } from '../../../utils/indexUtils'; // Import hàm lấy token từ localStorage
->>>>>>> hieunv3
+import { listOrder, cancelOrder } from "../../../api/order"; // Import các hàm API mới
+import { getTokenFromLocalStorage } from "../../../utils/indexUtils"; // Import hàm lấy token từ localStorage
 
 const UserOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -17,50 +11,12 @@ const UserOrders = () => {
   const token = getTokenFromLocalStorage();
 
   useEffect(() => {
-<<<<<<< HEAD
-    console.log("Token being used:", token);
-
-    const fetchOrders = async () => {
-      if (!token) {
-        setError("Token is missing.");
-        setLoading(false);
-        return;
-      }
-
-      try {
-        const response = await axios.get(
-          "http://127.0.0.1:8000/api/list-order",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        console.log("Full response:", response);
-
-        if (response.data && Array.isArray(response.data.data)) {
-          setOrders(response.data.data);
-        } else {
-          console.error("Invalid data structure:", response.data);
-          setError("Dữ liệu đơn hàng không hợp lệ.");
-        }
-      } catch (error) {
-        console.error("Error fetching orders:", error);
-
-        if (error.response && error.response.status === 401) {
-          setError("Unauthorized access. Please check your token.");
-        } else {
-          setError(error.message || "An unexpected error occurred.");
-        }
-=======
     const loadOrders = async () => {
       try {
         const fetchedOrders = await listOrder(token); // Truyền token vào hàm fetchOrders
         setOrders(fetchedOrders);
       } catch (err) {
-        setError('Lỗi khi lấy đơn hàng');
->>>>>>> hieunv3
+        setError("Lỗi khi lấy đơn hàng");
       } finally {
         setLoading(false);
       }
@@ -71,38 +27,20 @@ const UserOrders = () => {
 
   const handleCancelOrder = async (orderId) => {
     const reasons = [
-      'Thay đổi ý định',
-      'Tìm thấy giá tốt hơn',
-      'Không cần sản phẩm nữa',
-      'Sản phẩm không đúng mô tả',
-      'Thời gian giao hàng quá lâu'
+      "Thay đổi ý định",
+      "Tìm thấy giá tốt hơn",
+      "Không cần sản phẩm nữa",
+      "Sản phẩm không đúng mô tả",
+      "Thời gian giao hàng quá lâu",
     ];
     const randomReason = reasons[Math.floor(Math.random() * reasons.length)];
 
     try {
-<<<<<<< HEAD
-      const response = await axios.post(
-        `http://127.0.0.1:8000/api/cancel-order/${orderId}`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      if (response.status === 200) {
-        setOrders((prevOrders) =>
-          prevOrders.filter((order) => order.id !== orderId)
-        );
-        alert("Đơn hàng đã được hủy thành công.");
-      } else {
-        alert("Không thể hủy đơn hàng này.");
-      }
-=======
       await cancelOrder(orderId, token, randomReason); // Truyền token và lý do vào hàm cancelOrder
-      setOrders((prevOrders) => prevOrders.filter((order) => order.id !== orderId));
+      setOrders((prevOrders) =>
+        prevOrders.filter((order) => order.id !== orderId)
+      );
       alert(`Đơn hàng đã được hủy thành công. Lý do: ${randomReason}`);
->>>>>>> hieunv3
     } catch (error) {
       console.error("Error canceling order:", error);
       alert("Đã xảy ra lỗi khi hủy đơn hàng.");
@@ -112,16 +50,10 @@ const UserOrders = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-64">
-<<<<<<< HEAD
         <div
           className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full"
           role="status"
-        >
-          {/* <span className="visually-hidden">Loading...</span> */}
-=======
-        <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full" role="status">
->>>>>>> hieunv3
-        </div>
+        ></div>
       </div>
     );
   }
@@ -149,17 +81,11 @@ const UserOrders = () => {
       </h2>
       <ul className="space-y-10">
         {orders.map((order) => (
-<<<<<<< HEAD
           <li
             key={order.id}
             className="relative bg-white border border-gray-300 rounded-lg p-6 shadow-lg hover:shadow-xl transition-shadow duration-300"
           >
-            {/* Cancel button positioned in the top-right corner */}
             {order.status !== "Cancelled" && (
-=======
-          <li key={order.id} className="relative bg-white border border-gray-300 rounded-lg p-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
-            {order.status !== 'Cancelled' && (
->>>>>>> hieunv3
               <button
                 onClick={() => handleCancelOrder(order.id)} // Gọi hàm handleCancelOrder với ID đơn hàng
                 className="absolute top-4 right-4 bg-red-500 text-white px-3 py-2 rounded-md hover:bg-red-600 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-red-300"
