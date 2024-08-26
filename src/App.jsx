@@ -55,6 +55,7 @@ import EditUser from "./components/User/Users/EditUser.jsx";
 import UserList from "./components/User/Users/UserList.jsx";
 import AddUser from "./components/User/Users/AddUser.jsx";
 import AdminOrders from "./components/User/Order/ListOrder.jsx";
+import Thanks from "./pages/Thanks.jsx";
 
 const router = createBrowserRouter([
   {
@@ -81,6 +82,7 @@ const router = createBrowserRouter([
       { path: "/profile", element: <ProfilePage /> },
       { path: "/member", element: <LandingPage /> },
       { path: "/not-loggedin", element: <NotLoggedIn /> },
+      { path: "/checkout-done", element: <Thanks /> },
       { path: "/admin", element: <DashBoardPage /> },
       { path: "/sale", element: <Sale /> },
     ],
