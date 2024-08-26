@@ -17,7 +17,7 @@ import NotLoggedIn from "./pages/NotLoggedIn.jsx";
 import CollectionPage from "./pages/Collection/CollectionPage.jsx";
 import CollectionDetailPage from "./pages/Collection/CollectionDetailPage.jsx";
 import DashBoardPage from "./components/User/DashBoardPage.jsx";
-import AdminLayout from "./components/User/AdminLayout.jsx";
+// import AdminLayout from "./components/User/AdminLayout.jsx";
 import Sale from "./pages/Sale/Sale.jsx";
 // import Products from "./pages/Admin/ProductsList.jsx";
 import CategoriesList from "./components/User/Categories/CategoriesList.jsx";
@@ -59,6 +59,7 @@ import AddOrders from "./components/User/Order/Addorder.jsx";
 import Thanks from "./pages/Thanks.jsx";
 import ForgotPassword from "./pages/Auth/ForgotPassword.jsx";
 import ProtectedRoute from "./ProtectedRoute.jsx";
+import GetData from "./pages/Auth/GetData.jsx";
 
 const getAccessToken = () => {
   return localStorage.getItem("admin");
@@ -97,7 +98,7 @@ const router = createBrowserRouter([
       { path: "/checkout-done", element: <Thanks /> },
       { path: "/admin", element: <DashBoardPage /> },
       { path: "/sale", element: <Sale /> },
-      { path: "/resetPassword/:role", element: <ForgotPassword /> },
+      { path: "/resetPassword/:data", element: <GetData /> },
     ],
   },
   {
@@ -107,6 +108,7 @@ const router = createBrowserRouter([
       { path: "login", element: <Signin /> },
       { path: "register", element: <Signup /> },
       { path: "loginAdmin", element: <LoginAdmin /> },
+      { path: "send-mail", element: <ForgotPassword /> },
     ],
   },
   //role admin

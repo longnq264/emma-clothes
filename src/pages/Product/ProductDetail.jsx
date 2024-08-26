@@ -4,6 +4,8 @@ import { getProductId } from "../../api/api-server";
 import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart } from "../../store/cartSlice";
 import { addToCartItems, fetchCarts } from "../../store/cartThunk";
+import PaymentIcon from "../../components/UI/Cart/PaymentIcon";
+import SuggestedProducts from "../../components/UI/Home/SuggestedProducts";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -119,22 +121,13 @@ const ProductDetail = () => {
         className="content container mx-auto px-20 my-2"
         style={{ minHeight: "140vh" }}
       >
-        <div className="grid grid-cols-2 ">
-          <div className="product-detail-image">
-            <div className="product-image">
-              {mainImage
-                .filter((image) => image.is_thumbnail === 1)
-                .map((image, index) => (
-                  <div key={index}>
-                    <img src={image.image_url} alt="main image" />
-                  </div>
-                ))}
-            </div>
-            <div className="thumbail flex">
+        <div className="flex ">
+          <div className="product-detail-image w-1/2 flex">
+            <div className="thumbail">
               {mainImage
                 .filter((image) => image.is_thumbnail === 0)
                 .map((image, index) => (
-                  <div key={index} className="pr-2 py-2 w-40">
+                  <div key={index} className="w-20 mb-2">
                     <img
                       src={image.image_url}
                       alt={`Thumbnail`}
@@ -143,8 +136,21 @@ const ProductDetail = () => {
                   </div>
                 ))}
             </div>
+            <div className="product-image ml-2">
+              {mainImage
+                .filter((image) => image.is_thumbnail === 1)
+                .map((image, index) => (
+                  <div key={index}>
+                    <img
+                      src={image.image_url}
+                      alt="main image"
+                      className="w-full"
+                    />
+                  </div>
+                ))}
+            </div>
           </div>
-          <div className="min-h-40 pl-16 pt-6 text-stone-700">
+          <div className="min-h-40 pl-16 pt-6 text-stone-700 w-1/2">
             <h1 className="font-bold text-2xl">{data.name}</h1>
             <div className="variants flex">
               {selectedVariant ? (
@@ -245,12 +251,39 @@ const ProductDetail = () => {
               </div>
               <button
                 onClick={handleBuyNow}
-                className="block uppercase px-10 py-3 border-2 w-full text-white text-center font-bold bg-stone-700 hover:bg-stone-600 my-5 rounded-lg basis-3/4 shadow-stone-lg"
+                className="block uppercase px-10 py-3 border-2 w-full text-white text-center font-bold bg-orange-500 hover:bg-orange-300 my-5 rounded-lg basis-3/4 shadow-stone-lg"
               >
                 Mua ngay
               </button>
             </div>
+            <div className="bg-gray-50 pb-6">
+              <PaymentIcon />
+              <p className="text-xs font-semibold text-center pt-2">
+                Đảm bảo thanh toán an toàn và bảo mật
+              </p>
+            </div>
+            <div className="shipment mt-3">
+              <ul className="text-sm leading-10">
+                <li>
+                  <b>Miễn phí vận chuyển:</b> Đơn hàng từ 498k
+                </li>
+                <li>
+                  <b>Giao hàng:</b> Từ 3 - 5 ngày trên cả nước
+                </li>
+                <li>
+                  <b>Miễn phí đổi trả:</b> Tại 267+ cửa hàng trong 15 ngày
+                </li>
+                <li>Sử dụng mã giảm giá ở bước thanh toán</li>
+                <li>Thông tin bảo mật và mã hóa</li>
+              </ul>
+            </div>
+            <div className="desc mt-4">
+              <li className="text-sm">{data.description}</li>
+            </div>
           </div>
+        </div>
+        <div className="product mt-10">
+          <SuggestedProducts />
         </div>
       </div>
     </div>
