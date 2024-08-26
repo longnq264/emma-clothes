@@ -6,6 +6,13 @@ const { Option } = Select;
 const AttributesProduct = ({ variants, setVariants }) => {
   const [attributes, setAttributes] = useState([]);
   const [selectedAttributes, setSelectedAttributes] = useState([]);
+<<<<<<< HEAD
+=======
+  //   const [variants, setVariants] = useState([]);
+
+  console.log("selected attribute", selectedAttributes);
+  console.log("selected variant", variants);
+>>>>>>> hieunv3
 
   useEffect(() => {
     const fetchAttributes = async () => {
@@ -27,16 +34,28 @@ const AttributesProduct = ({ variants, setVariants }) => {
     setSelectedAttributes((prevItem) => {
       console.log(prevItem);
 
+<<<<<<< HEAD
+=======
+      // Tìm kiếm xem attribute đã tồn tại trong mảng chưa
+>>>>>>> hieunv3
       const existingAttributeIndex = prevItem.findIndex(
         (attr) => attr.attribute_id === attributeId
       );
       console.log(existingAttributeIndex);
 
       if (existingAttributeIndex > -1) {
+<<<<<<< HEAD
+=======
+        // Nếu tồn tại, cập nhật giá trị mới
+>>>>>>> hieunv3
         const updatedAttributes = [...prevItem];
         updatedAttributes[existingAttributeIndex].value_id = valueId;
         return updatedAttributes;
       } else {
+<<<<<<< HEAD
+=======
+        // Nếu không tồn tại, thêm thuộc tính mới vào mảng
+>>>>>>> hieunv3
         return [
           ...prevItem,
           {
@@ -74,11 +93,19 @@ const AttributesProduct = ({ variants, setVariants }) => {
     console.log(existingVariantIndex);
 
     if (existingVariantIndex !== -1) {
+<<<<<<< HEAD
+=======
+      // Kiểm tra xem có thuộc tính nào mới không
+>>>>>>> hieunv3
       const existingVariant = variants[existingVariantIndex];
       const existingAttributeCount = existingVariant.attributes.length;
       const selectedAttributeCount = selectedAttributes.length;
 
       if (existingAttributeCount + selectedAttributeCount <= 3) {
+<<<<<<< HEAD
+=======
+        // Nếu tổng số thuộc tính <= 3, cập nhật biến thể hiện có
+>>>>>>> hieunv3
         const updatedAttributes = [
           ...existingVariant.attributes.filter((attr) =>
             selectedAttributes.some(
@@ -97,42 +124,72 @@ const AttributesProduct = ({ variants, setVariants }) => {
                   ...variant,
                   sku,
                   attributes: updatedAttributes,
+<<<<<<< HEAD
                   stock: 0,
                   price: 0,
+=======
+                  stock: 0, // Giá trị mặc định hoặc nhập từ người dùng
+                  price: 0, // Giá trị mặc định hoặc nhập từ người dùng
+>>>>>>> hieunv3
                 }
               : variant
           )
         );
       } else {
+<<<<<<< HEAD
         const newVariant = {
           id: new Date().getTime(),
           sku,
           stock: 0,
           price: 0,
+=======
+        // Nếu đã đủ 3 thuộc tính, thêm biến thể mới
+        const newVariant = {
+          id: new Date().getTime(), // Tạo ID duy nhất
+          sku,
+          stock: 0, // Giá trị mặc định hoặc nhập từ người dùng
+          price: 0, // Giá trị mặc định hoặc nhập từ người dùng
+>>>>>>> hieunv3
           attributes: [...selectedAttributes],
         };
 
         setVariants((prevVariants) => [...prevVariants, newVariant]);
       }
     } else {
+<<<<<<< HEAD
       const newVariant = {
         id: new Date().getTime(),
         sku,
         stock: 0,
         price: 0,
+=======
+      // Thêm biến thể mới với ID duy nhất
+      const newVariant = {
+        id: new Date().getTime(), // Tạo ID duy nhất
+        sku,
+        stock: 0, // Giá trị mặc định hoặc nhập từ người dùng
+        price: 0, // Giá trị mặc định hoặc nhập từ người dùng
+>>>>>>> hieunv3
         attributes: [...selectedAttributes],
       };
 
       setVariants((prevVariants) => [...prevVariants, newVariant]);
     }
     alert("Biến thể đã được thêm thành công!");
+<<<<<<< HEAD
+=======
+    // Xóa thuộc tính đã chọn sau khi thêm hoặc cập nhật
+>>>>>>> hieunv3
     setSelectedAttributes([]);
   };
 
   const handleInputChange = (index, field, value) => {
+<<<<<<< HEAD
     console.log(field);
     console.log(value);
 
+=======
+>>>>>>> hieunv3
     setVariants((prevVariants) =>
       prevVariants.map((variant, i) =>
         i === index ? { ...variant, [field]: value } : variant
@@ -202,6 +259,7 @@ const AttributesProduct = ({ variants, setVariants }) => {
                   <div>{variant.sku}</div>
                   <div className="border">
                     <input
+<<<<<<< HEAD
                       name="price"
                       type="text"
                       onChange={(e) =>
@@ -210,11 +268,17 @@ const AttributesProduct = ({ variants, setVariants }) => {
                           "price",
                           Number(e.target.value)
                         )
+=======
+                      type="text"
+                      onChange={(e) =>
+                        handleInputChange(index, "price", e.target.value)
+>>>>>>> hieunv3
                       }
                     />
                   </div>
                   <div className="border mx-2">
                     <input
+<<<<<<< HEAD
                       name="stock"
                       type="number"
                       onChange={(e) =>
@@ -223,12 +287,20 @@ const AttributesProduct = ({ variants, setVariants }) => {
                           "stock",
                           Number(e.target.value)
                         )
+=======
+                      type="text"
+                      onChange={(e) =>
+                        handleInputChange(index, "quantity", e.target.value)
+>>>>>>> hieunv3
                       }
                     />
                   </div>
                   <div className="border">
                     <input
+<<<<<<< HEAD
                       name="thumb_nail"
+=======
+>>>>>>> hieunv3
                       type="text"
                       onChange={(e) =>
                         handleInputChange(index, "thumb_nail", e.target.value)

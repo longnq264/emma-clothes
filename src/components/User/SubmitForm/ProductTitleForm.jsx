@@ -21,7 +21,10 @@ const ProductTitleForm = () => {
             ]}
           >
             <Input
+<<<<<<< HEAD
               autoComplete="on"
+=======
+>>>>>>> hieunv3
               placeholder="Nhập tên sản phẩm"
               className="w-full border-gray-300 border-2 rounded-md p-3"
             />

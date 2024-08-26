@@ -1,15 +1,23 @@
+<<<<<<< HEAD
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+=======
+import { useEffect, useState } from 'react';
+import { listOrder, cancelOrder } from '../../../api/order'; // Import các hàm API mới
+import { getTokenFromLocalStorage } from '../../../utils/indexUtils'; // Import hàm lấy token từ localStorage
+>>>>>>> hieunv3
 
 const UserOrders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const token = useSelector((state) => state.auth.token);
+  // Lấy token từ localStorage
+  const token = getTokenFromLocalStorage();
 
   useEffect(() => {
+<<<<<<< HEAD
     console.log("Token being used:", token);
 
     const fetchOrders = async () => {
@@ -45,16 +53,34 @@ const UserOrders = () => {
         } else {
           setError(error.message || "An unexpected error occurred.");
         }
+=======
+    const loadOrders = async () => {
+      try {
+        const fetchedOrders = await listOrder(token); // Truyền token vào hàm fetchOrders
+        setOrders(fetchedOrders);
+      } catch (err) {
+        setError('Lỗi khi lấy đơn hàng');
+>>>>>>> hieunv3
       } finally {
         setLoading(false);
       }
     };
 
-    fetchOrders();
+    loadOrders();
   }, [token]);
 
   const handleCancelOrder = async (orderId) => {
+    const reasons = [
+      'Thay đổi ý định',
+      'Tìm thấy giá tốt hơn',
+      'Không cần sản phẩm nữa',
+      'Sản phẩm không đúng mô tả',
+      'Thời gian giao hàng quá lâu'
+    ];
+    const randomReason = reasons[Math.floor(Math.random() * reasons.length)];
+
     try {
+<<<<<<< HEAD
       const response = await axios.post(
         `http://127.0.0.1:8000/api/cancel-order/${orderId}`,
         {},
@@ -72,6 +98,11 @@ const UserOrders = () => {
       } else {
         alert("Không thể hủy đơn hàng này.");
       }
+=======
+      await cancelOrder(orderId, token, randomReason); // Truyền token và lý do vào hàm cancelOrder
+      setOrders((prevOrders) => prevOrders.filter((order) => order.id !== orderId));
+      alert(`Đơn hàng đã được hủy thành công. Lý do: ${randomReason}`);
+>>>>>>> hieunv3
     } catch (error) {
       console.error("Error canceling order:", error);
       alert("Đã xảy ra lỗi khi hủy đơn hàng.");
@@ -81,11 +112,15 @@ const UserOrders = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-64">
+<<<<<<< HEAD
         <div
           className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full"
           role="status"
         >
           {/* <span className="visually-hidden">Loading...</span> */}
+=======
+        <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full" role="status">
+>>>>>>> hieunv3
         </div>
       </div>
     );
@@ -114,14 +149,19 @@ const UserOrders = () => {
       </h2>
       <ul className="space-y-10">
         {orders.map((order) => (
+<<<<<<< HEAD
           <li
             key={order.id}
             className="relative bg-white border border-gray-300 rounded-lg p-6 shadow-lg hover:shadow-xl transition-shadow duration-300"
           >
             {/* Cancel button positioned in the top-right corner */}
             {order.status !== "Cancelled" && (
+=======
+          <li key={order.id} className="relative bg-white border border-gray-300 rounded-lg p-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
+            {order.status !== 'Cancelled' && (
+>>>>>>> hieunv3
               <button
-                onClick={() => handleCancelOrder(order.id)}
+                onClick={() => handleCancelOrder(order.id)} // Gọi hàm handleCancelOrder với ID đơn hàng
                 className="absolute top-4 right-4 bg-red-500 text-white px-3 py-2 rounded-md hover:bg-red-600 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-red-300"
               >
                 Hủy đơn hàng
@@ -175,7 +215,7 @@ const UserOrders = () => {
   );
 };
 
-// Function to get status text
+// Hàm để lấy trạng thái đơn hàng
 const getStatusText = (status) => {
   switch (status) {
     case "Pending":
@@ -193,7 +233,7 @@ const getStatusText = (status) => {
   }
 };
 
-// Function to get status class
+// Hàm để lấy class CSS tương ứng với trạng thái đơn hàng
 const getStatusClass = (status) => {
   switch (status) {
     case "Pending":

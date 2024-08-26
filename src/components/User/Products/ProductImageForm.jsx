@@ -24,7 +24,10 @@ const ProductImagesForm = ({ images, setImages }) => {
               Thêm ảnh sản phẩm
             </h2>
             <Input
+<<<<<<< HEAD
               name="img"
+=======
+>>>>>>> hieunv3
               value={imageUrl}
               onChange={(e) => setImageUrl(e.target.value)}
               placeholder="Nhập URL hình ảnh"
