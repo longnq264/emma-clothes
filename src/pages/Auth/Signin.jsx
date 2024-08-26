@@ -112,7 +112,9 @@ const Signin = () => {
                     <p className="font-bold">Đăng Nhập</p>
                   </Button>
                   <p className="py-2 text-center">
-                    <Link className="text-stone-700 ">Quên mật khẩu?</Link>
+                    <Link to="/auth/send-mail" className="text-stone-700 ">
+                      Quên mật khẩu?
+                    </Link>
                   </p>
                 </Form.Item>
                 {error && <div>Error</div>}

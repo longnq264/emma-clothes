@@ -13,7 +13,7 @@ const ForgotPassword = () => {
         <div className="wrap-content flex justify-center">
           <div className="bg-white bg-opacity-20 w-96 p-10 rounded-r-lg shadow-2xl">
             <h1 className="font-bold text-center text-white text-3xl mb-10 ">
-              Đăng Nhập
+              ForgotPass
             </h1>
             <Form
               name="basic"
@@ -41,20 +41,6 @@ const ForgotPassword = () => {
                 />
               </Form.Item>
 
-              <Form.Item
-                name="password"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input your password!",
-                  },
-                ]}
-              >
-                <Input.Password
-                  placeholder="Password"
-                  className="bg-white bg-opacity-20 border-none h-10"
-                />
-              </Form.Item>
               <Form.Item className="">
                 <Button
                   type="primary"
@@ -62,7 +48,7 @@ const ForgotPassword = () => {
                   loading={status === "loading"}
                   className="w-full bg-orange-400 bg-opacity-50 h-10"
                 >
-                  <p className="font-bold">Đăng Nhập</p>
+                  <p className="font-bold">Send Mail</p>
                 </Button>
               </Form.Item>
               {/* {error && <div>Error</div>} */}
