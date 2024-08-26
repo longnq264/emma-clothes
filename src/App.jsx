@@ -31,13 +31,13 @@ import Checkout from "./pages/Checkout.jsx";
 // import OrderPage from "./pages/Admin/Orders.jsx";
 // import UsersPage from "./pages/Admin/Users.jsx";
 
-import StaffList from "./pages/Admin/StaffList.jsx";
+// import StaffList from "./pages/Admin/StaffList.jsx";
 // import CustomersList from "./pages/Admin/CustomersList.jsx";
 import { Provider } from "react-redux";
 import store from "./store/store.js";
 
-import StaffAdd from "./pages/Admin/StaffAdd.jsx";
-import StaffEdit from "./pages/Admin/StaffEdit.jsx";
+// import StaffAdd from "./pages/Admin/StaffAdd.jsx";
+// import StaffEdit from "./pages/Admin/StaffEdit.jsx";
 // import UserAdminPage from "./pages/Admin/UserAdminPage.jsx";
 import LoginAdmin from "./pages/Auth/signinAdmin.jsx";
 
@@ -133,12 +133,12 @@ const router = createBrowserRouter([
       { path: "categories", element: <CategoriesList /> },
       { path: "categories/new", element: <CategoriesAdd /> },
       { path: "categories/edit/:id", element: <CategoriesEdit /> },
-      { path: "staffs", element: <StaffList /> },
-      { path: "staffs/new", element: <StaffAdd /> },
+      // { path: "staffs", element: <StaffList /> },
+      // { path: "staffs/new", element: <StaffAdd /> },
       // Thống Kê
       { path: "overview", element: <OverviewDashboard /> },
       //
-      { path: "staffs/edit/:id", element: <StaffEdit /> },
+      // { path: "staffs/edit/:id", element: <StaffEdit /> },
       { path: "users", element: <UserList /> },
       { path: "users/new", element: <AddUser /> },
       { path: "user/edit/:id", element: <EditUser /> },

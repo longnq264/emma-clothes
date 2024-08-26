@@ -377,3 +377,15 @@ export const listOrders = async (token) => {
     throw error;
   }
 };
+
+export const getDashboardData = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/dashboard`);
+    console.log("Get dashboard data:", response.data);
+    return response.data;
+  } catch (error) {
+    // Kiểm tra lỗi và phản hồi từ API
+    console.error("Error fetching dashboard data:", error.response ? error.response.data : error.message);
+    throw error;
+  }
+};

@@ -123,12 +123,12 @@ const ProductsList = () => {
             <thead className="bg-gray-100 border-b border-gray-300">
               <tr>
                 <th className="py-3 px-4 text-left text-gray-600 font-semibold">ID</th>
-                <th className="py-3 px-4 text-left text-gray-600 font-semibold">Name</th>
-                <th className="py-3 px-4 text-left text-gray-600 font-semibold">Price</th>
-                <th className="py-3 px-4 text-left text-gray-600 font-semibold">Price Old</th>
-                <th className="py-3 px-4 text-left text-gray-600 font-semibold">Image</th>
-                <th className="py-3 px-4 text-left text-gray-600 font-semibold">Description</th>
-                <th className="py-3 px-4 text-left text-gray-600 font-semibold">Quantiny</th>
+                <th className="py-3 px-4 text-left text-gray-600 font-semibold">Tên</th>
+                <th className="py-3 px-4 text-left text-gray-600 font-semibold">Giá</th>
+                <th className="py-3 px-4 text-left text-gray-600 font-semibold">Giá Cũ</th>
+                <th className="py-3 px-4 text-left text-gray-600 font-semibold">Ảnh</th>
+                <th className="py-3 px-4 text-left text-gray-600 font-semibold">Mô Tả</th>
+                <th className="py-3 px-4 text-left text-gray-600 font-semibold">Số Lượng</th>
                 <th className="py-3 px-4 text-left text-gray-600 font-semibold">View</th>
                 <th className="py-3 px-4 text-left text-gray-600 font-semibold">Danh mục Cha</th>
                 <th className="py-3 px-4 text-left text-gray-600 font-semibold">Danh Mục Con</th>

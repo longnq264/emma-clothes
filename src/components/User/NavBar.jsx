@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
 import {
   FaTachometerAlt,
@@ -7,23 +7,20 @@ import {
   FaTag,
   FaCartPlus,
   FaUsers,
-  FaSignOutAlt,
+  
 } from "react-icons/fa";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 
 const NavBar = ({ isOpen, darkMode }) => {
   const [isProductsOpen, setIsProductsOpen] = useState(false);
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
-  const [isStaffsOpen, setIsStaffsOpen] = useState(false);
+  // const [isStaffsOpen, setIsStaffsOpen] = useState(false);
   const [isUsersOpen, setIsUsersOpen] = useState(false);
   const [isBannerOpen, setIsBannerOpen] = useState(false);
-  const [isOrdersOpen, setIsOrdersOpen] = useState(false); // State for Orders dropdown
-  const navigate = useNavigate();
+  const [isOrdersOpen, setIsOrdersOpen] = useState(false); 
+  
 
-  const handleLogout = () => {
-    localStorage.removeItem("authToken");
-    navigate("/login");
-  };
+  
 
   return (
     <div
@@ -228,7 +225,7 @@ const NavBar = ({ isOpen, darkMode }) => {
         </div>
 
         {/* Staffs Dropdown */}
-        <div className="relative">
+        {/* <div className="relative">
           <button
             onClick={() => setIsStaffsOpen(!isStaffsOpen)}
             className={`w-full flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors duration-300 group ${
@@ -281,7 +278,7 @@ const NavBar = ({ isOpen, darkMode }) => {
               View Staffs
             </NavLink>
           </div>
-        </div>
+        </div> */}
 
         {/* Users Dropdown */}
         <div className="relative">
@@ -395,30 +392,6 @@ const NavBar = ({ isOpen, darkMode }) => {
           </div>
         </div>
 
-        {/* Logout */}
-        <div className="relative">
-          <button
-            onClick={handleLogout}
-            className={`w-full flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors duration-300 group ${
-              darkMode ? "text-gray-200" : "text-gray-800"
-            }`}
-          >
-            <FaSignOutAlt
-              className={`text-2xl mr-3 ${
-                darkMode ? "text-red-500" : "text-red-600"
-              }`}
-            />
-            <span
-              className={`text-base font-medium ${
-                darkMode
-                  ? "text-gray-200 group-hover:text-white"
-                  : "text-gray-800 group-hover:text-gray-900"
-              }`}
-            >
-              Logout
-            </span>
-          </button>
-        </div>
       </nav>
     </div>
   );
