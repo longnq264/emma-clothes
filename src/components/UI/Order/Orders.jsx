@@ -1,20 +1,27 @@
 import { useEffect, useState } from "react";
-import { listOrder, cancelOrder } from "../../../api/order"; // Import các hàm API mới
-import { getTokenFromLocalStorage } from "../../../utils/indexUtils"; // Import hàm lấy token từ localStorage
+import { listOrder, cancelOrder } from "../../../api/order";
+import { getTokenFromLocalStorage } from "../../../utils/indexUtils";
 
 const UserOrders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedOrder, setSelectedOrder] = useState(null);
+  const [selectedReason, setSelectedReason] = useState("");
 
-  // Lấy token từ localStorage
   const token = getTokenFromLocalStorage();
 
   useEffect(() => {
     const loadOrders = async () => {
       try {
-        const fetchedOrders = await listOrder(token); // Truyền token vào hàm fetchOrders
-        setOrders(fetchedOrders);
+        const fetchedOrders = await listOrder(token);
+        
+        // Sort orders by created_at date, newest first
+        const sortedOrders = fetchedOrders.sort(
+          (a, b) => new Date(b.created_at) - new Date(a.created_at)
+        );
+
+        setOrders(sortedOrders);
       } catch (err) {
         setError("Lỗi khi lấy đơn hàng");
       } finally {
@@ -25,25 +32,24 @@ const UserOrders = () => {
     loadOrders();
   }, [token]);
 
-  const handleCancelOrder = async (orderId) => {
-    const reasons = [
-      "Thay đổi ý định",
-      "Tìm thấy giá tốt hơn",
-      "Không cần sản phẩm nữa",
-      "Sản phẩm không đúng mô tả",
-      "Thời gian giao hàng quá lâu",
-    ];
-    const randomReason = reasons[Math.floor(Math.random() * reasons.length)];
+  const handleCancelOrder = async () => {
+    if (!selectedOrder || !selectedReason) {
+      alert("Vui lòng chọn lý do để hủy đơn hàng.");
+      return;
+    }
 
     try {
-      await cancelOrder(orderId, token, randomReason); // Truyền token và lý do vào hàm cancelOrder
+      await cancelOrder(selectedOrder, token, selectedReason);
       setOrders((prevOrders) =>
-        prevOrders.filter((order) => order.id !== orderId)
+        prevOrders.filter((order) => order.id !== selectedOrder)
       );
-      alert(`Đơn hàng đã được hủy thành công. Lý do: ${randomReason}`);
+      alert(`Đơn hàng đã được hủy thành công. Lý do: ${selectedReason}`);
     } catch (error) {
       console.error("Error canceling order:", error);
       alert("Đã xảy ra lỗi khi hủy đơn hàng.");
+    } finally {
+      setSelectedOrder(null);
+      setSelectedReason("");
     }
   };
 
@@ -86,12 +92,40 @@ const UserOrders = () => {
             className="relative bg-white border border-gray-300 rounded-lg p-6 shadow-lg hover:shadow-xl transition-shadow duration-300"
           >
             {order.status !== "Cancelled" && (
-              <button
-                onClick={() => handleCancelOrder(order.id)} // Gọi hàm handleCancelOrder với ID đơn hàng
-                className="absolute top-4 right-4 bg-red-500 text-white px-3 py-2 rounded-md hover:bg-red-600 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-red-300"
-              >
-                Hủy đơn hàng
-              </button>
+              <div className="absolute top-4 right-4 flex flex-col space-y-2">
+                <label className="block text-sm font-medium text-gray-700">
+                  Lý do hủy đơn hàng:
+                </label>
+                <select
+                  className="mb-2 px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  value={selectedOrder === order.id ? selectedReason : ""}
+                  onChange={(e) => {
+                    setSelectedOrder(order.id);
+                    setSelectedReason(e.target.value);
+                  }}
+                >
+                  <option value="">Chọn lý do hủy đơn hàng</option>
+                  <option value="Thay đổi ý định">Thay đổi ý định</option>
+                  <option value="Tìm thấy giá tốt hơn">
+                    Tìm thấy giá tốt hơn
+                  </option>
+                  <option value="Không cần sản phẩm nữa">
+                    Không cần sản phẩm nữa
+                  </option>
+                  <option value="Sản phẩm không đúng mô tả">
+                    Sản phẩm không đúng mô tả
+                  </option>
+                  <option value="Thời gian giao hàng quá lâu">
+                    Thời gian giao hàng quá lâu
+                  </option>
+                </select>
+                <button
+                  onClick={handleCancelOrder}
+                  className="bg-red-500 text-white px-3 py-2 rounded-md hover:bg-red-600 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-red-300"
+                >
+                  Hủy đơn hàng
+                </button>
+              </div>
             )}
             <div className="text-sm text-gray-500 mb-2">
               Ngày đặt: {new Date(order.created_at).toLocaleDateString()}
@@ -178,4 +212,3 @@ const getStatusClass = (status) => {
 };
 
 export default UserOrders;
-

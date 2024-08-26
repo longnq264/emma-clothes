@@ -120,7 +120,7 @@ const router = createBrowserRouter([
       { path: "overview", element: <OverviewDashboard /> },
       { path: "staffs/edit/:id", element: <StaffEdit /> },
       { path: "users", element: <UserList /> },
-      { path: "users/new", element: <AddUser /> },
+      { path: "users/add", element: <AddUser /> },
       { path: "user/edit/:id", element: <EditUser /> },
       { path: "banners", element: <BannerList /> },
       { path: "banners/new", element: <AddBanner /> },
