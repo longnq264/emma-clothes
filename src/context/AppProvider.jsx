@@ -134,8 +134,11 @@ const AppProvider = ({ children }) => {
   const handleCheckoutDetail = async (data, token) => {
     try {
       const response = await checkout(data, token);
-      handleCheckoutSuccess();
-      console.log(response.url);
+      // handleCheckoutSuccess();
+      if (response.url) {
+        window.location.href = response.url;
+      }
+      console.log(response);
     } catch (error) {
       console.log(error);
     }
