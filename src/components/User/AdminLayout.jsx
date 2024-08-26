@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 
 import { NavLink, Outlet } from "react-router-dom";
@@ -40,6 +39,7 @@ const AdminLayout = () => {
   const handleLogout = () => {
     if (window.confirm("Bạn có chắc chắn muốn đăng xuất không?")) {
       localStorage.removeItem("authToken");
+      localStorage.removeItem("admin");
       navigate("/auth/loginAdmin");
     }
   };
