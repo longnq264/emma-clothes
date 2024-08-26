@@ -6,7 +6,7 @@ const Thanks = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchCarts());
-  }, []);
+  }, [dispatch]);
   return (
     <div className="container mx-auto">
       <div className="my-4">
