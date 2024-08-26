@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
 import {
   FaTachometerAlt,
@@ -8,24 +8,33 @@ import {
   FaTags,
   FaCogs,
   FaUsers,
+<<<<<<< HEAD
   FaAd,
   FaSignOutAlt,
+=======
+  
+>>>>>>> binhdtph
 } from "react-icons/fa";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 
 const NavBar = ({ isOpen, darkMode }) => {
   const [isProductsOpen, setIsProductsOpen] = useState(false);
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
+<<<<<<< HEAD
   const [isAttributeOpen, setIsAttributeOpen] = useState(false);
   const [isUsersOpen, setIsUsersOpen] = useState(false);
   const [isBannerOpen, setIsBannerOpen] = useState(false);
   const [isOrdersOpen, setIsOrdersOpen] = useState(false);
   const navigate = useNavigate();
+=======
+  // const [isStaffsOpen, setIsStaffsOpen] = useState(false);
+  const [isUsersOpen, setIsUsersOpen] = useState(false);
+  const [isBannerOpen, setIsBannerOpen] = useState(false);
+  const [isOrdersOpen, setIsOrdersOpen] = useState(false); 
+  
+>>>>>>> binhdtph
 
-  const handleLogout = () => {
-    localStorage.removeItem("authToken");
-    navigate("/login");
-  };
+  
 
   return (
     <div
@@ -283,7 +292,7 @@ const NavBar = ({ isOpen, darkMode }) => {
               Danh sách thuộc tính
             </NavLink>
           </div>
-        </div>
+        </div> */}
 
         {/* Users Dropdown */}
         <div className="relative">

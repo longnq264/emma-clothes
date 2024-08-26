@@ -1,27 +1,51 @@
-
 import { useEffect, useState } from 'react';
 import { getProducts } from "../../../api/api-server";
 import { Card, Col, Row, Statistic, Table, Spin, Alert } from 'antd';
-import { DollarOutlined, ShoppingCartOutlined, EyeOutlined, TagOutlined } from '@ant-design/icons';
-import { PieChart, Pie, Tooltip, Legend, Cell } from 'recharts';
-const calculateStatistics = (data) => {
-  const totalValue = data.reduce((sum, product) => sum + (product.price * product.quantity), 0);
-  const totalSold = data.reduce((sum, product) => sum + product.sold, 0);
-  const totalViews = data.reduce((sum, product) => sum + product.views, 0);
+import { DollarOutlined, TagOutlined } from '@ant-design/icons';
+import { PieChart, Pie, Tooltip, Legend, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, LineChart, Line } from 'recharts';
+import 'antd/dist/reset.css'; // Ensure Ant Design styles are applied
 
-  // Nhóm sản phẩm theo danh mục
+const calculateStatistics = (data) => {
+  const totalValue = data.reduce((sum, product) => sum + (parseFloat(product.price) * product.quantity), 0);
+  const totalSold = data.reduce((sum, product) => sum + (product.quantity), 0); 
+  const totalViews = data.reduce((sum, product) => sum + product.view, 0);
+
   const categoryTotals = data.reduce((acc, product) => {
     const category = product.category.name;
     if (!acc[category]) {
-      acc[category] = 0;
+      acc[category] = { quantity: 0, totalValue: 0, totalPrice: 0 };
     }
-    acc[category] += product.quantity;
+    acc[category].quantity += product.quantity;
+    acc[category].totalValue += parseFloat(product.price) * product.quantity;
+    acc[category].totalPrice = parseFloat(product.price);
     return acc;
   }, {});
 
   const categoryData = Object.keys(categoryTotals).map(category => ({
     name: category,
-    value: categoryTotals[category]
+    quantity: categoryTotals[category].quantity,
+    totalValue: categoryTotals[category].totalValue,
+    averagePrice: categoryTotals[category].totalPrice / categoryTotals[category].quantity
+  }));
+
+  const monthlyData = data.reduce((acc, product) => {
+    const month = new Date(product.created_at).toLocaleString('default', { month: 'short' });
+    if (!acc[month]) {
+      acc[month] = 0;
+    }
+    acc[month] += product.quantity;
+    return acc;
+  }, {});
+
+  const monthlyDataArray = Object.keys(monthlyData).map(month => ({
+    name: month,
+    quantity: monthlyData[month]
+  }));
+
+  const totalProducts = data.length;
+  const categoryPercentages = categoryData.map(category => ({
+    name: category.name,
+    percentage: (category.quantity / totalProducts) * 100
   }));
 
   return {
@@ -29,8 +53,10 @@ const calculateStatistics = (data) => {
     totalSold,
     totalViews,
     productCount: data.length,
-    topProducts: data.sort((a, b) => b.views - a.views).slice(0, 5),
-    categoryData
+    topProducts: data.sort((a, b) => b.quantity - a.quantity).slice(0, 5),
+    categoryData,
+    monthlyDataArray,
+    categoryPercentages
   };
 };
 
@@ -41,7 +67,9 @@ const OverviewDashboard = () => {
     totalViews: 0,
     productCount: 0,
     topProducts: [],
-    categoryData: []
+    categoryData: [],
+    monthlyDataArray: [],
+    categoryPercentages: []
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -74,22 +102,36 @@ const OverviewDashboard = () => {
       dataIndex: 'quantity',
       key: 'quantity',
     },
-    // {
-    //   title: 'Lượt Xem',
-    //   dataIndex: 'views',
-    //   key: 'views',
-    // },
   ];
 
-  if (loading) return <div className="text-center"><Spin size="large" /></div>;
-  if (error) return <Alert message={error} type="error" showIcon />;
+  const categoryColumns = [
+    {
+      title: 'Danh Mục',
+      dataIndex: 'name',
+      key: 'name',
+    },
+    {
+      title: 'Số Lượng Sản Phẩm',
+      dataIndex: 'quantity',
+      key: 'quantity',
+    },
+    {
+      title: 'Doanh Thu',
+      dataIndex: 'totalValue',
+      key: 'totalValue',
+      render: value => `₫${value.toLocaleString()}` // Format currency
+    },
+  ];
+
+  if (loading) return <div className="text-center mt-8"><Spin size="large" /></div>;
+  if (error) return <div className="text-center mt-8"><Alert message={error} type="error" showIcon /></div>;
 
   return (
-    <div className="container mx-auto py-8">
+    <div className="container mx-auto px-4 py-8">
       <h1 className="text-4xl font-bold mb-6">Thống Kê Tổng Quan</h1>
       <Row gutter={16}>
-        <Col span={6}>
-          <Card>
+        <Col span={8}>
+          <Card className="shadow-lg">
             <Statistic
               title="Tổng Giá Trị Hàng Tồn Kho"
               value={statistics.totalValue}
@@ -100,28 +142,8 @@ const OverviewDashboard = () => {
             />
           </Card>
         </Col>
-        <Col span={6}>
-          <Card>
-            <Statistic
-              title="Tổng Số Sản Phẩm Đã Bán"
-              value={statistics.totalSold}
-              prefix={<ShoppingCartOutlined />}
-              valueStyle={{ color: '#cf1322' }}
-            />
-          </Card>
-        </Col>
-        <Col span={6}>
-          <Card>
-            <Statistic
-              title="Tổng Lượt Xem"
-              value={statistics.totalViews}
-              prefix={<EyeOutlined />}
-              valueStyle={{ color: '#1890ff' }}
-            />
-          </Card>
-        </Col>
-        <Col span={6}>
-          <Card>
+        <Col span={8}>
+          <Card className="shadow-lg">
             <Statistic
               title="Tổng Số Sản Phẩm"
               value={statistics.productCount}
@@ -130,15 +152,26 @@ const OverviewDashboard = () => {
             />
           </Card>
         </Col>
+        <Col span={8}>
+          <Card className="shadow-lg">
+            <Statistic
+              title="Tổng Số Sản Phẩm Đã Bán"
+              value={statistics.totalSold}
+              prefix={<DollarOutlined />}
+              valueStyle={{ color: '#cf1322' }}
+            />
+          </Card>
+        </Col>
       </Row>
 
       <div className="mt-8">
-        <h2 className="text-2xl font-bold mb-4">Sản Phẩm Có Nhiều Số Lượng Sản Phẩm</h2>
+        <h2 className="text-2xl font-bold mb-4">Sản Phẩm Có Nhiều Số Lượng</h2>
         <Table
           columns={columns}
           dataSource={statistics.topProducts}
           rowKey="id"
           pagination={false}
+          className="shadow-lg"
         />
       </div>
 
@@ -147,7 +180,7 @@ const OverviewDashboard = () => {
         <PieChart width={800} height={400}>
           <Pie
             data={statistics.categoryData}
-            dataKey="value"
+            dataKey="quantity"
             nameKey="name"
             outerRadius={150}
             fill="#8884d8"
@@ -161,9 +194,61 @@ const OverviewDashboard = () => {
           <Legend />
         </PieChart>
       </div>
+
+      <div className="mt-8">
+        <h2 className="text-2xl font-bold mb-4">Doanh Thu Theo Danh Mục</h2>
+        <BarChart width={800} height={400} data={statistics.categoryData}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis />
+          <Tooltip />
+          <Bar dataKey="totalValue" fill="#8884d8" />
+        </BarChart>
+      </div>
+
+      <div className="mt-8">
+        <h2 className="text-2xl font-bold mb-4">Giá Trung Bình Sản Phẩm Theo Danh Mục</h2>
+        <LineChart width={800} height={400} data={statistics.categoryData}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis />
+          <Tooltip />
+          <Line type="monotone" dataKey="averagePrice" stroke="#8884d8" />
+        </LineChart>
+      </div>
+
+      <div className="mt-8">
+        <h2 className="text-2xl font-bold mb-4">Số Lượng Sản Phẩm Theo Tháng</h2>
+        <LineChart width={800} height={400} data={statistics.monthlyDataArray}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis />
+          <Tooltip />
+          <Line type="monotone" dataKey="quantity" stroke="#8884d8" />
+        </LineChart>
+      </div>
+
+      <div className="mt-8">
+        <h2 className="text-2xl font-bold mb-4">Tỉ Lệ Sản Phẩm Theo Danh Mục</h2>
+        <PieChart width={800} height={400}>
+          <Pie
+            data={statistics.categoryPercentages}
+            dataKey="percentage"
+            nameKey="name"
+            outerRadius={150}
+            fill="#8884d8"
+            label
+          >
+            {statistics.categoryPercentages.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={index % 2 === 0 ? '#82ca9d' : '#8884d8'} />
+            ))}
+          </Pie>
+          <Tooltip />
+          <Legend />
+        </PieChart>
+      </div>
     </div>
   );
 };
 
 export default OverviewDashboard;
-

@@ -377,14 +377,18 @@ export const listOrders = async (token) => {
     throw error;
   }
 };
-// lọc sản phẩm
-export const filterProducts = async (filters) => {
+
+export const getDashboardData = async () => {
   try {
-    const queryString = qs.stringify(filters, { arrayFormat: "repeat" });
-    const response = await axios.get(`${API_URL}/products?${queryString}`);
+    const response = await axios.get(`${API_URL}/dashboard`);
+    console.log("Get dashboard data:", response.data);
     return response.data;
   } catch (error) {
-    console.error("Failed to filter products:", error.message);
+    // Kiểm tra lỗi và phản hồi từ API
+    console.error(
+      "Error fetching dashboard data:",
+      error.response ? error.response.data : error.message
+    );
     throw error;
   }
 };
