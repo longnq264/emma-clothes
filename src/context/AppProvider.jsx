@@ -6,6 +6,7 @@ import { checkout } from "../api/api-server.js";
 import { notification } from "antd";
 import { useDispatch } from "react-redux";
 import { clearCart } from "../store/cartSlice.js";
+import { fetchCarts } from "../store/cartThunk.js";
 
 const AppProvider = ({ children }) => {
   const dispatch = useDispatch();
@@ -114,7 +115,7 @@ const AppProvider = ({ children }) => {
       // Cập nhật giỏ hàng
       dispatch(clearCart());
       localStorage.removeItem("cartItems");
-
+      dispatch(fetchCarts());
       // Gửi email xác nhận (optional)
       // await sendConfirmationEmail(orderDetail);
 

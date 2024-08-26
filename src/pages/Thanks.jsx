@@ -1,4 +1,12 @@
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { fetchCarts } from "../store/cartThunk";
+
 const Thanks = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchCarts());
+  }, []);
   return (
     <div className="container mx-auto">
       <div className="my-4">
