@@ -4,6 +4,7 @@ import { Card, Col, Row, Statistic, Table, Spin, Alert } from 'antd';
 import { DollarOutlined, ShoppingCartOutlined, EyeOutlined, TagOutlined } from '@ant-design/icons';
 import { PieChart, Pie, Tooltip, Legend, Cell } from 'recharts';
 
+
 const calculateStatistics = (data) => {
   const totalValue = data.reduce((sum, product) => sum + (product.price * product.quantity), 0);
   const totalSold = data.reduce((sum, product) => sum + product.sold, 0);
@@ -11,7 +12,7 @@ const calculateStatistics = (data) => {
 
   // Nhóm sản phẩm theo danh mục
   const categoryTotals = data.reduce((acc, product) => {
-    const category = product.category.name; // mỗi sản phẩm có trường danh mục
+    const category = product.category.name;
     if (!acc[category]) {
       acc[category] = 0;
     }
@@ -30,7 +31,7 @@ const calculateStatistics = (data) => {
     totalViews,
     productCount: data.length,
     topProducts: data.sort((a, b) => b.views - a.views).slice(0, 5),
-    categoryData // Dữ liệu mới cho biểu đồ hình tròn
+    categoryData
   };
 };
 
@@ -41,7 +42,7 @@ const OverviewDashboard = () => {
     totalViews: 0,
     productCount: 0,
     topProducts: [],
-    categoryData: [] // Trạng thái mới cho dữ liệu danh mục
+    categoryData: []
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -55,7 +56,7 @@ const OverviewDashboard = () => {
         const stats = calculateStatistics(data);
         setStatistics(stats);
       } catch (error) {
-        setError("Failed to fetch product data");
+        setError("Không thể lấy dữ liệu sản phẩm");
       } finally {
         setLoading(false);
       }
@@ -70,10 +71,15 @@ const OverviewDashboard = () => {
       key: 'name',
     },
     {
-      title: 'Lượt Xem',
-      dataIndex: 'views',
-      key: 'views',
+      title: 'Số Lượng',
+      dataIndex: 'quantity',
+      key: 'quantity',
     },
+    // {
+    //   title: 'Lượt Xem',
+    //   dataIndex: 'views',
+    //   key: 'views',
+    // },
   ];
 
   if (loading) return <div className="text-center"><Spin size="large" /></div>;
@@ -128,7 +134,7 @@ const OverviewDashboard = () => {
       </Row>
 
       <div className="mt-8">
-        <h2 className="text-2xl font-bold mb-4">Sản Phẩm Có Lượt Xem Nhiều Nhất</h2>
+        <h2 className="text-2xl font-bold mb-4">Sản Phẩm Có Nhiều Số Lượng Sản Phẩm</h2>
         <Table
           columns={columns}
           dataSource={statistics.topProducts}
