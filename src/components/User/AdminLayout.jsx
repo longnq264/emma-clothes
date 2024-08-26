@@ -1,4 +1,6 @@
-import { useState, useEffect } from "react";
+
+import { useState } from "react";
+
 import { NavLink, Outlet } from "react-router-dom";
 import {
   FaMoon,
@@ -14,27 +16,14 @@ import {
 import SearchBar from "./SearchBar";
 import NavBar from "./NavBar";
 import { useNavigate } from "react-router-dom";
+import { useDarkMode } from "./DarkModeProvider"; // Import hook từ DarkModeProvider
 
 const AdminLayout = () => {
-  const [darkMode, setDarkMode] = useState(false);
+  const { darkMode, toggleDarkMode } = useDarkMode(); // Sử dụng hook
   const [isNavBarOpen, setIsNavBarOpen] = useState(true);
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const savedMode = localStorage.getItem("darkMode") === "true";
-    setDarkMode(savedMode);
-  }, []);
-
-  useEffect(() => {
-    document.documentElement.classList.toggle("dark", darkMode);
-    localStorage.setItem("darkMode", darkMode);
-  }, [darkMode]);
-
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-  };
 
   const toggleNavBar = () => {
     setIsNavBarOpen(!isNavBarOpen);

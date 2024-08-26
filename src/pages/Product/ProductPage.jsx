@@ -1,15 +1,13 @@
 import { Pagination } from "antd";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Breadcrumb } from "antd";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import {
   getCategory,
   getProductByCategoryId,
   getProducts,
   getProductsByPriceRange,
 } from "../../api/api-server.js";
-import { useParams } from "react-router-dom";
 import DropdownItem from "../../components/UI/Home/DropDownItem.jsx";
 import { formatCurrency } from "../../utils/helperFunction.js";
 import ProductImage from "../../components/UI/Product/ProductImage.jsx";
@@ -22,12 +20,15 @@ const priceRanges = [
 
 const ProductPage = () => {
   const [products, setProducts] = useState([]);
-  const [categoryId, setCategoryId] = useState(products);
+  const [categoryId, setCategoryId] = useState(null);
   const [quantityProduct, setQuantityProduct] = useState(0);
   const [selectedPriceRange, setSelectedPriceRange] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 2; // Số lượng sản phẩm hiển thị trên mỗi trang
   console.log(products);
 
   const { id } = useParams();
+
   const fetchProducts = async () => {
     try {
       let response;
@@ -68,9 +69,15 @@ const ProductPage = () => {
       setSelectedPriceRange(item);
     }
   };
+
+  // Tính toán danh sách sản phẩm cho trang hiện tại
+  const paginatedProducts = products.slice(
+    (currentPage - 1) * pageSize,
+    currentPage * pageSize
+  );
+
   return (
     <>
-      {/* ----- Breadcrumb ----------- */}
       <div className="container mx-auto py-2">
         <Breadcrumb
           items={[
@@ -80,21 +87,22 @@ const ProductPage = () => {
             {
               title: (
                 <NavLink to="/products/:role" className="capitalize text-black">
-                  {categoryId.name}
+                  {categoryId ? categoryId.name : "Tất cả sản phẩm"}
                 </NavLink>
               ),
             },
           ]}
         />
       </div>
-      {/* ------- Layout ---------- */}
+
       <div className="container mx-auto py-4">
         <div className="flex">
-          {/* nav bar filter */}
-          <div className="basis-1/6 overflow-y-auto max-h-90">
+
+          <div className="basis-1/5 overflow-y-auto max-h-90">
+
             <h1 className="uppercase font-bold text-2xl text-stone-700 mb-14">
               {id ? (
-                <span className="text-4xl">{categoryId.name}</span>
+                <span className="text-4xl">{categoryId?.name}</span>
               ) : (
                 "Tất cả sản phẩm"
               )}
@@ -160,15 +168,17 @@ const ProductPage = () => {
               </div>
             </div>
           </div>
-          {/* layout */}
-          <div className="basis-5/6 pl-10 min-h-screen">
+
+
+          <div className="basis-4/5 pl-10 min-h-screen">
+
             <div className="mx-2 py-2">
               <p className="font-bold text-stone-600">
                 {quantityProduct} sản phẩm
               </p>
             </div>
             <div className="grid grid-cols-2 lg:grid-cols-4">
-              {products.map((res) => (
+              {paginatedProducts.map((res) => (
                 <NavLink key={res.id} to={`/products/${res.id}`}>
                   <div className="mx-2 my-2 pb-4 shadow-md">
                     {/* <img src={res.productImages[0].image_url} /> */}
@@ -188,13 +198,15 @@ const ProductPage = () => {
                 </NavLink>
               ))}
             </div>
+            <Pagination
+              className="flex justify-center mt-10"
+              current={currentPage}
+              pageSize={pageSize}
+              total={products.length}
+              onChange={(page) => setCurrentPage(page)}
+            />
           </div>
         </div>
-        <Pagination
-          className="flex justify-center mt-10"
-          defaultCurrent={1}
-          total={20}
-        />
       </div>
     </>
   );

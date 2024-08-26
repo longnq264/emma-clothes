@@ -59,6 +59,7 @@ import AddOrders from "./components/User/Order/Addorder.jsx";
 import Thanks from "./pages/Thanks.jsx";
 import ForgotPassword from "./pages/Auth/ForgotPassword.jsx";
 
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -119,7 +120,9 @@ const router = createBrowserRouter([
       { path: "categories/edit/:id", element: <CategoriesEdit /> },
       { path: "staffs", element: <StaffList /> },
       { path: "staffs/new", element: <StaffAdd /> },
+      // Thống Kê
       { path: "overview", element: <OverviewDashboard /> },
+      // 
       { path: "staffs/edit/:id", element: <StaffEdit /> },
       { path: "users", element: <UserList /> },
       { path: "users/new", element: <AddUser /> },

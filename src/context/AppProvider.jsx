@@ -6,7 +6,11 @@ import { checkout } from "../api/api-server.js";
 import { notification } from "antd";
 import { useDispatch } from "react-redux";
 import { clearCart } from "../store/cartSlice.js";
+
+import { DarkModeProvider } from "../components/User/DarkModeProvider.jsx"; 
+
 import { fetchCarts } from "../store/cartThunk.js";
+
 
 const AppProvider = ({ children }) => {
   const dispatch = useDispatch();
@@ -155,6 +159,7 @@ const AppProvider = ({ children }) => {
   };
 
   return (
+    <DarkModeProvider> {/* Bao bọc bằng DarkModeProvider */}
     <AppContext.Provider
       value={{
         address,
@@ -171,11 +176,12 @@ const AppProvider = ({ children }) => {
     >
       {children}
     </AppContext.Provider>
+    </DarkModeProvider>
   );
 };
 
 AppProvider.propTypes = {
-  children: PropTypes.any,
+  children: PropTypes.node.isRequired,
 };
 
 export default AppProvider;
