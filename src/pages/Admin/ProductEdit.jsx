@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getProduct, updateProduct, getCategories } from "../../api/api-server";
@@ -12,10 +11,13 @@ const ProductEdit = () => {
   const [product, setProduct] = useState({
     name: "",
     price: "",
-    priceOld: "",
+    price_old: "",
     quantity: "",
     description: "",
-    category: "",
+    category_id: "",
+    promotion: "",
+    status: "",
+    brand_id: "",
     productImages: [
       { image_url: "", is_thumbnail: 1 },
       { image_url: "", is_thumbnail: 0 },
@@ -29,8 +31,8 @@ const ProductEdit = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const fetchedProduct = await getProduct(id);
-        setProduct(fetchedProduct.data);
+        const { data } = await getProduct(id);
+        setProduct(data);
       } catch (error) {
         console.error("Lỗi không tìm được sản phẩm:", error);
       }
@@ -38,8 +40,8 @@ const ProductEdit = () => {
 
     const fetchCategories = async () => {
       try {
-        const response = await getCategories();
-        setCategories(response.data[0]?.children || []);
+        const { data } = await getCategories();
+        setCategories(data[0]?.children || []);
       } catch (error) {
         console.error("Lỗi không lấy được danh mục:", error);
       }
@@ -58,49 +60,37 @@ const ProductEdit = () => {
         navigate("/admin/products");
       }, 2000);
     } catch (error) {
-      if (error.response && error.response.data) {
-        // Log chi tiết lỗi từ server
-        console.error("Lỗi cập nhật sản phẩm:", error.response.data);
-      } else {
-        console.error("Lỗi cập nhật sản phẩm:", error);
-      }
+      console.error("Lỗi cập nhật sản phẩm:", error.response?.data || error);
       toast.error("Có lỗi xảy ra khi cập nhật sản phẩm!");
     }
   };
-  
 
   const handleChange = (event) => {
     const { name, value } = event.target;
     setProduct((prevProduct) => ({
       ...prevProduct,
-      [name]: value,
+      [name]: value || "",
     }));
   };
 
   const handleQuillChange = (value) => {
     setProduct((prevProduct) => ({
       ...prevProduct,
-      description: value,
+      description: value || "",
     }));
   };
 
   const handleImageChange = (index, event) => {
     const { value } = event.target;
     setProduct((prevProduct) => {
-      // Kiểm tra nếu phần tử tại chỉ số index chưa tồn tại, hãy khởi tạo nó
       const updatedImages = [...prevProduct.productImages];
-      
-      // Nếu phần tử tại index chưa tồn tại, hãy khởi tạo nó với giá trị mặc định
       if (!updatedImages[index]) {
         updatedImages[index] = { image_url: "", is_thumbnail: index === 0 ? 1 : 0 };
       }
-      
-      // Cập nhật URL hình ảnh
-      updatedImages[index].image_url = value;
+      updatedImages[index].image_url = value || "";
       return { ...prevProduct, productImages: updatedImages };
     });
   };
-  
 
   return (
     <div className="container mx-auto py-8 px-4">
@@ -115,7 +105,7 @@ const ProductEdit = () => {
               type="text"
               name="name"
               id="product-name"
-              value={product.name}
+              value={product.name || ""}
               onChange={handleChange}
               className="w-full border-gray-300 border-2 rounded-md p-3"
               placeholder="Nhập tên sản phẩm"
@@ -129,7 +119,7 @@ const ProductEdit = () => {
             </label>
             <ReactQuill
               id="description"
-              value={product.description}
+              value={product.description || ""}
               onChange={handleQuillChange}
               className="h-60"
               placeholder="Nhập mô tả sản phẩm"
@@ -146,7 +136,7 @@ const ProductEdit = () => {
               type="number"
               name="price"
               id="price"
-              value={product.price}
+              value={product.price || ""}
               onChange={handleChange}
               className="w-full border-gray-300 border-2 rounded-md p-3"
               placeholder="Nhập giá sản phẩm"
@@ -155,14 +145,14 @@ const ProductEdit = () => {
           </div>
 
           <div className="sm:col-span-4">
-            <label htmlFor="priceOld" className="block text-lg font-medium text-gray-900">
+            <label htmlFor="price_old" className="block text-lg font-medium text-gray-900">
               Giá cũ
             </label>
             <input
               type="number"
-              name="priceOld"
-              id="priceOld"
-              value={product.priceOld}
+              name="price_old"
+              id="price_old"
+              value={product.price_old || ""}
               onChange={handleChange}
               className="w-full border-gray-300 border-2 rounded-md p-3"
               placeholder="Nhập giá cũ sản phẩm"
@@ -177,7 +167,7 @@ const ProductEdit = () => {
               type="number"
               name="quantity"
               id="quantity"
-              value={product.quantity}
+              value={product.quantity || ""}
               onChange={handleChange}
               className="w-full border-gray-300 border-2 rounded-md p-3"
               placeholder="Nhập số lượng sản phẩm"
@@ -185,13 +175,13 @@ const ProductEdit = () => {
           </div>
 
           <div className="sm:col-span-4">
-            <label htmlFor="category" className="block text-lg font-medium text-gray-900">
+            <label htmlFor="category_id" className="block text-lg font-medium text-gray-900">
               Danh mục
             </label>
             <select
-              id="category"
-              name="category"
-              value={product.category}
+              id="category_id"
+              name="category_id"
+              value={product.category_id || ""}
               onChange={handleChange}
               className="w-full border-gray-300 border-2 rounded-md p-3"
               required
@@ -219,48 +209,76 @@ const ProductEdit = () => {
             </select>
           </div>
 
-          <div className="col-span-full">
-            <label htmlFor="main-image" className="block text-lg font-medium text-gray-900">
-              URL Hình ảnh chính
+          <div className="sm:col-span-4">
+            <label htmlFor="promotion" className="block text-lg font-medium text-gray-900">
+              Khuyến mãi
             </label>
             <input
               type="text"
-              name="mainImageUrl"
-              id="main-image"
-              value={product.productImages[0]?.image_url || ""}
-              onChange={(e) => handleImageChange(0, e)}
+              name="promotion"
+              id="promotion"
+              value={product.promotion || ""}
+              onChange={handleChange}
               className="w-full border-gray-300 border-2 rounded-md p-3"
-              placeholder="Nhập URL hình ảnh chính"
-              required
+              placeholder="Nhập thông tin khuyến mãi"
             />
           </div>
 
-          <div className="col-span-full">
-            <label htmlFor="additional-images" className="block text-lg font-medium text-gray-900">
-              URL Hình ảnh bổ sung (Tối đa 3)
+          <div className="sm:col-span-4">
+            <label htmlFor="status" className="block text-lg font-medium text-gray-900">
+              Trạng thái
             </label>
-            <div className="mt-2 flex flex-col gap-y-4">
-              {[1, 2, 3].map((index) => (
-                <input
-                  key={index}
-                  type="text"
-                  name={`additionalImageUrl${index}`}
-                  value={product.productImages[index]?.image_url || ""}
-                  onChange={(e) => handleImageChange(index, e)}
-                  className="w-full border-gray-300 border-2 rounded-md p-3"
-                  placeholder={`URL Hình ảnh bổ sung ${index}`}
-                />
-              ))}
-            </div>
+            <input
+              type="text"
+              name="status"
+              id="status"
+              value={product.status || ""}
+              onChange={handleChange}
+              className="w-full border-gray-300 border-2 rounded-md p-3"
+              placeholder="Nhập trạng thái sản phẩm"
+            />
           </div>
-        </div>
-        <div className="flex justify-end mt-6">
-          <button
-            type="submit"
-            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg"
-          >
-            Cập Nhật Sản Phẩm
-          </button>
+
+          <div className="sm:col-span-4">
+            <label htmlFor="brand_id" className="block text-lg font-medium text-gray-900">
+              Thương hiệu
+            </label>
+            <input
+              type="text"
+              name="brand_id"
+              id="brand_id"
+              value={product.brand_id || ""}
+              onChange={handleChange}
+              className="w-full border-gray-300 border-2 rounded-md p-3"
+              placeholder="Nhập ID thương hiệu"
+            />
+          </div>
+
+          {product.productImages.map((image, index) => (
+            <div key={index} className="sm:col-span-4">
+              <label htmlFor={`image_${index}`} className="block text-lg font-medium text-gray-900">
+                Hình ảnh {index + 1}
+              </label>
+              <input
+                type="text"
+                id={`image_${index}`}
+                value={image.image_url}
+                onChange={(event) => handleImageChange(index, event)}
+                className="w-full border-gray-300 border-2 rounded-md p-3"
+                placeholder="Nhập URL hình ảnh"
+              />
+              {index === 0 && <p className="text-gray-500 text-sm">Đây là hình ảnh chính.</p>}
+            </div>
+          ))}
+
+          <div className="col-span-full">
+            <button
+              type="submit"
+              className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
+            >
+              Cập nhật sản phẩm
+            </button>
+          </div>
         </div>
       </form>
       <ToastContainer />
