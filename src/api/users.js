@@ -85,3 +85,20 @@ export const importUsers = async (formData) => {
     throw error;
   }
 };
+
+// Thay đổi vai trò người dùng
+export const changeUserRole = async (userId, roleData) => {
+  try {
+    const AUTH_TOKEN = `Bearer ${getTokenFromLocalStorage()}`;
+    const response = await axios.patch(`${API_URL}/user/changeRole/${userId}`, roleData, {
+      headers: {
+        Authorization: AUTH_TOKEN,
+        'Content-Type': 'application/json',
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Failed to change user role:', error);
+    throw error;
+  }
+};

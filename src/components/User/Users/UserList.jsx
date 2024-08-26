@@ -1,14 +1,17 @@
 import { useState, useEffect } from 'react';
-import { Table, Button, Input, message, Upload, Popconfirm } from 'antd';
-import { getUsers, deleteUser, importUsers } from '../../../api/users';
+import { Table, Button, Input, message, Upload, Popconfirm, Modal, Select } from 'antd';
+import { getUsers, deleteUser, importUsers, changeUserRole } from '../../../api/users';
 import moment from 'moment';
-import { SearchOutlined, UploadOutlined, EditOutlined, DeleteOutlined, DownloadOutlined } from '@ant-design/icons';
+import { SearchOutlined, UploadOutlined, DeleteOutlined, DownloadOutlined, UserSwitchOutlined } from '@ant-design/icons';
 import FileSaver from 'file-saver';
 import { useNavigate } from 'react-router-dom';
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [selectedRole, setSelectedRole] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,6 +35,23 @@ const UserList = () => {
       fetchUsers();
     } catch (error) {
       message.error('Lỗi khi xóa người dùng.');
+    }
+  };
+
+  const showChangeRoleModal = (user) => {
+    setSelectedUser(user);
+    setSelectedRole(user.role);
+    setIsModalVisible(true);
+  };
+
+  const handleRoleChange = async () => {
+    try {
+      await changeUserRole(selectedUser.id, { role: selectedRole });
+      message.success('Thay đổi vai trò người dùng thành công');
+      fetchUsers();
+      setIsModalVisible(false);
+    } catch (error) {
+      message.error('Lỗi khi thay đổi vai trò người dùng.');
     }
   };
 
@@ -111,10 +131,10 @@ const UserList = () => {
         <span>
           <Button
             type="link"
-            icon={<EditOutlined />}
-            onClick={() => navigate(`/admin/user/edit/${record.id}`)}
+            icon={<UserSwitchOutlined />}
+            onClick={() => showChangeRoleModal(record)}
           >
-            Sửa
+            Thay đổi vai trò
           </Button>
           <Popconfirm
             title="Bạn có chắc chắn muốn xóa người dùng này?"
@@ -145,8 +165,8 @@ const UserList = () => {
       />
       <Button
         type="primary"
-        icon={<EditOutlined />}
-        onClick={() => navigate('/admin/users/add')}
+        icon={<UploadOutlined />}
+        onClick={() => navigate('/admin/users/new')}
         style={{ marginBottom: '16px', marginLeft: '16px' }}
       >
         Thêm người dùng
@@ -170,6 +190,22 @@ const UserList = () => {
         </Button>
       </Upload>
       <Table columns={columns} dataSource={filteredUsers} rowKey="id" />
+      <Modal
+        title="Thay đổi vai trò người dùng"
+        visible={isModalVisible}
+        onOk={handleRoleChange}
+        onCancel={() => setIsModalVisible(false)}
+      >
+        <Select
+          value={selectedRole}
+          onChange={(value) => setSelectedRole(value)}
+          style={{ width: '100%' }}
+        >
+          <Select.Option value="user">User</Select.Option>
+          <Select.Option value="admin">Admin</Select.Option>
+          {/* Thêm các vai trò khác nếu có */}
+        </Select>
+      </Modal>
     </div>
   );
 };
