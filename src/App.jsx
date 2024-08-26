@@ -59,6 +59,7 @@ import UserList from "./components/User/Users/UserList.jsx";
 import AddUser from "./components/User/Users/AddUser.jsx";
 
 
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -116,7 +117,9 @@ const router = createBrowserRouter([
       { path: "categories/edit/:id", element: <CategoriesEdit /> },
       { path: "staffs", element: <StaffList /> },
       { path: "staffs/new", element: <StaffAdd /> },
+      // Thống Kê
       { path: "overview", element: <OverviewDashboard /> },
+      // 
       { path: "staffs/edit/:id", element: <StaffEdit /> },
       { path: "users", element: <UserList /> },
       { path: "users/new", element: <AddUser /> },

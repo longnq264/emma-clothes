@@ -1,4 +1,4 @@
-import react, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { getUsers, updateUser } from "../../api/api-server";
 import { useParams, useNavigate } from "react-router-dom";
 

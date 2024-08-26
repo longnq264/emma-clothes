@@ -1,4 +1,4 @@
-import react, { useState } from "react";
+import { useState } from "react";
 import { Button, Form, Input, message } from "antd";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";

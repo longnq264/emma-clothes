@@ -1,104 +1,160 @@
-import React from "react";
-import {
-  ChartPieIcon,
-  UsersIcon,
-  ShoppingCartIcon,
-  CurrencyDollarIcon,
-} from "@heroicons/react/24/outline";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-} from "recharts";
+import { useEffect, useState } from 'react';
+import { getProducts } from "../../../api/api-server";
+import { Card, Col, Row, Statistic, Table, Spin, Alert } from 'antd';
+import { DollarOutlined, ShoppingCartOutlined, EyeOutlined, TagOutlined } from '@ant-design/icons';
+import { PieChart, Pie, Tooltip, Legend, Cell } from 'recharts';
 
-// Ví dụ về dữ liệu biểu đồ
-const data = [
-  { name: "Jan", revenue: 4000 },
-  { name: "Feb", revenue: 3000 },
-  { name: "Mar", revenue: 5000 },
-  { name: "Apr", revenue: 4500 },
-  { name: "May", revenue: 6000 },
-  { name: "Jun", revenue: 7000 },
-];
+const calculateStatistics = (data) => {
+  const totalValue = data.reduce((sum, product) => sum + (product.price * product.quantity), 0);
+  const totalSold = data.reduce((sum, product) => sum + product.sold, 0);
+  const totalViews = data.reduce((sum, product) => sum + product.views, 0);
+
+  // Nhóm sản phẩm theo danh mục
+  const categoryTotals = data.reduce((acc, product) => {
+    const category = product.category.name; // mỗi sản phẩm có trường danh mục
+    if (!acc[category]) {
+      acc[category] = 0;
+    }
+    acc[category] += product.quantity;
+    return acc;
+  }, {});
+
+  const categoryData = Object.keys(categoryTotals).map(category => ({
+    name: category,
+    value: categoryTotals[category]
+  }));
+
+  return {
+    totalValue,
+    totalSold,
+    totalViews,
+    productCount: data.length,
+    topProducts: data.sort((a, b) => b.views - a.views).slice(0, 5),
+    categoryData // Dữ liệu mới cho biểu đồ hình tròn
+  };
+};
 
 const OverviewDashboard = () => {
+  const [statistics, setStatistics] = useState({
+    totalValue: 0,
+    totalSold: 0,
+    totalViews: 0,
+    productCount: 0,
+    topProducts: [],
+    categoryData: [] // Trạng thái mới cho dữ liệu danh mục
+  });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchProductData = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const { data } = await getProducts();
+        const stats = calculateStatistics(data);
+        setStatistics(stats);
+      } catch (error) {
+        setError("Failed to fetch product data");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProductData();
+  }, []);
+
+  const columns = [
+    {
+      title: 'Tên Sản Phẩm',
+      dataIndex: 'name',
+      key: 'name',
+    },
+    {
+      title: 'Lượt Xem',
+      dataIndex: 'views',
+      key: 'views',
+    },
+  ];
+
+  if (loading) return <div className="text-center"><Spin size="large" /></div>;
+  if (error) return <Alert message={error} type="error" showIcon />;
+
   return (
-    <div className="">
-      <br />
-      <h1 className="text-3xl font-bold mb-6">Tổng Quan Dashboard</h1>
+    <div className="container mx-auto py-8">
+      <h1 className="text-4xl font-bold mb-6">Thống Kê Tổng Quan</h1>
+      <Row gutter={16}>
+        <Col span={6}>
+          <Card>
+            <Statistic
+              title="Tổng Giá Trị Hàng Tồn Kho"
+              value={statistics.totalValue}
+              prefix={<DollarOutlined />}
+              precision={2}
+              valueStyle={{ color: '#3f8600' }}
+              suffix="₫"
+            />
+          </Card>
+        </Col>
+        <Col span={6}>
+          <Card>
+            <Statistic
+              title="Tổng Số Sản Phẩm Đã Bán"
+              value={statistics.totalSold}
+              prefix={<ShoppingCartOutlined />}
+              valueStyle={{ color: '#cf1322' }}
+            />
+          </Card>
+        </Col>
+        <Col span={6}>
+          <Card>
+            <Statistic
+              title="Tổng Lượt Xem"
+              value={statistics.totalViews}
+              prefix={<EyeOutlined />}
+              valueStyle={{ color: '#1890ff' }}
+            />
+          </Card>
+        </Col>
+        <Col span={6}>
+          <Card>
+            <Statistic
+              title="Tổng Số Sản Phẩm"
+              value={statistics.productCount}
+              prefix={<TagOutlined />}
+              valueStyle={{ color: '#faad14' }}
+            />
+          </Card>
+        </Col>
+      </Row>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {/* Tổng Doanh Thu */}
-        <div className="bg-white p-6 rounded-lg shadow-md flex items-center space-x-4">
-          <div className="flex-shrink-0">
-            <CurrencyDollarIcon className="h-8 w-8 text-green-500" />
-          </div>
-          <div>
-            <h2 className="text-xl font-semibold">Tổng Doanh Thu</h2>
-            <p className="text-2xl font-bold">$12,345</p>
-            <p className="text-sm text-gray-500">Doanh thu tháng này</p>
-          </div>
-        </div>
-
-        {/* Tổng Đơn Hàng */}
-        <div className="bg-white p-6 rounded-lg shadow-md flex items-center space-x-4">
-          <div className="flex-shrink-0">
-            <ShoppingCartIcon className="h-8 w-8 text-blue-500" />
-          </div>
-          <div>
-            <h2 className="text-xl font-semibold">Tổng Đơn Hàng</h2>
-            <p className="text-2xl font-bold">789</p>
-            <p className="text-sm text-gray-500">Đơn hàng trong tháng</p>
-          </div>
-        </div>
-
-        {/* Tổng Sản Phẩm */}
-        <div className="bg-white p-6 rounded-lg shadow-md flex items-center space-x-4">
-          <div className="flex-shrink-0">
-            <ChartPieIcon className="h-8 w-8 text-yellow-500" />
-          </div>
-          <div>
-            <h2 className="text-xl font-semibold">Tổng Sản Phẩm</h2>
-            <p className="text-2xl font-bold">456</p>
-            <p className="text-sm text-gray-500">Sản phẩm trong kho</p>
-          </div>
-        </div>
-
-        {/* Tổng Khách Hàng */}
-        <div className="bg-white p-6 rounded-lg shadow-md flex items-center space-x-4">
-          <div className="flex-shrink-0">
-            <UsersIcon className="h-8 w-8 text-red-500" />
-          </div>
-          <div>
-            <h2 className="text-xl font-semibold">Tổng Khách Hàng</h2>
-            <p className="text-2xl font-bold">1,234</p>
-            <p className="text-sm text-gray-500">Khách hàng hiện tại</p>
-          </div>
-        </div>
+      <div className="mt-8">
+        <h2 className="text-2xl font-bold mb-4">Sản Phẩm Có Lượt Xem Nhiều Nhất</h2>
+        <Table
+          columns={columns}
+          dataSource={statistics.topProducts}
+          rowKey="id"
+          pagination={false}
+        />
       </div>
 
-      {/* Thống kê bổ sung với biểu đồ */}
       <div className="mt-8">
-        <h2 className="text-2xl font-semibold mb-4">Thống Kê Bổ Sung</h2>
-        <div className="bg-white p-6 rounded-lg shadow-md">
-          <LineChart width={600} height={300} data={data}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Line
-              type="monotone"
-              dataKey="revenue"
-              stroke="#8884d8"
-              activeDot={{ r: 8 }}
-            />
-          </LineChart>
-        </div>
+        <h2 className="text-2xl font-bold mb-4">Số Lượng Sản Phẩm Theo Danh Mục</h2>
+        <PieChart width={800} height={400}>
+          <Pie
+            data={statistics.categoryData}
+            dataKey="value"
+            nameKey="name"
+            outerRadius={150}
+            fill="#8884d8"
+            label
+          >
+            {statistics.categoryData.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={index % 2 === 0 ? '#82ca9d' : '#8884d8'} />
+            ))}
+          </Pie>
+          <Tooltip />
+          <Legend />
+        </PieChart>
       </div>
     </div>
   );
