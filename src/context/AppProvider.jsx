@@ -139,7 +139,7 @@ const AppProvider = ({ children }) => {
       if (response.url) {
         window.location.href = response.url;
       }
-      if (response.message) {
+      if (response.message === "Order has been placed successfully") {
         window.location.href = "/checkout-done";
         dispatch(clearCart());
         localStorage.removeItem("cartItems");
