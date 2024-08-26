@@ -49,7 +49,7 @@ const ProfilePage = () => {
             </div>
           </div>
           <div className="basis-5/6 p-6">
-            <div className="bg-white rounded-lg shadow-lg">
+            <div className="bg-white rounded-lg shadow-lg min-h-screen">
               {renderContent()}
             </div>
           </div>

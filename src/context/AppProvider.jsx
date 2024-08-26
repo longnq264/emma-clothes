@@ -6,12 +6,15 @@ import { checkout } from "../api/api-server.js";
 import { notification } from "antd";
 import { useDispatch } from "react-redux";
 import { clearCart } from "../store/cartSlice.js";
+
 import { DarkModeProvider } from "../components/User/DarkModeProvider.jsx"; 
+
+import { fetchCarts } from "../store/cartThunk.js";
+
 
 const AppProvider = ({ children }) => {
   const dispatch = useDispatch();
   const [currentSelect, setCurrentSelect] = useState("city");
-  const [variants, setVariants] = useState([]);
   const [address, setAddress] = useState({
     cities: [],
     districts: [],
@@ -32,17 +35,6 @@ const AppProvider = ({ children }) => {
     name: "",
     phone_number: "",
     email: "",
-  });
-  const [formProduct, setFormProduct] = useState({
-    name: "",
-    description: "",
-    price: "",
-    price_old: "",
-    quantity: "",
-    category_id: "",
-    promotion: "Giảm giá đặc biệt",
-    status: "Active",
-    variants: variants,
   });
 
   // Address
@@ -127,7 +119,7 @@ const AppProvider = ({ children }) => {
       // Cập nhật giỏ hàng
       dispatch(clearCart());
       localStorage.removeItem("cartItems");
-
+      dispatch(fetchCarts());
       // Gửi email xác nhận (optional)
       // await sendConfirmationEmail(orderDetail);
 
@@ -147,7 +139,15 @@ const AppProvider = ({ children }) => {
   const handleCheckoutDetail = async (data, token) => {
     try {
       const response = await checkout(data, token);
-      handleCheckoutSuccess();
+      // handleCheckoutSuccess();
+      if (response.url) {
+        window.location.href = response.url;
+      }
+      if (response.message) {
+        window.location.href = "/checkout-done";
+        dispatch(clearCart());
+        localStorage.removeItem("cartItems");
+      }
       console.log(response);
     } catch (error) {
       console.log(error);

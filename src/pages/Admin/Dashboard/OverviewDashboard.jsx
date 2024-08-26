@@ -1,10 +1,9 @@
+
 import { useEffect, useState } from 'react';
 import { getProducts } from "../../../api/api-server";
 import { Card, Col, Row, Statistic, Table, Spin, Alert } from 'antd';
 import { DollarOutlined, ShoppingCartOutlined, EyeOutlined, TagOutlined } from '@ant-design/icons';
 import { PieChart, Pie, Tooltip, Legend, Cell } from 'recharts';
-
-
 const calculateStatistics = (data) => {
   const totalValue = data.reduce((sum, product) => sum + (product.price * product.quantity), 0);
   const totalSold = data.reduce((sum, product) => sum + product.sold, 0);
@@ -167,3 +166,4 @@ const OverviewDashboard = () => {
 };
 
 export default OverviewDashboard;
+

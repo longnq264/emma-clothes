@@ -80,7 +80,7 @@ const SuggestedProducts = () => {
           <p>No data</p>
         )}
       </div>
-      <ShowMoreBtn props={`/collection/77`} />
+      <ShowMoreBtn props={`/category/77`} />
     </div>
   );
 };

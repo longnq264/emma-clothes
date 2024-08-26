@@ -17,7 +17,6 @@ const UserForm = () => {
   const { orderDetail, setOrderDetail, handleCheckoutDetail } =
     useContext(AppContext);
   const [formSubmitted, setFormSubmitted] = useState(false);
-
   const token = getTokenFromLocalStorage();
   const navigate = useNavigate();
   console.log(token);
@@ -41,8 +40,7 @@ const UserForm = () => {
         try {
           console.log(token);
 
-          const response = await handleCheckoutDetail(orderDetail, token);
-          console.log(response);
+          await handleCheckoutDetail(orderDetail, token);
 
           console.log("Request sent successfully");
         } catch (error) {
@@ -72,11 +70,15 @@ const UserForm = () => {
           style={{
             maxWidth: 800,
           }}
-          initialValues={{
-            name: userData.name || "",
-            phone_number: userData.phone_number,
-            email: userData.email,
-          }}
+          initialValues={
+            token
+              ? {
+                  name: userData.name || "",
+                  phone_number: userData.phone_number,
+                  email: userData.email,
+                }
+              : ""
+          }
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           autoComplete="off"

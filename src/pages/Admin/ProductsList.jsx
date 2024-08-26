@@ -165,6 +165,7 @@ const ProductsList = () => {
                   </td>
                   <td className="py-3 px-4 text-gray-700">{product.description}</td>
                   <td className="py-3 px-4 text-gray-700">{product.quantity}</td>
+
                   <td className="py-3 px-4 text-gray-700">{product.view}</td>
                   <td className="py-3 px-4 text-gray-700">
                     {getParentCategory(product.category.parent_id)}

@@ -1,83 +1,90 @@
-import { Form } from "antd";
-import PropTypes from "prop-types";
+import { Form, Input } from "antd";
+
 const ProductTitleForm = () => {
   return (
     <div className="col-span-full">
       <div className="grid grid-cols-4">
-        <Form.Item className="pr-6">
+        <div className="pr-6">
           <label
-            htmlFor="product-name"
+            htmlFor="name"
             className="block text-lg font-medium text-gray-900 pb-2"
           >
             Tên sản phẩm
           </label>
-          <input
-            type="text"
+          <Form.Item
             name="name"
-            id="product-name"
-            className="w-full border-gray-300 border-2 rounded-md p-3"
-            placeholder="Nhập tên sản phẩm"
-            required
-          />
-        </Form.Item>
+            rules={[
+              {
+                required: true,
+                message: "Please input!",
+              },
+            ]}
+          >
+            <Input
+              autoComplete="on"
+              placeholder="Nhập tên sản phẩm"
+              className="w-full border-gray-300 border-2 rounded-md p-3"
+            />
+          </Form.Item>
+        </div>
 
-        <Form.Item className="pr-6">
+        <div className="pr-6">
           <label
-            htmlFor="price"
+            htmlFor="product-price"
             className="block text-lg font-medium text-gray-900 pb-2"
           >
-            Giá
+            Price
           </label>
-          <input
-            type="number"
+          <Form.Item
             name="price"
-            id="price"
-            //   onChange={handleChange}
-            className="w-full border-gray-300 border-2 rounded-md p-3"
-            placeholder="Nhập giá sản phẩm"
-            required
-          />
-        </Form.Item>
+            rules={[
+              {
+                required: true,
+                message: "Please input!",
+              },
+            ]}
+          >
+            <Input
+              placeholder="Price"
+              className="w-full border-gray-300 border-2 rounded-md p-3"
+            />
+          </Form.Item>
+        </div>
 
-        <Form.Item className="pr-6">
+        <div className="pr-6">
           <label
-            htmlFor="priceOld"
+            htmlFor="price_old"
             className="block text-lg font-medium text-gray-900 pb-2"
           >
             Giá cũ
           </label>
-          <input
-            type="number"
-            name="priceOld"
-            id="priceOld"
-            //   onChange={handleChange}
-            className="w-full border-gray-300 border-2 rounded-md p-3"
-            placeholder="Nhập giá cũ sản phẩm"
-          />
-        </Form.Item>
+          <Form.Item name="price_old">
+            <Input
+              placeholder="Price Old"
+              className="w-full border-gray-300 border-2 rounded-md p-3"
+            />
+          </Form.Item>
+        </div>
 
-        <Form.Item className="pr-6">
+        <div className="pr-6">
           <label
             htmlFor="quantity"
             className="block text-lg font-medium text-gray-900 pb-2"
           >
             Số lượng
           </label>
-          <input
-            type="number"
-            name="quantity"
-            id="quantity"
-            //   onChange={handleChange}
-            className="w-full border-gray-300 border-2 rounded-md p-3"
-            placeholder="Nhập số lượng sản phẩm"
-          />
-        </Form.Item>
+          <Form.Item name="quantity">
+            <Input
+              type="number"
+              id="quantity"
+              className="w-full border-gray-300 border-2 rounded-md p-3"
+              placeholder="Nhập số lượng sản phẩm"
+            />
+          </Form.Item>
+        </div>
       </div>
     </div>
   );
 };
 
-ProductTitleForm.propTypes = {
-  product: PropTypes.any,
-};
 export default ProductTitleForm;

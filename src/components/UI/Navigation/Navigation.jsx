@@ -8,7 +8,11 @@ const Navigation = () => {
 
   const fetchCategories = async () => {
     const response = await getCategories();
-    setCategories(response.data[0].children);
+    console.log(response);
+    const activeCategories = response.data[0].children.filter(
+      (category) => category.status === "Active"
+    );
+    setCategories(activeCategories);
   };
 
   useEffect(() => {
