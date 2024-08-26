@@ -3,6 +3,11 @@ import axios from 'axios';
 const API_URL = 'http://127.0.0.1:8000/api';
 const AUTH_TOKEN = 'Bearer 46|VVmgwGGGyXwpFnQvU7oiChlSncm0NqIOyBUKY63P2848f6ec';
 
+// Hàm để lấy token từ localStorage
+const getTokenFromLocalStorage = () => {
+  return localStorage.getItem('token') || '';
+};
+
 // Hàm để tạo đơn hàng mới
 export const addOrder = async (orderData) => {
   try {
@@ -127,6 +132,28 @@ export const fetchOrderDetails = async (orderId) => {
     }
   } catch (error) {
     console.error('Lỗi khi lấy chi tiết đơn hàng:', error);
+    throw error;
+  }
+};
+// Hàm để lấy danh sách đơn hàng (list-order)
+export const listOrder = async () => {
+  const token = getTokenFromLocalStorage();
+  try {
+    const response = await axios.get(`${API_URL}/list-order`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (response.data && Array.isArray(response.data.data)) {
+      console.log('Danh sách đơn hàng từ API:', response.data);
+      return response.data.data;
+    } else {
+      console.warn('API không trả về một mảng, trả về một mảng rỗng.');
+      return [];
+    }
+  } catch (error) {
+    console.error('Lỗi khi lấy danh sách đơn hàng:', error);
     throw error;
   }
 };
