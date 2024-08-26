@@ -9,11 +9,11 @@ const SelectShiping = () => {
       value: shipping,
       desc: "Đảm bảo nhận hàng từ 3 - 5 ngày",
     },
-    {
-      label: "Nhanh ",
-      value: 30000,
-      desc: "Đảm bảo nhận hàng từ 2 - 3 ngày",
-    },
+    // {
+    //   label: "Nhanh ",
+    //   value: 30000,
+    //   desc: "Đảm bảo nhận hàng từ 2 - 3 ngày",
+    // },
   ];
 
   return (
