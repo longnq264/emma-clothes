@@ -1,30 +1,26 @@
-import axios from 'axios';
+import axios from "axios";
 
-const API_URL = 'http://127.0.0.1:8000/api';
-const AUTH_TOKEN = 'Bearer 46|VVmgwGGGyXwpFnQvU7oiChlSncm0NqIOyBUKY63P2848f6ec';
+const API_URL = "http://127.0.0.1:8000/api";
+const AUTH_TOKEN = "Bearer 46|VVmgwGGGyXwpFnQvU7oiChlSncm0NqIOyBUKY63P2848f6ec";
 
 // Hàm để lấy token từ localStorage
 const getTokenFromLocalStorage = () => {
-  return localStorage.getItem('token') || '';
+  return localStorage.getItem("token") || "";
 };
 
 // Hàm để tạo đơn hàng mới
 export const addOrder = async (orderData) => {
   try {
-    const response = await axios.post(
-      `${API_URL}/orders`,
-      orderData,
-      {
-        headers: {
-          Authorization: AUTH_TOKEN,
-        },
-      }
-    );
+    const response = await axios.post(`${API_URL}/orders`, orderData, {
+      headers: {
+        Authorization: AUTH_TOKEN,
+      },
+    });
 
-    console.log('Đơn hàng đã được tạo:', response.data);
+    console.log("Đơn hàng đã được tạo:", response.data);
     return response.data;
   } catch (error) {
-    console.error('Lỗi khi tạo đơn hàng:', error);
+    console.error("Lỗi khi tạo đơn hàng:", error);
     throw error;
   }
 };
@@ -38,14 +34,14 @@ export const fetchOrders = async () => {
     });
 
     if (response.data && Array.isArray(response.data.data)) {
-      console.log('Dữ liệu phản hồi từ API:', response.data);
+      console.log("Dữ liệu phản hồi từ API:", response.data);
       return response.data.data;
     } else {
-      console.warn('API không trả về một mảng, trả về một mảng rỗng.');
+      console.warn("API không trả về một mảng, trả về một mảng rỗng.");
       return [];
     }
   } catch (error) {
-    console.error('Lỗi khi lấy đơn hàng:', error);
+    console.error("Lỗi khi lấy đơn hàng:", error);
     throw error;
   }
 };
@@ -64,7 +60,7 @@ export const updateOrderStatus = async (orderId, newStatus) => {
     );
     return response.data;
   } catch (error) {
-    console.error('Lỗi khi cập nhật trạng thái đơn hàng:', error);
+    console.error("Lỗi khi cập nhật trạng thái đơn hàng:", error);
     throw error;
   }
 };
@@ -83,7 +79,7 @@ export const cancelOrder = async (orderId) => {
     );
     return response.data;
   } catch (error) {
-    console.error('Lỗi khi hủy đơn hàng:', error);
+    console.error("Lỗi khi hủy đơn hàng:", error);
     throw error;
   }
 };
@@ -121,17 +117,17 @@ export const fetchOrderDetails = async (orderId) => {
       },
     });
 
-    console.log('API response:', response.data); // Kiểm tra toàn bộ phản hồi từ API
+    console.log("API response:", response.data); // Kiểm tra toàn bộ phản hồi từ API
 
     if (response.data && response.data.data) {
-      console.log('Chi tiết đơn hàng:', response.data.data);
+      console.log("Chi tiết đơn hàng:", response.data.data);
       return response.data.data;
     } else {
-      console.warn('Không tìm thấy chi tiết đơn hàng, trả về null.');
+      console.warn("Không tìm thấy chi tiết đơn hàng, trả về null.");
       return null;
     }
   } catch (error) {
-    console.error('Lỗi khi lấy chi tiết đơn hàng:', error);
+    console.error("Lỗi khi lấy chi tiết đơn hàng:", error);
     throw error;
   }
 };
@@ -146,14 +142,14 @@ export const listOrder = async () => {
     });
 
     if (response.data && Array.isArray(response.data.data)) {
-      console.log('Danh sách đơn hàng từ API:', response.data);
+      console.log("Danh sách đơn hàng từ API:", response.data);
       return response.data.data;
     } else {
-      console.warn('API không trả về một mảng, trả về một mảng rỗng.');
+      console.warn("API không trả về một mảng, trả về một mảng rỗng.");
       return [];
     }
   } catch (error) {
-    console.error('Lỗi khi lấy danh sách đơn hàng:', error);
+    console.error("Lỗi khi lấy danh sách đơn hàng:", error);
     throw error;
   }
 };
