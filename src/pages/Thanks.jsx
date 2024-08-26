@@ -1,10 +1,13 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchCarts } from "../store/cartThunk";
+import { clearCart } from "../store/cartSlice";
 
 const Thanks = () => {
   const dispatch = useDispatch();
   useEffect(() => {
+    dispatch(clearCart());
+    localStorage.removeItem("cartItems");
     dispatch(fetchCarts());
   }, [dispatch]);
   return (

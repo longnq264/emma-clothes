@@ -141,8 +141,6 @@ const AppProvider = ({ children }) => {
       }
       if (response.message === "Order has been placed successfully") {
         window.location.href = "/checkout-done";
-        dispatch(clearCart());
-        localStorage.removeItem("cartItems");
       }
       console.log(response);
     } catch (error) {
