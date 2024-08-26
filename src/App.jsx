@@ -57,6 +57,7 @@ import OrderDetails from "./components/User/Order/OrderDetails.jsx";
 import ListOrder from "./components/User/Order/ListOrder.jsx";
 import AddOrders from "./components/User/Order/Addorder.jsx";
 import Thanks from "./pages/Thanks.jsx";
+import ForgotPassword from "./pages/Auth/ForgotPassword.jsx";
 
 const router = createBrowserRouter([
   {
@@ -94,6 +95,7 @@ const router = createBrowserRouter([
     children: [
       { path: "login", element: <Signin /> },
       { path: "register", element: <Signup /> },
+      { path: "forgotpassword", element: <ForgotPassword /> },
       { path: "loginAdmin", element: <LoginAdmin /> },
     ],
   },
