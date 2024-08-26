@@ -1,18 +1,26 @@
-// import { useNavigate } from "react-router-dom";
 import { Button, Form } from "antd";
 import AttributesProduct from "../../components/User/Products/AttributesProduct";
 import ProductTitleForm from "../../components/User/SubmitForm/ProductTitleForm";
-import GetListCategories from "../../components/User/Products/GetListCategories";
 import { useState } from "react";
-import { createProduct } from "../../api/api-server";
 import ProductImagesForm from "../../components/User/Products/ProductImageForm";
-import UploadImage from "../../components/User/Products/UploadImage";
+import {
+  createProductItem,
+  createProductVariants,
+  getProductItems,
+} from "../../api/post-product";
+// import UploadImage from "../../components/User/Products/UploadImage";
 
 const ProductAdd = () => {
-  const [variants, setVariants] = useState([]);
   const [images, setImages] = useState([]);
+  const [isVariant, setIsVariant] = useState(false);
+  const [productItemsUser, setProductItemsUser] = useState([]);
+  const [productItem, setProductItem] = useState([]);
+  const [variants, setVariants] = useState([]);
+  const [idProduct, setIdProduct] = useState([]);
   console.log(images);
   console.log(variants);
+  console.log(productItem);
+  console.log(idProduct);
 
   const onFinish = async (values) => {
     console.log("Success:", values);
@@ -20,20 +28,23 @@ const ProductAdd = () => {
     const formData = {
       name: values.name,
       description: values.description,
-      images: images,
       price: Number(values.price),
       price_old: Number(values.price_old),
       quantity: Number(values.quantity),
       category_id: values.category,
       promotion: "Giảm giá đặc biệt", //khuyến mãi
       status: "Active", //trạng thái
-      variants: variants,
+      images: images,
     };
-    console.log(formData);
 
     try {
-      const response = await createProduct(formData);
-      console.log(response);
+      const response = await createProductItem(formData);
+      console.log("response", response);
+      setProductItem(response.data);
+      setIdProduct(response.data.id);
+      if (response.data.status) {
+        setIsVariant(true);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -41,6 +52,38 @@ const ProductAdd = () => {
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
+  };
+
+  const handleVariantSubmit = async () => {
+    if (variants.length === 0 || !productItem) return;
+
+    const variantData = {
+      product_id: productItem.id,
+      attribute: variants,
+      stock: productItem.stock,
+      price: productItem.price,
+    };
+
+    try {
+      const response = await createProductVariants(idProduct, variantData);
+      console.log("Variant response", response);
+      if (response.status === true) {
+        fetchProductItems(idProduct);
+        console.log("success");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fetchProductItems = async (id) => {
+    try {
+      const response = await getProductItems(id);
+      setProductItemsUser(response.data.productVariants);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -58,14 +101,8 @@ const ProductAdd = () => {
       >
         {/* Image */}
         <ProductImagesForm images={images} setImages={setImages} />
-        <UploadImage images={images} setImages={setImages} />
 
         <ProductTitleForm />
-
-        <GetListCategories />
-
-        {/* Variants */}
-        <AttributesProduct variants={variants} setVariants={setVariants} />
 
         <Form.Item className="flex justify-end">
           <Button
@@ -77,6 +114,31 @@ const ProductAdd = () => {
           </Button>
         </Form.Item>
       </Form>
+
+      {/* <UploadImage images={images} setImages={setImages} /> */}
+
+      {/* Variants */}
+      {isVariant && (
+        <>
+          <AttributesProduct
+            productItemsUser={productItemsUser}
+            variants={variants}
+            setVariants={setVariants}
+            idProduct={idProduct}
+          />
+
+          {/* Submit button for variants */}
+          <div className="flex justify-start mt-10">
+            <Button
+              type="primary"
+              onClick={handleVariantSubmit}
+              className="bg-blue-500 text-lg"
+            >
+              Tạo Thuộc Tính
+            </Button>
+          </div>
+        </>
+      )}
     </div>
   );
 };
