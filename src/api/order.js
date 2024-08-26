@@ -1,11 +1,7 @@
 import axios from "axios";
+import { getTokenFromLocalStorage } from "../utils/indexUtils";
 
 const API_URL = "http://127.0.0.1:8000/api";
-
-// Hàm để lấy token từ localStorage
-const getTokenFromLocalStorage = () => {
-  return localStorage.getItem("token") || "";
-};
 
 // Hàm để tạo đơn hàng mới
 export const addOrder = async (orderData) => {
