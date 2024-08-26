@@ -317,7 +317,7 @@ const NavBar = ({ isOpen, darkMode }) => {
             } ${darkMode ? "bg-gray-700" : "bg-gray-200"} rounded-lg`}
           >
             <NavLink
-              to="/admin/users/new"
+              to="/admin/users/add"
               className={`block px-4 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300 ${
                 darkMode
                   ? "text-gray-200 hover:bg-gray-600"

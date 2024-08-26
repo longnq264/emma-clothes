@@ -11,6 +11,7 @@ import {
 } from 'antd';
 import { getCategory, updateCategory, getCategories } from '../../../api/api-server';
 import { useParams, useNavigate } from 'react-router-dom';
+import { SaveOutlined, ReloadOutlined  } from '@ant-design/icons';
 
 const { Option } = Select;
 
@@ -164,13 +165,13 @@ const CategoriesEdit = () => {
           </Form.Item>
           <Form.Item>
             <Space>
-              <Button type="primary" htmlType="submit">
+              <Button type="primary" htmlType="submit" icon={<SaveOutlined />}>
                 Cập Nhật
               </Button>
-              <Button type="default" onClick={() => form.resetFields()}>
+              <Button type="default" onClick={() => form.resetFields()} icon={<ReloadOutlined />}>
                 Làm mới
               </Button>
-              <Button type="default" onClick={onExit}>
+              <Button type="default" onClick={onExit}  >
                 Thoát
               </Button>
             </Space>
