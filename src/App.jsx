@@ -60,16 +60,20 @@ import Thanks from "./pages/Thanks.jsx";
 import ForgotPassword from "./pages/Auth/ForgotPassword.jsx";
 import ProtectedRoute from "./ProtectedRoute.jsx";
 import GetData from "./pages/Auth/GetData.jsx";
+import { getRoleFromLocalStorage } from "./utils/indexUtils.js";
 
-const getAccessToken = () => {
-  return localStorage.getItem("admin");
-};
+// const getAccessToken = () => {
+//   return localStorage.getItem("admin");
+// };
 
 const isAuthenticated = () => {
-  console.log(!!getAccessToken);
+  console.log(getRoleFromLocalStorage());
 
-  return !!getAccessToken();
+  console.log(!!getRoleFromLocalStorage());
+
+  return !!getRoleFromLocalStorage();
 };
+
 const router = createBrowserRouter([
   {
     path: "/",
