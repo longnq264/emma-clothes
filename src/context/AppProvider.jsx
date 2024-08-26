@@ -3,17 +3,15 @@ import { AppContext } from "./AppContext.jsx";
 import { useEffect, useState } from "react";
 import { getCities, getDistricts, getWards } from "../api/addressApi.js";
 import { checkout } from "../api/api-server.js";
-import { notification } from "antd";
-import { useDispatch } from "react-redux";
-import { clearCart } from "../store/cartSlice.js";
+// import { useDispatch } from "react-redux";
+// import { notification } from "antd";
+// import { clearCart } from "../store/cartSlice.js";
+// import { fetchCarts } from "../store/cartThunk.js";
 
-import { DarkModeProvider } from "../components/User/DarkModeProvider.jsx"; 
-
-import { fetchCarts } from "../store/cartThunk.js";
-
+import { DarkModeProvider } from "../components/User/DarkModeProvider.jsx";
 
 const AppProvider = ({ children }) => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const [currentSelect, setCurrentSelect] = useState("city");
   const [address, setAddress] = useState({
     cities: [],
@@ -107,34 +105,34 @@ const AppProvider = ({ children }) => {
   };
 
   // if true
-  const handleCheckoutSuccess = async () => {
-    try {
-      // Sucss order
-      notification.success({
-        message: "Thanh toán thành công",
-        description:
-          "Cảm ơn bạn đã mua hàng. Đơn hàng của bạn đang được xử lý.",
-      });
+  // const handleCheckoutSuccess = async () => {
+  //   try {
+  //     // Sucss order
+  //     notification.success({
+  //       message: "Thanh toán thành công",
+  //       description:
+  //         "Cảm ơn bạn đã mua hàng. Đơn hàng của bạn đang được xử lý.",
+  //     });
 
-      // Cập nhật giỏ hàng
-      dispatch(clearCart());
-      localStorage.removeItem("cartItems");
-      dispatch(fetchCarts());
-      // Gửi email xác nhận (optional)
-      // await sendConfirmationEmail(orderDetail);
+  //     // Cập nhật giỏ hàng
+  //     dispatch(clearCart());
+  //     localStorage.removeItem("cartItems");
+  //     dispatch(fetchCarts());
+  //     // Gửi email xác nhận (optional)
+  //     // await sendConfirmationEmail(orderDetail);
 
-      // Ghi nhận hành vi của người dùng (analytics)
-      // analytics.track('Checkout Success', {
-      //   orderId: orderDetail.id,
-      //   amount: orderDetail.total,
-      // });
+  //     // Ghi nhận hành vi của người dùng (analytics)
+  //     // analytics.track('Checkout Success', {
+  //     //   orderId: orderDetail.id,
+  //     //   amount: orderDetail.total,
+  //     // });
 
-      // Cập nhật trạng thái đơn hàng trong hệ thống
-      // await updateOrderStatus(orderDetail.id, 'Processing');
-    } catch (error) {
-      console.error("Checkout success handling failed", error);
-    }
-  };
+  //     // Cập nhật trạng thái đơn hàng trong hệ thống
+  //     // await updateOrderStatus(orderDetail.id, 'Processing');
+  //   } catch (error) {
+  //     console.error("Checkout success handling failed", error);
+  //   }
+  // };
   // handle checkout
   const handleCheckoutDetail = async (data, token) => {
     try {
@@ -159,23 +157,25 @@ const AppProvider = ({ children }) => {
   };
 
   return (
-    <DarkModeProvider> {/* Bao bọc bằng DarkModeProvider */}
-    <AppContext.Provider
-      value={{
-        address,
-        setAddress,
-        currentSelect,
-        handleCityChange,
-        handleDistrictChange,
-        handleWardChange,
-        handleButtonClick,
-        handleCheckoutDetail,
-        orderDetail,
-        setOrderDetail,
-      }}
-    >
-      {children}
-    </AppContext.Provider>
+    <DarkModeProvider>
+      {" "}
+      {/* Bao bọc bằng DarkModeProvider */}
+      <AppContext.Provider
+        value={{
+          address,
+          setAddress,
+          currentSelect,
+          handleCityChange,
+          handleDistrictChange,
+          handleWardChange,
+          handleButtonClick,
+          handleCheckoutDetail,
+          orderDetail,
+          setOrderDetail,
+        }}
+      >
+        {children}
+      </AppContext.Provider>
     </DarkModeProvider>
   );
 };

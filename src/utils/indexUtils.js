@@ -11,6 +11,12 @@ export const getCartFromLocalStorage = () => {
   return cartItems ? JSON.parse(cartItems) : [];
 };
 
+export const getRoleFromLocalStorage = () => {
+  const admin = localStorage.getItem("admin");
+  console.log(admin);
+
+  return admin ? admin : true;
+};
 // export const getTotalQauntity = () => {
 //   const totalQuantity = localStorage.getItem("cartItems")
 // }
