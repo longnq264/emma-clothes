@@ -139,6 +139,11 @@ const AppProvider = ({ children }) => {
       if (response.url) {
         window.location.href = response.url;
       }
+      if (response.message) {
+        window.location.href = "/checkout-done";
+        dispatch(clearCart());
+        localStorage.removeItem("cartItems");
+      }
       console.log(response);
     } catch (error) {
       console.log(error);
