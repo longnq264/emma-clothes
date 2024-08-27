@@ -9,7 +9,7 @@ const ProductTitleForm = () => {
           <div className="pr-6">
             <label
               htmlFor="name"
-              className="block text-lg font-medium text-gray-900 pb-2"
+              className="block text-lg font-medium text-gray-900 pb-2 pl-2"
             >
               Tên sản phẩm
             </label>
@@ -33,9 +33,9 @@ const ProductTitleForm = () => {
           <div className="pr-6">
             <label
               htmlFor="product-price"
-              className="block text-lg font-medium text-gray-900 pb-2"
+              className="block text-lg font-medium text-gray-900 pb-2 pl-2"
             >
-              Price
+              Giá sản phẩm
             </label>
             <Form.Item
               name="price"
@@ -56,7 +56,7 @@ const ProductTitleForm = () => {
           <div className="pr-6">
             <label
               htmlFor="price_old"
-              className="block text-lg font-medium text-gray-900 pb-2"
+              className="block text-lg font-medium text-gray-900 pb-2 pl-2"
             >
               Giá cũ
             </label>
@@ -71,7 +71,7 @@ const ProductTitleForm = () => {
           <div className="pr-6">
             <label
               htmlFor="quantity"
-              className="block text-lg font-medium text-gray-900 pb-2"
+              className="block text-lg font-medium text-gray-900 pb-2 pl-2"
             >
               Số lượng
             </label>

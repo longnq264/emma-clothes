@@ -16,6 +16,6 @@ const ProtectedRoute = ({ isAuthenticated }) => {
   );
 };
 ProtectedRoute.propTypes = {
-  isAuthenticated: PropTypes.any,
+  isAuthenticated: PropTypes.bool.isRequired,
 };
 export default ProtectedRoute;

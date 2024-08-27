@@ -38,7 +38,7 @@ const AdminLayout = () => {
 
   const handleLogout = () => {
     if (window.confirm("Bạn có chắc chắn muốn đăng xuất không?")) {
-      localStorage.removeItem("authToken");
+      localStorage.removeItem("adminToken");
       localStorage.removeItem("admin");
       navigate("/auth/loginAdmin");
     }

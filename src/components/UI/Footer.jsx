@@ -18,7 +18,7 @@ export const NAV_LINKS_FOOTER = [
 const Footer = () => {
   return (
     <footer className="bg-gray-900 text-slate-100 py-10">
-      <div className="container mx-auto">
+      <div className="container mx-auto px-2 md:px-0">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Company Information */}
           <div className="space-y-4">
@@ -94,7 +94,7 @@ const Footer = () => {
               <li>Chứng nhận doanh nghiệp xanh</li>
             </ul>
           </div>
-          <div className="space-y-4 mx-40">
+          <div className="space-y-4">
             <h2 className="text-xl font-bold">Subscribe to our Newsletter</h2>
             <form className="flex space-x-2">
               <input

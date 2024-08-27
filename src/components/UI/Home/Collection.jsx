@@ -26,11 +26,11 @@ const initState = [
 
 const Collection = () => {
   return (
-    <div className="container mx-auto py-10">
+    <div className="px-2 md:px-0 container mx-auto py-10">
       <h1 className="title my-10 font-semibold text-stone-700">
         Bộ Sưu Tập Nổi Bật
       </h1>
-      <div className="grid grid-cols-4 gap-x-4 text-center">
+      <div className="md:grid grid-cols-4 gap-x-4 text-center">
         {initState.map((data, index) => (
           <div className="relative " key={index}>
             <NavLink to="/collection/summer">

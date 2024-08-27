@@ -17,7 +17,7 @@ const Banner = () => {
     getBannerPage();
   }, []);
   return (
-    <div className="">
+    <div className="box-border">
       <Carousel afterChange={onChange}>
         {state.map((data) => (
           <div key={data.id}>

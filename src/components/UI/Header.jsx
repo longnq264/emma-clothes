@@ -4,7 +4,7 @@ import Navigation from "./Navigation/Navigation";
 import Search from "./Search";
 import DropDownProfile from "./Navigation/DropDownProfile";
 import CartQuantity from "./Cart/CartQuantity";
-
+import { GiHamburgerMenu } from "react-icons/gi";
 const Header = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -36,10 +36,15 @@ const Header = () => {
         <div className="bg-stone-900 py-1 text-center text-sm">
           Get UPTO 40% OFF on your 1st order
         </div>
-        <div className="bg-slate-50 py-3 text-center text-xl text-stone-600 border-b">
+        <div className="hidden md:block bg-slate-50 py-3 text-center text-xl text-stone-600 border-b">
           Get UPTO 40% OFF on your 1st order
         </div>
-        <div className="container mx-auto flex justify-between">
+        <div className="container mx-auto flex justify-between px-2 lg:px-0">
+          <div className="flex items-center min-w-20 lg:hidden">
+            <button className="flex items-center text-black">
+              <GiHamburgerMenu size={24} />
+            </button>
+          </div>
           <div className="flex items-center">
             <Logo />
             <Navigation />

@@ -88,7 +88,7 @@ const ProductAdd = () => {
 
   return (
     <div className="container mx-auto px-4 mb-20">
-      <h1 className="pl-8 text-4xl text-stone-700 font-extrabold pb-4">
+      <h1 className="pl-8 text-4xl text-stone-700 font-extrabold pb-6">
         Thêm Sản Phẩm
       </h1>
       <Form
@@ -97,20 +97,20 @@ const ProductAdd = () => {
         }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
-        className="space-y-8 bg-white shadow-lg rounded-lg p-8"
+        className="space-y-8 bg-white rounded-lg p-8"
       >
         {/* Image */}
         <ProductImagesForm images={images} setImages={setImages} />
 
         <ProductTitleForm />
 
-        <Form.Item className="flex justify-end">
+        <Form.Item className="flex justify-start">
           <Button
             type="primary"
             htmlType="submit"
-            className="bg-orange-500 text-lg mt-10"
+            className="bg-orange-500 text-lg"
           >
-            Thêm Sản Phẩm
+            Thêm thuộc tính
           </Button>
         </Form.Item>
       </Form>
@@ -119,7 +119,7 @@ const ProductAdd = () => {
 
       {/* Variants */}
       {isVariant && (
-        <>
+        <div className="px-8">
           <AttributesProduct
             productItemsUser={productItemsUser}
             variants={variants}
@@ -132,12 +132,12 @@ const ProductAdd = () => {
             <Button
               type="primary"
               onClick={handleVariantSubmit}
-              className="bg-blue-500 text-lg"
+              className="bg-orange-400 text-lg"
             >
-              Tạo Thuộc Tính
+              Thêm Sản Phẩm
             </Button>
           </div>
-        </>
+        </div>
       )}
     </div>
   );

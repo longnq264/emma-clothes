@@ -1,13 +1,13 @@
 import menImage from "../../../assets/img/men-clothing.jpg";
 const AboutUs = () => {
   return (
-    <div className="about-us-home mt-14">
+    <div className="px-2 md:px-0 mt-14">
       <div className="container mx-auto">
-        <div className="flex">
+        <div className="md:flex">
           <div className="basis-1/2">
             <img className="w-full" src={menImage} alt="" />
           </div>
-          <div className="basis-1/2 pl-20 pt-10">
+          <div className="basis-1/2">
             <h1 className="text-6xl font-bold text-stone-500">About Us</h1>
             <p className="pt-10 text-lg pr-28">
               Lorem Ipsum has been the standard dummy text ever since the 1500s,

@@ -61,23 +61,29 @@ const Search = () => {
 
   return (
     <div className="flex items-center">
-      <div className="relative">
+      <div className="relative ">
         <input
           onClick={handleSearchClick}
           type="text"
-          className="bg-gray-200 text-black placeholder-gray-400 py-2 rounded-full pl-10 focus:outline-none"
+          className="text-black placeholder-gray-400 py-2 rounded-full pl-10 focus:outline-none bg-gray-200 hidden lg:block"
           placeholder="Search"
         />
         <FaSearch
-          className="absolute left-3 top-3 text-grey-500"
+          className="absolute left-3 top-3 text-grey-500 hidden lg:block"
           color="gray"
         />
+        <button className="lg:hidden bg-stone-600">
+          <FaSearch
+            className="absolute right-2 top-1 text-stone-700"
+            size={18}
+          />
+        </button>
       </div>
       {isDropdownOpen && (
-        <div className="absolute bg-white top-0 left-0 w-full z-10">
+        <div className="absolute bg-white top-20 left-0 w-full z-10">
           <div className="header-wrap border-b">
             <div className="container mx-auto">
-              <div className="flex justify-between py-4">
+              <div className="flex justify-between py-3">
                 <div className="search-wrap">
                   <Logo />
                 </div>

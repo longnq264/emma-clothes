@@ -60,22 +60,16 @@ import Thanks from "./pages/Thanks.jsx";
 import ForgotPassword from "./pages/Auth/ForgotPassword.jsx";
 import ProtectedRoute from "./ProtectedRoute.jsx";
 import GetData from "./pages/Auth/GetData.jsx";
-import { getRoleFromLocalStorage } from "./utils/indexUtils.js";
 import AttributeList from "./components/User/Attributes/AttributeList.jsx";
 import EditAttribute from "./components/User/Attributes/EditAttribute.jsx";
 import AddAttribute from "./components/User/Attributes/AddAttribute.jsx";
- 
 
-// const getAccessToken = () => {
-//   return localStorage.getItem("admin");
-// };
+const getAccessToken = () => {
+  return localStorage.getItem("adminToken");
+};
 
 const isAuthenticated = () => {
-  console.log(getRoleFromLocalStorage());
-
-  console.log(!!getRoleFromLocalStorage());
-
-  return !!getRoleFromLocalStorage();
+  return !!getAccessToken();
 };
 
 const router = createBrowserRouter([
@@ -171,3 +165,4 @@ function App() {
 }
 
 export default App;
+
