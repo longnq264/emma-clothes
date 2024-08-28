@@ -20,7 +20,7 @@ const Navigation = () => {
   }, []);
   return (
     <>
-      <nav className="pl-10">
+      <nav className="pl-10 hidden lg:block ">
         <ul className="flex">
           {categories.map((item, index) => (
             <li

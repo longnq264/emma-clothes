@@ -386,10 +386,14 @@ export const getDashboardData = async () => {
     return response.data;
   } catch (error) {
     // Kiểm tra lỗi và phản hồi từ API
-    console.error("Error fetching dashboard data:", error.response ? error.response.data : error.message);
+    console.error(
+      "Error fetching dashboard data:",
+      error.response ? error.response.data : error.message
+    );
     throw error;
   }
 };
+
 
 
 
@@ -404,4 +408,5 @@ export const filterProducts = async (filters) => {
     throw error;
   }
 };
+
 

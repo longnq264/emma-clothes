@@ -3,25 +3,33 @@ import { Button, Form, Input, message } from "antd";
 
 import { useNavigate } from "react-router-dom";
 import { login } from "../../api/api-server"; // Import phương thức từ api-server
+import { getAdminLocalStorage } from "../../utils/indexUtils";
 
 const SigninAdmin = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  console.log(localStorage.getItem("tokenAdmin"));
 
-  const loginUser = async (formData) => {
+  const loginAdmin = async (formData) => {
     setLoading(true);
     setErrorMessage("");
     try {
       const response = await login(formData); // Sử dụng phương thức login từ api-server
-      const user = response.data.role;
+      const user = response.data;
+      const role = user.role;
       console.log(user);
 
-      if (user === "admin") {
+      if (role === "admin") {
+        console.log(role);
+
         message.success("Đăng nhập thành công!");
-        localStorage.setItem("token", response.token);
-        localStorage.setItem("user", JSON.stringify(response.data));
-        localStorage.setItem("admin", false);
+        localStorage.setItem("adminToken", response.token);
+        localStorage.setItem("admin", JSON.stringify(response.data));
+        // localStorage.setItem("admin", false);
+        const tokenFormLocal = getAdminLocalStorage();
+        console.log(tokenFormLocal);
+
         navigate("/admin");
       } else {
         message.error("Bạn không có quyền truy cập trang admin.");
@@ -41,7 +49,7 @@ const SigninAdmin = () => {
   };
 
   const onFinish = async (values) => {
-    await loginUser(values);
+    await loginAdmin(values);
   };
 
   const onFinishFailed = (errorInfo) => {

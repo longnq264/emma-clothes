@@ -4,13 +4,13 @@ import Footer from "../components/UI/Footer";
 
 const RootLayout = () => {
   return (
-    <div>
+    <>
       <Header />
-      <main className="min-h-screen mb-4 mt-40 pt-2">
+      <main className="min-h-screen mb-4 mt-20 lg:mt-40 pt-2 w-full">
         <Outlet />
       </main>
       <Footer />
-    </div>
+    </>
   );
 };
 

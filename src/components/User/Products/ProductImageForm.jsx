@@ -17,7 +17,7 @@ const ProductImagesForm = ({ images, setImages }) => {
 
   return (
     <>
-      <div className="col-span-full">
+      <div className="col-span-full pb-8">
         <div className="flex">
           <div className="wrap-input w-2/6">
             <h2 className="text-lg font-medium text-gray-900 pb-2">
@@ -33,7 +33,7 @@ const ProductImagesForm = ({ images, setImages }) => {
             <Button
               type="primary"
               onClick={handleAddImage}
-              className="ml-2 w-1/4"
+              className="ml-2 w-1/4 bg-orange-400"
             >
               Thêm Hình Ảnh
             </Button>

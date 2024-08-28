@@ -36,7 +36,7 @@ const CategoryPopular = () => {
         Sản phẩm ưa chuộng
       </h1>
 
-      <div className="flex justify-center mb-16">
+      <div className="flex justify-center flex-wrap mb-16">
         {categories.map((category) => (
           <button
             key={category.id}

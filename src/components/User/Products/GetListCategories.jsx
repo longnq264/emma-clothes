@@ -24,7 +24,7 @@ const GetListCategories = () => {
     <div className="col-span-full">
       <div className="flex">
         <div className="w-1/4">
-          <h2 className="pb-2 text-lg">Danh mục</h2>
+          <h2 className="pb-2 text-lg font-medium text-gray-900">Danh mục</h2>
           <div className="">
             <Form.Item
               name="category"
@@ -55,7 +55,7 @@ const GetListCategories = () => {
           </div>
         </div>
         <div className="w-3/4 pl-20">
-          <h2 className="text-lg pb-2">Description</h2>
+          <h2 className="text-lg font-medium text-gray-900 pb-2">Nhập mô tả</h2>
           <Form.Item
             name="description"
             rules={[

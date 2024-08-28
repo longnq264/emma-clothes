@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Checkbox } from "antd";
 import { getAttributes } from "../../../api/api-server";
 import PropTypes from "prop-types";
+
 const AttributesProduct = ({
   variants,
   setVariants,
@@ -61,18 +62,19 @@ const AttributesProduct = ({
   console.log(idProduct);
 
   return (
-    <div className="col-span-full">
-      <h2 className="block text-xl font-medium text-gray-900 pb-4">
+    <div className="col-span-full rounded-lg bg-slate-100 shadow-inner p-4">
+      <h2 className="block text-3xl font-medium text-gray-900 pb-4">
         Thuộc tính
       </h2>
-      <div className="flex">
-        <div className="basis-1/4">
+      <div className="flex px-2">
+        <div className="basis-2/3">
           {attributes.map((attribute) => (
             <div key={attribute.id} className="mb-6">
-              <p className="text-sm pb-2">{attribute.name}</p>
-              <div>
+              <p className="text-sm pb-4 text-xl">{attribute.name}</p>
+              <div className="bg-white rounded-lg shadow-inner">
                 {attribute.values.map((value) => (
                   <Checkbox
+                    className="text-lg p-4"
                     key={value.id}
                     value={value.id}
                     checked={
@@ -95,11 +97,14 @@ const AttributesProduct = ({
             </div>
           ))}
         </div>
-        <div className="basis-4/5">
+        <div className="ml-20 basis-1/3 bg-white p-4 rounded-lg shadow-inner">
+          <h1 className="text-xl pb-2">
+            Danh sách thuộc tính sản phẩm đã thêm
+          </h1>
           {productItemsUser.map((data) => (
             <div key={data.id}>
               <div className="flex">
-                <h1 className="text-black">{data.sku}</h1>
+                <h1 className="text-black text-lg pb-2">{data.sku}</h1>
               </div>
             </div>
           ))}
