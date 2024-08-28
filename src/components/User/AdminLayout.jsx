@@ -66,7 +66,7 @@ const AdminLayout = () => {
                 : "text-gray-800 hover:text-gray-600"
             } transition duration-300`}
           >
-            Emmaclothes
+            EMMA
           </NavLink>
 
           <div className="flex items-center space-x-4">

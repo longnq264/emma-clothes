@@ -1,14 +1,17 @@
 import { useState, useEffect } from 'react';
-import { Table, Button, Input, message, Upload } from 'antd';
-import { getUsers, deleteUser, importUsers } from '../../../api/users';
+import { Table, Button, Input, message, Upload, Popconfirm, Modal, Select } from 'antd';
+import { getUsers, deleteUser, importUsers, changeUserRole } from '../../../api/users';
 import moment from 'moment';
-import { SearchOutlined, UploadOutlined } from '@ant-design/icons';
+import { SearchOutlined, UploadOutlined, DeleteOutlined, DownloadOutlined, UserSwitchOutlined } from '@ant-design/icons';
 import FileSaver from 'file-saver';
 import { useNavigate } from 'react-router-dom';
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [selectedRole, setSelectedRole] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -18,7 +21,6 @@ const UserList = () => {
   const fetchUsers = async () => {
     try {
       const response = await getUsers();
-      // Extract the 'data' array from the response structure
       const usersData = response.data.data;
       setUsers(usersData);
     } catch (error) {
@@ -33,6 +35,23 @@ const UserList = () => {
       fetchUsers();
     } catch (error) {
       message.error('Lỗi khi xóa người dùng.');
+    }
+  };
+
+  const showChangeRoleModal = (user) => {
+    setSelectedUser(user);
+    setSelectedRole(user.role);
+    setIsModalVisible(true);
+  };
+
+  const handleRoleChange = async () => {
+    try {
+      await changeUserRole(selectedUser.id, { role: selectedRole });
+      message.success('Thay đổi vai trò người dùng thành công');
+      fetchUsers();
+      setIsModalVisible(false);
+    } catch (error) {
+      message.error('Lỗi khi thay đổi vai trò người dùng.');
     }
   };
 
@@ -110,40 +129,83 @@ const UserList = () => {
       key: 'actions',
       render: (text, record) => (
         <span>
-          <Button type="link" onClick={() => navigate(`/admin/user/edit/${record.id}`)}>
-            Sửa
+          <Button
+            type="link"
+            icon={<UserSwitchOutlined />}
+            onClick={() => showChangeRoleModal(record)}
+          >
+            Thay đổi vai trò
           </Button>
-          <Button type="link" danger onClick={() => handleDeleteUser(record.id)}>
-            Xóa
-          </Button>
+          <Popconfirm
+            title="Bạn có chắc chắn muốn xóa người dùng này?"
+            onConfirm={() => handleDeleteUser(record.id)}
+            okText="Có"
+            cancelText="Không"
+          >
+            <Button
+              type="link"
+              icon={<DeleteOutlined />}
+              danger
+            >
+              Xóa
+            </Button>
+          </Popconfirm>
         </span>
       ),
     },
   ];
 
   return (
-    <div>
+    <div style={{ padding: '24px' }}>
       <Input
         placeholder="Tìm kiếm người dùng"
         prefix={<SearchOutlined />}
         onChange={(e) => handleSearch(e.target.value)}
         style={{ width: '300px', marginBottom: '16px' }}
       />
-      <Button type="primary" onClick={() => navigate('/users/add')} style={{ marginBottom: '16px', marginLeft: '16px' }}>
+      <Button
+        type="primary"
+        icon={<UploadOutlined />}
+        onClick={() => navigate('/admin/users/new')}
+        style={{ marginBottom: '16px', marginLeft: '16px' }}
+      >
         Thêm người dùng
       </Button>
-      <Button onClick={handleExport} style={{ marginBottom: '16px', marginLeft: '16px' }}>
+      <Button
+        onClick={handleExport}
+        style={{ marginBottom: '16px', marginLeft: '16px' }}
+        icon={<DownloadOutlined />}
+      >
         Xuất người dùng
       </Button>
       <Upload
         customRequest={handleImport}
         showUploadList={false}
       >
-        <Button icon={<UploadOutlined />} style={{ marginBottom: '16px', marginLeft: '16px' }}>
+        <Button
+          icon={<UploadOutlined />}
+          style={{ marginBottom: '16px', marginLeft: '16px' }}
+        >
           Nhập người dùng
         </Button>
       </Upload>
       <Table columns={columns} dataSource={filteredUsers} rowKey="id" />
+      <Modal
+        title="Thay đổi vai trò người dùng"
+        visible={isModalVisible}
+        onOk={handleRoleChange}
+        onCancel={() => setIsModalVisible(false)}
+      >
+        <Select
+          value={selectedRole}
+          onChange={(value) => setSelectedRole(value)}
+          style={{ width: '100%' }}
+        >
+          <Select.Option value="user">User</Select.Option>
+          <Select.Option value="admin">Admin</Select.Option>
+          {/* Thêm các vai trò khác nếu có */}
+        </Select>
+      </Modal>
     </div>
   );
 };

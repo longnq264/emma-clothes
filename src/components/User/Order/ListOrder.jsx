@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import { Table, Select, Button, Popconfirm, message, DatePicker, Input } from 'antd';
+import { Table, Select, Button, Popconfirm, message, DatePicker, Input, Space } from 'antd';
 import { fetchOrders, updateOrderStatus } from '../../../api/order';
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
+import { PrinterOutlined, EyeOutlined, DeleteOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
 const { RangePicker } = DatePicker;
@@ -14,7 +15,7 @@ const ListOrder = () => {
   const [loading, setLoading] = useState(true);
   const [dateRange, setDateRange] = useState(null);
   const [searchText, setSearchText] = useState('');
-  const [statusFilter   ] = useState(null);
+  const [statusFilter, setStatusFilter] = useState(null);
 
   const navigate = useNavigate();
 
@@ -199,18 +200,18 @@ const ListOrder = () => {
       title: 'Hành động',
       key: 'action',
       render: (text, record) => (
-        <div>
+        <Space size="middle">
           <Button
             type="primary"
+            icon={<PrinterOutlined />}
             onClick={() => handlePrintOrder(record.id)}
-            style={{ marginRight: 8 }}
           >
             In đơn hàng
           </Button>
           <Button
             type="default"
+            icon={<EyeOutlined />}
             onClick={() => navigate(`/admin/orders/${record.id}`)}
-            style={{ marginRight: 8 }}
           >
             Xem sản phẩm
           </Button>
@@ -220,18 +221,22 @@ const ListOrder = () => {
             okText="Có"
             cancelText="Không"
           >
-            <Button type="primary" danger={record.status_id === 5}>
+            <Button
+              type="primary"
+              danger={record.status_id === 5}
+              icon={<DeleteOutlined />}
+            >
               Hủy đơn hàng
             </Button>
           </Popconfirm>
-        </div>
+        </Space>
       ),
     },
   ];
 
   return (
     <div>
-      <h2>Đơn hàng quản trị viên</h2>
+      <h2 className="text-2xl font-bold mb-4">Đơn hàng quản trị viên</h2>
       <div className="flex justify-between mb-4">
         <Search
           placeholder="Tìm kiếm tên người dùng"
@@ -239,7 +244,7 @@ const ListOrder = () => {
           style={{ width: 300, marginRight: 16 }}
         />
         <RangePicker onChange={handleDateChange} />
-        {/* <Select
+        <Select
           placeholder="Chọn trạng thái"
           onChange={(value) => {
             setStatusFilter(value);
@@ -254,7 +259,7 @@ const ListOrder = () => {
           <Option value={3} style={{ color: 'purple' }}>Đã gửi hàng</Option>
           <Option value={4} style={{ color: 'green' }}>Đã giao hàng</Option>
           <Option value={5} style={{ color: 'red' }}>Đã hủy</Option>
-        </Select> */}
+        </Select>
       </div>
       <Table
         columns={columns}

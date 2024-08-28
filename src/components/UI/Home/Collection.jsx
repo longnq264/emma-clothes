@@ -5,22 +5,22 @@ const initState = [
   {
     name: "Emma",
     image: collectionImage,
-    url: "",
+    url: "../../../assets/img/woman-clothing.jpg",
   },
   {
     name: "Emma Sport",
     image: collectionImage,
-    url: "",
+    url: "../../../assets/img/woman-clothing.jpg",
   },
   {
     name: "Emma Hoodie",
     image: collectionImage,
-    url: "",
+    url: "../../../assets/img/woman-clothing.jpg",
   },
   {
     name: "Cargo Pants",
     image: collectionImage,
-    url: "",
+    url: "../../../assets/img/woman-clothing.jpg",
   },
 ];
 

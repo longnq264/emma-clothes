@@ -7,7 +7,6 @@ import {
   FaTag,
   FaCartPlus,
   FaUsers,
-  
 } from "react-icons/fa";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 
@@ -17,10 +16,7 @@ const NavBar = ({ isOpen, darkMode }) => {
   // const [isStaffsOpen, setIsStaffsOpen] = useState(false);
   const [isUsersOpen, setIsUsersOpen] = useState(false);
   const [isBannerOpen, setIsBannerOpen] = useState(false);
-  const [isOrdersOpen, setIsOrdersOpen] = useState(false); 
-  
-
-  
+  const [isOrdersOpen, setIsOrdersOpen] = useState(false);
 
   return (
     <div
@@ -391,7 +387,6 @@ const NavBar = ({ isOpen, darkMode }) => {
             </NavLink>
           </div>
         </div>
-
       </nav>
     </div>
   );
