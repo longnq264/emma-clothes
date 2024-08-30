@@ -5,7 +5,9 @@ const authSlice = createSlice({
   name: "auth",
   initialState: {
     user: JSON.parse(localStorage.getItem("user")) || null,
+    admin: JSON.parse(localStorage.getItem("admin")) || null,
     token: localStorage.getItem("token") || null,
+    adminToken: localStorage.getItem("adminToken") || null,
     status: "idle",
     error: null,
   },

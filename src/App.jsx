@@ -69,6 +69,8 @@ const getAccessToken = () => {
 };
 
 const isAuthenticated = () => {
+  console.log(getAccessToken());
+
   return !!getAccessToken();
 };
 
@@ -86,10 +88,8 @@ const router = createBrowserRouter([
       { path: "/contact", element: <ContactPage /> },
       { path: "/privacy", element: <PrivacyPage /> },
       { path: "/terms", element: <TermsPage /> },
-      //role collection
       { path: "/collection", element: <CollectionPage /> },
       { path: "/collection/:role", element: <CollectionDetailPage /> },
-      //role categories
       { path: "/category/:id", element: <ProductPage /> },
       { path: "/products", element: <ProductPage /> },
       { path: "/products/:id", element: <ProductDetail /> },
