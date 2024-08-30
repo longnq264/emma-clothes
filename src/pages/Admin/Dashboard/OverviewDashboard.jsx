@@ -74,6 +74,8 @@ const OverviewDashboard = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const [adminInfo, setAdminInfo] = useState({ name: '', email: '' });
+
   useEffect(() => {
     const fetchProductData = async () => {
       setLoading(true);
@@ -88,6 +90,12 @@ const OverviewDashboard = () => {
         setLoading(false);
       }
     };
+
+    // Load admin info ở localStorage
+
+    const admin = JSON.parse(localStorage.getItem("admin")) || {};
+    setAdminInfo({ name: admin.name || '', email: admin.email || '' });
+
     fetchProductData();
   }, []);
 
@@ -129,6 +137,10 @@ const OverviewDashboard = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-4xl font-bold mb-6">Thống Kê Tổng Quan</h1>
+      <div className="mb-6 p-4 bg-gray-100 rounded-lg shadow-md">
+        <h2 className="text-2xl font-bold">Chào Mừng, {adminInfo.name}!</h2>
+        <p className="text-gray-600">Email: {adminInfo.email}</p>
+      </div>
       <Row gutter={16}>
         <Col span={8}>
           <Card className="shadow-lg">

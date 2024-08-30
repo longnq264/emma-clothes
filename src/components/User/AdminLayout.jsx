@@ -109,13 +109,13 @@ const AdminLayout = () => {
                   }`}
                 >
                   <NavLink
-                    to="/account/settings"
+                    to="/admin/profile"
                     className={`flex items-center px-4 py-2 hover:bg-gray-200 ${
                       darkMode ? "hover:bg-gray-700" : "hover:bg-gray-200"
                     }`}
                   >
                     <FaCog className="text-lg" />
-                    <span className="ml-2">Account settings</span>
+                    <span className="ml-2">Account </span>
                   </NavLink>
 
                   <NavLink

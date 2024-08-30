@@ -81,11 +81,11 @@ const Navigation = () => {
             </li>
           ))}
           <li className="relative px-4 py-7 list text-stone-800">
-            <NavLink to={`/collection/:role`}>
+            {/* <NavLink to={`/collection/:role`}>
               <span className="text-lg text-stone-700 font-semibold capitalize">
                 bộ sưu tập
               </span>
-            </NavLink>
+            </NavLink> */}
           </li>
         </ul>
       </nav>

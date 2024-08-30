@@ -63,6 +63,7 @@ import GetData from "./pages/Auth/GetData.jsx";
 import AttributeList from "./components/User/Attributes/AttributeList.jsx";
 import EditAttribute from "./components/User/Attributes/EditAttribute.jsx";
 import AddAttribute from "./components/User/Attributes/AddAttribute.jsx";
+import ProfileAdmin from "./pages/Admin/ProfileAdmin.jsx";
 
 const getAccessToken = () => {
   return localStorage.getItem("adminToken");
@@ -120,6 +121,8 @@ const router = createBrowserRouter([
 
     children: [
       { path: "", element: <DashBoardPage /> },
+      { path: "profile", element: <ProfileAdmin /> },
+
       // { path: "order", element: <OrderPage /> },
       // { path: "Addorder", element: < /> },
       { path: "orders", element: <ListOrder /> },
