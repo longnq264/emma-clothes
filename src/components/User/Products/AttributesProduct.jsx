@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Checkbox } from "antd";
 import { getAttributes } from "../../../api/api-server";
 import PropTypes from "prop-types";
-
 const AttributesProduct = ({
   variants,
   setVariants,
