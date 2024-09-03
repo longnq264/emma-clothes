@@ -56,8 +56,8 @@ const UserForm = () => {
   };
 
   return (
-    <div className="user-form flex justify-end">
-      <div className="size-2/4">
+    <div className="user-form md:flex justify-end w-full">
+      <div className="md:size-3/5 px-6 md:pr-14 md:min-w-96">
         <h2 className="text-xl font-bold pb-6">Người nhận</h2>
         <Form
           name="basic"

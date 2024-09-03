@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <footer className="bg-stone-800 text-white py-4">
+    <footer className="bg-stone-800 text-white py-4 w-full">
       <div className="container mx-auto text-center">
         <p className="text-sm">
           &copy; 2024 Emma Clothing. All rights reserved.

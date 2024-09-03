@@ -6,7 +6,7 @@ import { addItemToCart } from "../../store/cartSlice";
 import { addToCartItems, fetchCarts } from "../../store/cartThunk";
 import PaymentIcon from "../../components/UI/Cart/PaymentIcon";
 import SuggestedProducts from "../../components/UI/Home/SuggestedProducts";
-
+import { formatCurrency } from "../../utils/helperFunction.js";
 const ProductDetail = () => {
   const { id } = useParams();
   const [data, setData] = useState([]);
@@ -159,9 +159,10 @@ const ProductDetail = () => {
                     {selectedVariant.sku}
                   </p>
                   <p className="text-2xl font-bold my-2 pt-6">
-                    {selectedVariant.price} đ
+                    {formatCurrency(selectedVariant.price)}
+
                     <span className="text-stone-400 text-lg my-2 ml-2 line-through">
-                      {data.price_old} đ
+                      {formatCurrency(data.price_old)}
                     </span>
                   </p>
                 </div>

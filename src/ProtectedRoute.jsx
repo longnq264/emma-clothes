@@ -1,10 +1,8 @@
-import PropTypes from "prop-types";
 import { Navigate, Outlet } from "react-router-dom";
 import AdminLayout from "./components/User/AdminLayout";
 
-const ProtectedRoute = ({ isAuthenticated }) => {
-  console.log(isAuthenticated);
-
+const ProtectedRoute = () => {
+  const isAuthenticated = localStorage.getItem("adminToken");
   if (!isAuthenticated) {
     return <Navigate to="/auth/loginAdmin" replace />;
   }
@@ -15,7 +13,5 @@ const ProtectedRoute = ({ isAuthenticated }) => {
     </AdminLayout>
   );
 };
-ProtectedRoute.propTypes = {
-  isAuthenticated: PropTypes.bool.isRequired,
-};
+
 export default ProtectedRoute;

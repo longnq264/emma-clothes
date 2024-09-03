@@ -37,7 +37,7 @@ const SuggestedProducts = () => {
 
   return (
     <div className="container mx-auto py-8 px-2 md:px-0">
-      <div className="flex justify-center items-center mb-10">
+      <div className="flex flex-col md:flex-row justify-center items-center mb-10">
         <h2 className="text-2xl font-semibold text-gray-600 capitalize">
           Gợi ý sản phẩm
         </h2>
@@ -59,16 +59,16 @@ const SuggestedProducts = () => {
           </select>
         </div>
       </div>
-      <div className="grid grid-cols-2 gap-2 lg:grid-cols-5 lg:gap-4">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-2 xl:grid-cols-5 lg:gap-4">
         {products.length > 0 ? (
           products.slice(0, 10).map((product) => (
             <NavLink key={product.id} to={`/products/${product.id}`}>
               <div className="relative mb-8 shadow-md">
-                <div className="min-h-96">
+                <div className="md:min-h-96">
                   <ProductImage images={product.productImages} />
                 </div>
                 <div className="px-2 pb-4">
-                  <h3 className="mt-4 text-base font-semibold text-gray-700 h-14 capitalize">
+                  <h3 className="mt-4 text-base font-semibold text-gray-700 md:h-14 capitalize">
                     {product.name}
                   </h3>
                   <p className="pt-2"> {formatCurrency(product.price)}</p>
