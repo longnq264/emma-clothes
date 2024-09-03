@@ -26,8 +26,8 @@ const CartPage = () => {
   }
   return (
     <>
-      <div className="bg-gray-100 min-h-screen py-5">
-        <div className="container mx-auto px-16">
+      <div className="bg-gray-100 min-h-screen md:py-5">
+        <div className="container mx-auto md:px-16">
           {items.length === 0 ? (
             <ClearCart />
           ) : (
@@ -37,7 +37,7 @@ const CartPage = () => {
                   Giỏ hàng của bạn
                 </h2>
               </div>
-              <div className="flex">
+              <div className="md:flex">
                 <div className="cart-page basis-3/5">
                   <>
                     <div className="progcess bg-white mb-4">

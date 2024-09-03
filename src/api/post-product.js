@@ -45,10 +45,8 @@ export const getProductItems = async (id) => {
 // http://127.0.0.1:8000/api/products/variants/update-multiple
 
 export const updateMultiple = async (productData) => {
-  console.log(productData);
-
   try {
-    const response = await axios.put(
+    const response = await axios.post(
       `${API_URL}/products/variants/update-multiple`,
       productData
     );

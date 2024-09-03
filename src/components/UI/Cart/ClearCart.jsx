@@ -4,9 +4,11 @@ import emptyImg from "../../../assets/img/emty.jpg";
 const ClearCart = () => {
   return (
     <div className="">
-      <h1 className="text-2xl font-bold text-center my-4">Không có sản phẩm nào trong giỏ hàng!</h1>
-      <div className="w-3/12 container mx-auto">
-        <img className="grid place-items-center" src={emptyImg} alt="" />
+      <h1 className="px-4 text-2xl font-bold text-center my-4">
+        Không có sản phẩm nào trong giỏ hàng!
+      </h1>
+      <div className="w-2/3 md:w-3/12 container mx-auto">
+        <img className="w-full" src={emptyImg} alt="" />
       </div>
       <div className="grid place-items-center my-10">
         <NavLink to="/products">

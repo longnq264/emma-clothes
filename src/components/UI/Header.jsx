@@ -29,7 +29,7 @@ const Header = () => {
   return (
     <>
       <header
-        className={`bg-slate-50 text-white shadow fixed w-full top-0 left-0 z-50 transition-transform duration-300 ${
+        className={`bg-slate-50 text-white shadow fixed w-full top-0 pb-2 left-0 z-50 transition-transform duration-300 ${
           isVisible ? "transform translate-y-0" : "transform -translate-y-full "
         }`}
       >
@@ -40,7 +40,7 @@ const Header = () => {
           Get UPTO 40% OFF on your 1st order
         </div>
         <div className="container mx-auto flex justify-between px-2 py-1 lg:px-0">
-          <div className="flex items-center min-w-20 lg:hidden">
+          <div className="flex items-center pr-3 sm:min-w-20 lg:hidden">
             <button className="flex items-center text-black">
               <GiHamburgerMenu size={24} />
             </button>

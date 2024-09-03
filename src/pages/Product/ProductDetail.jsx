@@ -7,6 +7,7 @@ import { addToCartItems, fetchCarts } from "../../store/cartThunk";
 import PaymentIcon from "../../components/UI/Cart/PaymentIcon";
 import SuggestedProducts from "../../components/UI/Home/SuggestedProducts";
 import { formatCurrency } from "../../utils/helperFunction.js";
+
 const ProductDetail = () => {
   const { id } = useParams();
   const [data, setData] = useState([]);
@@ -15,6 +16,7 @@ const ProductDetail = () => {
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedVariant, setSelectedVariant] = useState([]);
   const [quantity, setQuantity] = useState(1);
+
   console.log("sku", selectedVariant.sku);
   console.log(mainImage);
 
@@ -86,6 +88,7 @@ const ProductDetail = () => {
       const sizes = firstVariant.attributes.filter(
         (attr) => attr.attribute_id === 2
       );
+
       if (colors.length > 0) {
         setSelectedColor(colors[0].value); // Chọn màu đầu tiên
         setSelectedSize(sizes.length > 0 ? sizes[0].value : ""); // Chọn kích cỡ đầu tiên nếu có
@@ -116,14 +119,14 @@ const ProductDetail = () => {
   }, [selectedColor, selectedSize, data.productVariants]);
 
   return (
-    <div className="pt-10">
+    <div className="md:pt-10">
       <div
-        className="content container mx-auto px-20 my-2"
+        className="content container mx-auto md:px-20 my-2"
         style={{ minHeight: "140vh" }}
       >
-        <div className="flex ">
-          <div className="product-detail-image w-1/2 flex">
-            <div className="thumbail">
+        <div className="md:flex">
+          <div className="product-detail-image md:w-1/2 flex">
+            <div className="hidden md:block thumbail">
               {mainImage
                 .filter((image) => image.is_thumbnail === 0)
                 .map((image, index) => (
@@ -136,7 +139,7 @@ const ProductDetail = () => {
                   </div>
                 ))}
             </div>
-            <div className="product-image ml-2">
+            <div className="product-image">
               {mainImage
                 .filter((image) => image.is_thumbnail === 1)
                 .map((image, index) => (
@@ -150,8 +153,8 @@ const ProductDetail = () => {
                 ))}
             </div>
           </div>
-          <div className="min-h-40 pl-16 pt-6 text-stone-700 w-1/2">
-            <h1 className="font-bold text-2xl">{data.name}</h1>
+          <div className="min-h-40 px-6 md:pl-16 pt-6 text-stone-700 md:w-1/2">
+            <h1 className="font-bold md:text-2xl">{data.name}</h1>
             <div className="variants flex">
               {selectedVariant ? (
                 <div className="detail">
@@ -227,8 +230,8 @@ const ProductDetail = () => {
               ) : (
                 <p>No variants available</p>
               )}
-              <div className="flex">
-                <div className="flex justify-center items-center basis-1/4 border rounded-lg my-4 mr-6">
+              <div className="md:flex">
+                <div className="flex justify-center items-center basis-1/4 border rounded-lg my-4 min-h-14">
                   <button
                     className="font-bold basis-1/3"
                     onClick={() => setQuantity((q) => (q > 1 ? q - 1 : q))}
@@ -244,7 +247,7 @@ const ProductDetail = () => {
                   </button>
                 </div>
                 <button
-                  className="px-10 py-2 border-2 border-black font-bold my-5 rounded-lg basis-3/4 uppercase hover:bg-gray-100"
+                  className="px-10 py-2 border-2 border-black font-bold my-5 w-full rounded-lg md:basis-3/4 uppercase hover:bg-gray-100"
                   onClick={handleAddToCart}
                 >
                   Thêm vào giỏ hàng

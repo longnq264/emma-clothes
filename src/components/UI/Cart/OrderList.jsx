@@ -9,7 +9,7 @@ const OrderList = () => {
   const discount = useSelector((state) => state.cart.discount);
   const priceCheckout = calculateTotalPriceAll(totalPrice, delivery, discount);
   return (
-    <div className="cart-detail bg-white basis-2/5 ml-4 p-6">
+    <div className="cart-detail bg-white basis-2/5 md:ml-4 p-6 mt-2 md:mt-0">
       <h1 className="font-bold text-xl mb-5">Chi tiết đơn hàng</h1>
       <div className="content order">
         <div className="flex justify-between mb-4">

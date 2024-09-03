@@ -4,6 +4,7 @@ import { Carousel } from "antd";
 import { useEffect, useState } from "react";
 import { getBanners } from "../../../api/api-server";
 import { Link, NavLink } from "react-router-dom";
+import VideoBanner from "./VideoBanner";
 const Banner = () => {
   const [state, setState] = useState([]);
   const getBannerPage = async () => {
@@ -18,21 +19,24 @@ const Banner = () => {
   }, []);
   return (
     <div className="box-border">
-      <Carousel afterChange={onChange}>
-        {state.map((data) => (
-          <div key={data.id}>
-            <NavLink to="/products">
-              <img
-                className="w-full"
-                src={
-                  "https://cdn.wconcept.com/contents/display/category/WUS/A01/contents/2372_27617_14_ENG_20240812175059.gif"
-                }
-                alt=""
-              />
-            </NavLink>
-          </div>
-        ))}
-      </Carousel>
+      <VideoBanner />
+      <div className="hidden md:block">
+        <Carousel afterChange={onChange}>
+          {state.map((data) => (
+            <div key={data.id}>
+              <NavLink to="/products">
+                <img
+                  className="w-full"
+                  src={
+                    "https://cdn.wconcept.com/contents/display/category/WUS/A01/contents/2372_27617_14_ENG_20240812175059.gif"
+                  }
+                  alt=""
+                />
+              </NavLink>
+            </div>
+          ))}
+        </Carousel>
+      </div>
       <div className="w-full bg-stone-100 text-center py-2">
         <p className="">
           Get UPTO 40% OFF on your 1st order{" "}
