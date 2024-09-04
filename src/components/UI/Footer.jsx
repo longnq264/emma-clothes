@@ -19,7 +19,7 @@ const Footer = () => {
   return (
     <footer className="bg-gray-900 text-slate-100 py-10">
       <div className="container mx-auto px-2 md:px-0">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Company Information */}
           <div className="space-y-4">
             <h2 className="text-xl font-bold">Liên Hệ</h2>
