@@ -25,27 +25,21 @@ const CartCheckbox = () => {
   const dispatch = useDispatch();
   const token = getTokenFromLocalStorage();
 
-  // Xử lý thay đổi số lượng sản phẩm
   const handleQuantityChange = (id, newQuantity) => {
     if (newQuantity <= 0) {
-      // Nếu số lượng <= 0, xóa sản phẩm khỏi giỏ hàng
       if (token) {
-        // Nếu có token, gọi API để xóa sản phẩm
         dispatch(removeCartItem(id));
         dispatch(fetchCarts(token));
       } else {
-        // Nếu không có token, chỉ cần cập nhật giỏ hàng trong state và localStorage
         const updatedItems = cartItems.filter((item) => item.id !== id);
         setCartItems(updatedItems);
         saveCartToLocalStorage(updatedItems);
       }
     } else {
-      // Nếu số lượng > 0, cập nhật số lượng sản phẩm
       if (token) {
-        // Nếu có token, gọi API để cập nhật số lượng sản phẩm
         dispatch(updateCartQuantity({ id, quantity: newQuantity, token }));
       }
-      // Cập nhật số lượng trong state và localStorage
+
       const updatedItems = cartItems.map((item) =>
         item.id === id ? { ...item, quantity: newQuantity } : item
       );
@@ -57,7 +51,6 @@ const CartCheckbox = () => {
     }
   };
 
-  // Tính tổng số lượng sản phẩm
   const totalQuantity = cartItems.reduce(
     (total, item) => total + item.quantity,
     0
@@ -106,7 +99,7 @@ const CartCheckbox = () => {
       {cartItems.map((item) => (
         <div
           key={item.id}
-          className="border-t-4 border-gray-100 px-4 py-6 flex justify-between"
+          className="border-t-4 border-gray-100 px-6 py-6 flex justify-between"
         >
           <div className="flex">
             <div className="w-32">

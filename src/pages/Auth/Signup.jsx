@@ -17,7 +17,6 @@ const Signup = () => {
 
     try {
       await dispatch(registerUser(formData));
-
       navigate("/");
     } catch (error) {
       console.error("Registration failed:", error);

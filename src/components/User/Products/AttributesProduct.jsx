@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import { Checkbox } from "antd";
 import { getAttributes } from "../../../api/api-server";
 import PropTypes from "prop-types";
-
+import OnChangeAttribute from "./OnChangeAttribute";
 const AttributesProduct = ({
   variants,
   setVariants,
   idProduct,
   productItemsUser,
+  setProductItemsUser,
 }) => {
   const [attributes, setAttributes] = useState([]);
   console.log("selected variant", variants);
@@ -67,7 +68,7 @@ const AttributesProduct = ({
         Thuộc tính
       </h2>
       <div className="flex px-2">
-        <div className="basis-2/3">
+        <div className="basis-1/3">
           {attributes.map((attribute) => (
             <div key={attribute.id} className="mb-6">
               <p className="text-sm pb-4 text-xl">{attribute.name}</p>
@@ -97,18 +98,11 @@ const AttributesProduct = ({
             </div>
           ))}
         </div>
-        <div className="ml-20 basis-1/3 bg-white p-4 rounded-lg shadow-inner">
-          <h1 className="text-xl pb-2">
-            Danh sách thuộc tính sản phẩm đã thêm
-          </h1>
-          {productItemsUser.map((data) => (
-            <div key={data.id}>
-              <div className="flex">
-                <h1 className="text-black text-lg pb-2">{data.sku}</h1>
-              </div>
-            </div>
-          ))}
-        </div>
+
+        <OnChangeAttribute
+          productItemsUser={productItemsUser}
+          setProductItemsUser={setProductItemsUser}
+        />
       </div>
     </div>
   );
@@ -119,6 +113,7 @@ AttributesProduct.propTypes = {
   setVariants: PropTypes.any,
   idProduct: PropTypes.any,
   productItemsUser: PropTypes.any,
+  setProductItemsUser: PropTypes.any,
 };
 
 export default AttributesProduct;

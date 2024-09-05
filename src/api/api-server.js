@@ -378,6 +378,7 @@ export const listOrders = async (token) => {
   }
 };
 
+
 export const getDashboardData = async () => {
   try {
     const response = await axios.get(`${API_URL}/dashboard`);
@@ -392,3 +393,20 @@ export const getDashboardData = async () => {
     throw error;
   }
 };
+
+
+
+
+// lọc sản phẩm
+export const filterProducts = async (filters) => {
+  try {
+    const queryString = qs.stringify(filters, { arrayFormat: "repeat" });
+    const response = await axios.get(`${API_URL}/products?${queryString}`);
+    return response.data;
+  } catch (error) {
+    console.error("Failed to filter products:", error.message);
+    throw error;
+  }
+};
+
+

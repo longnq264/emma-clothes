@@ -2,9 +2,11 @@ import { NavLink } from "react-router-dom";
 
 const LandingPage = () => {
   return (
-    <div className="landing-page container mx-auto w-1/4">
+    <div className="landing-page container mx-auto md:w-1/4">
       <div className="pt-20 pb-10 border-b-2 border-black text-center">
-        <h1 className="text-center text-5xl pb-12 uppercase">WelCome</h1>
+        <h1 className="text-center text-2xl md:text-5xl pb-12 uppercase">
+          WelCome
+        </h1>
         <p>Now youre a member of W Concept and our Loyalty Program.</p>
         <p>Check out the welcome gift weve just sent you via email.</p>
       </div>

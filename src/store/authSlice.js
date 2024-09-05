@@ -5,7 +5,10 @@ const authSlice = createSlice({
   name: "auth",
   initialState: {
     user: JSON.parse(localStorage.getItem("user")) || null,
+    admin: JSON.parse(localStorage.getItem("admin")) || null,
     token: localStorage.getItem("token") || null,
+    adminToken: localStorage.getItem("adminToken") || null,
+    isAuthenticated: false,
     status: "idle",
     error: null,
   },
@@ -38,6 +41,7 @@ const authSlice = createSlice({
         state.status = "failed"; // Khi thunk action gặp lỗi
         state.error = action.payload;
       })
+
       .addCase(registerUser.fulfilled, (state, action) => {
         const { user, token } = action.payload;
         console.log(user);

@@ -7,6 +7,7 @@ import {
   createProductItem,
   createProductVariants,
   getProductItems,
+  updateMultiple,
 } from "../../api/post-product";
 // import UploadImage from "../../components/User/Products/UploadImage";
 
@@ -17,10 +18,11 @@ const ProductAdd = () => {
   const [productItem, setProductItem] = useState([]);
   const [variants, setVariants] = useState([]);
   const [idProduct, setIdProduct] = useState([]);
-  console.log(images);
+
   console.log(variants);
   console.log(productItem);
   console.log(idProduct);
+  console.log(productItemsUser);
 
   const onFinish = async (values) => {
     console.log("Success:", values);
@@ -86,6 +88,21 @@ const ProductAdd = () => {
     }
   };
 
+  const handleSubmit = async () => {
+    console.log(productItemsUser);
+    const productSubmit = {
+      variant: productItemsUser,
+    };
+    console.log(productSubmit);
+
+    try {
+      const response = await updateMultiple(productSubmit);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+    console.log("success");
+  };
   return (
     <div className="container mx-auto px-4 mb-20">
       <h1 className="pl-8 text-4xl text-stone-700 font-extrabold pb-6">
@@ -99,7 +116,6 @@ const ProductAdd = () => {
         onFinishFailed={onFinishFailed}
         className="space-y-8 bg-white rounded-lg p-8"
       >
-        {/* Image */}
         <ProductImagesForm images={images} setImages={setImages} />
 
         <ProductTitleForm />
@@ -125,6 +141,7 @@ const ProductAdd = () => {
             variants={variants}
             setVariants={setVariants}
             idProduct={idProduct}
+            setProductItemsUser={setProductItemsUser}
           />
 
           {/* Submit button for variants */}
@@ -134,11 +151,19 @@ const ProductAdd = () => {
               onClick={handleVariantSubmit}
               className="bg-orange-400 text-lg"
             >
-              Thêm Sản Phẩm
+              Hiển thị thuộc tính
             </Button>
           </div>
         </div>
       )}
+      <div className="flex justify-end w-full">
+        <button
+          onClick={handleSubmit}
+          className="bg-orange-400 p-2 rounded-lg text-white font-bold"
+        >
+          Thêm Sản Phẩm
+        </button>
+      </div>
     </div>
   );
 };

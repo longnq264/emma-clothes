@@ -82,8 +82,8 @@ const Footer = () => {
 
         {/* Additional Sections */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
-          <div className="space-y-4">
-            <h2 className="text-xl font-bold">Chứng nhận và Giải thưởng</h2>
+          <div className="space-y-4 hidden md:block">
+            <h2 className=" text-xl font-bold">Chứng nhận và Giải thưởng</h2>
             <p className="text-slate-300">
               Công ty chúng tôi được chứng nhận bởi nhiều tổ chức khác nhau và
               đã nhận được nhiều giải thưởng về sự xuất sắc.
