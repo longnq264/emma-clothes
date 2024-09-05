@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Form, Input, Button, notification, TreeSelect, Card, Space, Select } from 'antd';
-import { createCategory, getCategories } from '../../../api/api-server'; // Adjust the path as necessary
+import { createCategory, getCategories } from '../../../api/api-server'; // Điều chỉnh đường dẫn nếu cần
 import { useNavigate } from 'react-router-dom';
 import { PlusOutlined, ReloadOutlined } from '@ant-design/icons';
 
@@ -15,16 +15,16 @@ const CategoriesAdd = () => {
     const fetchCategories = async () => {
       try {
         const response = await getCategories();
-        console.log('API response:', response);
+        console.log('Phản hồi từ API:', response);
         if (response.data && Array.isArray(response.data)) {
-          const rootCategory = response.data.find(category => category.id === 1);
+          const rootCategory = response.data.find(category => category.id === 1); // Tìm danh mục gốc có id = 1
           if (rootCategory) {
             const formattedData = formatTreeData(rootCategory.children);
-            console.log('Formatted tree data:', formattedData);
+            console.log('Dữ liệu cây đã được định dạng:', formattedData);
             setTreeData(formattedData);
           }
         } else {
-          console.error('Expected an array of categories but got:', response);
+          console.error('Đã mong đợi một mảng các danh mục nhưng nhận được:', response);
         }
       } catch (error) {
         notification.error({ message: 'Lỗi khi tải danh mục!', description: error.message });
@@ -43,17 +43,22 @@ const CategoriesAdd = () => {
   };
 
   const onFinish = async (values) => {
+    // Nếu không chọn danh mục nào thì đặt parent_id là 1 (danh mục gốc)
+    if (!values.parent_id) {
+      values.parent_id = 1;
+    }
+
     try {
-      console.log('Form values:', values); // Log form values to check what is being submitted
+      console.log('Giá trị của form:', values); // Log giá trị của form để kiểm tra
       const response = await createCategory(values);
-      console.log('Create category response:', response);
+      console.log('Phản hồi khi tạo danh mục:', response);
       notification.success({ message: 'Danh mục đã được thêm thành công!' });
       form.resetFields();
-      navigate('/admin/categories'); // Navigate to categories list after successful creation
+      navigate('/admin/categories'); // Điều hướng về danh sách danh mục sau khi thêm thành công
     } catch (error) {
-      console.error('Error during category creation:', error); // Log the error details
+      console.error('Lỗi trong quá trình tạo danh mục:', error); // Log chi tiết lỗi
       if (error.response && error.response.data) {
-        console.error('Server response:', error.response.data);
+        console.error('Phản hồi từ máy chủ:', error.response.data);
         notification.error({ message: 'Lỗi khi thêm danh mục!', description: error.response.data.message });
       } else {
         notification.error({ message: 'Lỗi khi thêm danh mục!', description: error.message });
@@ -62,7 +67,7 @@ const CategoriesAdd = () => {
   };
 
   const onExit = () => {
-    navigate('/admin/categories'); // Navigate back to categories list
+    navigate('/admin/categories'); // Điều hướng về danh sách danh mục
   };
 
   return (
@@ -83,18 +88,17 @@ const CategoriesAdd = () => {
           <Form.Item
             name="description"
             label="Mô Tả"
-            rules={[{ required: true, message: 'Vui lòng nhập mô tả!' }]} // Added required rule
+            rules={[{ required: true, message: 'Vui lòng nhập mô tả!' }]} // Thêm quy tắc yêu cầu nhập mô tả
           >
             <Input.TextArea prefix={<PlusOutlined />} />
           </Form.Item>
           <Form.Item
             name="parent_id"
             label="Danh Mục"
-            rules={[{ required: true, message: 'Vui lòng chọn danh mục!' }]}
           >
             <TreeSelect
               treeData={treeData}
-              placeholder="Chọn danh mục"
+              placeholder="Chọn danh mục (Mặc định danh mục gốc nếu không chọn)"
               treeDefaultExpandAll
               allowClear
             />
