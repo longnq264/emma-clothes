@@ -13,6 +13,7 @@ const OnChangeAttribute = ({ productItemsUser, setProductItemsUser }) => {
         ...updatedProducts[index],
         [field]: value,
       };
+
       return updatedProducts;
     });
   };

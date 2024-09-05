@@ -180,7 +180,7 @@ const ProductDetail = () => {
                     <h3 className="font-bold my-2 ">
                       Màu sắc: {selectedColor}
                     </h3>
-                    <div className="flex">
+                    <div className="flex flex-wrap">
                       {Array.from(
                         new Set(
                           data.productVariants.flatMap((variant) =>
@@ -204,7 +204,7 @@ const ProductDetail = () => {
                   </div>
                   <div className="my-2 mt-6">
                     <h3 className="my-2 font-bold">Kích cỡ: {selectedSize}</h3>
-                    <div className="flex">
+                    <div className="flex flex-wrap">
                       {Array.from(
                         new Set(
                           data.productVariants.flatMap((variant) =>

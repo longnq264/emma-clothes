@@ -18,7 +18,7 @@ const ProductPage = () => {
   const [quantityProduct, setQuantityProduct] = useState(0);
   const [selectedPriceRange, setSelectedPriceRange] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 20; // Số lượng sản phẩm hiển thị trên mỗi trang
+  const pageSize = 10; // Số lượng sản phẩm hiển thị trên mỗi trang
   console.log(products);
 
   const { id } = useParams();

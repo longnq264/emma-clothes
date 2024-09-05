@@ -72,7 +72,7 @@ const Search = () => {
           className="absolute left-3 top-3 text-grey-500 hidden lg:block"
           color="gray"
         />
-        <button className="lg:hidden bg-stone-600">
+        <button className="hidden bg-stone-600">
           <FaSearch
             className="absolute right-2 top-1 text-stone-700"
             size={18}

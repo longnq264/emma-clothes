@@ -81,8 +81,8 @@ const ProductAdd = () => {
   const fetchProductItems = async (id) => {
     try {
       const response = await getProductItems(id);
-      setProductItemsUser(response.data.productVariants);
       console.log(response);
+      setProductItemsUser(response.data.productVariants);
     } catch (error) {
       console.log(error);
     }
@@ -91,7 +91,14 @@ const ProductAdd = () => {
   const handleSubmit = async () => {
     console.log(productItemsUser);
     const productSubmit = {
-      variant: productItemsUser,
+      variants: productItemsUser.map((item) => {
+        return {
+          id: item.id, // Lấy ID từ item trong productItemsUser
+          price: Number(item.price), // Lấy giá trị price từ item
+          stock: Number(item.stock), // Lấy stock từ item
+          thumbnail: item.thumbnail, // Lấy thumbnail từ item
+        };
+      }),
     };
     console.log(productSubmit);
 

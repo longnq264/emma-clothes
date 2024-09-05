@@ -40,7 +40,7 @@ const Header = () => {
           Get UPTO 40% OFF on your 1st order
         </div>
         <div className="container mx-auto flex justify-between px-2 py-1 lg:px-0">
-          <div className="flex items-center pr-3 sm:min-w-20 lg:hidden">
+          <div className="flex items-center pr-3 min-w-20 lg:hidden">
             <button className="flex items-center text-black">
               <GiHamburgerMenu size={24} />
             </button>
