@@ -97,9 +97,11 @@ const CategoryPopular = () => {
           <div key={product.id} className="relative shadow-md">
             <NavLink to={`/products/${product.id}`}>
               <ProductImage images={product.productImages} />
-              <div className="md:px-4 pb-4">
-                <h2 className="font-bold mt-4 text-sm h-14">{product.name}</h2>
-                <p className="">{formatCurrency(product.price)}</p>
+              <div className="px-2 md:px-4 pb-4">
+                <h2 className="font-semibold mt-4 text-sm xs:h-16 sm:h-16 lg:h-10">
+                  {product.name}
+                </h2>
+                <p className="pt-2">{formatCurrency(product.price)}</p>
               </div>
             </NavLink>
           </div>

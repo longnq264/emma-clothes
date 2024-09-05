@@ -4,9 +4,13 @@ import Navigation from "./Navigation/Navigation";
 import Search from "./Search";
 import DropDownProfile from "./Navigation/DropDownProfile";
 import CartQuantity from "./Cart/CartQuantity";
-import { GiHamburgerMenu } from "react-icons/gi";
+import { RxHamburgerMenu } from "react-icons/rx";
+
+import NavMenu from "./NavMenu";
+
 const Header = () => {
   const [isVisible, setIsVisible] = useState(true);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
 
   useEffect(() => {
@@ -25,11 +29,13 @@ const Header = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [lastScrollY]);
-
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
   return (
     <>
       <header
-        className={`bg-slate-50 text-white shadow fixed w-full top-0 pb-2 left-0 z-50 transition-transform duration-300 ${
+        className={`bg-slate-50 text-white shadow fixed w-full top-0 left-0 z-40 transition-transform duration-300 ${
           isVisible ? "transform translate-y-0" : "transform -translate-y-full "
         }`}
       >
@@ -39,10 +45,13 @@ const Header = () => {
         <div className="hidden md:block bg-slate-50 py-3 text-center text-xl text-stone-600 border-b">
           Get UPTO 40% OFF on your 1st order
         </div>
-        <div className="container mx-auto flex justify-between px-2 py-1 lg:px-0">
-          <div className="flex items-center pr-3 min-w-20 lg:hidden">
-            <button className="flex items-center text-black">
-              <GiHamburgerMenu size={24} />
+        <div className="container mx-auto flex justify-between p-2 lg:px-0">
+          <div className="flex items-center pr-3 min-w-10 sm:min-w-20 lg:hidden">
+            <button
+              className="flex items-center text-black"
+              onClick={toggleMenu}
+            >
+              <RxHamburgerMenu size={24} />
             </button>
           </div>
           <div className="flex items-center">
@@ -58,6 +67,16 @@ const Header = () => {
           </div>
         </div>
       </header>
+      <NavMenu isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+      {isMenuOpen && (
+        <>
+          {/* Overlay - Lớp phủ */}
+          <div
+            className="fixed inset-0 bg-black bg-opacity-60 z-40 lg:hidden"
+            onClick={toggleMenu}
+          ></div>
+        </>
+      )}
     </>
   );
 };

@@ -3,10 +3,10 @@ import { FaSearch } from "react-icons/fa";
 import { searchKey } from "../../api/api-server";
 import { Form, Input } from "antd";
 import Logo from "../UI/Home/Logo";
-
+import { IoCloseSharp } from "react-icons/io5";
+import ProductImage from "./Product/ProductImage";
 const Search = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [mainImage, setMainImage] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [products, setProducts] = useState([]);
   const [showAll, setShowAll] = useState(false);
@@ -19,18 +19,12 @@ const Search = () => {
     console.log("Failed:", errorInfo);
   };
 
-  const handleSearchClick = () => {
-    setIsDropdownOpen((prev) => !prev); // Toggle dropdown visibility
-  };
-
   useEffect(() => {
     if (searchTerm) {
       const fetchProducts = async () => {
         try {
           const result = await searchKey(searchTerm);
           setProducts(result.data);
-          setMainImage(result.data.productImages);
-          console.log("response", result.data);
         } catch (error) {
           console.error("Failed to fetch products:", error);
         }
@@ -61,71 +55,65 @@ const Search = () => {
 
   return (
     <div className="flex items-center">
-      <div className="relative ">
-        <input
-          onClick={handleSearchClick}
-          type="text"
-          className="text-black placeholder-gray-400 py-2 rounded-full pl-10 focus:outline-none bg-gray-200 hidden lg:block"
-          placeholder="Search"
-        />
-        <FaSearch
-          className="absolute left-3 top-3 text-grey-500 hidden lg:block"
-          color="gray"
-        />
+      <div
+        className="bg-gray-400 p-3 rounded-full cursor-pointer hidden lg:block"
+        onClick={() => setIsDropdownOpen(true)}
+      >
+        <FaSearch className=" text-grey-500" color="white" />
         <button className="hidden bg-stone-600">
-          <FaSearch
-            className="absolute right-2 top-1 text-stone-700"
-            size={18}
-          />
+          <FaSearch className="absolute right-2 top-1 text-white" size={18} />
         </button>
       </div>
       {isDropdownOpen && (
-        <div className="absolute bg-white top-20 left-0 w-full z-10">
+        <div className="absolute bg-white top-20 left-0 w-full z-50">
           <div className="header-wrap border-b">
             <div className="container mx-auto">
-              <div className="flex justify-between py-3">
+              <div className="flex justify-between items-center py-2">
                 <div className="search-wrap">
                   <Logo />
                 </div>
-                <Form
-                  className="relative"
-                  name="search"
-                  initialValues={{
-                    remember: true,
-                  }}
-                  onFinish={onFinish}
-                  onFinishFailed={onFinishFailed}
-                  autoComplete="off"
-                >
-                  <Form.Item
+                <div className="mt-6 box-border w-1/3">
+                  <Form
+                    className=""
                     name="search"
-                    rules={[
-                      {
-                        required: true,
-                      },
-                    ]}
+                    initialValues={{
+                      remember: true,
+                    }}
+                    onFinish={onFinish}
+                    onFinishFailed={onFinishFailed}
+                    autoComplete="off"
                   >
-                    <div className="search">
-                      <Input
-                        placeholder="Search"
-                        className="placeholder-gray-400 rounded-full focus:outline-none py-2 pl-9 w-full"
-                      />
-                      <FaSearch
-                        className="absolute left-4 top-3 text-grey-500"
-                        color="gray"
-                      />
-                    </div>
-                  </Form.Item>
-                </Form>
+                    <Form.Item
+                      name="search"
+                      rules={[
+                        {
+                          required: false,
+                        },
+                      ]}
+                    >
+                      <div className="search flex items-center">
+                        <Input
+                          placeholder="Search"
+                          className="relative placeholder-gray-400 rounded-full focus:outline-none py-3 pl-12 w-full text-base"
+                        />
+                        <FaSearch
+                          size={16}
+                          className="absolute top-5 left-6 text-grey-500 flex flex-start"
+                          color="gray"
+                        />
+                      </div>
+                    </Form.Item>
+                  </Form>
+                </div>
 
                 <button onClick={handleCloseDropdown} className="text-black">
-                  Đóng
+                  <IoCloseSharp size={30} />
                 </button>
               </div>
             </div>
           </div>
-          <div className="container mx-auto">
-            <div className="flex">
+          <div className="container mx-auto px-20">
+            <div className="flex flex-wrap">
               {products.length > 0 ? (
                 <>
                   {products
@@ -135,28 +123,8 @@ const Search = () => {
                         className="text-black basis-1/4 px-2 my-12"
                         key={product.id}
                       >
-                        {mainImage && mainImage.length > 0 ? (
-                          <>
-                            {mainImage
-                              .filter((image) => image.is_thumbnail === 0)
-                              .map((image, index) => (
-                                <div
-                                  key={index}
-                                  className="pr-2 py-2 w-40 border "
-                                >
-                                  <img
-                                    src={image.image_url}
-                                    alt={`Thumbnail ${index}`}
-                                    className="w-full border"
-                                  />
-                                </div>
-                              ))}
-                          </>
-                        ) : (
-                          <div className="min-h-80 text-center border py-10">
-                            Nodata
-                          </div>
-                        )}
+                        <ProductImage images={product.productImages} />
+
                         <p className="py-2">{product.name}</p>
                         <p className="font-bold">{product.price}</p>
                       </div>
@@ -178,6 +146,14 @@ const Search = () => {
             )}
           </div>
         </div>
+      )}
+      {isDropdownOpen && (
+        <>
+          <div
+            className="fixed top-48 mt-1 left-0 inset-0 bg-black bg-opacity-40 z-40 min-h-screen"
+            onClick={() => setIsDropdownOpen(false)}
+          ></div>
+        </>
       )}
     </div>
   );

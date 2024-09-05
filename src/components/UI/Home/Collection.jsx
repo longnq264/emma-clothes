@@ -8,12 +8,9 @@ import { useEffect } from "react";
 
 const Collection = () => {
   const [categories, setCategories] = useState([]);
-  console.log(categories);
-
   const fetchCategories = async () => {
     try {
       const response = await getCategories();
-      console.log(response.data[0].children[0].children[0].children);
       setCategories(response.data[0].children[0].children[1].children);
     } catch (error) {
       console.log(error);

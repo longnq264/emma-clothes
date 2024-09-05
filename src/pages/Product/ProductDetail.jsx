@@ -17,7 +17,7 @@ const ProductDetail = () => {
   const [selectedVariant, setSelectedVariant] = useState([]);
   const [quantity, setQuantity] = useState(1);
 
-  console.log("sku", selectedVariant.sku);
+  console.log("selected", selectedVariant);
   console.log(mainImage);
 
   const dispatch = useDispatch();
@@ -155,12 +155,17 @@ const ProductDetail = () => {
           </div>
           <div className="min-h-40 px-6 md:pl-16 pt-6 text-stone-700 md:w-1/2">
             <h1 className="font-bold md:text-2xl">{data.name}</h1>
-            <div className="variants flex">
+            <div className="variants">
               {selectedVariant ? (
                 <div className="detail">
-                  <p className="text-xs font-bold text-stone-500">
-                    {selectedVariant.sku}
-                  </p>
+                  <div className="flex justify-between">
+                    <p className="text-xs font-bold text-stone-500">
+                      {selectedVariant.sku}
+                    </p>
+                    <p className="text-sm font-bold text-stone-500">
+                      Stock: {selectedVariant.stock}
+                    </p>
+                  </div>
                   <p className="text-2xl font-bold my-2 pt-6">
                     {formatCurrency(selectedVariant.price)}
 

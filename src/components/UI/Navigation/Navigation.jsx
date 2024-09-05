@@ -8,7 +8,6 @@ const Navigation = () => {
 
   const fetchCategories = async () => {
     const response = await getCategories();
-    console.log(response);
     const activeCategories = response.data[0].children.filter(
       (category) => category.status === "Active"
     );
@@ -20,7 +19,7 @@ const Navigation = () => {
   }, []);
   return (
     <>
-      <nav className="pl-10 hidden lg:block ">
+      <nav className="pl-10 hidden lg:static lg:block ">
         <ul className="flex">
           {categories.map((item, index) => (
             <li
@@ -39,7 +38,7 @@ const Navigation = () => {
               </NavLink>
               {activeIndex === index && item.children && (
                 <div
-                  className={`min-h-64 fixed left-0 top-40 w-screen bg-white border-t border-gray-100 shadow`}
+                  className={`min-h-64 fixed left-0 top-44 w-screen bg-slate-50 border-t border-gray-100 shadow`}
                 >
                   <div className="container mx-auto py-4">
                     <ul className="flex">
