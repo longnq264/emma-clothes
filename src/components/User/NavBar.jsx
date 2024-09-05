@@ -415,6 +415,7 @@ const NavBar = ({ isOpen, darkMode }) => {
   );
 };
 
+
 NavBar.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   darkMode: PropTypes.bool.isRequired,

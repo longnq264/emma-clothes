@@ -6,6 +6,7 @@ import { UserOutlined, DollarOutlined, CreditCardOutlined, EnvironmentOutlined }
 
 const { Title, Text } = Typography;
 
+
 const OrderDetails = () => {
   const [selectedOrderItems, setSelectedOrderItems] = useState([]);
   const [orderDetails, setOrderDetails] = useState(null);

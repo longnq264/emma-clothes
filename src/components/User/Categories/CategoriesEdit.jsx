@@ -173,9 +173,11 @@ const CategoriesEdit = () => {
               <Button type="primary" htmlType="submit" icon={<SaveOutlined />}>
                 Cập Nhật
               </Button>
+              
               <Button type="default" onClick={() => form.resetFields()} icon={<ReloadOutlined />}>
                 Làm mới
               </Button>
+
               <Button type="default" onClick={onExit}>
                 Thoát
               </Button>

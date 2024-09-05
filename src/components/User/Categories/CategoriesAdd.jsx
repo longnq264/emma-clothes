@@ -113,6 +113,7 @@ const CategoriesAdd = () => {
               <Option value="Inactive">Không hoạt động</Option>
             </Select>
           </Form.Item>
+          
           <Form.Item>
             <Space>
               <Button type="primary" htmlType="submit" icon={<PlusOutlined />}>
