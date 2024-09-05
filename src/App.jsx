@@ -42,7 +42,7 @@ import UserList from "./components/User/Users/UserList.jsx";
 import AddUser from "./components/User/Users/AddUser.jsx";
 import OrderDetails from "./components/User/Order/OrderDetails.jsx";
 import ListOrder from "./components/User/Order/ListOrder.jsx";
-import AddOrders from "./components/User/Order/Addorder.jsx";
+// import AddOrders from "./components/User/Order/Addorder.jsx";
 import Thanks from "./pages/Thanks.jsx";
 import ForgotPassword from "./pages/Auth/ForgotPassword.jsx";
 import ProtectedRoute from "./ProtectedRoute.jsx";
@@ -100,7 +100,7 @@ function App() {
         { path: "", element: <DashBoardPage /> },
         { path: "profile", element: <ProfileAdmin /> },
         { path: "orders", element: <ListOrder /> },
-        { path: "orders/new", element: <AddOrders /> },
+        // { path: "orders/new", element: <AddOrders /> },
         { path: "orders/:orderId", element: <OrderDetails /> },
         { path: "products", element: <ProductsList /> },
         { path: "products/new", element: <ProductAdd /> },
