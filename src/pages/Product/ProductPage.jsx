@@ -8,9 +8,8 @@ import {
   getProducts,
   getProductsByPriceRange,
 } from "../../api/api-server.js";
-import { formatCurrency } from "../../utils/helperFunction.js";
-import ProductImage from "../../components/UI/Product/ProductImage.jsx";
 import NavFilter from "../../components/UI/Product/NavFilter.jsx";
+import ListProduct from "../../components/UI/Product/ListProduct.jsx";
 
 const ProductPage = () => {
   const [products, setProducts] = useState([]);
@@ -56,7 +55,6 @@ const ProductPage = () => {
     }
   }, [id, selectedPriceRange]);
 
-  // Tính toán danh sách sản phẩm cho trang hiện tại
   const paginatedProducts = products.slice(
     (currentPage - 1) * pageSize,
     currentPage * pageSize
@@ -95,42 +93,18 @@ const ProductPage = () => {
             categoryId={categoryId}
             id={id}
           />
-          <div className="md:basis-4/5 md:pl-10 min-h-screen">
-            <div className="mx-2 py-2">
-              <p className="font-bold text-stone-600">
-                {quantityProduct} sản phẩm
-              </p>
-            </div>
-            <div className="grid grid-cols-2 lg:grid-cols-4">
-              {paginatedProducts.map((res) => (
-                <NavLink key={res.id} to={`/products/${res.id}`}>
-                  <div className="mx-2 my-2 pb-4 shadow-md">
-                    {/* <img src={res.productImages[0].image_url} /> */}
-                    <ProductImage images={res.productImages} />
-                    <div className="content-product px-4 py-2">
-                      <h3 className="h-10 box-border text-sm font-semibold text-stone-700 pt-2">
-                        {res.name}
-                      </h3>
-                      <h1 className="price text-base font-semibold mt-4 text-stone-700">
-                        {formatCurrency(res.price)}
-                        <span className="text-stone-400 font-semibold my-2 ml-2 line-through text-sm">
-                          {formatCurrency(res.price_old)}
-                        </span>
-                      </h1>
-                    </div>
-                  </div>
-                </NavLink>
-              ))}
-            </div>
-            <Pagination
-              className="flex justify-center mt-10"
-              current={currentPage}
-              pageSize={pageSize}
-              total={products.length}
-              onChange={(page) => setCurrentPage(page)}
-            />
-          </div>
+          <ListProduct
+            quantityProduct={quantityProduct}
+            paginatedProducts={paginatedProducts}
+          />
         </div>
+        <Pagination
+          className="flex justify-center mt-10"
+          current={currentPage}
+          pageSize={pageSize}
+          total={products.length}
+          onChange={(page) => setCurrentPage(page)}
+        />
       </div>
     </>
   );

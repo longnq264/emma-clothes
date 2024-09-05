@@ -1,4 +1,3 @@
-// import ProgressBar from "./ProgressBar";
 import { useSelector } from "react-redux";
 import CartCheckbox from "../../components/UI/Cart/CartCheckbox";
 import OrderList from "../../components/UI/Cart/OrderList";
@@ -11,8 +10,6 @@ const CartPage = () => {
   const cartStatus = useSelector((state) => state.cart.status);
   const error = useSelector((state) => state.cart.error);
   const totalPrice = useSelector((state) => state.cart.totalPrice);
-  // const delivery = useSelector((state) => state.cart.shippingFee);
-  // const discount = useSelector((state) => state.cart.discount);
   const freeShip = useSelector((state) => state.cart.freeship);
 
   if (cartStatus === "loading") {
