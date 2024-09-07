@@ -9,8 +9,8 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import NavMenu from "./NavMenu";
 
 const Header = () => {
-  const [isVisible, setIsVisible] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
   useEffect(() => {

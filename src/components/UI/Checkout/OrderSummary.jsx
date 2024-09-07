@@ -18,7 +18,7 @@ const OrderSummary = () => {
       <div className="border-b pb-4">
         {cartItems.map((item) => (
           <div key={item.id} className="flex py-2">
-            <div className="img min-w-20 bg-stone-200">
+            <div className="img max-w-20 bg-stone-200">
               <img className="object-fill" src={item.product.image} alt="" />
             </div>
             <div className="content-order pl-4 text-stone-800">

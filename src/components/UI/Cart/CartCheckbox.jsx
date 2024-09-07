@@ -82,6 +82,7 @@ const CartCheckbox = () => {
       saveCartToLocalStorage(updatedItems);
     }
   };
+
   return (
     <div className="bg-white">
       <div className="item px-4 py-2 flex justify-between items-center">

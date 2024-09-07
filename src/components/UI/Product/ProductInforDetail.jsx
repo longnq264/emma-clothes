@@ -8,19 +8,21 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 const ProductInforDetail = ({
   data,
+  id,
   selectedVariant,
   setSelectedVariant,
   selectedColor,
   setSelectedColor,
   selectedSize,
   setSelectedSize,
-  id,
+  mainImage,
 }) => {
   const [quantity, setQuantity] = useState(1);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const token = useSelector((state) => state.auth.token);
 
+  // const imgProduct = mainImage
   useEffect(() => {
     if (data.productVariants && data.productVariants.length > 0) {
       const firstVariant = data.productVariants[0];
@@ -63,13 +65,14 @@ const ProductInforDetail = ({
   }, [selectedColor, selectedSize, data.productVariants]);
 
   const handleAddToCart = async () => {
+    // push server
     const values = {
       id: Number(id),
       product_id: Number(id),
       variant_id: selectedVariant.id,
       quantity: quantity,
     };
-
+    // push local state
     const cartData = {
       id: Number(id),
       product_id: data.id,
@@ -80,7 +83,7 @@ const ProductInforDetail = ({
         id: Number(id),
         name: data.name,
         price: data.price,
-        image: "",
+        image: mainImage[0].image_url || "",
       },
       variant: {
         sku: selectedVariant.sku,
@@ -243,5 +246,6 @@ ProductInforDetail.propTypes = {
   selectedSize: PropTypes.any,
   setSelectedSize: PropTypes.any,
   setSelectedVariant: PropTypes.any,
+  mainImage: PropTypes.any,
 };
 export default ProductInforDetail;

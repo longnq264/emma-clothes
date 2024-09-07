@@ -18,7 +18,6 @@ const ProductPage = () => {
   const [selectedPriceRange, setSelectedPriceRange] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 10; // Số lượng sản phẩm hiển thị trên mỗi trang
-  console.log(products);
 
   const { id } = useParams();
 
@@ -62,7 +61,7 @@ const ProductPage = () => {
 
   return (
     <>
-      <div className="container mx-auto px-2 md:px-0">
+      <div className="container mx-auto px-2 md:px-0 md:pt-4">
         <Breadcrumb
           items={[
             {
@@ -86,7 +85,7 @@ const ProductPage = () => {
             <span className="text-3xl">Tất cả sản phẩm</span>
           )}
         </div>
-        <div className="flex">
+        <div className="md:flex">
           <NavFilter
             selectedPriceRange={selectedPriceRange}
             setSelectedPriceRange={setSelectedPriceRange}

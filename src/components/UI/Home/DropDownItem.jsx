@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 // import PropTypes from "prop-types";
 
 const DropdownItem = ({ title, children }) => {
-  // console.log(title, children);
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleOpen = () => {
@@ -20,7 +19,9 @@ const DropdownItem = ({ title, children }) => {
         <p className="font-bold">{title}</p>
         {isOpen ? <FaAngleUp /> : <FaAngleDown />}
       </div>
-      {isOpen && <div className="mt-2 pl-2 ">{children}</div>}
+      {isOpen && (
+        <div className="mt-2 pl-4 flex flex-wrap w-full">{children}</div>
+      )}
     </li>
   );
 };

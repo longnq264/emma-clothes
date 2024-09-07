@@ -1,5 +1,6 @@
 import DropdownItem from "../Home/DropDownItem";
 import PropTypes from "prop-types";
+import FilterAttributes from "./FilterAttributes";
 
 const priceRanges = [
   { label: "Dưới 350.000đ", min: 0, max: 350000 },
@@ -22,7 +23,7 @@ const NavFilter = ({
   };
   return (
     <>
-      <div className="basis-1/5 overflow-y-auto max-h-90 hidden md:block">
+      <div className="basis-1/5 max-h-screen overflow-y-auto">
         <h1 className="uppercase font-bold text-2xl text-stone-700 mb-14">
           {id ? (
             <span className="text-4xl">{categoryId?.name}</span>
@@ -34,16 +35,7 @@ const NavFilter = ({
           <h1 className="font-bold text-2xl">Bộ lọc</h1>
           <div>
             <ul className="text-stone-800">
-              <DropdownItem title="Màu sắc">
-                <p>Red</p>
-                <p>Blue</p>
-                <p>Green</p>
-              </DropdownItem>
-              <DropdownItem title="Kích thước">
-                <p>Small</p>
-                <p>Medium</p>
-                <p>Large</p>
-              </DropdownItem>
+              <FilterAttributes />
               <DropdownItem title="Theo giá">
                 {priceRanges.map((item) => (
                   <label

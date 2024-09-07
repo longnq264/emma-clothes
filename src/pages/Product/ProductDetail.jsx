@@ -16,8 +16,6 @@ const ProductDetail = () => {
   console.log("selected", selectedVariant);
   console.log(mainImage);
 
-  console.log(data);
-
   const fetchProductDetail = async (id) => {
     const response = await getProductId(id);
 
@@ -47,6 +45,7 @@ const ProductDetail = () => {
             setSelectedColor={setSelectedColor}
             selectedSize={selectedSize}
             setSelectedSize={setSelectedSize}
+            mainImage={mainImage}
           />
         </div>
         <SuggestedProducts />
