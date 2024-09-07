@@ -19,7 +19,7 @@ const Navigation = () => {
   }, []);
   return (
     <>
-      <nav className="pl-10 hidden lg:static lg:block ">
+      <nav className="pl-10 hidden lg:static lg:block">
         <ul className="flex">
           {categories.map((item, index) => (
             <li
@@ -42,7 +42,7 @@ const Navigation = () => {
                 >
                   <div className="container mx-auto py-4">
                     <ul className="flex">
-                      <li className="w-1/3 border-r-2 pb-4">
+                      <li className="w-1/3 pb-4">
                         <NavLink
                           to={"/products"}
                           className="font-bold  hover:text-stone-400"
@@ -53,7 +53,7 @@ const Navigation = () => {
                       {item.children.map((child, childIndex) => (
                         <li
                           key={childIndex}
-                          className="w-1/3 border-r-2 pb-4  hover:text-stone-400"
+                          className="w-1/3  pb-4  hover:text-stone-400"
                         >
                           <NavLink
                             to={`/category/${child.id}`}
