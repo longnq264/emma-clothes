@@ -91,6 +91,7 @@ const ProductPage = () => {
             setSelectedPriceRange={setSelectedPriceRange}
             categoryId={categoryId}
             id={id}
+            setProducts={setProducts}
           />
           <ListProduct
             quantityProduct={quantityProduct}

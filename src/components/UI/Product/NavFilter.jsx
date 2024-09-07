@@ -13,6 +13,7 @@ const NavFilter = ({
   setSelectedPriceRange,
   categoryId,
   id,
+  setProducts,
 }) => {
   const handlePriceRangeChange = (item) => {
     if (selectedPriceRange && selectedPriceRange.label === item.label) {
@@ -35,7 +36,7 @@ const NavFilter = ({
           <h1 className="font-bold text-2xl">Bộ lọc</h1>
           <div>
             <ul className="text-stone-800">
-              <FilterAttributes />
+              <FilterAttributes setProducts={setProducts} />
               <DropdownItem title="Theo giá">
                 {priceRanges.map((item) => (
                   <label
@@ -69,6 +70,7 @@ NavFilter.propTypes = {
   setSelectedPriceRange: PropTypes.any,
   categoryId: PropTypes.any,
   id: PropTypes.any,
+  setProducts: PropTypes.any,
 };
 
 export default NavFilter;
