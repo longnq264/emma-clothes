@@ -48,6 +48,7 @@ const ProductDetail = () => {
             mainImage={mainImage}
           />
         </div>
+        {/* Phần gợi ý sản phẩm */}
         <SuggestedProducts />
       </div>
     </div>

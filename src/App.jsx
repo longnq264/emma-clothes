@@ -51,6 +51,8 @@ import AttributeList from "./components/User/Attributes/AttributeList.jsx";
 import EditAttribute from "./components/User/Attributes/EditAttribute.jsx";
 import AddAttribute from "./components/User/Attributes/AddAttribute.jsx";
 import ProfileAdmin from "./pages/Admin/ProfileAdmin.jsx";
+import ProductListDetail from "./pages/Admin/ProductListDetail.jsx";
+
 
 function App() {
   const router = createBrowserRouter([
@@ -118,6 +120,8 @@ function App() {
         { path: "attributes", element: <AttributeList /> },
         { path: "attributes/edit/:id", element: <EditAttribute /> },
         { path: "attributes/new", element: <AddAttribute /> },
+        { path: "products/:id", element: <ProductListDetail /> },
+
       ],
     },
     {
