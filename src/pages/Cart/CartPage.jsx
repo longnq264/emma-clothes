@@ -1,4 +1,3 @@
-// import ProgressBar from "./ProgressBar";
 import { useSelector } from "react-redux";
 import CartCheckbox from "../../components/UI/Cart/CartCheckbox";
 import OrderList from "../../components/UI/Cart/OrderList";
@@ -11,8 +10,6 @@ const CartPage = () => {
   const cartStatus = useSelector((state) => state.cart.status);
   const error = useSelector((state) => state.cart.error);
   const totalPrice = useSelector((state) => state.cart.totalPrice);
-  // const delivery = useSelector((state) => state.cart.shippingFee);
-  // const discount = useSelector((state) => state.cart.discount);
   const freeShip = useSelector((state) => state.cart.freeship);
 
   if (cartStatus === "loading") {
@@ -26,8 +23,8 @@ const CartPage = () => {
   }
   return (
     <>
-      <div className="bg-gray-100 min-h-screen py-5">
-        <div className="container mx-auto px-16">
+      <div className="bg-gray-100 min-h-screen md:py-5">
+        <div className="container mx-auto md:px-16">
           {items.length === 0 ? (
             <ClearCart />
           ) : (
@@ -37,7 +34,7 @@ const CartPage = () => {
                   Giỏ hàng của bạn
                 </h2>
               </div>
-              <div className="flex">
+              <div className="md:flex">
                 <div className="cart-page basis-3/5">
                   <>
                     <div className="progcess bg-white mb-4">

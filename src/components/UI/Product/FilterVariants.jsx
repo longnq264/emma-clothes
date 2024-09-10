@@ -34,7 +34,7 @@ const FilterVariants = ({ variants }) => {
           <option value="">All</option>
           <option value="Nâu">Nâu</option>
           <option value="Cam">Cam</option>
-          <option value="React,Đỏ">Đỏ</option>
+          <option value="Đỏ">Đỏ</option>
           <option value="Xám">Xám</option>
         </select>
       </label>

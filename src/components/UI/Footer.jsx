@@ -17,9 +17,9 @@ export const NAV_LINKS_FOOTER = [
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-slate-100 py-10">
+    <footer className="bg-gray-900 text-slate-100 py-10 overflow-hidden">
       <div className="container mx-auto px-2 md:px-0">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 w-full">
           {/* Company Information */}
           <div className="space-y-4">
             <h2 className="text-xl font-bold">Liên Hệ</h2>
@@ -82,8 +82,8 @@ const Footer = () => {
 
         {/* Additional Sections */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
-          <div className="space-y-4">
-            <h2 className="text-xl font-bold">Chứng nhận và Giải thưởng</h2>
+          <div className="space-y-4 hidden md:block">
+            <h2 className=" text-xl font-bold">Chứng nhận và Giải thưởng</h2>
             <p className="text-slate-300">
               Công ty chúng tôi được chứng nhận bởi nhiều tổ chức khác nhau và
               đã nhận được nhiều giải thưởng về sự xuất sắc.

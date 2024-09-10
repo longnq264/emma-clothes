@@ -3,7 +3,8 @@ import { Carousel } from "antd";
 // import banner2 from "../../../assets/img/banner-homepage2.png";
 import { useEffect, useState } from "react";
 import { getBanners } from "../../../api/api-server";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
+import VideoBanner from "./VideoBanner";
 const Banner = () => {
   const [state, setState] = useState([]);
   const getBannerPage = async () => {
@@ -18,10 +19,11 @@ const Banner = () => {
   }, []);
   return (
     <div className="box-border">
-      <Carousel afterChange={onChange}>
-        {state.map((data) => (
-          <div key={data.id}>
-            <NavLink to="/products">
+      <VideoBanner />
+      <div className="hidden md:block">
+        <Carousel afterChange={onChange}>
+          {state.map((data) => (
+            <div key={data.id}>
               <img
                 className="w-full"
                 src={
@@ -29,10 +31,10 @@ const Banner = () => {
                 }
                 alt=""
               />
-            </NavLink>
-          </div>
-        ))}
-      </Carousel>
+            </div>
+          ))}
+        </Carousel>
+      </div>
       <div className="w-full bg-stone-100 text-center py-2">
         <p className="">
           Get UPTO 40% OFF on your 1st order{" "}

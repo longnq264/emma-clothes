@@ -1,7 +1,7 @@
 import newImg from "../../../assets/img/new-collection.jpg";
 const NewCollection = () => {
   return (
-    <div className="new-collection my-14 px-2 md:px-0">
+    <div className="new-collection lg:my-14 px-2 md:px-0">
       <div className="container mx-auto">
         <div className="md:grid grid-cols-2">
           <div className="">

@@ -13,12 +13,12 @@ const OrderSummary = () => {
   const priceCheckout = calculateTotalPriceAll(totalPrice, delivery, discount);
 
   return (
-    <div className="order-summary min-h-screen w-96">
+    <div className="md:size-3/5 px-6 md:pl-14 order-summary md:min-w-96 pb-6">
       <h2 className="text-base font-bold pb-5">Thông tin sản phẩm</h2>
       <div className="border-b pb-4">
         {cartItems.map((item) => (
           <div key={item.id} className="flex py-2">
-            <div className="img w-20 bg-stone-200">
+            <div className="img max-w-20 bg-stone-200">
               <img className="object-fill" src={item.product.image} alt="" />
             </div>
             <div className="content-order pl-4 text-stone-800">

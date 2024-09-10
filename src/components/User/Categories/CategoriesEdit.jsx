@@ -11,7 +11,7 @@ import {
 } from 'antd';
 import { getCategory, updateCategory, getCategories } from '../../../api/api-server';
 import { useParams, useNavigate } from 'react-router-dom';
-import { SaveOutlined, ReloadOutlined  } from '@ant-design/icons';
+import { SaveOutlined, ReloadOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
 
@@ -61,11 +61,14 @@ const CategoriesEdit = () => {
         const response = await getCategories();
         console.log('API response:', response);
         if (response.data && Array.isArray(response.data)) {
-          const formattedData = formatTreeData(response.data);
-          console.log('Formatted tree data:', formattedData);
-          setTreeData(formattedData);
+          const rootCategory = response.data.find(category => category.id === 1);
+          if (rootCategory) {
+            const formattedData = formatTreeData(rootCategory.children);
+            console.log('Dữ liệu cây đã được định dạng:', formattedData);
+            setTreeData(formattedData);
+          }
         } else {
-          console.error('Expected an array of categories but got:', response);
+          console.error('Đã mong đợi một mảng các danh mục nhưng nhận được:', response);
         }
       } catch (error) {
         notification.error({
@@ -88,6 +91,11 @@ const CategoriesEdit = () => {
   };
 
   const onFinish = async (values) => {
+    // Nếu không chọn danh mục nào thì đặt parent_id là 1 (danh mục gốc)
+    if (!values.parent_id) {
+      values.parent_id = 1;
+    }
+
     try {
       console.log('Giá trị form:', values);
       const response = await updateCategory(id, values);
@@ -141,14 +149,11 @@ const CategoriesEdit = () => {
           </Form.Item>
           <Form.Item
             name="parent_id"
-            label="Danh Mục "
-            rules={[
-              { required: true, message: 'Vui lòng chọn danh mục !' },
-            ]}
+            label="Danh Mục"
           >
             <TreeSelect
               treeData={treeData}
-              placeholder="Chọn danh mục "
+              placeholder="Chọn danh mục (Mặc định danh mục gốc nếu không chọn)"
               treeDefaultExpandAll
               allowClear
             />
@@ -168,10 +173,12 @@ const CategoriesEdit = () => {
               <Button type="primary" htmlType="submit" icon={<SaveOutlined />}>
                 Cập Nhật
               </Button>
+              
               <Button type="default" onClick={() => form.resetFields()} icon={<ReloadOutlined />}>
                 Làm mới
               </Button>
-              <Button type="default" onClick={onExit}  >
+
+              <Button type="default" onClick={onExit}>
                 Thoát
               </Button>
             </Space>

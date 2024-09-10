@@ -4,7 +4,7 @@ import CartQuantity from "../Cart/CartQuantity";
 const Header = () => {
   return (
     <div className="header-checkout border-b ">
-      <div className="container mx-auto px-40 py-4">
+      <div className="container mx-auto px-6 lg:px-48 py-4">
         <div className="flex justify-between">
           <Logo />
           <div>
