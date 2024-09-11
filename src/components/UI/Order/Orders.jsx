@@ -6,8 +6,6 @@ const UserOrders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [selectedOrder, setSelectedOrder] = useState(null);
-  const [selectedReason, setSelectedReason] = useState("");
 
   const token = getTokenFromLocalStorage();
 
@@ -15,7 +13,7 @@ const UserOrders = () => {
     const loadOrders = async () => {
       try {
         const fetchedOrders = await listOrder(token);
-        
+
         // Sort orders by created_at date, newest first
         const sortedOrders = fetchedOrders.sort(
           (a, b) => new Date(b.created_at) - new Date(a.created_at)
@@ -32,24 +30,27 @@ const UserOrders = () => {
     loadOrders();
   }, [token]);
 
-  const handleCancelOrder = async () => {
-    if (!selectedOrder || !selectedReason) {
-      alert("Vui lòng chọn lý do để hủy đơn hàng.");
+  const handleCancelOrder = async (orderId) => {
+    const order = orders.find((order) => order.id === orderId);
+
+    // Kiểm tra nếu trạng thái là "Pending"
+    if (order?.status !== "Pending") {
+      alert("Chỉ có thể hủy đơn hàng với trạng thái Chờ xử lý (Pending).");
       return;
     }
 
-    try {
-      await cancelOrder(selectedOrder, token, selectedReason);
-      setOrders((prevOrders) =>
-        prevOrders.filter((order) => order.id !== selectedOrder)
-      );
-      alert(`Đơn hàng đã được hủy thành công. Lý do: ${selectedReason}`);
-    } catch (error) {
-      console.error("Error canceling order:", error);
-      alert("Đã xảy ra lỗi khi hủy đơn hàng.");
-    } finally {
-      setSelectedOrder(null);
-      setSelectedReason("");
+    // Xác nhận hành động hủy
+    if (window.confirm("Bạn có chắc chắn muốn hủy đơn hàng này không?")) {
+      try {
+        await cancelOrder(orderId);
+        setOrders((prevOrders) =>
+          prevOrders.filter((order) => order.id !== orderId)
+        );
+        alert("Đơn hàng đã được hủy thành công.");
+      } catch (error) {
+        console.error("Lỗi khi hủy đơn hàng:", error);
+        alert(`Đã xảy ra lỗi khi hủy đơn hàng: ${error.message}`);
+      }
     }
   };
 
@@ -91,36 +92,10 @@ const UserOrders = () => {
             key={order.id}
             className="relative bg-white border border-gray-300 rounded-lg p-6 shadow-lg hover:shadow-xl transition-shadow duration-300"
           >
-            {order.status !== "Cancelled" && (
+            {order.status === "Pending" && (
               <div className="absolute top-4 right-4 flex flex-col space-y-2">
-                <label className="block text-sm font-medium text-gray-700">
-                  Lý do hủy đơn hàng:
-                </label>
-                <select
-                  className="mb-2 px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  value={selectedOrder === order.id ? selectedReason : ""}
-                  onChange={(e) => {
-                    setSelectedOrder(order.id);
-                    setSelectedReason(e.target.value);
-                  }}
-                >
-                  <option value="">Chọn lý do hủy đơn hàng</option>
-                  <option value="Thay đổi ý định">Thay đổi ý định</option>
-                  <option value="Tìm thấy giá tốt hơn">
-                    Tìm thấy giá tốt hơn
-                  </option>
-                  <option value="Không cần sản phẩm nữa">
-                    Không cần sản phẩm nữa
-                  </option>
-                  <option value="Sản phẩm không đúng mô tả">
-                    Sản phẩm không đúng mô tả
-                  </option>
-                  <option value="Thời gian giao hàng quá lâu">
-                    Thời gian giao hàng quá lâu
-                  </option>
-                </select>
                 <button
-                  onClick={handleCancelOrder}
+                  onClick={() => handleCancelOrder(order.id)}
                   className="bg-red-500 text-white px-3 py-2 rounded-md hover:bg-red-600 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-red-300"
                 >
                   Hủy đơn hàng

@@ -24,7 +24,7 @@ const UserProfile = () => {
         if (ordersData && Array.isArray(ordersData.data)) {
           setOrders(ordersData.data); // Giả sử dữ liệu đơn hàng được lồng trong đối tượng `data`
         } else {
-          setError('Bạn cần đặt mua đơn hàng');
+          setError('Dữ liệu đơn hàng không hợp lệ.');
         }
       } catch (err) {
         setError(err.message || 'Đã xảy ra lỗi khi tải dữ liệu đơn hàng.');
