@@ -10,6 +10,7 @@ import {
   FaUsers,
   FaAd,
   FaSignOutAlt,
+  FaTicketAlt,
 } from "react-icons/fa";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 
@@ -20,6 +21,7 @@ const NavBar = ({ isOpen, darkMode }) => {
   const [isUsersOpen, setIsUsersOpen] = useState(false);
   const [isBannerOpen, setIsBannerOpen] = useState(false);
   const [isOrdersOpen, setIsOrdersOpen] = useState(false);
+  const [isCouponsOpen, setIsCouponsOpen] = useState(false); 
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -281,6 +283,62 @@ const NavBar = ({ isOpen, darkMode }) => {
               }`}
             >
               Danh sách thuộc tính
+            </NavLink>
+          </div>
+        </div>
+
+                {/* Coupons Dropdown */}
+                <div className="relative">
+          <button
+            onClick={() => setIsCouponsOpen(!isCouponsOpen)}
+            className={`w-full flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors duration-300 group ${
+              darkMode ? "text-gray-200" : "text-gray-800"
+            }`}
+          >
+            <FaTicketAlt
+              className={`text-xl mr-3 ${
+                darkMode ? "text-indigo-300" : "text-indigo-600"
+              }`}
+            />
+            <span className="flex-1 text-base font-medium">Mã giảm giá</span>
+            {isCouponsOpen ? (
+              <IoMdArrowDropup
+                className={`ml-auto text-2xl ${
+                  darkMode ? "text-indigo-300" : "text-indigo-600"
+                }`}
+              />
+            ) : (
+              <IoMdArrowDropdown
+                className={`ml-auto text-2xl ${
+                  darkMode ? "text-indigo-300" : "text-indigo-600"
+                }`}
+              />
+            )}
+          </button>
+          <div
+            className={`transition-max-height duration-300 ease-in-out overflow-hidden ${
+              isCouponsOpen ? "max-h-48 opacity-100" : "max-h-0 opacity-0"
+            } ${darkMode ? "bg-gray-700" : "bg-gray-200"} rounded-lg`}
+          >
+            <NavLink
+              to="/admin/coupons/new"
+              className={`block pl-8 pr-4 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300 ${
+                darkMode
+                  ? "text-gray-200 hover:bg-gray-600"
+                  : "text-gray-800 hover:bg-gray-300"
+              }`}
+            >
+              Thêm mã giảm giá
+            </NavLink>
+            <NavLink
+              to="/admin/coupons"
+              className={`block pl-8 pr-4 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300 ${
+                darkMode
+                  ? "text-gray-200 hover:bg-gray-600"
+                  : "text-gray-800 hover:bg-gray-300"
+              }`}
+            >
+              Danh sách mã giảm giá
             </NavLink>
           </div>
         </div>

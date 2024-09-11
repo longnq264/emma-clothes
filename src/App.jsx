@@ -51,6 +51,10 @@ import AttributeList from "./components/User/Attributes/AttributeList.jsx";
 import EditAttribute from "./components/User/Attributes/EditAttribute.jsx";
 import AddAttribute from "./components/User/Attributes/AddAttribute.jsx";
 import ProfileAdmin from "./pages/Admin/ProfileAdmin.jsx";
+import CouponList from "./components/User/Coupon/CouponList.jsx";
+import CouponAdd from "./components/User/Coupon/CouponAdd.jsx";
+import CouponDetail from "./components/User/Coupon/CouponDetail.jsx";
+import CouponEdit from "./components/User/Coupon/CouponEdit.jsx";
 
 function App() {
   const router = createBrowserRouter([
@@ -118,6 +122,10 @@ function App() {
         { path: "attributes", element: <AttributeList /> },
         { path: "attributes/edit/:id", element: <EditAttribute /> },
         { path: "attributes/new", element: <AddAttribute /> },
+        { path: "coupons", element: <CouponList /> },
+        { path: "coupons/new", element: <CouponAdd /> },
+        { path: "coupons/edit/:id", element: <CouponEdit /> },
+        { path: "coupons/:id", element: <CouponDetail  /> },
       ],
     },
     {
