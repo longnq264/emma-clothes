@@ -9,7 +9,7 @@ const Checkout = () => {
   return (
     <>
       <Header />
-      <main className="min-h-screen">
+      <main className="min-h-screen z-10">
         <div className="flex flex-col-reverse md:flex-row justify-center">
           <div className=" md:basis-1/2 pt-8 mb-10">
             <UserForm />

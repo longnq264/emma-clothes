@@ -121,7 +121,7 @@ const SuggestedProducts = () => {
           )}
         </Swiper>
       </div>
-      <ShowMoreBtn props={`/category/77`} />
+      <ShowMoreBtn props={`/category/created_at`} />
     </div>
   );
 };
