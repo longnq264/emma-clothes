@@ -53,8 +53,8 @@ const ListCouponst = ({ setMenu, menu }) => {
               Mã giảm giá
             </p>
             <SearchCoupon />
-            <p className="semibold pl-2 text-lg">Voucher từ EMMA</p>
-            <div className="list-voucher flex flex-wrap pt-2 mb-6 max-h-80 overflow-y-scroll">
+            <p className="semibold pl-2 text-lg pb-2">Voucher từ EMMA</p>
+            <div className="list-voucher flex flex-wrap mb-6 max-h-80 overflow-y-scroll">
               {coupons.map((data) => (
                 <div key={data.id} className="basis-1/2 my-2">
                   <div className="flex items-center space-between mx-2 border">
