@@ -30,15 +30,6 @@ const OrderList = () => {
             })}
           </p>
         </div>
-        <div className="flex justify-between mb-4">
-          <p>Khuyến mãi</p>
-          <p>
-            {Number(discount).toLocaleString("vi-VN", {
-              style: "currency",
-              currency: "VND",
-            })}
-          </p>
-        </div>
       </div>
       <p className="text-lg py-2 mb-6 flex justify-between border-t-2 pt-6">
         <span className="font-bold">Tổng thanh toán</span>

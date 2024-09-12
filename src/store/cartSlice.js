@@ -10,14 +10,18 @@ import {
   getCartFromLocalStorage,
   saveCartToLocalStorage,
 } from "../utils/indexUtils";
-import { calculateTotalPrice } from "../utils/helperFunction";
+import {
+  applyCoupon,
+  calculateTotalPrice,
+  calculateTotalPriceAll,
+} from "../utils/helperFunction";
 
 const calculateTotalQuantity = (items) =>
   items.reduce((total, item) => total + item.quantity, 0);
 
-const calculateTotalPriceAll = (totalPrice, shippingFee, discount) => {
-  return totalPrice + shippingFee - discount;
-};
+// const calculateTotalPriceAll = (totalPrice, shippingFee, discount) => {
+//   return totalPrice + shippingFee - discount;
+// };
 
 const cartSlice = createSlice({
   name: "cart",
@@ -29,7 +33,7 @@ const cartSlice = createSlice({
     totalPrice: calculateTotalPrice(getCartFromLocalStorage()),
     totalPriceApi: 0,
     shippingFee: 20000,
-    discount: 10000,
+    discount: 0,
     freeship: 1000000,
     totalPriceAll: 0,
   },
@@ -117,6 +121,12 @@ const cartSlice = createSlice({
       } else {
         state.shippingFee = 20000;
       }
+    },
+    setDiscount(state, action) {
+      state.discount = action.payload;
+    },
+    applyCouponTotalPrice(state) {
+      state.totalPriceAll = applyCoupon(state.totalPrice, state.discount);
     },
   },
   extraReducers: (builder) => {
@@ -209,6 +219,8 @@ export const {
   setItems,
   clearCart,
   setFreeShip,
+  setDiscount,
+  applyCouponTotalPrice,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

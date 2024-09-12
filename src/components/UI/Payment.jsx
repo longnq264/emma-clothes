@@ -1,4 +1,5 @@
 import { Form, Radio } from "antd";
+import { useState } from "react";
 
 const Payment = () => {
   const paymentMethods = [
@@ -16,7 +17,11 @@ const Payment = () => {
       payment: "online",
     },
   ];
-
+  const [value, setValue] = useState("COD");
+  const onChange = (e) => {
+    console.log("radio checked", e.target.value);
+    setValue(e.target.value);
+  };
   return (
     <Form.Item name="payment">
       <div className="payment-content">
@@ -24,7 +29,11 @@ const Payment = () => {
         <p className="text-sm text-gray-500 py-2">
           Lựa chọn phương thức thanh toán phù hợp nhất cho bạn
         </p>
-        <Radio.Group className="flex flex-col border-t-2 my-2">
+        <Radio.Group
+          className="flex flex-col border-t-2 my-2"
+          onChange={onChange}
+          value={value}
+        >
           {paymentMethods.map((method, index) => (
             <Radio
               key={index}

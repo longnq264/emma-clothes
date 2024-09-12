@@ -86,3 +86,7 @@ li.list.dropdown:hover {
   margin-left: -24px;
 }
 
+.search-coupon.px-28
+  input.ant-input.ant-input-lg.css-dev-only-do-not-override-1gwfwyx.ant-input-outlined {
+  padding-left: 28px;
+}

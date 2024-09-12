@@ -14,6 +14,7 @@ const NavFilter = ({
   categoryId,
   id,
   setProducts,
+  titleName,
 }) => {
   const handlePriceRangeChange = (item) => {
     if (selectedPriceRange && selectedPriceRange.label === item.label) {
@@ -26,11 +27,18 @@ const NavFilter = ({
     <>
       <div className="basis-1/5 max-h-screen overflow-y-auto">
         <h1 className="uppercase font-bold text-2xl text-stone-700 mb-14">
-          {id ? (
+          {titleName ? (
+            titleName
+          ) : id ? (
             <span className="text-4xl">{categoryId?.name}</span>
           ) : (
             "Tất cả sản phẩm"
           )}
+          {/* {id ? (
+            <span className="text-4xl">{categoryId?.name}</span>
+          ) : (
+            "Tất cả sản phẩm"
+          )} */}
         </h1>
         <div className="my-2">
           <h1 className="font-bold text-2xl">Bộ lọc</h1>
@@ -71,6 +79,7 @@ NavFilter.propTypes = {
   categoryId: PropTypes.any,
   id: PropTypes.any,
   setProducts: PropTypes.any,
+  titleName: PropTypes.any,
 };
 
 export default NavFilter;
