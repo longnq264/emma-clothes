@@ -1,7 +1,7 @@
+import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { Checkbox } from "antd";
 import { getAttributes } from "../../../api/api-server";
-import PropTypes from "prop-types";
 import OnChangeAttribute from "./OnChangeAttribute";
 const AttributesProduct = ({
   variants,

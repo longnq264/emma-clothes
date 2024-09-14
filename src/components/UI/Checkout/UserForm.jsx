@@ -17,6 +17,7 @@ const UserForm = () => {
   const { orderDetail, setOrderDetail, handleCheckoutDetail } =
     useContext(AppContext);
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [payment, setPayment] = useState("COD");
   const token = getTokenFromLocalStorage();
   const navigate = useNavigate();
 
@@ -24,7 +25,7 @@ const UserForm = () => {
     console.log("Success:", values);
     setOrderDetail((prevOrderDetail) => ({
       ...prevOrderDetail,
-      payment: values.payment,
+      payment: payment,
       address_detail: values.address_detail,
       email: values.email,
       phone_number: Number(values.phone_number),
@@ -88,7 +89,7 @@ const UserForm = () => {
 
           <SelectShiping />
 
-          <Payment />
+          <Payment setPayment={setPayment} payment={payment} />
 
           <SubmitForm />
         </Form>

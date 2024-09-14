@@ -83,9 +83,9 @@ const ProductAdd = () => {
     const filterNewVariants = (data1, data2, targetAttributeId) => {
       return data2
         .map((item2) => {
-          // Chỉ xử lý attribute_id mà bạn đang nhắm tới
+          // Nếu attribute_id không khớp với targetAttributeId, giữ nguyên giá trị của nó
           if (item2.attribute_id !== targetAttributeId) {
-            return item2; // Giữ nguyên nếu attribute_id không khớp
+            return item2;
           }
 
           // Tìm phần tử tương ứng trong data1 dựa trên attribute_id
@@ -94,24 +94,26 @@ const ProductAdd = () => {
           );
 
           if (matchingItem) {
-            // Lọc các value_ids trong data2 mà chưa có trong data1
+            // Lọc các value_ids chỉ với targetAttributeId
             const newValues = item2.value_ids.filter(
               (value_id) => !matchingItem.value_ids.includes(value_id)
             );
 
-            // Nếu có giá trị mới thì trả về attribute_id và các value_ids mới
+            // Trả về attribute_id cùng với các giá trị value_ids mới, nếu có
             if (newValues.length > 0) {
               return {
                 attribute_id: item2.attribute_id,
                 value_ids: newValues,
               };
+            } else {
+              return null; // Nếu không có giá trị mới, loại bỏ item2
             }
           } else {
             // Nếu attribute_id không tồn tại trong data1, trả về toàn bộ value_ids
             return item2;
           }
         })
-        .filter((item) => item); // Lọc bỏ các giá trị `undefined`
+        .filter((item) => item !== null); // Lọc bỏ các giá trị `null`
     };
 
     const result = existingVariants.flat().reduce((acc, item) => {

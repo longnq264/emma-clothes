@@ -1,26 +1,25 @@
+import PropTypes from "prop-types";
 import { Form, Radio } from "antd";
-import { useState } from "react";
 
-const Payment = () => {
-  const paymentMethods = [
-    { label: "Tiền mặt (COD)", payment: "COD" },
-    {
-      label: "Thanh toán thẻ nội địa",
-      payment: "online_card",
-    },
-    {
-      label: "Thanh toán thẻ quốc tế",
-      payment: "online_visa",
-    },
-    {
-      label: "Lựa chọn thanh toán khác",
-      payment: "online",
-    },
-  ];
-  const [value, setValue] = useState("COD");
+const paymentMethods = [
+  { label: "Tiền mặt (COD)", payment: "COD" },
+  {
+    label: "Thanh toán thẻ nội địa",
+    payment: "online_card",
+  },
+  {
+    label: "Thanh toán thẻ quốc tế",
+    payment: "online_visa",
+  },
+  {
+    label: "Lựa chọn thanh toán khác",
+    payment: "online",
+  },
+];
+const Payment = ({ setPayment, payment }) => {
   const onChange = (e) => {
     console.log("radio checked", e.target.value);
-    setValue(e.target.value);
+    setPayment(e.target.value);
   };
   return (
     <Form.Item name="payment">
@@ -32,7 +31,7 @@ const Payment = () => {
         <Radio.Group
           className="flex flex-col border-t-2 my-2"
           onChange={onChange}
-          value={value}
+          value={payment}
         >
           {paymentMethods.map((method, index) => (
             <Radio
@@ -48,5 +47,8 @@ const Payment = () => {
     </Form.Item>
   );
 };
-
+Payment.propTypes = {
+  setPayment: PropTypes.any,
+  payment: PropTypes.any,
+};
 export default Payment;
