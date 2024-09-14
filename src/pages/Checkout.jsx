@@ -1,6 +1,3 @@
-// import { useContext, useState } from "react";
-
-// import Footer from "../components/UI/Checkout/Footer";
 import Header from "../components/UI/Checkout/Header";
 import UserForm from "../components/UI/Checkout/UserForm";
 import OrderSummary from "../components/UI/Checkout/OrderSummary";
@@ -19,7 +16,6 @@ const Checkout = () => {
           </div>
         </div>
       </main>
-      {/* <Footer /> */}
     </>
   );
 };

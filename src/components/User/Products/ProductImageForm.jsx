@@ -1,6 +1,6 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import { Button, Input } from "antd";
+import { Button, Form, Input } from "antd";
 
 const ProductImagesForm = ({ images, setImages }) => {
   const [imageUrl, setImageUrl] = useState();
@@ -10,9 +10,9 @@ const ProductImagesForm = ({ images, setImages }) => {
         ...images,
         { url: imageUrl, is_thumbnail: images.length === 0 },
       ];
-      setImages(newImages); // Cập nhật danh sách ảnh
-      setImageUrl(""); // Xóa giá trị của input sau khi thêm ảnh
+      setImages(newImages); // update images list
     }
+    // setImageUrl("");
   };
 
   return (
@@ -23,13 +23,15 @@ const ProductImagesForm = ({ images, setImages }) => {
             <h2 className="text-lg font-medium text-gray-900 pb-2">
               Thêm ảnh sản phẩm
             </h2>
-            <Input
-              name="img"
-              value={imageUrl}
-              onChange={(e) => setImageUrl(e.target.value)}
-              placeholder="Nhập URL hình ảnh"
-              className="w-2/3"
-            />
+            <Form.Item name="image">
+              <Input
+                name="img"
+                value={imageUrl}
+                onChange={(e) => setImageUrl(e.target.value)}
+                placeholder="Nhập URL hình ảnh"
+                className="w-2/3"
+              />
+            </Form.Item>
             <Button
               type="primary"
               onClick={handleAddImage}

@@ -6,14 +6,10 @@ import OnChangeAttribute from "./OnChangeAttribute";
 const AttributesProduct = ({
   variants,
   setVariants,
-  idProduct,
   productItemsUser,
   setProductItemsUser,
 }) => {
   const [attributes, setAttributes] = useState([]);
-  console.log("selected variant", variants);
-  console.log(productItemsUser);
-
   useEffect(() => {
     const fetchAttributes = async () => {
       try {
@@ -48,6 +44,11 @@ const AttributesProduct = ({
           updatedAttributes[attributeIndex].value_ids = valueIds.filter(
             (id) => id !== valueId
           );
+
+          // Nếu value_ids rỗng, xóa attribute
+          if (updatedAttributes[attributeIndex].value_ids.length === 0) {
+            updatedAttributes.splice(attributeIndex, 1);
+          }
         }
       } else if (isChecked) {
         // Nếu attribute chưa tồn tại, thêm mới vào mảng
@@ -56,11 +57,10 @@ const AttributesProduct = ({
           value_ids: [valueId],
         });
       }
+
       return updatedAttributes;
     });
   };
-
-  console.log(idProduct);
 
   return (
     <div className="col-span-full rounded-lg bg-slate-100 shadow-inner p-4">
