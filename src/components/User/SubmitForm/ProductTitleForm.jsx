@@ -1,6 +1,5 @@
 import { Form, Input } from "antd";
 import GetListCategories from "../Products/GetListCategories";
-
 const ProductTitleForm = () => {
   return (
     <>
@@ -32,7 +31,7 @@ const ProductTitleForm = () => {
 
           <div className="pr-6">
             <label
-              htmlFor="product-price"
+              htmlFor="price"
               className="block text-lg font-medium text-gray-900 pb-2 pl-2"
             >
               Giá sản phẩm

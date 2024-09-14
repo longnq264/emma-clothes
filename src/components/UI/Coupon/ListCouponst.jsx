@@ -1,18 +1,13 @@
-import { useEffect, useState } from "react";
-import { listCoupons } from "../../../api/coupon";
 import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { IoCloseSharp } from "react-icons/io5";
-import { applyCouponTotalPrice, setDiscount } from "../../../store/cartSlice";
+import { listCoupons } from "../../../api/coupon";
+import { applyCoupon } from "../../../utils/helperFunction";
 import SearchCoupon from "./SearchCoupon";
-const ListCouponst = ({ setMenu, menu }) => {
+const ListCouponst = ({ setMenu, menu, setDiscount, setPriceCheckout }) => {
+  const totalPrice = useSelector((state) => state.cart.totalPrice);
   const [coupons, setCoupons] = useState([]);
-  const dispatch = useDispatch();
-  const totalPriceAll = useSelector((state) => state.cart.totalPriceAll);
-  const discount = useSelector((state) => state.cart.discount);
-
-  console.log(totalPriceAll, discount);
-  console.log(coupons);
 
   const revertPercent = (number) => {
     const percentage = `${(number / 100) * 100}%`;
@@ -36,9 +31,8 @@ const ListCouponst = ({ setMenu, menu }) => {
   const handleSelectCoupon = async (values) => {
     console.log("handle", values);
     const changeDiscount = revertNumber(values);
-    await dispatch(setDiscount(changeDiscount));
-    await dispatch(applyCouponTotalPrice());
-    console.log(changeDiscount);
+    setDiscount(changeDiscount);
+    setPriceCheckout(applyCoupon(totalPrice, changeDiscount));
   };
 
   useEffect(() => {
@@ -52,7 +46,7 @@ const ListCouponst = ({ setMenu, menu }) => {
             <p className="text-center py-4 text-2xl font-semibold">
               Mã giảm giá
             </p>
-            <SearchCoupon />
+            <SearchCoupon setCoupons={setCoupons} coupons={coupons} />
             <p className="semibold pl-2 text-lg pb-2">Voucher từ EMMA</p>
             <div className="list-voucher flex flex-wrap mb-6 max-h-80 overflow-y-scroll">
               {coupons.map((data) => (
@@ -115,6 +109,8 @@ const ListCouponst = ({ setMenu, menu }) => {
 ListCouponst.propTypes = {
   setMenu: PropTypes.any,
   menu: PropTypes.any,
+  setDiscount: PropTypes.any,
+  setPriceCheckout: PropTypes.any,
 };
 
 export default ListCouponst;

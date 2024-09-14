@@ -5,16 +5,15 @@ import SuggestedProducts from "../components/UI/Home/SuggestedProducts";
 import BannerDesign from "../components/UI/Home/BannerDesign";
 import NewCollection from "../components/UI/Home/NewCollection";
 import AboutUs from "../components/UI/Home/AboutUs";
-// import FlashSaleCom from "../components/UI/Home/FlashSale";
-
+import Coupon from "../components/UI/Home/Coupon";
 function HomePage() {
   return (
-    <div className="bg-gray-50">
+    <div className="">
       <Banner />
+      <Coupon />
       <AboutUs />
       <Collection />
       <BannerDesign />
-      {/* <FlashSaleCom /> */}
       <CategoryPopular />
       <NewCollection />
       <SuggestedProducts />

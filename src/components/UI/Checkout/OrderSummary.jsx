@@ -5,14 +5,14 @@ import {
   formatCurrency,
 } from "../../../utils/helperFunction";
 import Coupons from "../Coupon/Coupons";
+import { useState } from "react";
 
 const OrderSummary = () => {
+  const [discount, setDiscount] = useState(0);
+  const [priceCheckout, setPriceCheckout] = useState(0);
   const cartItems = getCartFromLocalStorage();
   const totalPrice = useSelector((state) => state.cart.totalPrice);
   const delivery = useSelector((state) => state.cart.shippingFee);
-  const discount = useSelector((state) => state.cart.discount);
-  const priceCheckout = useSelector((state) => state.cart.totalPriceAll);
-
   const initPrice = calculateTotalPriceAll(totalPrice, delivery);
 
   return (
@@ -38,7 +38,7 @@ const OrderSummary = () => {
           </div>
         ))}
       </div>
-      <Coupons />
+      <Coupons setDiscount={setDiscount} setPriceCheckout={setPriceCheckout} />
       <div className="price py-2 text-stone-600 text-sm">
         <div className="total-price flex justify-between pt-2">
           <p>Tổng giá trị sản phẩm</p>
@@ -46,7 +46,7 @@ const OrderSummary = () => {
         </div>
         <div className="flex justify-between pt-2">
           <p>Vận chuyển</p>
-          <p>{formatCurrency(delivery)}</p>
+          <p>{delivery > 0 ? `${formatCurrency(delivery)}` : "Free"}</p>
         </div>
         <div className="flex justify-between border-b py-2">
           <p>Khuyến mãi</p>

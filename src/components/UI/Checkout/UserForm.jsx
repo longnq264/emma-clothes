@@ -19,7 +19,6 @@ const UserForm = () => {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const token = getTokenFromLocalStorage();
   const navigate = useNavigate();
-  console.log(token);
 
   const onFinish = async (values) => {
     console.log("Success:", values);

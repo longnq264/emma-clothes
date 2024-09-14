@@ -11,7 +11,7 @@ const Collection = () => {
   const fetchCategories = async () => {
     try {
       const response = await getCategories();
-      setCategories(response.data[0].children[0].children[1].children);
+      setCategories(response.data[0].children[1].children[0].children);
     } catch (error) {
       console.log(error);
     }
@@ -24,37 +24,8 @@ const Collection = () => {
       <h1 className="text-start pl-2 md:pl-0 md:text-center title my-10 font-semibold text-stone-700">
         Bộ Sưu Tập Nổi Bật
       </h1>
-      <div className="pl-2 sm:pl-4 lg:px-0 w-full">
-        <Swiper
-          slidesPerView={6}
-          spaceBetween={20}
-          loop={true}
-          breakpoints={{
-            1240: {
-              slidesPerView: 5,
-              spaceBetween: 20,
-            },
-            1024: {
-              slidesPerView: 4,
-              spaceBetween: 20,
-            },
-            768: {
-              slidesPerView: 2.5,
-              spaceBetween: 10,
-            },
-            640: {
-              slidesPerView: 1.5,
-            },
-            420: {
-              slidesPerView: 1.3,
-              spaceBetween: 10,
-            },
-
-            0: {
-              slidesPerView: 1.2,
-            },
-          }}
-        >
+      <div className="pl-2 sm:pl-4 lg:px-0">
+        <Swiper slidesPerView={6} spaceBetween={20} loop={true}>
           {categories.map((data) => (
             <SwiperSlide key={data.id}>
               <NavLink to="/collection/summer">
