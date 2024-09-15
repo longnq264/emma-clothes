@@ -11,11 +11,6 @@ const DropDownProfile = () => {
   const dispatch = useDispatch();
 
   const [isOpen, setIsOpen] = useState(false);
-
-  const toggleOpen = () => {
-    setIsOpen(!isOpen);
-  };
-
   const handleLogout = () => {
     dispatch(logout());
     dispatch(clearCart());
@@ -23,79 +18,74 @@ const DropDownProfile = () => {
 
   return (
     <div className="px-2 cursor-pointer relative">
-      <span className="font-bold text-stone-800 " onClick={toggleOpen}>
+      <span
+        className="font-bold text-stone-800 "
+        onClick={() => setIsOpen(!isOpen)}
+      >
         <LuUser2 size={22} />
       </span>
       {isOpen && (
-        <div
-          className="absolute right-0 w-60 mt-8 origin-top-right bg-white border border-gray-200 rounded shadow-lg ring-1 ring-black ring-opacity-5"
-          role="menu"
-          aria-orientation="vertical"
-          aria-labelledby="menu-button"
-          tabIndex="-1"
-        >
-          {token ? (
-            <>
-              <div className="border-b border-gray-300 pb-2">
-                <h3 className="block px-4 pt-2 text-md font-bold text-gray-700">
-                  {user.name}
-                  <p className="block text-sm text-gray-500">{user.email}</p>
-                </h3>
-              </div>
+        <>
+          <div
+            className="absolute right-0 w-60 mt-10 origin-top-right bg-white border border-gray-200 rounded shadow-lg ring-1 ring-black ring-opacity-5 z-50"
+            role="menu"
+            aria-orientation="vertical"
+            aria-labelledby="menu-button"
+            tabIndex="-1"
+          >
+            {token ? (
+              <>
+                <div className="border-b border-gray-300 pb-2">
+                  <h3 className="block px-4 pt-2 text-md font-bold text-gray-700">
+                    {user.name}
+                    <p className="block text-sm text-gray-500">{user.email}</p>
+                  </h3>
+                </div>
+                <div className="py-1" role="none">
+                  {[
+                    { to: "/profile", label: "Profile" },
+                    { to: "/settings", label: "Settings" },
+                  ].map((item, index) => (
+                    <NavLink
+                      key={index}
+                      to={item.to}
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      role="menuitem"
+                      tabIndex="-1"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {item.label}
+                    </NavLink>
+                  ))}
+                  <button
+                    className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-left"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </button>
+                </div>
+              </>
+            ) : (
               <div className="py-1" role="none">
-                <NavLink
-                  to="/profile"
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                  role="menuitem"
-                  tabIndex="-1"
-                  id="menu-item-0"
-                  onClick={() => setIsOpen(false)}
-                >
-                  Profile
-                </NavLink>
-                <NavLink
-                  to="/settings"
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                  role="menuitem"
-                  tabIndex="-1"
-                  id="menu-item-1"
-                  onClick={() => setIsOpen(false)}
-                >
-                  Settings
-                </NavLink>
-                <button
-                  className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-left"
-                  onClick={() => handleLogout()}
-                >
-                  Logout
-                </button>
+                {[
+                  { to: "/auth/login", label: "Login" },
+                  { to: "/auth/register", label: "Register" },
+                ].map((item, index) => (
+                  <NavLink
+                    key={index}
+                    to={item.to}
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    role="menuitem"
+                    tabIndex="-1"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {item.label}
+                  </NavLink>
+                ))}
               </div>
-            </>
-          ) : (
-            <div className="py-1" role="none">
-              <NavLink
-                to="auth/login"
-                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                role="menuitem"
-                tabIndex="-1"
-                id="menu-item-0"
-                onClick={() => setIsOpen(false)}
-              >
-                Login
-              </NavLink>
-              <NavLink
-                to="auth/register"
-                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                role="menuitem"
-                tabIndex="-1"
-                id="menu-item-1"
-                onClick={() => setIsOpen(false)}
-              >
-                Register
-              </NavLink>
-            </div>
-          )}
-        </div>
+            )}
+          </div>
+        </>
       )}
     </div>
   );

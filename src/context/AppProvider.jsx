@@ -6,6 +6,7 @@ import { checkout } from "../api/api-server.js";
 import { DarkModeProvider } from "../components/User/DarkModeProvider.jsx";
 
 const AppProvider = ({ children }) => {
+  const [overlay, setOverlay] = useState(false);
   const [currentSelect, setCurrentSelect] = useState("city");
   const [address, setAddress] = useState({
     cities: [],
@@ -137,6 +138,8 @@ const AppProvider = ({ children }) => {
           orderDetail,
           setOrderDetail,
           setCouponCode,
+          setOverlay,
+          overlay,
         }}
       >
         {children}
