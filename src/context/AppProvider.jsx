@@ -18,6 +18,7 @@ const AppProvider = ({ children }) => {
     selectedWard: null,
     selectedWardName: "",
   });
+  const [couponCode, setCouponCode] = useState("");
   const [orderDetail, setOrderDetail] = useState({
     shipping_method: "Tiêu chuẩn",
     ward: "",
@@ -48,8 +49,9 @@ const AppProvider = ({ children }) => {
       ward: address.selectedWardName,
       district: address.selectedDistrictName,
       city: address.selectedCityName,
+      coupon_code: couponCode,
     }));
-  }, [address]);
+  }, [address, couponCode]);
 
   const handleCityChange = async (cityId) => {
     const selectedCity = address.cities.find((city) => city.id === cityId);
@@ -134,6 +136,7 @@ const AppProvider = ({ children }) => {
           handleCheckoutDetail,
           orderDetail,
           setOrderDetail,
+          setCouponCode,
         }}
       >
         {children}
