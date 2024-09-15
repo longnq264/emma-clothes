@@ -64,10 +64,10 @@ const AttributesProduct = ({
 
   return (
     <div className="col-span-full rounded-lg bg-slate-100 shadow-inner p-4">
-      <h2 className="block text-3xl font-medium text-gray-900 pb-4">
+      <h2 className="block text-3xl font-medium text-gray-900 pb-6">
         Thuộc tính
       </h2>
-      <div className="flex px-2">
+      <div className="flex">
         <div className="basis-1/3">
           {attributes.map((attribute) => (
             <div key={attribute.id} className="mb-6">

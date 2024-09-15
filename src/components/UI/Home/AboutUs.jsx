@@ -9,7 +9,7 @@ const AboutUs = () => {
           </div>
           <div className="basis-1/2 px-4 pb-10 pt-0 sm:px-10 lg:px-0 lg:pb-0 xl:pt-10 lg:pl-16">
             <h1 className="text-4xl lg:text-6xl font-bold text-stone-500 text-center md:text-start">
-              About Us
+              Về Chúng Tôi
             </h1>
             <p className="pt-10 text-base md:text-xl md:pr-24 text-center md:text-start">
               Lorem Ipsum has been the standard dummy text ever since the 1500s,
