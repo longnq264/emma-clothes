@@ -3,6 +3,7 @@ export const selectTotalQuantity = (state) => state.cart.totalQuantity;
 export const calculateTotalQuantity = (items) => {
   return items.reduce((total, item) => total + item.quantity, 0);
 };
+
 export const calculateTotalPrice = (items) =>
   items.reduce((total, item) => total + item.price * item.quantity, 0);
 
@@ -13,6 +14,16 @@ export const formatCurrency = (amount) => {
   });
 };
 
-export const calculateTotalPriceAll = (totalPrice, shippingFee, discount) => {
-  return totalPrice + shippingFee - discount;
+export const calculateTotalPriceAll = (totalPrice, shippingFee) => {
+  return totalPrice + shippingFee;
+};
+
+export const applyCoupon = (totalPrice, discount) => {
+  // Tính số tiền giảm
+  const discountAmount = totalPrice * (discount / 100);
+
+  // Tính tổng tiền sau khi giảm
+  const finalPrice = totalPrice - discountAmount;
+
+  return finalPrice;
 };

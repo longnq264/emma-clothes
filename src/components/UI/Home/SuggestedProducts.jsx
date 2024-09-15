@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import ShowMoreBtn from "./ShowMoreBtn";
-
-import { filterProduct } from "../../../api/api-server";
 import { NavLink } from "react-router-dom";
+import ShowMoreBtn from "./ShowMoreBtn";
 import ProductImage from "../Product/ProductImage";
+import { filterProduct } from "../../../api/api-server";
 import { formatCurrency } from "../../../utils/helperFunction";
 
 import { SwiperSlide, Swiper } from "swiper/react";
@@ -64,7 +63,7 @@ const SuggestedProducts = () => {
       <div className="hidden sm:block">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-2 xl:grid-cols-5 lg:gap-4">
           {products.length > 0 ? (
-            products.slice(0, 12).map((product) => (
+            products.slice(0, 10).map((product) => (
               <NavLink key={product.id} to={`/products/${product.id}`}>
                 <div className="relative mb-8 shadow-md">
                   <div className="">
@@ -121,7 +120,7 @@ const SuggestedProducts = () => {
           )}
         </Swiper>
       </div>
-      <ShowMoreBtn props={`/category/77`} />
+      <ShowMoreBtn props={`/category/created_at`} />
     </div>
   );
 };

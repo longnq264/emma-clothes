@@ -1,6 +1,5 @@
- 
 import { useParams } from "react-router-dom";
-import Banner from '../../components/UI/Slider/Banner';
+import Banner from "../../components/UI/Slider/Banner";
 
 const CollectionDetailPage = () => {
   const { role } = useParams();

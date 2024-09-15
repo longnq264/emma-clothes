@@ -2,8 +2,6 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { addToCart, listCart, removeCart, updateCart } from "../api/api-server";
 import { saveCartToLocalStorage } from "../utils/indexUtils";
 
-// Thao tác để lấy giỏ hàng từ server và hợp nhất với localStorage
-
 export const fetchCarts = createAsyncThunk(
   "cart/fetchCart",
   async (token, { rejectWithValue }) => {

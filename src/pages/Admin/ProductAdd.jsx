@@ -19,14 +19,11 @@ const ProductAdd = () => {
   const [variants, setVariants] = useState([]);
   const [idProduct, setIdProduct] = useState([]);
 
-  console.log(variants);
-  console.log(productItem);
-  console.log(idProduct);
-  console.log(productItemsUser);
-
+  console.log("variants", variants);
+  // console.log("show add atributes", productItemsUser);
+  //Submit postProduct request firts
   const onFinish = async (values) => {
-    console.log("Success:", values);
-    console.log(variants);
+    console.log("onFinish", values);
     const formData = {
       name: values.name,
       description: values.description,
@@ -38,7 +35,6 @@ const ProductAdd = () => {
       status: "Active", //trạng thái
       images: images,
     };
-
     try {
       const response = await createProductItem(formData);
       console.log("response", response);
@@ -52,32 +48,128 @@ const ProductAdd = () => {
     }
   };
 
+  //failed
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
 
+  //Submit show variants
   const handleVariantSubmit = async () => {
-    if (variants.length === 0 || !productItem) return;
+    if (variants.length === 0 || !productItem)
+      return console.log("No select variant item!!");
 
     const variantData = {
       product_id: productItem.id,
       attribute: variants,
-      stock: productItem.stock,
+      stock: productItem.quantity,
       price: productItem.price,
     };
+    const existingVariants = productItemsUser.map((item) => item.attributes);
 
-    try {
-      const response = await createProductVariants(idProduct, variantData);
-      console.log("Variant response", response);
-      if (response.status === true) {
-        fetchProductItems(idProduct);
-        console.log("success");
+    if (existingVariants.length === 0) {
+      try {
+        const response = await createProductVariants(idProduct, variantData);
+        console.log("Variant response", response);
+        if (response.status === true) {
+          await fetchProductItems(idProduct);
+          console.log("success");
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
+      return;
     }
+
+    const filterNewVariants = (data1, data2, targetAttributeId) => {
+      return data2
+        .map((item2) => {
+          // Nếu attribute_id không khớp với targetAttributeId, giữ nguyên giá trị của nó
+          if (item2.attribute_id !== targetAttributeId) {
+            return item2;
+          }
+
+          // Tìm phần tử tương ứng trong data1 dựa trên attribute_id
+          const matchingItem = data1.find(
+            (item1) => item1.attribute_id === item2.attribute_id
+          );
+
+          if (matchingItem) {
+            // Lọc các value_ids chỉ với targetAttributeId
+            const newValues = item2.value_ids.filter(
+              (value_id) => !matchingItem.value_ids.includes(value_id)
+            );
+
+            // Trả về attribute_id cùng với các giá trị value_ids mới, nếu có
+            if (newValues.length > 0) {
+              return {
+                attribute_id: item2.attribute_id,
+                value_ids: newValues,
+              };
+            } else {
+              return null; // Nếu không có giá trị mới, loại bỏ item2
+            }
+          } else {
+            // Nếu attribute_id không tồn tại trong data1, trả về toàn bộ value_ids
+            return item2;
+          }
+        })
+        .filter((item) => item !== null); // Lọc bỏ các giá trị `null`
+    };
+
+    const result = existingVariants.flat().reduce((acc, item) => {
+      const { attribute_id, id } = item;
+
+      // Tìm xem attribute đã tồn tại trong acc chưa
+      const existingAttribute = acc.find(
+        (attr) => attr.attribute_id === attribute_id
+      );
+
+      if (existingAttribute) {
+        // Nếu attribute đã tồn tại, thêm value_id nếu chưa có
+        if (!existingAttribute.value_ids.includes(id)) {
+          existingAttribute.value_ids.push(id);
+        }
+      } else {
+        // Nếu chưa tồn tại, thêm attribute mới vào acc
+        acc.push({
+          attribute_id: attribute_id,
+          value_ids: [id],
+        });
+      }
+
+      return acc;
+    }, []);
+
+    console.log("init variant", result);
+
+    const newVariants = filterNewVariants(result, variants, 1);
+    console.log("new variants", newVariants);
+    const newVariantData = {
+      product_id: productItem.id,
+      attribute: newVariants,
+      stock: productItem.quantity,
+      price: productItem.price,
+    };
+    if (newVariants.length > 0) {
+      try {
+        const response = await createProductVariants(idProduct, newVariantData);
+        console.log("Variant response", response);
+        if (response.status === true) {
+          await fetchProductItems(idProduct);
+          console.log("success");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    // // Nếu không có variant mới nào, không cần gửi thêm
+    // if (newVariants.length === 0) {
+    //   console.log("Tất cả các variants đã tồn tại, không cần thêm mới");
+    //   return;
+    // }
   };
 
+  //get list Attribute
   const fetchProductItems = async (id) => {
     try {
       const response = await getProductItems(id);
@@ -88,7 +180,9 @@ const ProductAdd = () => {
     }
   };
 
+  // submit multiple
   const handleSubmit = async () => {
+    if (productItemsUser.length === 0) return;
     console.log(productItemsUser);
     const productSubmit = {
       variants: productItemsUser.map((item) => {
@@ -110,6 +204,7 @@ const ProductAdd = () => {
     }
     console.log("success");
   };
+
   return (
     <div className="container mx-auto px-4 mb-20">
       <h1 className="pl-8 text-4xl text-stone-700 font-extrabold pb-6">

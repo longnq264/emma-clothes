@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Breadcrumb } from "antd";
 import { NavLink, useParams } from "react-router-dom";
 import {
+  filterProduct,
   getCategory,
   getProductByCategoryId,
   getProducts,
@@ -14,6 +15,7 @@ import ListProduct from "../../components/UI/Product/ListProduct.jsx";
 const ProductPage = () => {
   const [products, setProducts] = useState([]);
   const [categoryId, setCategoryId] = useState(null);
+  const [titleName, setTitleName] = useState("");
   const [quantityProduct, setQuantityProduct] = useState(0);
   const [selectedPriceRange, setSelectedPriceRange] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -29,6 +31,9 @@ const ProductPage = () => {
           selectedPriceRange.min,
           selectedPriceRange.max
         );
+      } else if (id === "created_at") {
+        response = await filterProduct("created_at");
+        setTitleName("Hàng Mới Về");
       } else if (id) {
         response = await getProductByCategoryId(id);
       } else {
@@ -49,7 +54,7 @@ const ProductPage = () => {
 
   useEffect(() => {
     fetchProducts();
-    if (id) {
+    if (id !== "created_at") {
       fetchCategory(id);
     }
   }, [id, selectedPriceRange]);
@@ -78,15 +83,10 @@ const ProductPage = () => {
         />
       </div>
       <div className="container mx-auto py-2 md:py-4">
-        <div className="md:hidden border-b pb-3 mx-2">
-          {id ? (
-            <span className="text-4xl">{categoryId?.name}</span>
-          ) : (
-            <span className="text-3xl">Tất cả sản phẩm</span>
-          )}
-        </div>
+        <div className="md:hidden border-b pb-3 mx-2">{titleName}</div>
         <div className="md:flex">
           <NavFilter
+            titleName={titleName}
             selectedPriceRange={selectedPriceRange}
             setSelectedPriceRange={setSelectedPriceRange}
             categoryId={categoryId}

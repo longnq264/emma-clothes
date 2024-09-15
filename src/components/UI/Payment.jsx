@@ -1,22 +1,26 @@
+import PropTypes from "prop-types";
 import { Form, Radio } from "antd";
 
-const Payment = () => {
-  const paymentMethods = [
-    { label: "Tiền mặt (COD)", payment: "COD" },
-    {
-      label: "Thanh toán thẻ nội địa",
-      payment: "online_card",
-    },
-    {
-      label: "Thanh toán thẻ quốc tế",
-      payment: "online_visa",
-    },
-    {
-      label: "Lựa chọn thanh toán khác",
-      payment: "online",
-    },
-  ];
-
+const paymentMethods = [
+  { label: "Tiền mặt (COD)", payment: "COD" },
+  {
+    label: "Thanh toán thẻ nội địa",
+    payment: "online_card",
+  },
+  {
+    label: "Thanh toán thẻ quốc tế",
+    payment: "online_visa",
+  },
+  {
+    label: "Lựa chọn thanh toán khác",
+    payment: "online",
+  },
+];
+const Payment = ({ setPayment, payment }) => {
+  const onChange = (e) => {
+    console.log("radio checked", e.target.value);
+    setPayment(e.target.value);
+  };
   return (
     <Form.Item name="payment">
       <div className="payment-content">
@@ -24,7 +28,11 @@ const Payment = () => {
         <p className="text-sm text-gray-500 py-2">
           Lựa chọn phương thức thanh toán phù hợp nhất cho bạn
         </p>
-        <Radio.Group className="flex flex-col border-t-2 my-2">
+        <Radio.Group
+          className="flex flex-col border-t-2 my-2"
+          onChange={onChange}
+          value={payment}
+        >
           {paymentMethods.map((method, index) => (
             <Radio
               key={index}
@@ -39,5 +47,8 @@ const Payment = () => {
     </Form.Item>
   );
 };
-
+Payment.propTypes = {
+  setPayment: PropTypes.any,
+  payment: PropTypes.any,
+};
 export default Payment;

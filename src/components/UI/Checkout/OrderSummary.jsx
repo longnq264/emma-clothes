@@ -4,13 +4,16 @@ import {
   calculateTotalPriceAll,
   formatCurrency,
 } from "../../../utils/helperFunction";
+import Coupons from "../Coupon/Coupons";
+import { useState } from "react";
 
 const OrderSummary = () => {
+  const [discount, setDiscount] = useState(0);
+  const [priceCheckout, setPriceCheckout] = useState(0);
   const cartItems = getCartFromLocalStorage();
   const totalPrice = useSelector((state) => state.cart.totalPrice);
   const delivery = useSelector((state) => state.cart.shippingFee);
-  const discount = useSelector((state) => state.cart.discount);
-  const priceCheckout = calculateTotalPriceAll(totalPrice, delivery, discount);
+  const initPrice = calculateTotalPriceAll(totalPrice, delivery);
 
   return (
     <div className="md:size-3/5 px-6 md:pl-14 order-summary md:min-w-96 pb-6">
@@ -35,6 +38,7 @@ const OrderSummary = () => {
           </div>
         ))}
       </div>
+      <Coupons setDiscount={setDiscount} setPriceCheckout={setPriceCheckout} />
       <div className="price py-2 text-stone-600 text-sm">
         <div className="total-price flex justify-between pt-2">
           <p>Tổng giá trị sản phẩm</p>
@@ -42,16 +46,20 @@ const OrderSummary = () => {
         </div>
         <div className="flex justify-between pt-2">
           <p>Vận chuyển</p>
-          <p>{formatCurrency(delivery)}</p>
+          <p>{delivery > 0 ? `${formatCurrency(delivery)}` : "Free"}</p>
         </div>
         <div className="flex justify-between border-b py-2">
           <p>Khuyến mãi</p>
-          <p>{formatCurrency(discount)}</p>
+          <p>{discount > 0 ? <>{`- ${discount}%`}</> : <>{`0`}</>}</p>
         </div>
       </div>
       <div className="totalPrice flex justify-between text-xl py-2">
         <p className="font-bold">Tổng thanh toán</p>
-        <p className="font-bold">{formatCurrency(priceCheckout)}</p>
+        <p className="font-bold">
+          {priceCheckout > 0
+            ? formatCurrency(priceCheckout)
+            : formatCurrency(initPrice)}
+        </p>
       </div>
     </div>
   );

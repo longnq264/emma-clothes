@@ -49,18 +49,37 @@ const ProductInforDetail = ({
 
   // Handle change color && size
   useEffect(() => {
-    if (selectedColor && selectedSize) {
-      const variants = data.productVariants.find(
-        (variant) =>
-          variant.attributes.some(
-            (attr) => attr.value === selectedColor && attr.attribute_id === 1
-          ) &&
+    if (data.productVariants) {
+      let foundVariant = null;
+
+      // Nếu cả màu và kích thước đều được chọn, tìm theo cả hai thuộc tính
+      if (selectedColor && selectedSize) {
+        foundVariant = data.productVariants.find(
+          (variant) =>
+            variant.attributes.some(
+              (attr) => attr.value === selectedColor && attr.attribute_id === 1
+            ) &&
+            variant.attributes.some(
+              (attr) => attr.value === selectedSize && attr.attribute_id === 2
+            )
+        );
+      }
+      // Nếu chỉ có kích thước, tìm theo kích thước
+      else if (selectedSize) {
+        foundVariant = data.productVariants.find((variant) =>
           variant.attributes.some(
             (attr) => attr.value === selectedSize && attr.attribute_id === 2
           )
-      );
-      setSelectedVariant(variants);
-      console.log("selected variant", variants);
+        );
+      }
+
+      if (foundVariant) {
+        setSelectedVariant(foundVariant);
+        console.log("Selected variant:", foundVariant);
+      } else {
+        setSelectedVariant(null); // Nếu không tìm thấy variant phù hợp
+        console.log("No matching variant found.");
+      }
     }
   }, [selectedColor, selectedSize, data.productVariants]);
 

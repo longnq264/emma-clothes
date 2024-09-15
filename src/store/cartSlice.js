@@ -10,14 +10,12 @@ import {
   getCartFromLocalStorage,
   saveCartToLocalStorage,
 } from "../utils/indexUtils";
-import { calculateTotalPrice } from "../utils/helperFunction";
-
-const calculateTotalQuantity = (items) =>
-  items.reduce((total, item) => total + item.quantity, 0);
-
-const calculateTotalPriceAll = (totalPrice, shippingFee, discount) => {
-  return totalPrice + shippingFee - discount;
-};
+import {
+  applyCoupon,
+  calculateTotalPrice,
+  calculateTotalPriceAll,
+  calculateTotalQuantity,
+} from "../utils/helperFunction";
 
 const cartSlice = createSlice({
   name: "cart",
@@ -27,10 +25,10 @@ const cartSlice = createSlice({
     totalQuantity: calculateTotalQuantity(getCartFromLocalStorage()),
     status: "idle",
     totalPrice: calculateTotalPrice(getCartFromLocalStorage()),
-    totalPriceApi: 0,
     shippingFee: 20000,
-    discount: 10000,
     freeship: 1000000,
+    totalPriceApi: 0,
+    discount: 0,
     totalPriceAll: 0,
   },
   reducers: {
@@ -118,6 +116,12 @@ const cartSlice = createSlice({
         state.shippingFee = 20000;
       }
     },
+    setDiscount(state, action) {
+      state.discount = action.payload;
+    },
+    applyCouponTotalPrice(state) {
+      state.totalPriceAll = applyCoupon(state.totalPrice, state.discount);
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -128,8 +132,6 @@ const cartSlice = createSlice({
       .addCase(fetchCarts.fulfilled, (state, action) => {
         const { items, totalPriceApi } = action.payload;
         state.items = items;
-        console.log(items);
-
         state.totalQuantity = calculateTotalQuantity(state.items);
         state.totalPrice = calculateTotalPrice(state.items);
         state.totalPriceApi = totalPriceApi;
@@ -151,7 +153,6 @@ const cartSlice = createSlice({
         state.items = action.payload;
         state.status = "succeeded";
         state.totalPrice = calculateTotalPrice(getCartFromLocalStorage());
-        // state.totalQuantity = calculateTotalQuantity(state.items);
         console.log(state.items);
         localStorage.setItem("cartItems", JSON.stringify(state.items));
       })
@@ -176,11 +177,6 @@ const cartSlice = createSlice({
         state.items = action.payload;
         console.log("payload reducer", action.payload);
         state.totalPrice = calculateTotalPrice(state.items);
-        // state.totalPriceAll = calculateTotalPriceAll(
-        //   state.totalPrice,
-        //   state.shippingFee,
-        //   state.discount
-        // );
         state.totalQuantity = calculateTotalQuantity(action.payload);
         console.log("totalPrice", state.totalPrice);
         state.status = "succeeded";
@@ -196,7 +192,7 @@ const cartSlice = createSlice({
         state.items = state.items.filter((item) => item.id !== removedItemId);
         state.totalQuantity = calculateTotalQuantity(state.items);
 
-        // Cập nhật localStorage
+        // update localStorage
         localStorage.setItem("cartItems", JSON.stringify(state.items));
       });
   },
@@ -209,6 +205,8 @@ export const {
   setItems,
   clearCart,
   setFreeShip,
+  setDiscount,
+  applyCouponTotalPrice,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;
