@@ -1,14 +1,15 @@
 import PropTypes from "prop-types";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { IoCloseSharp } from "react-icons/io5";
 import { listCoupons } from "../../../api/coupon";
 import { applyCoupon } from "../../../utils/helperFunction";
 import SearchCoupon from "./SearchCoupon";
+import { AppContext } from "../../../context/AppContext";
 const ListCouponst = ({ setMenu, menu, setDiscount, setPriceCheckout }) => {
   const totalPrice = useSelector((state) => state.cart.totalPrice);
   const [coupons, setCoupons] = useState([]);
-
+  const { orderDetail, setCouponCode } = useContext(AppContext);
   const revertPercent = (number) => {
     const percentage = `${(number / 100) * 100}%`;
     return percentage;
@@ -29,10 +30,14 @@ const ListCouponst = ({ setMenu, menu, setDiscount, setPriceCheckout }) => {
   };
 
   const handleSelectCoupon = async (values) => {
-    console.log("handle", values);
-    const changeDiscount = revertNumber(values);
+    const { discount, code } = JSON.parse(values);
+    console.log("handle", discount);
+    console.log("handle", code);
+    console.log("onchange handle detail", orderDetail);
+    const changeDiscount = revertNumber(discount);
     setDiscount(changeDiscount);
     setPriceCheckout(applyCoupon(totalPrice, changeDiscount));
+    setCouponCode(code);
   };
 
   useEffect(() => {
@@ -73,7 +78,10 @@ const ListCouponst = ({ setMenu, menu, setDiscount, setPriceCheckout }) => {
                     <input
                       type="radio"
                       name="selectedCoupon" // Tên chung cho các radio button
-                      value={data.discount} // Giá trị là id của coupon
+                      value={JSON.stringify({
+                        discount: data.discount,
+                        code: data.code,
+                      })} // Giá trị là id của coupon
                       className="mr-2" // Thêm khoảng cách giữa radio và văn bản
                       onChange={(e) => handleSelectCoupon(e.target.value)} // Hàm xử lý khi chọn coupon
                     />
