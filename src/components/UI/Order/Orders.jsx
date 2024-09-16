@@ -49,8 +49,6 @@ const UserOrders = () => {
     setIsCancelModalVisible(true);
   };
 
-  
-
   const handleCancelSubmit = async () => {
     try {
       await cancelOrder(selectedOrderId, cancelReason);

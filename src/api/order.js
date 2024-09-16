@@ -20,7 +20,6 @@ export const addOrder = async (orderData) => {
   }
 };
 
-
 // Hàm lấy tất cả các đơn hàng
 export const fetchOrders = async () => {
   const token = getTokenFromLocalStorage();
@@ -36,6 +35,7 @@ export const fetchOrders = async () => {
     throw error;
   }
 };
+
 
 // Hàm cập nhật trạng thái đơn hàng
 export const updateOrderStatus = async (orderId, newStatus) => {

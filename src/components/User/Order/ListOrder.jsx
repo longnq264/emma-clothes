@@ -95,12 +95,12 @@ const ListOrder = () => {
       message.error('Có lỗi xảy ra khi cập nhật trạng thái');
     }
   };
-  
 
   const handlePrintOrder = (orderId) => {
     message.info(`In đơn hàng với mã: ${orderId}`);
   };
 
+  
   const handleCancelOrder = async (orderId) => {
     try {
       const response = await updateOrderStatus(orderId, 5); // 5 is the status for "Cancelled"

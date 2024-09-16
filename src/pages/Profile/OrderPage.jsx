@@ -19,6 +19,7 @@ const UserProfile = () => {
           return;
         }
 
+        
         const ordersData = await getUserOrders(token); // Use getUserOrders to fetch order data
 
         // Check if the response data is valid
