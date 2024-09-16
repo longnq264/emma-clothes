@@ -1,4 +1,5 @@
-import { Button, Form } from "antd";
+import { Button, Form, notification } from "antd";
+import { useNavigate } from "react-router-dom";
 import AttributesProduct from "../../components/User/Products/AttributesProduct";
 import ProductTitleForm from "../../components/User/SubmitForm/ProductTitleForm";
 import { useState } from "react";
@@ -19,7 +20,7 @@ const ProductAdd = () => {
   const [productItem, setProductItem] = useState([]);
   const [variants, setVariants] = useState([]);
   const [idProduct, setIdProduct] = useState([]);
-
+  const navigate = useNavigate();
   console.log("variants", variants);
   // console.log("show add atributes", productItemsUser);
   //Submit postProduct request firts
@@ -169,6 +170,8 @@ const ProductAdd = () => {
     try {
       const response = await updateMultiple(productSubmit);
       console.log(response);
+      notification.success("Success");
+      navigate("/admin/products");
     } catch (error) {
       console.log(error);
     }
