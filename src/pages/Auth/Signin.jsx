@@ -2,7 +2,10 @@ import { Button, Form, Input } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../../store/authThunk";
-import { getTokenFromLocalStorage } from "../../utils/indexUtils";
+import {
+  getCartFromLocalStorage,
+  getTokenFromLocalStorage,
+} from "../../utils/indexUtils";
 import { syncLocalCartToServer } from "../../store/cartThunk";
 import imglogin from "../../assets/img/mountain.jpg";
 const Signin = () => {
@@ -10,6 +13,7 @@ const Signin = () => {
   const navigate = useNavigate();
   const { status, error } = useSelector((state) => state.auth);
   const { merged } = useSelector((state) => state.cart);
+  console.log(merged);
   const onFinish = async (values) => {
     const formData = {
       ...values,
@@ -19,13 +23,14 @@ const Signin = () => {
       await dispatch(loginUser(formData)).unwrap();
       const token = getTokenFromLocalStorage();
       console.log(merged);
-      navigate("/member");
-      if (!merged) {
+      const cartItem = getCartFromLocalStorage();
+      if (cartItem.length > 0) {
         // Merge cartServer & cartLocal
         await dispatch(syncLocalCartToServer(token)).unwrap();
 
         // await dispatch(fetchCarts(token));
       }
+      navigate("/member");
     } catch (error) {
       console.error("Registration failed:", error);
     }

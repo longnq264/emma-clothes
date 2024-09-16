@@ -245,7 +245,7 @@ const OverviewDashboard = () => {
         <h2 className="text-2xl font-bold mb-4">Doanh Thu Theo Danh Mục</h2>
         <BarChart width={800} height={400} data={statistics.categoryData}>
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
+          <XAxis dataKey="name" na />
           <YAxis />
           <Tooltip />
           <Bar dataKey="totalValue" fill="#8884d8" />
@@ -254,21 +254,8 @@ const OverviewDashboard = () => {
 
       <div className="mt-8">
         <h2 className="text-2xl font-bold mb-4">
-          Giá Trung Bình Sản Phẩm Theo Danh Mục
+          Số Lượng Sản Phẩm Theo Tháng
         </h2>
-        <LineChart width={800} height={400} data={statistics.categoryData}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-          <Line type="monotone" dataKey="averagePrice" stroke="#8884d8" />
-          {/* <Line type="monotone" dataKey="averagePrice" stroke="#8884d8" />
-          <Line type="monotone" dataKey="averagePrice" stroke="#82ca9d" /> */}
-        </LineChart>
-      </div>
-
-      {/* <div className="mt-8">
-        <h2 className="text-2xl font-bold mb-4">Số Lượng Sản Phẩm Theo Tháng</h2>
         <LineChart width={800} height={400} data={statistics.monthlyDataArray}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
@@ -276,7 +263,7 @@ const OverviewDashboard = () => {
           <Tooltip />
           <Line type="monotone" dataKey="quantity" stroke="#8884d8" />
         </LineChart>
-      </div> */}
+      </div>
 
       {/* <div className="mt-8">
         <h2 className="text-2xl font-bold mb-4">Tỉ Lệ Sản Phẩm Theo Danh Mục</h2>
@@ -302,3 +289,4 @@ const OverviewDashboard = () => {
 };
 
 export default OverviewDashboard;
+

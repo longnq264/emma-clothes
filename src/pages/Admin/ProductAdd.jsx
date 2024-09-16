@@ -89,18 +89,16 @@ const ProductAdd = () => {
       const { attribute_id, id } = item;
       console.log("acc", acc);
       console.log("item", attribute_id, id);
-      // Tìm xem attribute đã tồn tại trong acc chưa
+
       const existingAttribute = acc.find(
         (attr) => attr.attribute_id === attribute_id
       );
       console.log(existingAttribute);
       if (existingAttribute) {
-        // Nếu attribute đã tồn tại, thêm value_id nếu chưa có
         if (!existingAttribute.value_ids.includes(id)) {
           existingAttribute.value_ids.push(id);
         }
       } else {
-        // Nếu chưa tồn tại, thêm attribute mới vào acc
         acc.push({
           attribute_id: attribute_id,
           value_ids: [id],

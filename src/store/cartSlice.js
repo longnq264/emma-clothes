@@ -178,7 +178,6 @@ const cartSlice = createSlice({
         console.log("payload reducer", action.payload);
         state.totalPrice = calculateTotalPrice(state.items);
         state.totalQuantity = calculateTotalQuantity(action.payload);
-        console.log("totalPrice", state.totalPrice);
         state.status = "succeeded";
         localStorage.setItem("cartItems", JSON.stringify(action.payload));
       })
