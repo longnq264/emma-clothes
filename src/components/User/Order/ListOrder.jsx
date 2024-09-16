@@ -15,7 +15,7 @@ const ListOrder = () => {
   const [loading, setLoading] = useState(true);
   const [dateRange, setDateRange] = useState(null);
   const [searchText, setSearchText] = useState('');
-  const [statusFilter, setStatusFilter] = useState(null);
+  const [statusFilter] = useState(null);
 
   const navigate = useNavigate();
 
@@ -65,6 +65,19 @@ const ListOrder = () => {
   };
 
   const handleStatusChange = async (orderId, newStatus) => {
+    const order = orders.find(order => order.id === orderId);
+  
+    // Kiểm tra nếu đơn hàng đã bị hủy hoặc đã giao hàng
+    if (order.status_id === 5) {
+      message.warning('Đơn hàng đã bị hủy, không thể cập nhật trạng thái');
+      return;
+    }
+  
+    if (order.status_id === 4) {
+      message.warning('Đơn hàng đã giao xong, không thể cập nhật trạng thái');
+      return;
+    }
+  
     try {
       const response = await updateOrderStatus(orderId, newStatus);
       if (response.status) {
@@ -82,6 +95,8 @@ const ListOrder = () => {
       message.error('Có lỗi xảy ra khi cập nhật trạng thái');
     }
   };
+  
+  
 
   const handlePrintOrder = (orderId) => {
     message.info(`In đơn hàng với mã: ${orderId}`);
@@ -134,7 +149,10 @@ const ListOrder = () => {
       title: 'Mã đơn hàng',
       dataIndex: 'id',
       key: 'id',
-    },
+      sorter: (a, b) => a.id - b.id, // So sánh mã đơn hàng theo số
+      defaultSortOrder: 'descend', // Sắp xếp theo thứ tự giảm dần
+    }
+    ,
     {
       title: 'Tên người dùng',
       dataIndex: 'user_name',
@@ -161,6 +179,9 @@ const ListOrder = () => {
       ],
       onFilter: handleAmountFilter,
       sorter: (a, b) => parseFloat(a.total_amount) - parseFloat(b.total_amount),
+      // defaultSortOrder: 'descend', // Sắp xếp theo thứ tự giảm dần
+      render: (text) => 
+        new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(text),
     },
     {
       title: 'Trạng thái',
@@ -193,9 +214,10 @@ const ListOrder = () => {
       dataIndex: 'created_at',
       key: 'created_at',
       sorter: (a, b) => moment(b.created_at).unix() - moment(a.created_at).unix(),
-      defaultSortOrder: 'descend',
+      // defaultSortOrder: 'descend', // Đảm bảo rằng cột này được sắp xếp theo ngày mới nhất đầu tiên
       render: (text) => moment(text).format('YYYY-MM-DD'),
-    },
+    }
+    ,
     {
       title: 'Hành động',
       key: 'action',
@@ -244,7 +266,7 @@ const ListOrder = () => {
           style={{ width: 300, marginRight: 16 }}
         />
         <RangePicker onChange={handleDateChange} />
-        <Select
+        {/* <Select
           placeholder="Chọn trạng thái"
           onChange={(value) => {
             setStatusFilter(value);
@@ -259,7 +281,7 @@ const ListOrder = () => {
           <Option value={3} style={{ color: 'purple' }}>Đã gửi hàng</Option>
           <Option value={4} style={{ color: 'green' }}>Đã giao hàng</Option>
           <Option value={5} style={{ color: 'red' }}>Đã hủy</Option>
-        </Select>
+        </Select> */}
       </div>
       
       <Table
