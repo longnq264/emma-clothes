@@ -57,6 +57,7 @@ import CouponList from "./components/User/Coupon/CouponList.jsx";
 import CouponAdd from "./components/User/Coupon/CouponAdd.jsx";
 import CouponDetail from "./components/User/Coupon/CouponDetail.jsx";
 import CouponEdit from "./components/User/Coupon/CouponEdit.jsx";
+import ResetPassword from "./pages/Auth/ResetPassword.jsx";
 
 function App() {
   const router = createBrowserRouter([
@@ -96,6 +97,7 @@ function App() {
         { path: "register", element: <Signup /> },
         { path: "loginAdmin", element: <LoginAdmin /> },
         { path: "send-mail", element: <ForgotPassword /> },
+        { path: "resetPassword", element: <ResetPassword /> },
       ],
     },
     {
