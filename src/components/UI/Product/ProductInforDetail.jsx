@@ -91,14 +91,14 @@ const ProductInforDetail = ({
       id: Number(id),
       product_id: Number(id),
       variant_id: selectedVariant.id,
-      quantity,
+      quantity: quantity,
     };
 
     const cartData = {
       id: Number(id),
       product_id: data.id,
       variant_id: selectedVariant.id,
-      quantity,
+      quantity: quantity,
       price: data.price,
       product: {
         id: Number(id),
@@ -115,8 +115,9 @@ const ProductInforDetail = ({
       if (!token) {
         dispatch(addItemToCart(cartData));
       } else {
-        await dispatch(addToCartItems({ values, token, data }));
-        await dispatch(fetchCarts(token));
+        dispatch(addToCartItems({ values, token, data })).then(() => {
+          dispatch(fetchCarts(token));
+        });
       }
     } catch (error) {
       console.error("Error adding to cart:", error);
