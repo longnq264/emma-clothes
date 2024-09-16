@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 import { NavLink, Outlet } from "react-router-dom";
 import {
   FaMoon,
@@ -159,8 +158,6 @@ const AdminLayout = () => {
                     />
                     <span className="ml-2">Log Out</span>
                   </button>
-
-                  
                 </div>
               )}
             </div>

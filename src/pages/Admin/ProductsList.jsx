@@ -10,7 +10,7 @@ import {
   SearchOutlined,
   PrinterOutlined,
   ReloadOutlined,
-  EyeOutlined,
+  // EyeOutlined,
   EditOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
@@ -23,7 +23,7 @@ const ProductsList = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [modalVisible, setModalVisible] = useState(false);
-  const [modalContent, setModalContent] = useState("");
+  // const [modalContent, setModalContent] = useState("");
   const productsPerPage = 10;
 
   useEffect(() => {
@@ -59,10 +59,10 @@ const ProductsList = () => {
     }
   };
 
-  const handleViewDescription = (description) => {
-    setModalContent(description);
-    setModalVisible(true);
-  };
+  // const handleViewDescription = (description) => {
+  //   setModalContent(description);
+  //   setModalVisible(true);
+  // };
 
   const findCategoryById = (id) => {
     const findInCategories = (categories) => {
@@ -182,27 +182,27 @@ const ProductsList = () => {
         />
       ),
     },
-    {
-      title: "Mô Tả",
-      dataIndex: "description",
-      key: "description",
-      render: (description) => (
-        <div>
-          {description.length > 50
-            ? `${description.slice(0, 50)}...`
-            : description}
-          {description.length > 50 && (
-            <Button
-              type="link"
-              onClick={() => handleViewDescription(description)}
-              icon={<EyeOutlined />}
-            >
-              Xem thêm
-            </Button>
-          )}
-        </div>
-      ),
-    },
+    // {
+    //   title: "Mô Tả",
+    //   dataIndex: "description",
+    //   key: "description",
+    //   render: (description) => (
+    //     <div>
+    //       {description.length > 50
+    //         ? `${description.slice(0, 50)}...`
+    //         : description}
+    //       {description.length > 50 && (
+    //         <Button
+    //           type="link"
+    //           onClick={() => handleViewDescription(description)}
+    //           icon={<EyeOutlined />}
+    //         >
+    //           Xem thêm
+    //         </Button>
+    //       )}
+    //     </div>
+    //   ),
+    // },
     {
       title: "Số Lượng",
       dataIndex: "quantity",
@@ -354,7 +354,7 @@ const ProductsList = () => {
           </Button>,
         ]}
       >
-        <p>{modalContent}</p>
+        {/* <p>{modalContent}</p> */}
       </Modal>
     </div>
   );

@@ -1,5 +1,5 @@
-import react from "react";
-import PropTypes from "prop-types";  // Import thêm prop-types
+
+import PropTypes from "prop-types"; 
 import { Card, Statistic } from "antd";
 
 const ProductStatistics = ({ productData }) => {

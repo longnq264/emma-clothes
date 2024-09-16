@@ -1,4 +1,4 @@
-import react, { useEffect, useState } from "react";
+import { useEffect, useState } from "react"; 
 import { getProducts } from "../../../api/api-server";
 import { Card, Col, Row, Statistic, Table, Spin, Alert } from "antd";
 import { DollarOutlined, TagOutlined, EyeOutlined } from "@ant-design/icons";
@@ -8,8 +8,8 @@ import {
   Tooltip,
   Legend,
   Cell,
-  BarChart,
-  Bar,
+  // BarChart,
+  // Bar,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -123,7 +123,6 @@ const OverviewDashboard = () => {
       }
     };
 
-    // Load admin info từ localStorage
     const admin = JSON.parse(localStorage.getItem("admin")) || {};
     setAdminInfo({ name: admin.name || "", email: admin.email || "" });
 
@@ -173,7 +172,7 @@ const OverviewDashboard = () => {
       dataIndex: "totalValue",
       key: "totalValue",
       sorter: (a, b) => a.totalValue - b.totalValue,
-      render: (value) => `₫${value.toLocaleString()}`, // Format currency
+      render: (value) => `₫${value.toLocaleString()}`,
     },
     {
       title: "Giá Trung Bình",
@@ -199,20 +198,18 @@ const OverviewDashboard = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      {/* Admin Info */}
       <div className="mb-6 p-4 bg-gray-100 rounded-lg shadow-md">
         <h2 className="text-2xl font-bold">Chào Mừng, {adminInfo.name}!</h2>
         <p className="text-gray-600">Email: {adminInfo.email}</p>
       </div>
 
-      {/* Tổng Quan Thống Kê */}
       <h1 className="text-4xl font-bold mb-6">Thống Kê Tổng Quan</h1>
 
       <Row gutter={[16, 16]}>
         <Col xs={24} sm={12} md={8}>
           <Card className="shadow-lg">
             <Statistic
-              title="Tổng Giá Trị Hàng Tồn Kho"
+              title="Tổng Giá Trị Hàng Hóa"
               value={statistics.totalValue}
               prefix={<DollarOutlined />}
               precision={2}
@@ -231,16 +228,6 @@ const OverviewDashboard = () => {
             />
           </Card>
         </Col>
-        {/* <Col xs={24} sm={12} md={8}>
-          <Card className="shadow-lg">
-            <Statistic
-              title="Tổng Số Sản Phẩm Đã Bán"
-              value={statistics.totalSold}
-              prefix={<DollarOutlined />}
-              valueStyle={{ color: "#cf1322" }}
-            />
-          </Card>
-        </Col> */}
         <Col xs={24} sm={12} md={8}>
           <Card className="shadow-lg">
             <Statistic
@@ -253,11 +240,8 @@ const OverviewDashboard = () => {
         </Col>
       </Row>
 
-      {/* Biểu đồ số lượng sản phẩm theo danh mục */}
       <div className="mt-8">
-        <h2 className="text-2xl font-bold mb-4">
-          Số Lượng Sản Phẩm Theo Danh Mục
-        </h2>
+        <h2 className="text-2xl font-bold mb-4">Số Lượng Sản Phẩm Theo Danh Mục</h2>
         <PieChart width={400} height={400}>
           <Pie
             data={statistics.categoryData}
@@ -270,10 +254,7 @@ const OverviewDashboard = () => {
             label
           >
             {statistics.categoryData.map((entry, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={COLORS[index % COLORS.length]}
-              />
+              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
             ))}
           </Pie>
           <Tooltip />
@@ -281,7 +262,6 @@ const OverviewDashboard = () => {
         </PieChart>
       </div>
 
-      {/* Bảng sản phẩm bán chạy */}
       <div className="mt-8">
         <h2 className="text-2xl font-bold mb-4">Sản Phẩm Bán Chạy Nhất</h2>
         <Table
@@ -293,8 +273,7 @@ const OverviewDashboard = () => {
         />
       </div>
 
-      {/* Biểu đồ doanh thu theo danh mục */}
-      <div className="mt-8">
+      {/* <div className="mt-8">
         <h2 className="text-2xl font-bold mb-4">Doanh Thu Theo Danh Mục</h2>
         <BarChart
           width={600}
@@ -309,13 +288,10 @@ const OverviewDashboard = () => {
           <Legend />
           <Bar dataKey="totalValue" fill="#8884d8" name="Doanh Thu" />
         </BarChart>
-      </div>
+      </div> */}
 
-      {/* Biểu đồ giá trung bình theo danh mục */}
       <div className="mt-8">
-        <h2 className="text-2xl font-bold mb-4">
-          Giá Trung Bình Sản Phẩm Theo Danh Mục
-        </h2>
+        <h2 className="text-2xl font-bold mb-4">Giá Trung Bình Sản Phẩm Theo Danh Mục</h2>
         <LineChart
           width={600}
           height={400}
@@ -325,9 +301,7 @@ const OverviewDashboard = () => {
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
           <YAxis />
-          <Tooltip
-            formatter={(value) => `₫${value.toFixed(2).toLocaleString()}`}
-          />
+          <Tooltip formatter={(value) => `₫${value.toFixed(2).toLocaleString()}`} />
           <Legend />
           <Line
             type="monotone"
@@ -343,3 +317,4 @@ const OverviewDashboard = () => {
 };
 
 export default OverviewDashboard;
+  

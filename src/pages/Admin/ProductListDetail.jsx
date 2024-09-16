@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { getProductId } from "../../api/api-server";
-import { Spin, Alert } from "antd";
+import { Spin, Alert, Table, Tag } from "antd";
 import "antd/dist/reset.css";
 
 const ProductDetail = () => {
@@ -16,7 +16,7 @@ const ProductDetail = () => {
         const response = await getProductId(id);
         setData(response.data);
       } catch (error) {
-        setError("Khong tim thay chi tiet san pham");
+        setError("Unable to fetch product details.");
       } finally {
         setLoading(false);
       }
@@ -44,102 +44,117 @@ const ProductDetail = () => {
       </div>
     );
 
-  // Tìm ảnh chính
   const mainImageUrl = data.productImages.find(
     (img) => img.is_thumbnail === 1
   )?.image_url;
 
-  // Chọn một biến thể
   const selectedVariant = data.productVariants[0] || null;
 
-  return (
-    <div className="p-6 md:p-10 bg-gray-100 min-h-screen">
-      
-      <div className="container mx-auto bg-white p-6 rounded-lg shadow-md">
-      <h1 className="text-4xl font-bold mb-4">Chi tiết sản phẩm</h1>
-      <br />
-        <div className="flex flex-col md:flex-row">
+  const columns = [
+    {
+      title: 'Detail',
+      dataIndex: 'detail',
+      key: 'detail',
+      width: '30%',
+      render: text => <span className="font-semibold">{text}</span>,
+    },
+    {
+      title: 'Value',
+      dataIndex: 'value',
+      key: 'value',
+      width: '70%',
+    },
+  ];
 
-          <div className="md:w-1/3 mb-6 md:mb-0">
+  const dataSource = [
+    { detail: 'Name', value: data.name },
+    { detail: 'Price', value: `${data.price}₫` },
+    { detail: 'Old Price', value: <span className="text-red-600">{`${data.price_old}₫`}</span> },
+    { detail: 'Description', value: data.description },
+    { detail: 'Quantity', value: data.quantity },
+    { detail: 'Views', value: data.view },
+    { detail: 'Promotion', value: data.promotion },
+    { detail: 'Status', value: <Tag color={data.status === 'Active' ? 'red' : 'green'}>{data.status}</Tag> },
+    { detail: 'Created At', value: new Date(data.created_at).toLocaleDateString() },
+    { detail: 'Updated At', value: new Date(data.updated_at).toLocaleDateString() },
+    { detail: 'Category', value: data.category.name },
+  ];
+
+  const variantColumns = [
+    {
+      title: 'Detail',
+      dataIndex: 'detail',
+      key: 'detail',
+      width: '30%',
+      render: text => <span className="font-semibold">{text}</span>,
+    },
+    {
+      title: 'Value',
+      dataIndex: 'value',
+      key: 'value',
+      width: '70%',
+    },
+  ];
+
+  const variantDataSource = selectedVariant
+    ? [
+        { detail: 'SKU', value: selectedVariant.sku },
+        { detail: 'Stock', value: selectedVariant.stock },
+        { detail: 'Price', value: `${selectedVariant.price}₫` },
+        { detail: 'Attributes', value: selectedVariant.attributes.map(attr => attr.value).join(', ') },
+      ]
+    : [];
+
+  return (
+    <div className="p-8 md:p-12 bg-gray-100 min-h-screen">
+      <div className="container mx-auto bg-white p-10 rounded-lg shadow-lg">
+        <h1 className="text-4xl font-bold mb-8 text-gray-900">Product Details</h1>
+
+        <div className="flex flex-col md:flex-row gap-10 mb-10">
+          <div className="md:w-1/2">
             {mainImageUrl ? (
               <img
                 src={mainImageUrl}
                 alt={data.name}
-                className="w-full h-auto rounded-md shadow-lg"
+                className="w-full h-auto rounded-lg shadow-md"
               />
             ) : (
-              <div className="w-full h-60 bg-gray-300 rounded-md flex items-center justify-center">
-                <p className="text-gray-600">Khong co anh nao co san</p>
+              <div className="w-full h-64 bg-gray-300 rounded-lg flex items-center justify-center">
+                <p className="text-gray-600">No image available</p>
               </div>
             )}
           </div>
-          <div className="md:w-2/3 md:pl-6">
-            <h1 className="text-2xl font-bold mb-4">{data.name}</h1>
-            <p className="text-lg mb-2">
-              <strong>Giá:</strong> {data.price}₫
-            </p>
-            <p className="text-lg mb-2">
-              <strong className="text-red-500">Giá cũ:</strong>{" "}
-              {data.price_old}₫
-            </p>
-            <p className="text-lg mb-2">
-              <strong>Mô Tả:</strong> {data.description}
-            </p>
-            <p className="text-lg mb-2">
-              <strong>Số Lượng:</strong> {data.quantity}
-            </p>
-            <p className="text-lg mb-2">
-              <strong>Lượt Xem:</strong> {data.view}
-            </p>
-            <p className="text-lg mb-2">
-              <strong>Khuyến Mãi:</strong> {data.promotion}
-            </p>
-            <p className="text-lg mb-2">
-              <strong>Trạng Thái:</strong> {data.status}
-            </p>
-            <p className="text-lg mb-2">
-              <strong>Thời gian Tạo:</strong>{" "}
-              {new Date(data.created_at).toLocaleDateString()}
-            </p>
-            <p className="text-lg mb-2">
-              <strong>Thời gian cập nhật:</strong>{" "}
-              {new Date(data.updated_at).toLocaleDateString()}
-            </p>
-            <p className="text-lg mb-4">
-              <strong>Danh mục:</strong> {data.category.name}
-            </p>
-
-            <h2 className="text-2xl font-semibold mb-4">Biến thể</h2>
+          <div className="md:w-1/2">
+            <Table
+              columns={columns}
+              dataSource={dataSource}
+              pagination={false}
+              rowKey="detail"
+              className="mb-8"
+              bordered
+              size="middle"
+              scroll={{ y: 300 }}
+            />
+            <h3 className="text-2xl font-semibold  mb-4">Variant Details</h3>
             {selectedVariant ? (
-              <div className="p-4 bg-gray-50 rounded-md shadow-sm">
-                <p className="text-lg mb-2">
-                  <strong>SKU:</strong> {selectedVariant.sku}
-                </p>
-                <p className="text-lg mb-2">
-                  <strong>Stock:</strong> {selectedVariant.stock}
-                </p>
-                <p className="text-lg mb-2">
-                  <strong>Price:</strong> {selectedVariant.price}₫
-                </p>
-                <div>
-                  <br />
-                  <strong>Thuộc tính:</strong>
-                  <ul className="list-disc ml-5">
-                    {selectedVariant.attributes.map((attr) => (
-                      <li key={attr.id}>{attr.value}</li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
+              <Table
+                columns={variantColumns}
+                dataSource={variantDataSource}
+                pagination={false}
+                rowKey="detail"
+                bordered
+                size="middle"
+                scroll={{ y: 300 }}
+              />
             ) : (
-              <p>Khong co bien the nao co san</p>
+              <p>No available variants</p>
             )}
-
+            <br />
             <Link
               to="/admin/products"
-              className="inline-block bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md mt-4"
+              className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md"
             >
-              Quay trở về danh sách sản phẩm
+              Quay về Product List
             </Link>
           </div>
         </div>
