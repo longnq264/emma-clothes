@@ -35,8 +35,10 @@ const UserOrders = () => {
   }, [token]);
   
 
+
   const handleCancelOrder = (orderId) => {
     const order = orders.find((order) => order.id === orderId);
+ 
 
     if (order.status.toLowerCase() === "Pending") {
       alert("Chỉ có thể hủy đơn hàng với trạng thái Chờ xử lý (Pending).");
@@ -46,6 +48,8 @@ const UserOrders = () => {
     setSelectedOrderId(orderId);
     setIsCancelModalVisible(true);
   };
+
+  
 
   const handleCancelSubmit = async () => {
     try {

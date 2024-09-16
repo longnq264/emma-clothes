@@ -10,7 +10,8 @@ const UserProfile = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const token = localStorage.getItem('token'); // Retrieve token from localStorage
+        const token = localStorage.getItem('token'); 
+
 
         if (!token) {
           setError('Vui lòng đăng nhập lại.');

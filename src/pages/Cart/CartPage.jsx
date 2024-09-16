@@ -16,11 +16,13 @@ const CartPage = () => {
     return <LoadingCart />;
   }
 
+
   if (cartStatus === "failed") {
     console.log(error);
 
     return <ClearCart />;
   }
+  
   return (
     <>
       <div className="bg-gray-100 min-h-screen md:py-5">
