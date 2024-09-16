@@ -4,8 +4,9 @@ import { NavLink, Outlet } from "react-router-dom";
 import {
   FaMoon,
   FaSun,
-  FaArrowLeft,
-  FaArrowRight,
+  // FaArrowLeft,
+  // FaArrowRight,
+  FaBars,
   FaUser,
   FaSignOutAlt,
   FaBell,
@@ -158,9 +159,26 @@ const AdminLayout = () => {
                     />
                     <span className="ml-2">Log Out</span>
                   </button>
+
+                  
                 </div>
               )}
             </div>
+            <button
+              onClick={toggleNavBar}
+              className={`w-10 h-10 flex items-center justify-center rounded-full hover:bg-inherit-700 transition-colors duration-300 ${
+                darkMode
+                  ? "bg-gray-800 text-white hover:bg-gray-600"
+                  : " text-gray-800 hover:bg-gray-200"
+              }`}
+              aria-label={isNavBarOpen ? "Close Navigation" : "Open Navigation"}
+            >
+              {isNavBarOpen ? (
+                <FaBars className="text-xl" />
+              ) : (
+                <FaBars className="text-xl" />
+              )}
+            </button>
           </div>
         </div>
       </header>
@@ -174,20 +192,7 @@ const AdminLayout = () => {
           } transition-all duration-300`}
         >
           <br />
-          <button
-            onClick={toggleNavBar}
-            className={`text-lg font-medium py-2 px-4 hover:bg-stone-500 ${
-              darkMode
-                ? "text-white hover:text-gray-400"
-                : "text-stone-700 bg-stone-700"
-            } transition duration-300`}
-          >
-            {isNavBarOpen ? (
-              <FaArrowLeft color="white" />
-            ) : (
-              <FaArrowRight color="white" />
-            )}
-          </button>
+
           <Outlet />
         </main>
       </div>

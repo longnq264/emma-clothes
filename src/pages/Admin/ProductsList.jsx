@@ -78,10 +78,10 @@ const ProductsList = () => {
     return findInCategories(categories);
   };
 
-  const getParentCategory = (parentId) => {
-    const category = findCategoryById(parentId);
-    return category ? category.name : "Không có danh mục cha";
-  };
+  // const getParentCategory = (parentId) => {
+  //   const category = findCategoryById(parentId);
+  //   return category ? category.name : "Không có danh mục cha";
+  // };
 
   const getChildCategory = (parentId, id) => {
     const parentCategory = findCategoryById(parentId);
@@ -157,16 +157,16 @@ const ProductsList = () => {
       key: "price",
       render: (text) => <span>{text}₫</span>,
     },
-    {
-      title: "Giá Cũ",
-      dataIndex: "price_old",
-      key: "price_old",
-      render: (text) => (
-        <span style={{ color: "red", textDecoration: "line-through" }}>
-          {text}₫
-        </span>
-      ),
-    },
+    // {
+    //   title: "Giá Cũ",
+    //   dataIndex: "price_old",
+    //   key: "price_old",
+    //   render: (text) => (
+    //     <span style={{ color: "red", textDecoration: "line-through" }}>
+    //       {text}₫
+    //     </span>
+    //   ),
+    // },
     {
       title: "Ảnh",
       dataIndex: "productImages",
@@ -229,14 +229,14 @@ const ProductsList = () => {
       ),
 
     },
+    // {
+    //   title: "Danh mục Cha",
+    //   dataIndex: "category",
+    //   key: "category",
+    //   render: (_, record) => getParentCategory(record.category.parent_id),
+    // },
     {
-      title: "Danh mục Cha",
-      dataIndex: "category",
-      key: "category",
-      render: (_, record) => getParentCategory(record.category.parent_id),
-    },
-    {
-      title: "Danh Mục Con",
+      title: "Danh Mục",
       dataIndex: "category",
       key: "categoryChild",
       render: (_, record) =>
