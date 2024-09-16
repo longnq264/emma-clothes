@@ -43,7 +43,7 @@ li.list.dropdown:hover {
   color: rgb(42, 41, 41);
   font-size: medium;
 }
-.quantity-control {
+/* .quantity-control {
   width: 100px;
   display: flex;
   justify-content: space-between;
@@ -73,7 +73,7 @@ li.list.dropdown:hover {
   width: 40px;
   text-align: center;
   padding: 8px 0;
-}
+} */
 
 #basic_paymentMethod label.ant-radio-wrapper.ant-radio-wrapper-in-form-item {
   margin: 0;
@@ -94,4 +94,7 @@ li.list.dropdown:hover {
 /* .container mx-auto .ticket {
   height: 4rem;
 } */
+.sub-child {
+  top: 10rem;
+}
 

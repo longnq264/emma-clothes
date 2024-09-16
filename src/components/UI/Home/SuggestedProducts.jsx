@@ -6,6 +6,7 @@ import { filterProduct } from "../../../api/api-server";
 import { formatCurrency } from "../../../utils/helperFunction";
 
 import { SwiperSlide, Swiper } from "swiper/react";
+import LayoutProductItem from "../Product/LayoutProductItem";
 
 const filters = [
   { value: "popular", name: "San pham pho bien" },
@@ -64,19 +65,9 @@ const SuggestedProducts = () => {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-2 xl:grid-cols-5 lg:gap-4">
           {products.length > 0 ? (
             products.slice(0, 10).map((product) => (
-              <NavLink key={product.id} to={`/products/${product.id}`}>
-                <div className="relative mb-8 shadow-md">
-                  <div className="">
-                    <ProductImage images={product.productImages} />
-                  </div>
-                  <div className="px-2 pb-4">
-                    <h3 className="mt-4 text-base font-semibold text-gray-700 h-14 capitalize">
-                      {product.name}
-                    </h3>
-                    <p className="pt-2"> {formatCurrency(product.price)}</p>
-                  </div>
-                </div>
-              </NavLink>
+              <div key={product.id} className="relative shadow-md">
+                <LayoutProductItem product={product} />
+              </div>
             ))
           ) : (
             <p>No data</p>
@@ -120,7 +111,7 @@ const SuggestedProducts = () => {
           )}
         </Swiper>
       </div>
-      <ShowMoreBtn props={`/category/created_at`} />
+      <ShowMoreBtn props={`/category/created_at`} color={"bg-stone-100"} />
     </div>
   );
 };

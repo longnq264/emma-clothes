@@ -6,6 +6,7 @@ import BannerDesign from "../components/UI/Home/BannerDesign";
 import NewCollection from "../components/UI/Home/NewCollection";
 import AboutUs from "../components/UI/Home/AboutUs";
 import Coupon from "../components/UI/Home/Coupon";
+
 function HomePage() {
   return (
     <div className="">

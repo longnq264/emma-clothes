@@ -45,7 +45,7 @@ const Header = () => {
         <div className="hidden md:block bg-slate-50 py-3 text-center text-xl text-stone-600 border-b">
           Get UPTO 40% OFF on your 1st order
         </div>
-        <div className="container mx-auto flex justify-between p-2 lg:px-0">
+        <div className="container mx-auto flex justify-between px-2 lg:px-0">
           <div className="flex items-center pr-3 min-w-10 sm:min-w-20 lg:hidden">
             <button
               className="flex items-center text-black"

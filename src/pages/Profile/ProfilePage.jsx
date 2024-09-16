@@ -1,7 +1,6 @@
 import { useState } from "react";
 import DashBoad from "./DashBoad";
 import EditProfile from "./EditProfile";
-import Setting from "./Setting";
 import Orders from "./OrderPage";
 
 const ProfilePage = () => {

@@ -27,7 +27,7 @@ const DropDownProfile = () => {
       {isOpen && (
         <>
           <div
-            className="absolute right-0 w-60 mt-10 origin-top-right bg-white border border-gray-200 rounded shadow-lg ring-1 ring-black ring-opacity-5 z-50"
+            className="absolute right-0 w-60 top-14 origin-top-right bg-white border border-gray-200 rounded shadow-lg ring-1 ring-black ring-opacity-5 z-50"
             role="menu"
             aria-orientation="vertical"
             aria-labelledby="menu-button"
