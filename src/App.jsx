@@ -52,19 +52,11 @@ import EditAttribute from "./components/User/Attributes/EditAttribute.jsx";
 import AddAttribute from "./components/User/Attributes/AddAttribute.jsx";
 import ProfileAdmin from "./pages/Admin/ProfileAdmin.jsx";
 import ProductListDetail from "./pages/Admin/ProductListDetail.jsx";
-<<<<<<< HEAD
-
-=======
->>>>>>> hieu/Coupon
 import CouponList from "./components/User/Coupon/CouponList.jsx";
 import CouponAdd from "./components/User/Coupon/CouponAdd.jsx";
 import CouponDetail from "./components/User/Coupon/CouponDetail.jsx";
 import CouponEdit from "./components/User/Coupon/CouponEdit.jsx";
-<<<<<<< HEAD
 import ResetPassword from "./pages/Auth/ResetPassword.jsx";
-=======
-// import ProductListDetail from "./pages/Admin/ProductListDetail.jsx";
->>>>>>> hieu/Coupon
 
 function App() {
   const router = createBrowserRouter([
@@ -134,19 +126,11 @@ function App() {
         { path: "attributes/edit/:id", element: <EditAttribute /> },
         { path: "attributes/new", element: <AddAttribute /> },
         { path: "products/:id", element: <ProductListDetail /> },
-<<<<<<< HEAD
 
         { path: "coupons", element: <CouponList /> },
         { path: "coupons/new", element: <CouponAdd /> },
         { path: "coupons/edit/:id", element: <CouponEdit /> },
         { path: "coupons/:id", element: <CouponDetail /> },
-=======
-        { path: "coupons", element: <CouponList /> },
-        { path: "coupons/new", element: <CouponAdd /> },
-        { path: "coupons/edit/:id", element: <CouponEdit /> },
-        { path: "coupons/:id", element: <CouponDetail  /> },
-        { path: "products/:id", element: <ProductListDetail /> },
->>>>>>> hieu/Coupon
       ],
     },
     {
@@ -165,3 +149,4 @@ function App() {
 }
 
 export default App;
+
