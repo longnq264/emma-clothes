@@ -6,6 +6,14 @@ import { UserOutlined, DollarOutlined, CreditCardOutlined, EnvironmentOutlined }
 
 const { Title, Text } = Typography;
 
+const formatCurrency = (value) => {
+  return new Intl.NumberFormat('vi-VN', {
+    style: 'currency',
+    currency: 'VND',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(value);
+};
 
 const OrderDetails = () => {
   const [selectedOrderItems, setSelectedOrderItems] = useState([]);
@@ -39,22 +47,28 @@ const OrderDetails = () => {
       key: 'name',
     },
     {
+      title: 'SKU',
+      dataIndex: ['product', 'variant', 'sku'],
+      key: 'sku',
+      render: (sku) => sku || 'Không có SKU',
+    },
+    {
       title: 'Giá',
       dataIndex: 'price',
       key: 'price',
-      render: (text) => `${text} VND`,
+      render: (text) => formatCurrency(text),
     },
     {
       title: 'Số lượng',
       dataIndex: 'quantity',
       key: 'quantity',
     },
-    {
-      title: 'Tổng cộng',
-      dataIndex: 'total_price',
-      key: 'total_price',
-      render: (text) => `${text} VND`,
-    },
+    // {
+    //   title: 'Tổng cộng',
+    //   dataIndex: 'total_price',
+    //   key: 'total_price',
+    //   render: (text) => formatCurrency(text),
+    // },
   ];
 
   return (
@@ -68,10 +82,15 @@ const OrderDetails = () => {
               <Text strong>Người đặt hàng:</Text>
               <Text>{orderDetails.user_name}</Text>
             </Space>
+            {/* <Space size="middle">
+              <PhoneOutlined />
+              <Text strong>Số điện thoại:</Text>
+              <Text>{orderDetails.user_phone}</Text>
+            </Space> */}
             <Space size="middle">
               <DollarOutlined />
               <Text strong>Tổng số tiền:</Text>
-              <Text>{orderDetails.total_amount} VND</Text>
+              <Text>{formatCurrency(orderDetails.total_amount)}</Text>
             </Space>
             <Space size="middle">
               <CreditCardOutlined />
@@ -99,7 +118,6 @@ const OrderDetails = () => {
         <Button
           onClick={() => navigate('/admin/orders')}
           type="primary"
-      
         >
           Quay lại danh sách đơn hàng
         </Button>

@@ -148,10 +148,9 @@ const ListOrder = () => {
       title: 'Mã đơn hàng',
       dataIndex: 'id',
       key: 'id',
-      sorter: (a, b) => a.id - b.id, // So sánh mã đơn hàng theo số
-      defaultSortOrder: 'descend', // Sắp xếp theo thứ tự giảm dần
-    }
-    ,
+      sorter: (a, b) => a.id - b.id,
+      defaultSortOrder: 'descend',
+    },
     {
       title: 'Tên người dùng',
       dataIndex: 'user_name',
@@ -167,6 +166,11 @@ const ListOrder = () => {
         record.user_name.toLowerCase().includes(searchText.toLowerCase()),
     },
     {
+      title: 'Số điện thoại',
+      dataIndex: 'user_phone',
+      key: 'user_phone',
+    },
+    {
       title: 'Tổng số tiền',
       dataIndex: 'total_amount',
       key: 'total_amount',
@@ -178,8 +182,7 @@ const ListOrder = () => {
       ],
       onFilter: handleAmountFilter,
       sorter: (a, b) => parseFloat(a.total_amount) - parseFloat(b.total_amount),
-      // defaultSortOrder: 'descend', // Sắp xếp theo thứ tự giảm dần
-      render: (text) => 
+      render: (text) =>
         new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(text),
     },
     {
@@ -213,47 +216,52 @@ const ListOrder = () => {
       dataIndex: 'created_at',
       key: 'created_at',
       sorter: (a, b) => moment(b.created_at).unix() - moment(a.created_at).unix(),
-      // defaultSortOrder: 'descend', // Đảm bảo rằng cột này được sắp xếp theo ngày mới nhất đầu tiên
       render: (text) => moment(text).format('YYYY-MM-DD'),
-    }
-    ,
+    },
     {
       title: 'Hành động',
       key: 'action',
       render: (text, record) => (
         <Space size="middle">
-          <Button
-            type="primary"
-            icon={<PrinterOutlined />}
-            onClick={() => handlePrintOrder(record.id)}
-          >
-            In đơn hàng
-          </Button>
+          {/* Only show Print button for orders that are neither shipped nor delivered nor canceled */}
+          {record.status_id !== 3 && record.status_id !== 4 && record.status_id !== 5 && (
+            <Button
+              type="primary"
+              icon={<PrinterOutlined />}
+              onClick={() => handlePrintOrder(record.id)}
+            >
+              In đơn
+            </Button>
+          )}
           <Button
             type="default"
             icon={<EyeOutlined />}
             onClick={() => navigate(`/admin/orders/${record.id}`)}
           >
-            Xem sản phẩm
+            Chi tiết
           </Button>
-          <Popconfirm
-            title="Bạn có chắc muốn hủy đơn hàng này?"
-            onConfirm={() => handleCancelOrder(record.id)}
-            okText="Có"
-            cancelText="Không"
-          >
-            <Button
-              type="primary"
-              danger={record.status_id === 5}
-              icon={<DeleteOutlined />}
+          {/* Only show Cancel button for orders that are not shipped, delivered, or canceled */}
+          {record.status_id !== 3 && record.status_id !== 4 && record.status_id !== 5 && (
+            <Popconfirm
+              title="Bạn có chắc muốn hủy đơn hàng này?"
+              onConfirm={() => handleCancelOrder(record.id)}
+              okText="Có"
+              cancelText="Không"
             >
-              Hủy đơn hàng
-            </Button>
-          </Popconfirm>
+              <Button
+                type="primary"
+                danger
+                icon={<DeleteOutlined />}
+              >
+                Hủy
+              </Button>
+            </Popconfirm>
+          )}
         </Space>
       ),
     },
   ];
+  
 
   return (
     <div>
