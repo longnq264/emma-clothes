@@ -16,8 +16,8 @@ const Coupon = () => {
     fetchCoupons();
   }, []);
   return (
-    <div className="container mx-auto hidden xl:block">
-      <div className="flex justify-around mt-8">
+    <div className="container mx-auto hidden xl:block lg:my-20">
+      <div className="flex justify-around">
         {coupons.slice(0, 3).map((data) => (
           <div key={data.id} className="basis-1/5">
             <div className="flex items-center space-between relative">

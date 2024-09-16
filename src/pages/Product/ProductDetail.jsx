@@ -9,16 +9,14 @@ const ProductDetail = () => {
   const { id } = useParams();
   const [data, setData] = useState([]);
   const [mainImage, setMainImage] = useState([]);
+  const [selectedVariant, setSelectedVariant] = useState([]);
   const [selectedColor, setSelectedColor] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
-  const [selectedVariant, setSelectedVariant] = useState([]);
-
+  const [selectedMaterial, setSelectedMaterial] = useState("");
   console.log("selected", selectedVariant);
-  console.log(mainImage);
-  console.log(data);
+
   const fetchProductDetail = async (id) => {
     const response = await getProductId(id);
-
     setData(response.data);
     setSelectedVariant(response.data.productVariants[0]);
     setMainImage(response.data.productImages);
@@ -34,7 +32,7 @@ const ProductDetail = () => {
         className="content container mx-auto md:px-20 my-2"
         style={{ minHeight: "140vh" }}
       >
-        <div className="md:flex">
+        <div className="md:flex mb-20">
           <ProductImageDetail mainImage={mainImage} />
           <ProductInforDetail
             data={data}
@@ -46,9 +44,10 @@ const ProductDetail = () => {
             selectedSize={selectedSize}
             setSelectedSize={setSelectedSize}
             mainImage={mainImage}
+            setSelectedMaterial={setSelectedMaterial}
+            selectedMaterial={selectedMaterial}
           />
         </div>
-        {/* Phần gợi ý sản phẩm */}
         <SuggestedProducts />
       </div>
     </div>

@@ -86,7 +86,7 @@ const CartCheckbox = () => {
   return (
     <div className="bg-white">
       <div className="item px-4 py-2 flex justify-between items-center">
-        <div className="flex items-center">
+        <div className="flex items-center ">
           <p className="py-2 font-bold">Số lượng sản phẩm: </p>
           <p className="pl-2 py-2 font-bold">{totalQuantity} sản phẩm</p>
         </div>
@@ -97,59 +97,69 @@ const CartCheckbox = () => {
           <MdDelete size={20} />
         </button>
       </div>
-      {cartItems.map((item) => (
-        <div
-          key={item.id}
-          className="border-t-4 border-gray-100 px-6 py-6 flex justify-between"
-        >
-          <div className="flex">
-            <div className="w-32">
-              <img src={item.product.image} alt="" />
-            </div>
-            <div className="pl-4">
-              <p className="text-base font-bold text-gray-700 mb-2">
-                {item.product.name}
-              </p>
-              <p className="text-base font-semibold text-gray-700">
-                {Number(item.price).toLocaleString("vi-VN", {
-                  style: "currency",
-                  currency: "VND",
-                })}
-              </p>
-              <div className="mt-6">
-                <div className="quantity-control">
-                  <button
-                    onClick={() =>
-                      handleQuantityChange(item.id, item.quantity - 1)
-                    }
-                  >
-                    -
-                  </button>
-                  {item.quantity}
-                  <button
-                    onClick={() =>
-                      handleQuantityChange(item.id, item.quantity + 1)
-                    }
-                  >
-                    +
-                  </button>
-                </div>
-                <div className="border rounded-lg hover:bg-stone-300 h-10 w-28 pl-3 mt-4 flex items-center">
-                  <p className="text-stone-700 text-xs text-center">
-                    {item.variant.sku}
-                  </p>
+      <div className="min-h-72 pt-4">
+        {cartItems.map((item) => (
+          <div
+            key={item.id}
+            className="border-gray-100 px-4 py-6 flex justify-between border-t-4"
+          >
+            <div className="flex">
+              <div className="basis-1/5">
+                <img
+                  src={item.product.image}
+                  alt=""
+                  className="w-full h-full"
+                />
+              </div>
+              <div className="pl-4 basis-4/5">
+                <p className="text-base font-bold text-gray-700 mb-2">
+                  {item.product.name}
+                </p>
+                <p className="text-base font-semibold text-gray-700">
+                  {Number(item.price).toLocaleString("vi-VN", {
+                    style: "currency",
+                    currency: "VND",
+                  })}
+                </p>
+                <div className="flex justify-between items-center mt-20">
+                  <div className="border rounded-lg hover:bg-stone-300 h-10 px-2 flex items-center">
+                    <p className="text-stone-700 text-xs text-center">
+                      {item.variant.sku}
+                    </p>
+                  </div>
+                  <div className="size-1/4">
+                    <div className="border flex justify-around rounded-lg items-center leading-10">
+                      <button
+                        className="w-1/3"
+                        onClick={() =>
+                          handleQuantityChange(item.id, item.quantity - 1)
+                        }
+                      >
+                        -
+                      </button>
+                      <p className="w-1/3 text-center">{item.quantity}</p>
+                      <button
+                        className="w-1/3"
+                        onClick={() =>
+                          handleQuantityChange(item.id, item.quantity + 1)
+                        }
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
+            <button
+              className="border px-2 py-2 font-bold rounded-lg hover:bg-stone-200 h-10"
+              onClick={() => handleRemoveItem(item.id)}
+            >
+              <MdDelete size={20} />
+            </button>
           </div>
-          <button
-            className="border px-2 py-2 font-bold rounded-lg hover:bg-stone-200 h-10"
-            onClick={() => handleRemoveItem(item.id)}
-          >
-            <MdDelete size={20} />
-          </button>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 };
