@@ -40,10 +40,10 @@ const Header = () => {
         }`}
       >
         <div className="bg-stone-900 py-1 text-center text-sm">
-          Get UPTO 40% OFF on your 1st order
+          Giảm giá tới 40% cho đơn hàng đầu tiên của bạn
         </div>
         <div className="hidden md:block bg-slate-50 py-3 text-center text-xl text-stone-600 border-b">
-          Get UPTO 40% OFF on your 1st order
+          Chào mừng đến với cửa hàng emma
         </div>
         <div className="container mx-auto flex justify-between px-2 lg:px-0">
           <div className="flex items-center pr-3 min-w-10 sm:min-w-20 lg:hidden">
