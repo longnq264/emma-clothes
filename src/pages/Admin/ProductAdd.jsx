@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import AttributesProduct from "../../components/User/Products/AttributesProduct";
 import ProductTitleForm from "../../components/User/SubmitForm/ProductTitleForm";
 import { useState } from "react";
-import ProductImagesForm from "../../components/User/Products/ProductImageForm";
+// import ProductImagesForm from "../../components/User/Products/ProductImageForm";
 import {
   createProductItem,
   createProductVariants,
@@ -12,6 +12,7 @@ import {
 } from "../../api/post-product";
 import { filterNewVariants } from "../../utils/attribute";
 // import UploadImage from "../../components/User/Products/UploadImage";
+import UploadImageProduct from "../../components/User/Products/UploadImageProduct";
 
 const ProductAdd = () => {
   const [images, setImages] = useState([]);
@@ -22,22 +23,44 @@ const ProductAdd = () => {
   const [idProduct, setIdProduct] = useState([]);
   const navigate = useNavigate();
   console.log("variants", variants);
-  // console.log("show add atributes", productItemsUser);
+  console.log("images", images);
   //Submit postProduct request firts
   const onFinish = async (values) => {
+    console.log("images", images);
     console.log("onFinish", values);
-    const formData = {
-      name: values.name,
-      description: values.description,
-      price: Number(values.price),
-      price_old: Number(values.price_old),
-      quantity: Number(values.quantity),
-      category_id: values.category,
-      promotion: "Giảm giá đặc biệt", //khuyến mãi
-      status: "Active", //trạng thái
-      images: images,
-    };
+    // const formData = {
+    //   promotion: "Giảm giá đặc biệt",
+    //   status: "Active",
+    //   images: images,
+    //   name: values.name,
+    //   description: values.description,
+    //   price: Number(values.price),
+    //   price_old: Number(values.price_old),
+    //   quantity: Number(values.quantity),
+    //   category_id: values.category,
+    // };
+    const formData = new FormData();
+
+    // Thêm các trường dữ liệu vào formData
+    formData.append("promotion", "Giảm giá đặc biệt");
+    formData.append("status", "Active");
+    formData.append("name", values.name);
+    formData.append("description", values.description);
+    formData.append("price", Number(values.price));
+    formData.append("price_old", Number(values.price_old));
+    formData.append("quantity", Number(values.quantity));
+    formData.append("category_id", values.category);
+
+    images.forEach((image, index) => {
+      formData.append(`images[${index}]`, image.file); // Thêm tệp hình ảnh
+      formData.append(`images[${index}].is_thumbnail`, image.is_thumbnail); // Thêm thuộc tính is_thumbnail
+    });
+    for (let pair of formData.entries()) {
+      console.log(`${pair[0]}: ${pair[1]}`);
+    }
+    console.log(images);
     try {
+      console.log("formdata", formData);
       const response = await createProductItem(formData);
       console.log("response", response);
       setProductItem(response.data);
@@ -189,8 +212,9 @@ const ProductAdd = () => {
         onFinishFailed={onFinishFailed}
         className="space-y-8 bg-white rounded-lg p-8"
       >
-        <ProductImagesForm images={images} setImages={setImages} />
-
+        {/* <ProductImagesForm images={images} setImages={setImages} /> */}
+        {/* <UploadImage images={images} setImages={setImages} /> */}
+        <UploadImageProduct images={images} setImages={setImages} />
         <ProductTitleForm />
 
         <Form.Item className="flex justify-start">
@@ -203,8 +227,6 @@ const ProductAdd = () => {
           </Button>
         </Form.Item>
       </Form>
-
-      {/* <UploadImage images={images} setImages={setImages} /> */}
 
       {/* Variants */}
       {isVariant && (

@@ -28,10 +28,6 @@ export const addToCartItems = createAsyncThunk(
   "cart/addToCartItem",
   async ({ values, token, data }, { rejectWithValue }) => {
     try {
-      console.log(values);
-      console.log("data", data);
-      console.log(token);
-
       const response = await addToCart(values, token);
 
       console.log(response);

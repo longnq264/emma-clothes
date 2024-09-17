@@ -3,7 +3,11 @@ const API_URL = "http://localhost:8000/api";
 
 export const createProductItem = async (productData) => {
   try {
-    const response = await axios.post(`${API_URL}/products`, productData);
+    const response = await axios.post(`${API_URL}/products`, productData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
     console.log("Create product response:", response.data);
     return response.data;
   } catch (error) {
