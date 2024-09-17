@@ -15,6 +15,7 @@ const ProductDetail = () => {
       try {
         const response = await getProductId(id);
         setData(response.data);
+        console.log(response);
       } catch (error) {
         setError("Không thể lấy thông tin chi tiết về sản phẩm.");
       } finally {
@@ -189,7 +190,6 @@ const ProductDetail = () => {
                 View Sản phẩm
               </Link>
 
-
               <Link
                 to={`/admin/products/edit/${id}`}
                 className="inline-block bg-orange-600 hover:bg-orange-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md"
@@ -205,3 +205,4 @@ const ProductDetail = () => {
 };
 
 export default ProductDetail;
+

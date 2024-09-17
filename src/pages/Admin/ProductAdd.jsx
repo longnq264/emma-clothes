@@ -1,9 +1,6 @@
-import { Button, Form, notification } from "antd";
-import { useNavigate } from "react-router-dom";
-import AttributesProduct from "../../components/User/Products/AttributesProduct";
-import ProductTitleForm from "../../components/User/SubmitForm/ProductTitleForm";
 import { useState } from "react";
-// import ProductImagesForm from "../../components/User/Products/ProductImageForm";
+import { useNavigate } from "react-router-dom";
+import { Button, Form, notification } from "antd";
 import {
   createProductItem,
   createProductVariants,
@@ -11,8 +8,9 @@ import {
   updateMultiple,
 } from "../../api/post-product";
 import { filterNewVariants } from "../../utils/attribute";
-// import UploadImage from "../../components/User/Products/UploadImage";
-import UploadImageProduct from "../../components/User/Products/UploadImageProduct";
+import AttributesProduct from "../../components/User/Products/AttributesProduct";
+import ProductTitleForm from "../../components/User/SubmitForm/ProductTitleForm";
+import UploadImage from "../../components/User/Products/UploadImage";
 
 const ProductAdd = () => {
   const [images, setImages] = useState([]);
@@ -24,24 +22,11 @@ const ProductAdd = () => {
   const navigate = useNavigate();
   console.log("variants", variants);
   console.log("images", images);
-  //Submit postProduct request firts
-  const onFinish = async (values) => {
-    console.log("images", images);
-    console.log("onFinish", values);
-    // const formData = {
-    //   promotion: "Giảm giá đặc biệt",
-    //   status: "Active",
-    //   images: images,
-    //   name: values.name,
-    //   description: values.description,
-    //   price: Number(values.price),
-    //   price_old: Number(values.price_old),
-    //   quantity: Number(values.quantity),
-    //   category_id: values.category,
-    // };
-    const formData = new FormData();
 
-    // Thêm các trường dữ liệu vào formData
+  //Submit postProduct request firts
+
+  const onFinish = async (values) => {
+    const formData = new FormData();
     formData.append("promotion", "Giảm giá đặc biệt");
     formData.append("status", "Active");
     formData.append("name", values.name);
@@ -52,12 +37,9 @@ const ProductAdd = () => {
     formData.append("category_id", values.category);
 
     images.forEach((image, index) => {
-      formData.append(`images[${index}]`, image.file); // Thêm tệp hình ảnh
-      formData.append(`images[${index}].is_thumbnail`, image.is_thumbnail); // Thêm thuộc tính is_thumbnail
+      formData.append(`images[${index}]`, image.file);
+      formData.append(`images[${index}].is_thumbnail`, image.is_thumbnail);
     });
-    for (let pair of formData.entries()) {
-      console.log(`${pair[0]}: ${pair[1]}`);
-    }
     console.log(images);
     try {
       console.log("formdata", formData);
@@ -213,8 +195,8 @@ const ProductAdd = () => {
         className="space-y-8 bg-white rounded-lg p-8"
       >
         {/* <ProductImagesForm images={images} setImages={setImages} /> */}
-        {/* <UploadImage images={images} setImages={setImages} /> */}
-        <UploadImageProduct images={images} setImages={setImages} />
+        <UploadImage images={images} setImages={setImages} />
+        {/* <UploadImageProduct images={images} setImages={setImages} /> */}
         <ProductTitleForm />
 
         <Form.Item className="flex justify-start">
