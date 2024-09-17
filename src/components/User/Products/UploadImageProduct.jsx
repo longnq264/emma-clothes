@@ -3,9 +3,7 @@ import PropTypes from "prop-types";
 const UploadImageProduct = ({ images, setImages }) => {
   console.log(images);
   const handleFileChange = (event) => {
-    const arr = event.target.files;
-    console.log(arr);
-    const file = arr[0];
+    const file = event.target.files[0];
     console.log(file);
     const imgData = {
       file,

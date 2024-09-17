@@ -19,6 +19,7 @@ const ProductAdd = () => {
   const [productItem, setProductItem] = useState([]);
   const [variants, setVariants] = useState([]);
   const [idProduct, setIdProduct] = useState([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
   console.log("variants", variants);
   console.log("images", images);
@@ -52,6 +53,8 @@ const ProductAdd = () => {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsSubmitting(true); // Enable lại button khi submit hoàn tất
     }
   };
 
@@ -71,20 +74,21 @@ const ProductAdd = () => {
       stock: productItem.quantity,
       price: productItem.price,
     };
+    try {
+      const response = await createProductVariants(idProduct, variantData);
+      if (response.status === true) {
+        await fetchProductItems(idProduct);
+        console.log("success");
+      }
+      return;
+    } catch (error) {
+      console.log(error);
+    }
     const existingVariants = productItemsUser
       .map((item) => item.attributes)
       .flat();
 
     if (!existingVariants.length) {
-      try {
-        const response = await createProductVariants(idProduct, variantData);
-        if (response.status === true) {
-          await fetchProductItems(idProduct);
-          console.log("success");
-        }
-      } catch (error) {
-        console.log(error);
-      }
       return;
     }
 
@@ -204,6 +208,7 @@ const ProductAdd = () => {
             type="primary"
             htmlType="submit"
             className="bg-orange-500 text-lg"
+            disabled={isSubmitting} // Disable button khi isSubmitting là true
           >
             Thêm thuộc tính
           </Button>
