@@ -9,9 +9,9 @@ import { SwiperSlide, Swiper } from "swiper/react";
 import LayoutProductItem from "../Product/LayoutProductItem";
 
 const filters = [
-  { value: "popular", name: "San pham pho bien" },
+  { value: "popular", name: "Sản Phẩm Phổ Biến" },
   { value: "created_at", name: "Hàng Mới Về" },
-  { value: "discount", name: "Hang khuyen mai" },
+  { value: "discount", name: "Hàng Khuyến Mãi" },
 ];
 
 const SuggestedProducts = () => {

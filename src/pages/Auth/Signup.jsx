@@ -3,9 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { registerUser } from "../../store/authThunk";
 import imgRegister from "../../assets/img/registerImage.jpg";
 import { useDispatch } from "react-redux";
+
 const Signup = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const onFinish = async (values) => {
     console.log(values);
 
@@ -19,13 +21,14 @@ const Signup = () => {
       await dispatch(registerUser(formData));
       navigate("/");
     } catch (error) {
-      console.error("Registration failed:", error);
+      console.error("Đăng ký thất bại:", error);
     }
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    console.log("Thất bại:", errorInfo);
   };
+
   return (
     <div className=" mt-20">
       <div className="form flex justify-center">
@@ -35,7 +38,7 @@ const Signup = () => {
           </div>
         </div>
         <div className="bg-white p-10 rounded-lg shadow-lg w-96">
-          <h1 className="font-bold pb-6 text-4xl text-orange-500">Register</h1>
+          <h1 className="font-bold pb-6 text-4xl text-orange-500">Đăng ký</h1>
           <Form
             name="basic"
             initialValues={{
@@ -50,7 +53,7 @@ const Signup = () => {
               rules={[
                 {
                   required: true,
-                  message: "Please input your username!",
+                  message: "Vui lòng nhập tên người dùng!",
                 },
               ]}
             >
@@ -61,11 +64,12 @@ const Signup = () => {
               rules={[
                 {
                   required: true,
-                  message: "Please input your email!",
+                  type: "email",
+                  message: "Vui lòng nhập đúng định dạng email!",
                 },
               ]}
             >
-              <Input placeholder="Your Email" />
+              <Input placeholder="Email của bạn" />
             </Form.Item>
 
             <Form.Item
@@ -73,30 +77,49 @@ const Signup = () => {
               rules={[
                 {
                   required: true,
-                  message: "Please input your password!",
+                  message: "Vui lòng nhập mật khẩu!",
                 },
               ]}
             >
-              <Input.Password placeholder="Password" />
+              <Input.Password placeholder="Mật khẩu" />
             </Form.Item>
+
             <Form.Item
-              placeholder="Reset Password"
               name="re_password"
+              dependencies={["password"]}
               rules={[
                 {
                   required: true,
-                  message: "Please input your password!",
+                  message: "Vui lòng nhập lại mật khẩu!",
                 },
+                ({ getFieldValue }) => ({
+                  validator(_, value) {
+                    if (!value || getFieldValue("password") === value) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject(new Error("Mật khẩu không khớp!"));
+                  },
+                }),
               ]}
             >
-              <Input.Password />
+              <Input.Password placeholder="Nhập lại mật khẩu" />
             </Form.Item>
-            <Form.Item name="date_of_birth" className="w-full">
-              <DatePicker className="w-full" />
+
+            <Form.Item
+              name="date_of_birth"
+              rules={[
+                {
+                  required: true,
+                  message: "Vui lòng chọn ngày sinh!",
+                },
+              ]}
+              className="w-full"
+            >
+              <DatePicker className="w-full" placeholder="Ngày sinh" />
             </Form.Item>
 
             <Form.Item valuePropName="checked">
-              <Checkbox>Remember me</Checkbox>
+              <Checkbox>Nhớ tôi</Checkbox>
             </Form.Item>
 
             <Form.Item>
@@ -105,7 +128,7 @@ const Signup = () => {
                 htmlType="submit"
                 className="w-full bg-orange-500"
               >
-                Submit
+                Đăng ký
               </Button>
             </Form.Item>
           </Form>

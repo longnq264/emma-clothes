@@ -1,10 +1,17 @@
 import { useState } from 'react'
 import axios from "axios";
 import { message } from 'antd'
-const ForgotPassword = () => {
 
+const ForgotPassword = () => {
   const [email, setEmail] = useState('')
+
   const handleSubmit = async () => {
+    // Kiểm tra nếu email trống
+    if (!email) {
+      message.warning("Vui lòng nhập email của bạn");  // Thông báo cảnh báo nếu chưa nhập email
+      return;
+    }
+
     try {
       const response = await axios.post('http://127.0.0.1:8000/api/forgetpassword', {
         email: email
@@ -13,18 +20,23 @@ const ForgotPassword = () => {
           'Content-Type': 'application/json',
         }
       })
-      message.success(response.data.message)
+      message.success(response.data.message || "Yêu cầu đã được gửi thành công")  // Hiển thị thông báo thành công từ phản hồi
     } catch (error) {
-      message.error(error.response.data.data.email)
+      if (error.response && error.response.data && error.response.data.message) {
+        message.error(error.response.data.message)  // Hiển thị thông báo lỗi từ phản hồi
+      } else {
+        message.error("Có lỗi xảy ra, vui lòng kiểm tra email")  // Thông báo lỗi mặc định
+      }
     }
   }
+
   return (
     <div className="mt-20">
       <div className="container mx-auto">
         <div className="wrap-content flex justify-center">
           <div className="bg-white bg-opacity-20 w-96 p-10 rounded-lg shadow-2xl">
             <h1 className="font-bold text-center text-white text-3xl mb-10 ">
-              Forgot Password
+              Quên mật khẩu
             </h1>
             <form action="" className="w-full">
               <div>
