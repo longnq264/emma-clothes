@@ -11,7 +11,7 @@ const NavMenu = ({ isMenuOpen, setIsMenuOpen }) => {
       >
         {" "}
         <div className="bg-stone-900 py-1 text-center text-sm w-full text-white">
-          Get UPTO 40% OFF on your 1st order
+        Chào mừng đến với cửa hàng emma
         </div>
         <div className="flex justify-between px-3 py-2 pb-2 md:pt-0 md:pb-4 border-b">
           <div className="md:h-9">

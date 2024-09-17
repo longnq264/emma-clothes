@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { listOrder, cancelOrder } from "../../../api/order";
 import { getTokenFromLocalStorage } from "../../../utils/indexUtils";
-import { Form, Input, Modal, Button } from "antd";
+import {  Modal, Button } from "antd";
 
 const UserOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -58,7 +58,7 @@ const UserOrders = () => {
       alert("Đơn hàng đã được hủy thành công.");
     } catch (error) {
       console.error("Lỗi khi hủy đơn hàng:", error);
-      alert(`Đã xảy ra lỗi khi hủy đơn hàng: ${error.message}`);
+      alert(`Đã xảy ra lỗi vui lòng thử lại: ${error.message}`);
     } finally {
       setIsCancelModalVisible(false);
       setCancelReason("");
@@ -178,7 +178,7 @@ const UserOrders = () => {
           </Button>,
         ]}
       >
-        <Form layout="vertical">
+        {/* <Form layout="vertical">
           <Form.Item label="Lý do hủy đơn hàng">
             <Input.TextArea
               rows={4}
@@ -187,7 +187,7 @@ const UserOrders = () => {
               placeholder="Nhập lý do hủy"
             />
           </Form.Item>
-        </Form>
+        </Form> */}
       </Modal>
     </div>
   );

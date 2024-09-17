@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Table, Button, message, Card, Typography, Space } from 'antd';
 import { fetchOrderDetails } from '../../../api/order';
 import { useParams, useNavigate } from 'react-router-dom';
-import { UserOutlined, DollarOutlined, CreditCardOutlined, EnvironmentOutlined } from '@ant-design/icons';
+import { UserOutlined, DollarOutlined, CreditCardOutlined, EnvironmentOutlined, PhoneOutlined } from '@ant-design/icons';
 
 const { Title, Text } = Typography;
 
@@ -82,11 +82,11 @@ const OrderDetails = () => {
               <Text strong>Người đặt hàng:</Text>
               <Text>{orderDetails.user_name}</Text>
             </Space>
-            {/* <Space size="middle">
+            <Space size="middle">
               <PhoneOutlined />
               <Text strong>Số điện thoại:</Text>
-              <Text>{orderDetails.user_phone}</Text>
-            </Space> */}
+              <Text>{orderDetails.phone_number}</Text>
+            </Space>
             <Space size="middle">
               <DollarOutlined />
               <Text strong>Tổng số tiền:</Text>
