@@ -23,7 +23,7 @@ const Navigation = () => {
         <ul className="flex">
           {categories.map((item, index) => (
             <li
-              className="relative px-4 py-7 list text-stone-800"
+              className="relative px-5 py-8 list text-stone-800"
               key={item.id}
               onMouseEnter={() => setActiveIndex(index)}
               onMouseLeave={() => setActiveIndex(null)}
@@ -38,7 +38,7 @@ const Navigation = () => {
               </NavLink>
               {activeIndex === index && item.children && (
                 <div
-                  className={`min-h-64 fixed left-0 top-44 w-screen bg-slate-50 border-t border-gray-100 shadow`}
+                  className={`sub-child min-h-64 fixed left-0 w-screen bg-slate-50 border-t border-gray-100 shadow`}
                 >
                   <div className="container mx-auto py-4">
                     <ul className="flex">
@@ -85,7 +85,7 @@ const Navigation = () => {
               )}
             </li>
           ))}
-          <li className="relative px-4 py-7 list text-stone-800">
+          <li className="relative px-4 py-8 list text-stone-800">
             <NavLink to={`/collection`}>
               <span className="text-lg text-stone-700 font-semibold capitalize  hover:text-stone-400">
                 bộ sưu tập

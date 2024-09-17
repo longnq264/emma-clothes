@@ -1,27 +1,37 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Input, Form } from "antd";
 import "antd/dist/reset.css"; // Đảm bảo import CSS của Ant Design
-// import { BiSolidCoupon } from "react-icons/bi";
 const { Search } = Input;
+
 const SearchCoupon = ({ setCoupons, coupons }) => {
-  const [searchTerm, setSearchTerm] = useState("");
-  console.log(searchTerm);
+  const [originalCoupons, setOriginalCoupons] = useState([]); // Lưu danh sách coupons gốc
+
+  // Lưu danh sách gốc khi component mount hoặc khi danh sách coupons thay đổi
+  useEffect(() => {
+    setOriginalCoupons(coupons);
+  }, [coupons]);
 
   const handleSearch = (value) => {
-    console.log("Tìm kiếm từ khóa:", value);
-    setSearchTerm(value);
-    const searchCoupon = coupons.filter((data) => data.code === value);
-    console.log(searchCoupon);
-    setCoupons(searchCoupon);
+    if (value.trim() === "") {
+      // Nếu không có từ khóa, đặt lại danh sách coupons gốc
+      setCoupons(originalCoupons);
+    } else {
+      console.log("Tìm kiếm từ khóa:", value);
+      const searchCoupon = originalCoupons.filter(
+        (data) => data.code === value
+      );
+      setCoupons(searchCoupon);
+    }
   };
+
   return (
     <div className="search-coupon px-28">
       <Form>
         <Form.Item>
           <Search
             className="relative pl-4"
-            placeholder={` Tìm mã giảm giá`}
+            placeholder="Tìm mã giảm giá"
             size="large"
             onSearch={handleSearch} // Gọi hàm xử lý khi nhấn tìm kiếm
           />
@@ -30,8 +40,10 @@ const SearchCoupon = ({ setCoupons, coupons }) => {
     </div>
   );
 };
+
 SearchCoupon.propTypes = {
-  setCoupons: PropTypes.any,
-  coupons: PropTypes.any,
+  setCoupons: PropTypes.func.isRequired, // Đảm bảo setCoupons là hàm
+  coupons: PropTypes.array.isRequired, // Đảm bảo coupons là mảng
 };
+
 export default SearchCoupon;

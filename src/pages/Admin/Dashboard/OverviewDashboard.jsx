@@ -209,7 +209,7 @@ const OverviewDashboard = () => {
         <Col xs={24} sm={12} md={8}>
           <Card className="shadow-lg">
             <Statistic
-              title="Tổng Giá Trị Hàng Hóa"
+              title="Tổng Tiền Giá Trị Toàn Bộ Hàng Hóa"
               value={statistics.totalValue}
               prefix={<DollarOutlined />}
               precision={2}
@@ -273,22 +273,6 @@ const OverviewDashboard = () => {
         />
       </div>
 
-      {/* <div className="mt-8">
-        <h2 className="text-2xl font-bold mb-4">Doanh Thu Theo Danh Mục</h2>
-        <BarChart
-          width={600}
-          height={400}
-          data={statistics.categoryData}
-          margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip formatter={(value) => `₫${value.toLocaleString()}`} />
-          <Legend />
-          <Bar dataKey="totalValue" fill="#8884d8" name="Doanh Thu" />
-        </BarChart>
-      </div> */}
 
       <div className="mt-8">
         <h2 className="text-2xl font-bold mb-4">Giá Trung Bình Sản Phẩm Theo Danh Mục</h2>
@@ -312,9 +296,10 @@ const OverviewDashboard = () => {
           />
         </LineChart>
       </div>
+
     </div>
   );
 };
 
 export default OverviewDashboard;
-  
+

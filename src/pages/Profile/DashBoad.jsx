@@ -28,21 +28,28 @@ const DashBoad = () => {
 
   return (
     <div className="w-full">
-      <div className="">
-        <div className="bg-gray-200 text-center p-4 w-1/4">
-          <h1 className="text-2xl font-bold">{user.name}</h1>
-          <p className="text-gray-600">{user.email}</p>
-        </div>
+      <div className="px-8 py-4">
         <div className="p-4">
-          <p>
-            <strong>Name:</strong> {user.name}
+          <h1 className="text-3xl font-semibold uppercase">Chào {user.name}</h1>
+          <p className="pt-3">
+            Hãy chỉnh sửa bất kỳ thông tin chi tiết nào bên dưới để tài khoản
+            của bạn luôn được cập nhật.
           </p>
-          <p>
-            <strong>Email:</strong> {user.email}
-          </p>
-          <p>
-            <strong>Date of Birth:</strong> {user.date_of_birth}
-          </p>
+        </div>
+        <div className="p-4 mt-4">
+          <h1 className="text-3xl font-semibold uppercase">
+            Thông Tin Chi Tiết
+          </h1>
+          <p className="uppercase py-2">{user.name}</p>
+          <p>{user.date_of_birth}</p>
+        </div>
+        <div className="p-4 mt-4">
+          <h1 className="text-3xl font-semibold uppercase">
+            Chi tiết đăng nhập
+          </h1>
+          <p className="text-lg font-semibold uppercase mt-4">Email</p>
+          <p className="uppercase py-2">{user.email}</p>
+          <p>{user.date_of_birth}</p>
         </div>
       </div>
     </div>

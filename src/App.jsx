@@ -52,13 +52,16 @@ import EditAttribute from "./components/User/Attributes/EditAttribute.jsx";
 import AddAttribute from "./components/User/Attributes/AddAttribute.jsx";
 import ProfileAdmin from "./pages/Admin/ProfileAdmin.jsx";
 import ProductListDetail from "./pages/Admin/ProductListDetail.jsx";
-
 import CouponList from "./components/User/Coupon/CouponList.jsx";
 import CouponAdd from "./components/User/Coupon/CouponAdd.jsx";
 import CouponDetail from "./components/User/Coupon/CouponDetail.jsx";
 import CouponEdit from "./components/User/Coupon/CouponEdit.jsx";
+
 import Dashboard from "./pages/Admin/Dashboard/Dashboard.jsx";
 
+
+
+import ResetPassword from "./pages/Auth/ResetPassword.jsx";
 
 
 function App() {
@@ -100,6 +103,7 @@ function App() {
         { path: "register", element: <Signup /> },
         { path: "loginAdmin", element: <LoginAdmin /> },
         { path: "send-mail", element: <ForgotPassword /> },
+        { path: "resetPassword", element: <ResetPassword /> },
       ],
     },
     {
@@ -152,3 +156,4 @@ function App() {
 }
 
 export default App;
+
