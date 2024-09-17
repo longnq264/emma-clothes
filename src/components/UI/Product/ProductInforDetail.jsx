@@ -115,9 +115,8 @@ const ProductInforDetail = ({
       if (!token) {
         dispatch(addItemToCart(cartData));
       } else {
-        dispatch(addToCartItems({ values, token, data })).then(() => {
-          dispatch(fetchCarts(token));
-        });
+        await dispatch(addToCartItems({ values, token, data }));
+        await dispatch(fetchCarts(token));
       }
     } catch (error) {
       console.error("Error adding to cart:", error);
