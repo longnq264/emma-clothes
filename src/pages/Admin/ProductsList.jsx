@@ -34,7 +34,7 @@ const ProductsList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [filters] = useState({ status: "", category: "", type: "" });
-  const productsPerPage = 10;
+  const productsPerPage = 5;
 
   useEffect(() => {
     fetchData();
@@ -106,7 +106,8 @@ const ProductsList = () => {
       return true;
     });
 
-  const sortedProducts = filteredProducts.sort((a, b) => b.created_at - a.created_at);
+  // Sắp xếp sản phẩm theo id giảm dần
+  const sortedProducts = filteredProducts.sort((a, b) => b.id - a.id);
 
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
@@ -117,7 +118,7 @@ const ProductsList = () => {
 
   const columns = [
     {
-      title: "ID",
+      title: "STT",
       dataIndex: "id",
       key: "id",
       render: (text, record) => (
@@ -277,19 +278,20 @@ const ProductsList = () => {
           />
         </div>
       </div>
+
       <div className="print-container">
         <Table
           rowSelection={{
             selectedRowKeys: selectedProducts,
-            onChange: (selectedRowKeys) => setSelectedProducts(selectedRowKeys),
+            onChange: setSelectedProducts,
           }}
           columns={columns}
           dataSource={currentProducts}
           rowKey="id"
           pagination={false}
-          scroll={{ x: true }}
         />
       </div>
+
       <div className="mt-4 flex justify-between items-center">
         <div>
           <span className="text-gray-700">Hiển thị từ </span>

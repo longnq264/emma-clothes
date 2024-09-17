@@ -57,9 +57,6 @@ import CouponAdd from "./components/User/Coupon/CouponAdd.jsx";
 import CouponDetail from "./components/User/Coupon/CouponDetail.jsx";
 import CouponEdit from "./components/User/Coupon/CouponEdit.jsx";
 
-import Dashboard from "./pages/Admin/Dashboard/Dashboard.jsx";
-
-
 
 import ResetPassword from "./pages/Auth/ResetPassword.jsx";
 
@@ -92,7 +89,6 @@ function App() {
         { path: "/admin", element: <DashBoardPage /> },
         { path: "/sale", element: <Sale /> },
         { path: "/resetPassword/:data", element: <GetData /> },
-        { path: "/Dash", element: <Dashboard /> }, // Test thử thống kê 
       ],
     },
     {
