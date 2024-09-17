@@ -1,5 +1,5 @@
 import React from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useState } from 'react'
 import { message } from 'antd'
 import axios from "axios";
@@ -9,9 +9,8 @@ const ResetPassword = () => {
     const location = useLocation();
     const navigate = useNavigate()
 
-    const queryParams = new URLSearchParams(location.search);
-    const token = queryParams.get('token');
-    const email = queryParams.get('email');
+    const { token, email } = useParams()
+    const newEmail = email.replaceAll('%2E', '.')
 
     const [password, setPasswrod] = useState('')
     const [rePassword, setRePasswrod] = useState('')
@@ -20,7 +19,7 @@ const ResetPassword = () => {
         try {
             const response = await axios.post('http://127.0.0.1:8000/api/resetpassword', {
                 token: token,
-                email: email,
+                email: newEmail,
                 password: password,
                 re_password: rePassword
             }, {

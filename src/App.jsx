@@ -103,7 +103,7 @@ function App() {
         { path: "register", element: <Signup /> },
         { path: "loginAdmin", element: <LoginAdmin /> },
         { path: "send-mail", element: <ForgotPassword /> },
-        { path: "resetPassword", element: <ResetPassword /> },
+        { path: "resetPassword/:token/:email", element: <ResetPassword /> },
       ],
     },
     {
