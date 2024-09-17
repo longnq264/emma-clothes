@@ -30,6 +30,7 @@ const NavBar = ({ isOpen, darkMode }) => {
   };
 
   return (
+    
     <div
       className={`fixed top-20 left-0 right-0 w-64 z-40 ${
         darkMode ? "bg-gray-800 text-gray-200" : "bg-gray-100 text-gray-800"
