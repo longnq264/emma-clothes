@@ -76,6 +76,7 @@ const ProductEdit = () => {
         formData.append(`images[${index}].is_thumbnail`, image.is_thumbnail);
       }
     });
+    formData.append("_method", "PUT");
     try {
       await updateProduct(id, formData);
       // navigate("/admin/products");

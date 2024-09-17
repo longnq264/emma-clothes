@@ -179,10 +179,13 @@ export const createProduct = async (productData) => {
 };
 
 export const updateProduct = async (productId, productData) => {
-  const response = await axios.put(
-    `${API_URL}/products/${productId}`,
-    productData
-  );
+  const response = await fetch(`${API_URL}/products/${productId}`, {
+    method: "POST",
+    body: productData,
+    headers: {
+      // Không cần thiết phải thêm Content-Type cho FormData, fetch sẽ tự động thiết lập
+    },
+  });
   console.log(`Update product ${productId} response:`, response.data);
   return response.data;
 };
@@ -378,7 +381,6 @@ export const listOrders = async (token) => {
   }
 };
 
-
 export const getDashboardData = async () => {
   try {
     const response = await axios.get(`${API_URL}/dashboard`);
@@ -394,9 +396,6 @@ export const getDashboardData = async () => {
   }
 };
 
-
-
-
 // lọc sản phẩm
 export const filterProducts = async (filters) => {
   try {
@@ -408,5 +407,3 @@ export const filterProducts = async (filters) => {
     throw error;
   }
 };
-
-

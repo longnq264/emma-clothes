@@ -1,4 +1,5 @@
 import { Form, Input } from "antd";
+import GetListCategories from "../Products/GetListCategories";
 const ProductTitleForm = () => {
   return (
     <>
@@ -83,6 +84,7 @@ const ProductTitleForm = () => {
             </Form.Item>
           </div>
         </div>
+        <GetListCategories />
       </div>
     </>
   );
