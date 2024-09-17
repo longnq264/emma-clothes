@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-=======
-import { Button, Form, notification } from "antd";
-import { useNavigate } from "react-router-dom";
-import AttributesProduct from "../../components/User/Products/AttributesProduct";
-import ProductTitleForm from "../../components/User/SubmitForm/ProductTitleForm";
->>>>>>> toan.lq/web/forgorPassword
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Form, notification } from "antd";
@@ -15,13 +8,9 @@ import {
   updateMultiple,
 } from "../../api/post-product";
 import { filterNewVariants } from "../../utils/attribute";
-<<<<<<< HEAD
 import AttributesProduct from "../../components/User/Products/AttributesProduct";
 import ProductTitleForm from "../../components/User/SubmitForm/ProductTitleForm";
 import UploadImage from "../../components/User/Products/UploadImage";
-=======
-// import UploadImage from "../../components/User/Products/UploadImage";
->>>>>>> toan.lq/web/forgorPassword
 
 const ProductAdd = () => {
   const [images, setImages] = useState([]);
@@ -30,7 +19,6 @@ const ProductAdd = () => {
   const [productItem, setProductItem] = useState([]);
   const [variants, setVariants] = useState([]);
   const [idProduct, setIdProduct] = useState([]);
-<<<<<<< HEAD
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
   console.log("variants", variants);
@@ -54,25 +42,6 @@ const ProductAdd = () => {
       formData.append(`images[${index}].is_thumbnail`, image.is_thumbnail);
     });
     console.log(images);
-=======
-  const navigate = useNavigate();
-  console.log("variants", variants);
-  // console.log("show add atributes", productItemsUser);
-  //Submit postProduct request firts
-  const onFinish = async (values) => {
-    console.log("onFinish", values);
-    const formData = {
-      name: values.name,
-      description: values.description,
-      price: Number(values.price),
-      price_old: Number(values.price_old),
-      quantity: Number(values.quantity),
-      category_id: values.category,
-      promotion: "Giảm giá đặc biệt", //khuyến mãi
-      status: "Active", //trạng thái
-      images: images,
-    };
->>>>>>> toan.lq/web/forgorPassword
     try {
       console.log("formdata", formData);
       const response = await createProductItem(formData);
@@ -105,7 +74,6 @@ const ProductAdd = () => {
       stock: productItem.quantity,
       price: productItem.price,
     };
-<<<<<<< HEAD
     try {
       const response = await createProductVariants(idProduct, variantData);
       if (response.status === true) {
@@ -123,24 +91,6 @@ const ProductAdd = () => {
     if (!existingVariants.length) {
       return;
     }
-=======
-    const existingVariants = productItemsUser
-      .map((item) => item.attributes)
-      .flat();
-
-    if (!existingVariants.length) {
-      try {
-        const response = await createProductVariants(idProduct, variantData);
-        if (response.status === true) {
-          await fetchProductItems(idProduct);
-          console.log("success");
-        }
-      } catch (error) {
-        console.log(error);
-      }
-      return;
-    }
->>>>>>> toan.lq/web/forgorPassword
 
     console.log("exitings variants", existingVariants);
 
@@ -148,28 +98,15 @@ const ProductAdd = () => {
       const { attribute_id, id } = item;
       console.log("acc", acc);
       console.log("item", attribute_id, id);
-<<<<<<< HEAD
-
-=======
-      // Tìm xem attribute đã tồn tại trong acc chưa
->>>>>>> toan.lq/web/forgorPassword
       const existingAttribute = acc.find(
         (attr) => attr.attribute_id === attribute_id
       );
       console.log(existingAttribute);
       if (existingAttribute) {
-<<<<<<< HEAD
-=======
-        // Nếu attribute đã tồn tại, thêm value_id nếu chưa có
->>>>>>> toan.lq/web/forgorPassword
         if (!existingAttribute.value_ids.includes(id)) {
           existingAttribute.value_ids.push(id);
         }
       } else {
-<<<<<<< HEAD
-=======
-        // Nếu chưa tồn tại, thêm attribute mới vào acc
->>>>>>> toan.lq/web/forgorPassword
         acc.push({
           attribute_id: attribute_id,
           value_ids: [id],
