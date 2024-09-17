@@ -15,15 +15,15 @@ const DashBoad = () => {
   }
 
   if (status === "loading") {
-    return <div>Loading user data...</div>;
+    return <div>Đang tải dữ liệu người dùng...</div>;
   }
 
   if (status === "failed") {
-    return <div>Error: {error}</div>;
+    return <div>Lỗi: {error}</div>;
   }
 
   if (!user) {
-    return <div>No user data available</div>;
+    return <div>Không có dữ liệu người dùng nào có sẵn</div>;
   }
 
   return (
