@@ -9,7 +9,9 @@ import { AppContext } from "../../../context/AppContext";
 const ListCouponst = ({ setMenu, menu, setDiscount, setPriceCheckout }) => {
   const totalPrice = useSelector((state) => state.cart.totalPrice);
   const [coupons, setCoupons] = useState([]);
+  const [inActive, setInActive] = useState([]);
   const { orderDetail, setCouponCode } = useContext(AppContext);
+  console.log("inActive", inActive);
   const revertPercent = (number) => {
     const percentage = `${(number / 100) * 100}%`;
     return percentage;
@@ -23,7 +25,15 @@ const ListCouponst = ({ setMenu, menu, setDiscount, setPriceCheckout }) => {
   const fetchCoupons = async () => {
     try {
       const response = await listCoupons();
-      setCoupons(response.data);
+      console.log("response", response.data);
+      const activeCoupons = response.data.filter(
+        (coupon) => coupon.status === "Active"
+      );
+      const inactiveCoupons = response.data.filter(
+        (coupon) => coupon.status === "Inactive"
+      );
+      setCoupons(activeCoupons);
+      setInActive(inactiveCoupons);
     } catch (error) {
       console.log(error);
     }
@@ -77,6 +87,41 @@ const ListCouponst = ({ setMenu, menu, setDiscount, setPriceCheckout }) => {
                     </div>
                     <input
                       type="radio"
+                      name="selectedCoupon" // Tên chung cho các radio button
+                      value={JSON.stringify({
+                        discount: data.discount,
+                        code: data.code,
+                      })} // Giá trị là id của coupon
+                      className="mr-2" // Thêm khoảng cách giữa radio và văn bản
+                      onChange={(e) => handleSelectCoupon(e.target.value)} // Hàm xử lý khi chọn coupon
+                    />
+                  </div>
+                </div>
+              ))}
+              {inActive.map((data) => (
+                <div key={data.id} className="basis-1/2 my-2">
+                  <div className="flex items-center space-between mx-2 border cursor-not-allowed">
+                    <div className="w-24 bg-stone-400 text-center aspect-square flex items-center justify-center">
+                      <p className="text-white text-sm font-bold block">EMMA</p>
+                    </div>
+                    <div className="py-2 px-2 w-full">
+                      <p className="text-xs font-semibold opacity-70 cursor-pointer">
+                        {data.code}
+                      </p>
+                      <p className="text-sm">
+                        Giảm tối đa{" "}
+                        <span className="text-red-800">
+                          {revertPercent(data.discount)}
+                        </span>{" "}
+                        trên tổng hóa đơn
+                      </p>
+                      <p className="text-xs text-gray-500 mt-1">
+                        HSD: {data.expiration_date}
+                      </p>
+                    </div>
+                    <input
+                      type="radio"
+                      disabled={true}
                       name="selectedCoupon" // Tên chung cho các radio button
                       value={JSON.stringify({
                         discount: data.discount,
