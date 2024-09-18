@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { listOrder, cancelOrder } from "../../../api/order";
 import { getTokenFromLocalStorage } from "../../../utils/indexUtils";
-import {  Modal, Button } from "antd";
+import { Modal, Button } from "antd";
 
 const UserOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -12,17 +12,22 @@ const UserOrders = () => {
   const [cancelReason, setCancelReason] = useState("");
 
   const token = getTokenFromLocalStorage();
-  
+
   useEffect(() => {
     const loadOrders = async () => {
       try {
         const fetchedOrders = await listOrder(token);
-        console.log("Sorted Orders:", fetchedOrders.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)));
-        
+        console.log(
+          "Sorted Orders:",
+          fetchedOrders.sort(
+            (a, b) => new Date(b.created_at) - new Date(a.created_at)
+          )
+        );
+
         const sortedOrders = fetchedOrders.sort(
           (a, b) => new Date(b.created_at) - new Date(a.created_at)
         );
-  
+
         setOrders(sortedOrders);
       } catch (err) {
         setError("Lỗi khi lấy đơn hàng");
@@ -30,15 +35,12 @@ const UserOrders = () => {
         setLoading(false);
       }
     };
-  
+
     loadOrders();
   }, [token]);
-  
-
 
   const handleCancelOrder = (orderId) => {
     const order = orders.find((order) => order.id === orderId);
- 
 
     if (order.status.toLowerCase() === "Pending") {
       alert("Chỉ có thể hủy đơn hàng với trạng thái Chờ xử lý (Pending).");
@@ -141,10 +143,10 @@ const UserOrders = () => {
                   />
                   <div>
                     <div className="text-lg font-semibold text-gray-800">
-                      {item.product_name || "Sản phẩm không có tên"}
+                      {item.product_name || "Sản phẩm không còn tồn tại"}
                     </div>
                     <div className="text-sm text-gray-500">
-                      SKU: {item.variant?.sku || "Không có SKU"}
+                      SKU: {item.variant?.sku || ""}
                     </div>
                     <div className="text-sm text-gray-500">
                       Giá: {formatCurrency(item.price)}
@@ -231,8 +233,8 @@ const getStatusClass = (status) => {
 
 // Hàm để định dạng tiền tệ với cách hiển thị "đẹp hơn"
 const formatCurrency = (amount) => {
-  return Math.round(amount).toLocaleString('vi-VN') + " ₫";
+  return Math.round(amount).toLocaleString("vi-VN") + " ₫";
 };
 
-
 export default UserOrders;
+
