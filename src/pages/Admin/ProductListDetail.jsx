@@ -9,13 +9,17 @@ const ProductDetail = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
     const fetchProductDetail = async (id) => {
       try {
         const response = await getProductId(id);
         setData(response.data);
-        console.log(response);
+        const initialImage =
+          response.data.productImages.find((img) => img.is_thumbnail === 1)
+            ?.image_url || response.data.productImages[0]?.image_url;
+        setSelectedImage(initialImage);
       } catch (error) {
         setError("Không thể lấy thông tin chi tiết về sản phẩm.");
       } finally {
@@ -41,15 +45,25 @@ const ProductDetail = () => {
   if (!data)
     return (
       <div className="flex justify-center items-center h-screen">
-        <Alert message="Khong tim thay san pham" type="warning" showIcon />
+        <Alert message="Không tìm thấy sản phẩm" type="warning" showIcon />
       </div>
     );
 
-  const mainImageUrl = data.productImages.find(
-    (img) => img.is_thumbnail === 1
-  )?.image_url;
-
-  const selectedVariant = data.productVariants[0] || null;
+  const {
+    productImages = [],
+    productVariants = [],
+    name,
+    price,
+    price_old,
+    description,
+    quantity,
+    view,
+    promotion,
+    status,
+    created_at,
+    updated_at,
+    category,
+  } = data;
 
   const columns = [
     {
@@ -68,64 +82,56 @@ const ProductDetail = () => {
   ];
 
   const dataSource = [
-    { detail: "Tên sản phẩm", value: data.name },
-    { detail: "Giá", value: `${data.price}₫` },
+    { detail: "Tên sản phẩm", value: name },
+    { detail: "Giá", value: `${price}₫` },
     {
       detail: "Giá cũ",
-      value: <span className="text-red-600">{`${data.price_old}₫`}</span>,
+      value: <span className="text-red-600">{`${price_old}₫`}</span>,
     },
-    { detail: "Mô tả sản phẩm", value: data.description },
-    { detail: "Số lượng", value: data.quantity },
-    { detail: "Lượt xem", value: data.view },
-    { detail: "Khuyến mãi", value: data.promotion },
+    { detail: "Mô tả sản phẩm", value: description },
+    { detail: "Số lượng", value: quantity },
+    { detail: "Lượt xem", value: view },
+    { detail: "Khuyến mãi", value: promotion },
     {
       detail: "Trạng Thái",
-      value: (
-        <Tag color={data.status === "Active" ? "red" : "green"}>
-          {data.status}
-        </Tag>
-      ),
+      value: <Tag color={status === "Active" ? "red" : "green"}>{status}</Tag>,
     },
     {
       detail: "Thời gian tạo",
-      value: new Date(data.created_at).toLocaleDateString(),
+      value: new Date(created_at).toLocaleDateString(),
     },
     {
       detail: "Thời gian cập nhật",
-      value: new Date(data.updated_at).toLocaleDateString(),
+      value: new Date(updated_at).toLocaleDateString(),
     },
-    { detail: "Danh mục", value: data.category.name },
+    { detail: "Danh mục", value: category.name },
   ];
 
-  const variantColumns = [
-    {
-      title: "Chi tiết",
-      dataIndex: "detail",
-      key: "detail",
-      width: "30%",
-      render: (text) => <span className="font-semibold">{text}</span>,
-    },
-    {
-      title: "Giá trị",
-      dataIndex: "value",
-      key: "value",
-      width: "70%",
-    },
-  ];
+  const variantRows = productVariants.map((variant) => (
+    <div
+      key={variant.sku}
+      className="bg-white p-6 mb-4 rounded-lg shadow-md border border-gray-200"
+    >
+      <div className="grid grid-cols-2 gap-4">
+        <div className="font-semibold">Mã SKU:</div>
+        <div>{variant.sku}</div>
+        <div className="font-semibold">Số Lượng:</div>
+        <div>{variant.stock}</div>
+        <div className="font-semibold">Giá:</div>
+        <div>{`${variant.price}₫`}</div>
+        <div className="font-semibold">Thuộc Tính:</div>
+        <div>
+          {variant.attributes?.length > 0
+            ? variant.attributes.map((attr) => attr.value).join(", ")
+            : "Không có thuộc tính"}
+        </div>
+      </div>
+    </div>
+  ));
 
-  const variantDataSource = selectedVariant
-    ? [
-        { detail: "Mã SKU", value: selectedVariant.sku },
-        { detail: "Số Lượng", value: selectedVariant.stock },
-        { detail: "Giá", value: `${selectedVariant.price}₫` },
-        {
-          detail: "Thuộc Tính",
-          value: selectedVariant.attributes
-            .map((attr) => attr.value)
-            .join(", "),
-        },
-      ]
-    : [];
+  const handleThumbnailClick = (imageUrl) => {
+    setSelectedImage(imageUrl);
+  };
 
   return (
     <div className="p-8 md:p-12 bg-gray-100 min-h-screen">
@@ -136,10 +142,10 @@ const ProductDetail = () => {
 
         <div className="flex flex-col md:flex-row gap-10 mb-10">
           <div className="md:w-1/2">
-            {mainImageUrl ? (
+            {selectedImage ? (
               <img
-                src={mainImageUrl}
-                alt={data.name}
+                src={selectedImage}
+                alt={name}
                 className="w-full h-auto rounded-lg shadow-md"
               />
             ) : (
@@ -147,6 +153,20 @@ const ProductDetail = () => {
                 <p className="text-gray-600">Không có ảnh</p>
               </div>
             )}
+            <div className="flex flex-wrap gap-2 mt-4">
+              {productImages
+                .filter((image) => !image.is_thumbnail)
+                .map((image) => (
+                  <div key={image.image_url} className="flex-none">
+                    <img
+                      src={image.image_url}
+                      alt="Thumbnail"
+                      className="w-24 h-24 object-cover cursor-pointer border border-gray-300 rounded-lg"
+                      onClick={() => handleThumbnailClick(image.image_url)}
+                    />
+                  </div>
+                ))}
+            </div>
           </div>
           <div className="md:w-1/2">
             <Table
@@ -159,37 +179,27 @@ const ProductDetail = () => {
               size="middle"
               scroll={{ y: 300 }}
             />
-            <h3 className="text-2xl font-semibold  mb-4">Chi tiết biến thể</h3>
-            {selectedVariant ? (
-              <Table
-                columns={variantColumns}
-                dataSource={variantDataSource}
-                pagination={false}
-                rowKey="detail"
-                bordered
-                size="middle"
-                scroll={{ y: 300 }}
-              />
-            ) : (
-              <p>Không có biến thể nào có sẵn</p>
-            )}
-            <br />
-
-            <div className="flex justify-center space-x-4 mt-4">
+            <h3 className="text-2xl font-semibold mb-4">Chi tiết biến thể</h3>
+            <div className="max-h-80 overflow-y-auto">
+              {variantRows.length > 0 ? (
+                variantRows
+              ) : (
+                <p>Không có biến thể nào có sẵn</p>
+              )}
+            </div>
+            <div className="flex flex-col md:flex-row gap-4 md:gap-8 mt-8">
               <Link
                 to="/admin/products"
                 className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md"
               >
-                Quay về Product List
+                Quay về
               </Link>
-
               <Link
                 to={`/products/${id}`}
                 className="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md"
               >
-                View Sản phẩm
+                Xem sản phẩm
               </Link>
-
               <Link
                 to={`/admin/products/edit/${id}`}
                 className="inline-block bg-orange-600 hover:bg-orange-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md"
