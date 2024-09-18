@@ -4,7 +4,7 @@ import { getCategories } from "../../../api/api-server";
 
 const TreeDataExample = () => {
   const [treeData, setTreeData] = useState([]);
-  console.log(treeData);
+
   useEffect(() => {
     const fetchCategories = async () => {
       try {

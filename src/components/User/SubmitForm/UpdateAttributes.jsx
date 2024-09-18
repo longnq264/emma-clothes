@@ -1,12 +1,16 @@
 import PropTypes from "prop-types";
 
-const UpdatedAttributes = ({ productItemsUser, setProductItemsUser }) => {
-  console.log("productItemUser", productItemsUser);
-  // Hàm xử lý khi người dùng thay đổi giá trị của các input
-  const handleInputChange = (index, field, value) => {
+const UpdatedAttributes = ({
+  productItemsUser,
+  setProductItemsUser,
+  setFormValues,
+}) => {
+  const handleInputChange = (index, field, value, id) => {
     console.log("field", field);
     console.log("value", value);
+    console.log("id", id);
 
+    setFormValues((prevItem) => [...prevItem]);
     setProductItemsUser((prevProductItems) => {
       // Tạo một bản sao của state hiện tại
       const updatedProducts = [...prevProductItems];
@@ -15,9 +19,9 @@ const UpdatedAttributes = ({ productItemsUser, setProductItemsUser }) => {
       // Cập nhật giá trị mới cho sản phẩm tại vị trí index
       updatedProducts[index] = {
         ...updatedProducts[index],
-        [field]: value,
+        [field]: Number(value),
       };
-
+      console.log(updatedProducts);
       return updatedProducts;
     });
   };
@@ -41,7 +45,7 @@ const UpdatedAttributes = ({ productItemsUser, setProductItemsUser }) => {
                   name="price"
                   value={data.price}
                   onChange={(e) =>
-                    handleInputChange(index, "price", e.target.value)
+                    handleInputChange(index, "price", e.target.value, data.id)
                   }
                   className="border p-2 m-2"
                 />
@@ -70,6 +74,7 @@ const UpdatedAttributes = ({ productItemsUser, setProductItemsUser }) => {
 UpdatedAttributes.propTypes = {
   productItemsUser: PropTypes.array.isRequired,
   setProductItemsUser: PropTypes.func.isRequired,
+  setFormValues: PropTypes.any,
 };
 
 export default UpdatedAttributes;

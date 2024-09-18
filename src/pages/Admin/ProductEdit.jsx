@@ -11,14 +11,24 @@ import UpdateVariant from "../../components/User/SubmitForm/UpdateVariant";
 
 const ProductEdit = () => {
   const { id } = useParams();
+  const [form] = Form.useForm();
   const [productItemsUser, setProductItemsUser] = useState([]);
   const [variants, setVariants] = useState([]);
   const [categories, setCategories] = useState([]);
   const [images, setImages] = useState([]);
   const [imagesFile, setImageFile] = useState();
   const [product, setProduct] = useState();
-  const [form] = Form.useForm();
-
+  const [formValues, setFormValues] = useState([]);
+  console.log(formValues);
+  // useEffect(() => {
+  //   if (productItemsUser && Array.isArray(productItemsUser)) {
+  //     setFormValues(productItemsUser.map((item) => ({
+  //       id: item.id,
+  //       price: item.price,
+  //       stock: item.stock,
+  //     })));
+  //   }
+  // }, [productItemsUser]);
   const onFinish = async (values) => {
     console.log("values", values);
     const formData = new FormData();
@@ -87,7 +97,6 @@ const ProductEdit = () => {
   const fetchProductItems = async (id) => {
     try {
       const response = await getProductItems(id);
-      console.log(response);
       setProductItemsUser(response.data.productVariants);
     } catch (error) {
       console.log(error);
@@ -159,6 +168,7 @@ const ProductEdit = () => {
 
         <div className="px-8">
           <UpdateVariant
+            setFormValues={setFormValues}
             productItemsUser={productItemsUser}
             variants={variants}
             setVariants={setVariants}
