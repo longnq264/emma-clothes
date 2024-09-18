@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Form, Input, Button } from 'antd';
-import { createAttribute } from '../../../api/attributes';
+import { createAttribute, fetchAttributes } from '../../../api/attributes';
 import { useNavigate } from 'react-router-dom';
 import { PlusOutlined } from '@ant-design/icons'; // Import the icon
 
@@ -12,13 +12,46 @@ const AddAttribute = () => {
     const handleSubmit = async (values) => {
         setLoading(true);
         try {
-            // Đảm bảo rằng values có cấu trúc đúng và không thiếu trường
+            // Fetch existing attributes to check for duplicates
+            const response = await fetchAttributes();
+            const attributes = response.data;
+
+            // Check for duplicate values
+            const newValues = values.values.split(',').map(value => value.trim());
+            const uniqueValues = [...new Set(newValues)]; // Filter unique values
+
+            if (newValues.length !== uniqueValues.length) {
+                form.setFields([
+                    {
+                        name: 'values',
+                        errors: ['Có giá trị trùng lặp, vui lòng nhập giá trị khác!'],
+                    },
+                ]);
+                setLoading(false);
+                return; // Stop if there are duplicate values
+            }
+
+            // Check if attribute with the same name already exists
+            const duplicateName = attributes.some(attr => attr.name === values.name);
+            if (duplicateName) {
+                form.setFields([
+                    {
+                        name: 'name',
+                        errors: ['Tên thuộc tính đã tồn tại, vui lòng nhập tên khác!'],
+                    },
+                ]);
+                setLoading(false);
+                return; // Stop if the name is duplicated
+            }
+
+            // Prepare formatted values
             const formattedValues = {
                 name: values.name,
-                values: values.values.split(',').map(value => ({ value: value.trim() }))
+                values: uniqueValues.map(value => ({ value }))
             };
+
             await createAttribute(formattedValues);
-            navigate('/admin/attributes');  // Điều hướng về trang danh sách thuộc tính sau khi thêm thành công
+            navigate('/admin/attributes'); // Navigate to attributes list page on success
         } catch (error) {
             console.error('Lỗi khi thêm thuộc tính:', error.response?.data || error.message);
         } finally {
