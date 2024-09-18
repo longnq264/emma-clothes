@@ -27,9 +27,9 @@ const Thanks = () => {
             Chúng tôi sẽ xác nhận đơn hàng của bạn trong thời gian sớm nhất.
           </p>
           <div className="text-center mt-6">
-            <Button 
-              type="primary" 
-              size="large" 
+            <Button
+              type="primary"
+              size="large"
               onClick={() => window.location.href = '/'} 
               className="hover:shadow-lg transition duration-300 ease-in-out animate-pulse"
             >
