@@ -74,7 +74,7 @@ const CouponList = () => {
       dataIndex: 'status',
       key: 'status',
       render: (status) => (
-        <Tag color={status === 'Active' ? 'green' : 'red'}>
+        <Tag color={status === 'active' ? 'green' : 'red'}>
           {status}
         </Tag>
       ),
