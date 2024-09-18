@@ -3,13 +3,17 @@ import { useParams } from "react-router-dom";
 import { Button, Form } from "antd";
 import GetListCategories from "../../components/User/Products/GetListCategories";
 import { getProduct, updateProduct, getCategories } from "../../api/api-server";
+import { getProductItems } from "../../api/post-product";
 import { ToastContainer } from "react-toastify";
 import UpdateProductTitleForm from "../../components/User/SubmitForm/UpdateProductTitleForm";
 import UpdateProductImage from "../../components/User/SubmitForm/UpdateProductImage";
+import UpdateVariant from "../../components/User/SubmitForm/UpdateVariant";
 
 const ProductEdit = () => {
   const { id } = useParams();
-  // const [variants, setVariants] = useState([]);
+  const [isVariant, setIsVariant] = useState(false);
+  const [productItemsUser, setProductItemsUser] = useState([]);
+  const [variants, setVariants] = useState([]);
   const [categories, setCategories] = useState([]);
   const [images, setImages] = useState([]);
   const [imagesFile, setImageFile] = useState();
@@ -89,6 +93,113 @@ const ProductEdit = () => {
     console.log("Failed:", errorInfo);
   };
 
+  // const handleVariantSubmit = async () => {
+  //   if (variants.length === 0 || !productItem)
+  //     return console.log("No select variant item!!");
+
+  //   const variantData = {
+  //     product_id: productItem.id,
+  //     attribute: variants,
+  //     stock: productItem.quantity,
+  //     price: productItem.price,
+  //   };
+  //   try {
+  //     const response = await createProductVariants(idProduct, variantData);
+  //     if (response.status === true) {
+  //       await fetchProductItems(idProduct);
+  //       console.log("success");
+  //     }
+  //     return;
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  //   const existingVariants = productItemsUser
+  //     .map((item) => item.attributes)
+  //     .flat();
+
+  //   if (!existingVariants.length) {
+  //     return;
+  //   }
+
+  //   console.log("exitings variants", existingVariants);
+
+  //   const result = existingVariants.reduce((acc, item) => {
+  //     const { attribute_id, id } = item;
+  //     console.log("acc", acc);
+  //     console.log("item", attribute_id, id);
+  //     const existingAttribute = acc.find(
+  //       (attr) => attr.attribute_id === attribute_id
+  //     );
+  //     console.log(existingAttribute);
+  //     if (existingAttribute) {
+  //       if (!existingAttribute.value_ids.includes(id)) {
+  //         existingAttribute.value_ids.push(id);
+  //       }
+  //     } else {
+  //       acc.push({
+  //         attribute_id: attribute_id,
+  //         value_ids: [id],
+  //       });
+  //     }
+
+  //     return acc;
+  //   }, []);
+
+  //   console.log("init variant", result);
+
+  //   const newVariants = filterNewVariants(result, variants);
+  //   console.log("new variants", newVariants);
+
+  //   const newVariantData = {
+  //     product_id: productItem.id,
+  //     attribute: newVariants,
+  //     stock: productItem.quantity,
+  //     price: productItem.price,
+  //   };
+  //   if (newVariants.length > 0) {
+  //     try {
+  //       const response = await createProductVariants(idProduct, newVariantData);
+  //       console.log("Variant response", response);
+  //       if (response.status === true) {
+  //         await fetchProductItems(idProduct);
+  //         console.log("success");
+  //       }
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   }
+  //   // // Nếu không có variant mới nào, không cần gửi thêm
+  //   // if (newVariants.length === 0) {
+  //   //   console.log("Tất cả các variants đã tồn tại, không cần thêm mới");
+  //   //   return;
+  //   // }
+  // };
+
+  // //get list Attribute
+  // const fetchProductItems = async (id) => {
+  //   try {
+  //     const response = await getProductItems(id);
+  //     console.log(response);
+  //     setProductItemsUser(response.data.productVariants);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+  const handleVariantSubmit = () => {
+    console.log("onClick");
+    setIsVariant(true);
+    fetchProductItems;
+  };
+
+  const fetchProductItems = async (id) => {
+    try {
+      const response = await getProductItems(id);
+      console.log(response);
+      setProductItemsUser(response.data.productVariants);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="container mx-auto px-4 mb-20">
       <h1 className="pl-8 text-4xl text-stone-700 font-extrabold pb-4">
@@ -111,8 +222,28 @@ const ProductEdit = () => {
 
         <GetListCategories categories={categories} />
 
-        {/* Variants
-        <AttributesProduct variants={variants} setVariants={setVariants} /> */}
+        {isVariant && (
+          <div className="px-8">
+            <UpdateVariant
+              productItemsUser={productItemsUser}
+              variants={variants}
+              setVariants={setVariants}
+              idProduct={id}
+              setProductItemsUser={setProductItemsUser}
+            />
+
+            {/* Submit button for variants */}
+            <div className="flex justify-start mt-10">
+              <Button
+                type="primary"
+                onClick={handleVariantSubmit}
+                className="bg-orange-400 text-lg"
+              >
+                Hiển thị thuộc tính
+              </Button>
+            </div>
+          </div>
+        )}
 
         <Form.Item className="flex justify-end">
           <Button

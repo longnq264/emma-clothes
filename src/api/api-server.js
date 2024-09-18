@@ -182,11 +182,8 @@ export const updateProduct = async (productId, productData) => {
   const response = await fetch(`${API_URL}/products/${productId}`, {
     method: "POST",
     body: productData,
-    headers: {
-      // Không cần thiết phải thêm Content-Type cho FormData, fetch sẽ tự động thiết lập
-    },
   });
-  console.log(`Update product ${productId} response:`, response.data);
+  console.log(`Update product ${productId} response:`, response);
   return response.data;
 };
 
