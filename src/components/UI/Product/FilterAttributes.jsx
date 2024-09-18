@@ -34,12 +34,12 @@ const FilterAttributes = ({ setProducts }) => {
           `attribute[${attributeId}][]=${selectedFilters[attributeId]}`
       )
       .join("&");
-    console.log(queryParams);
+    // console.log(queryParams);
 
     try {
       const response = await filterAtrributes(queryParams);
       const data = await response.data;
-      console.log("Filtered products:", data);
+      // console.log("Filtered products:", data);
       setProducts(data);
     } catch (error) {
       console.log("Error fetching filtered products:", error);

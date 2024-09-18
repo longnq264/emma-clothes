@@ -1,10 +1,10 @@
 import PropTypes from "prop-types";
 
 const UploadImageProduct = ({ images, setImages }) => {
-  console.log(images);
+  // console.log(images);
   const handleFileChange = (event) => {
     const file = event.target.files[0];
-    console.log(file);
+    // console.log(file);
     const imgData = {
       file,
       is_thumbnail: images.length === 0,

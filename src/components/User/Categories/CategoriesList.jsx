@@ -20,7 +20,7 @@ const CategoriesList = () => {
   const fetchCategories = async () => {
     try {
       const response = await getCategories();
-      console.log("Fetched categories:", response); // Log the full response
+      // console.log("Fetched categories:", response); // Log the full response
       if (
         response.data &&
         response.data[0] &&
@@ -28,7 +28,7 @@ const CategoriesList = () => {
       ) {
         setCategories(response.data[0].children);
       } else {
-        console.error("Expected an array of categories but got:", response);
+        // console.error("Expected an array of categories but got:", response);
         setCategories([]); // Set an empty array if the data is not in the expected format
       }
     } catch (error) {

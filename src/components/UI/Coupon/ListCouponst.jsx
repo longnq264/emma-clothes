@@ -11,7 +11,7 @@ const ListCouponst = ({ setMenu, menu, setDiscount, setPriceCheckout }) => {
   const [coupons, setCoupons] = useState([]);
   const [inActive, setInActive] = useState([]);
   const { orderDetail, setCouponCode } = useContext(AppContext);
-  console.log("inActive", inActive);
+  // console.log("inActive", inActive);
   const revertPercent = (number) => {
     const percentage = `${(number / 100) * 100}%`;
     return percentage;

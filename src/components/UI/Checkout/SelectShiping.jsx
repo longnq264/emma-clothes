@@ -19,7 +19,7 @@ const SelectShipping = () => {
   const [value, setValue] = useState(shipping || 0);
 
   const onChange = (e) => {
-    console.log("radio checked", e.target.value);
+    // console.log("radio checked", e.target.value);
     setValue(e.target.value); // Cập nhật lại giá trị đã chọn
   };
 

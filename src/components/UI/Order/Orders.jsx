@@ -17,12 +17,12 @@ const UserOrders = () => {
     const loadOrders = async () => {
       try {
         const fetchedOrders = await listOrder(token);
-        console.log(
-          "Sorted Orders:",
-          fetchedOrders.sort(
-            (a, b) => new Date(b.created_at) - new Date(a.created_at)
-          )
-        );
+        // console.log(
+        //   "Sorted Orders:",
+        //   fetchedOrders.sort(
+        //     (a, b) => new Date(b.created_at) - new Date(a.created_at)
+        //   )
+        // );
 
         const sortedOrders = fetchedOrders.sort(
           (a, b) => new Date(b.created_at) - new Date(a.created_at)

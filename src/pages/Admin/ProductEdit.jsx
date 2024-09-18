@@ -20,7 +20,7 @@ const ProductEdit = () => {
   const [product, setProduct] = useState();
   const [form] = Form.useForm();
 
-  console.log(product);
+  // console.log(product);
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -65,7 +65,7 @@ const ProductEdit = () => {
   }, [product, form]); // Khi product thay đổi, form sẽ được cập nhật
 
   const onFinish = async (values) => {
-    console.log("values", values);
+    // console.log("values", values);
     const formData = new FormData();
     formData.append("promotion", "Giảm giá đặc biệt");
     formData.append("status", "active");

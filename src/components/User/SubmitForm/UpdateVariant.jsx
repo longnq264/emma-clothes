@@ -9,8 +9,8 @@ const UpdateVariant = ({
   productItemsUser,
   setProductItemsUser,
 }) => {
-  console.log("variants", variants);
-  console.log("Atrri", productItemsUser);
+  // console.log("variants", variants);
+  // console.log("Atrri", productItemsUser);
   const [attributes, setAttributes] = useState([]);
   useEffect(() => {
     const fetchAttributes = async () => {

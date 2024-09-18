@@ -9,13 +9,13 @@ const Signup = () => {
   const dispatch = useDispatch();
 
   const onFinish = async (values) => {
-    console.log(values);
+    // console.log(values);
 
     const formData = {
       ...values,
       date_of_birth: values.date_of_birth.format("YYYY-MM-DD"),
     };
-    console.log(formData.date_of_birth);
+    // console.log(formData.date_of_birth);
 
     try {
       await dispatch(registerUser(formData));

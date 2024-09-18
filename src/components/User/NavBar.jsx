@@ -377,7 +377,7 @@ const NavBar = ({ isOpen, darkMode }) => {
               isUsersOpen ? "max-h-48 opacity-100" : "max-h-0 opacity-0"
             } ${darkMode ? "bg-gray-700" : "bg-gray-200"} rounded-lg`}
           >
-            <NavLink
+            {/* <NavLink
               to="/admin/users/new"
               className={`block pl-8 pr-4 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300 ${
                 darkMode
@@ -386,7 +386,7 @@ const NavBar = ({ isOpen, darkMode }) => {
               }`}
             >
               Thêm người dùng
-            </NavLink>
+            </NavLink> */}
             <NavLink
               to="/admin/users"
               className={`block pl-8 pr-4 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300 ${

@@ -75,7 +75,7 @@ const AppProvider = ({ children }) => {
     const selectedDistrict = address.districts.find(
       (district) => district.id === districtId
     );
-    console.log(selectedDistrict);
+    // console.log(selectedDistrict);
 
     const response = await getWards(districtId);
 
@@ -91,7 +91,7 @@ const AppProvider = ({ children }) => {
 
   const handleWardChange = (wardId) => {
     const selectedWard = address.wards.find((ward) => ward.id === wardId);
-    console.log(selectedWard);
+    // console.log(selectedWard);
 
     if (selectedWard) {
       setAddress((prevState) => ({
@@ -111,14 +111,14 @@ const AppProvider = ({ children }) => {
       if (response.message === "Order has been placed successfully") {
         window.location.href = "/checkout-done";
       }
-      console.log(response);
+      // console.log(response);
     } catch (error) {
       console.log(error);
     }
   };
 
   const handleButtonClick = (type) => {
-    console.log("type", type);
+    // console.log("type", type);
 
     setCurrentSelect(type);
   };

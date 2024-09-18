@@ -4,7 +4,7 @@ import { getUsers, deleteUser, importUsers, changeUserRole } from '../../../api/
 import moment from 'moment';
 import { SearchOutlined, UploadOutlined, DeleteOutlined, DownloadOutlined, UserSwitchOutlined } from '@ant-design/icons';
 import FileSaver from 'file-saver';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
@@ -12,7 +12,7 @@ const UserList = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const [selectedRole, setSelectedRole] = useState('');
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   useEffect(() => {
     fetchUsers();
@@ -163,14 +163,14 @@ const UserList = () => {
         onChange={(e) => handleSearch(e.target.value)}
         style={{ width: '300px', marginBottom: '16px' }}
       />
-      <Button
+      {/* <Button
         type="primary"
         icon={<UploadOutlined />}
         onClick={() => navigate('/admin/users/new')}
         style={{ marginBottom: '16px', marginLeft: '16px' }}
       >
         Thêm người dùng
-      </Button>
+      </Button> */}
       <Button
         onClick={handleExport}
         style={{ marginBottom: '16px', marginLeft: '16px' }}

@@ -3,7 +3,7 @@ import ProductVariants from "./ProductVariants";
 import PropTypes from "prop-types";
 
 const FilterVariants = ({ variants }) => {
-  console.log("filter variant", variants);
+  // console.log("filter variant", variants);
   const [filter, setFilter] = useState({ color: "", size: "" });
 
   const handleFilterChange = (e) => {
@@ -12,7 +12,7 @@ const FilterVariants = ({ variants }) => {
   };
 
   const filteredVariants = variants.filter((variant) => {
-    console.log(variant);
+    // console.log(variant);
     return (
       (filter.color === "" ||
         variant.attributes.some(

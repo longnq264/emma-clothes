@@ -3,13 +3,13 @@ import PropTypes from "prop-types";
 const OnChangeAttribute = ({ productItemsUser, setProductItemsUser }) => {
   // Hàm xử lý khi người dùng thay đổi giá trị của các input
   const handleInputChange = (index, field, value) => {
-    console.log("field", field);
-    console.log("value", value);
+    // console.log("field", field);
+    // console.log("value", value);
 
     setProductItemsUser((prevProductItems) => {
       // Tạo một bản sao của state hiện tại
       const updatedProducts = [...prevProductItems];
-      console.log(updatedProducts);
+      // console.log(updatedProducts);
 
       // Cập nhật giá trị mới cho sản phẩm tại vị trí index
       updatedProducts[index] = {
