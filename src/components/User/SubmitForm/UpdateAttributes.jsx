@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 
 const UpdatedAttributes = ({ productItemsUser, setProductItemsUser }) => {
+  console.log("productItemUser", productItemsUser);
   // Hàm xử lý khi người dùng thay đổi giá trị của các input
   const handleInputChange = (index, field, value) => {
     console.log("field", field);

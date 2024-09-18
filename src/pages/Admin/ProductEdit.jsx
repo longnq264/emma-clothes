@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { Button, Form } from "antd";
 import GetListCategories from "../../components/User/Products/GetListCategories";
 import { getProduct, updateProduct, getCategories } from "../../api/api-server";
-import { getProductItems } from "../../api/post-product";
+import { createProductVariants, getProductItems } from "../../api/post-product";
 import { ToastContainer } from "react-toastify";
 import UpdateProductTitleForm from "../../components/User/SubmitForm/UpdateProductTitleForm";
 import UpdateProductImage from "../../components/User/SubmitForm/UpdateProductImage";
@@ -17,24 +17,21 @@ const ProductEdit = () => {
   const [categories, setCategories] = useState([]);
   const [images, setImages] = useState([]);
   const [imagesFile, setImageFile] = useState();
-  const [product, setProduct] = useState({});
-  console.log(product);
-  console.log("image", images);
-  console.log("list update image file", imagesFile);
-  // const navigate = useNavigate();
+  const [product, setProduct] = useState();
+  const [form] = Form.useForm();
 
+  console.log(product);
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         const response = await getProduct(id);
-        console.log(response);
         setProduct(response.data);
-        // setVariants(response.data.productImages || []);
         setImages(response.data.productImages || []);
         const existingImages = response.data.productImages.map((img) => ({
           id: img.id,
           is_thumbnail: img.is_thumbnail,
         }));
+
         setImageFile(existingImages);
       } catch (error) {
         console.error("Lỗi không tìm được sản phẩm:", error);
@@ -53,6 +50,19 @@ const ProductEdit = () => {
     fetchProduct();
     fetchCategories();
   }, [id]);
+
+  useEffect(() => {
+    if (product) {
+      form.setFieldsValue({
+        name: product.name,
+        price: product.price,
+        price_old: product.price_old,
+        quantity: product.quantity,
+        description: product.description,
+        category: product.category.id,
+      });
+    }
+  }, [product, form]); // Khi product thay đổi, form sẽ được cập nhật
 
   const onFinish = async (values) => {
     console.log("values", values);
@@ -187,10 +197,35 @@ const ProductEdit = () => {
   //     console.log(error);
   //   }
   // };
-  const handleVariantSubmit = () => {
+
+  const handleVariantSubmit = async () => {
     console.log("onClick");
     setIsVariant(true);
-    fetchProductItems;
+    fetchProductItems(id);
+  };
+
+  const handleUpdateVariant = async () => {
+    console.log("click update variant");
+    const variantData = {
+      product_id: Number(id),
+      attribute: variants,
+      stock: product.quantity,
+      price: product.price,
+      category: product.category.name,
+    };
+
+    console.log(variantData);
+    try {
+      const response = await createProductVariants(id, variantData);
+      if (response.status === true) {
+        await fetchProductItems(id);
+        console.log("success");
+      }
+      console.log(response);
+      return;
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const fetchProductItems = async (id) => {
@@ -208,17 +243,16 @@ const ProductEdit = () => {
         Chỉnh Sửa Sản Phẩm
       </h1>
       <Form
+        form={form}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         className="space-y-8 bg-white shadow-lg rounded-lg p-8"
       >
-        {images.length > 0 && (
-          <UpdateProductImage
-            images={images}
-            setImages={setImages}
-            setImageFile={setImageFile}
-          />
-        )}
+        <UpdateProductImage
+          images={images}
+          setImages={setImages}
+          setImageFile={setImageFile}
+        />
 
         {product && <UpdateProductTitleForm product={product} />}
 
@@ -233,19 +267,19 @@ const ProductEdit = () => {
               idProduct={id}
               setProductItemsUser={setProductItemsUser}
             />
-
-            {/* Submit button for variants */}
-            <div className="flex justify-start mt-10">
-              <Button
-                type="primary"
-                onClick={handleVariantSubmit}
-                className="bg-orange-400 text-lg"
-              >
-                Hiển thị thuộc tính
-              </Button>
-            </div>
+            <Button onClick={handleUpdateVariant}>Update Attribute</Button>
           </div>
         )}
+        {/* Submit button for variants */}
+        <div className="flex justify-start mt-10">
+          <Button
+            type="primary"
+            onClick={handleVariantSubmit}
+            className="bg-orange-400 text-lg"
+          >
+            Hiển thị thuộc tính
+          </Button>
+        </div>
 
         <Form.Item className="flex justify-end">
           <Button

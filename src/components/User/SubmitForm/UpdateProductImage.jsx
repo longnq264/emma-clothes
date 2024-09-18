@@ -4,12 +4,10 @@ import PropTypes from "prop-types";
 const UpdateProductImage = ({ images, setImages, setImageFile }) => {
   const [imageUrls, setImageUrls] = useState([]);
 
-  // Hiển thị danh sách ảnh từ props `images`
   useEffect(() => {
     setImageUrls(images.map((img) => img.image_url || ""));
   }, [images]);
 
-  // Thêm ảnh mới và lưu trong setImageFile
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     console.log(file);
@@ -33,45 +31,41 @@ const UpdateProductImage = ({ images, setImages, setImageFile }) => {
 
   // Xử lý xóa ảnh
   const handleRemoveImage = (index) => {
+    // Bước 1: Xóa URL của ảnh từ imageUrls (nếu bạn đang dùng imageUrls cho preview ảnh)
     const newImageUrls = imageUrls.filter((_, i) => i !== index);
     setImageUrls(newImageUrls);
 
+    // Bước 2: Xóa ảnh từ danh sách images
     const newImages = images.filter((_, i) => i !== index);
 
+    // Nếu ảnh bị xóa là ảnh thumbnail, đặt ảnh đầu tiên trong danh sách thành thumbnail
     if (index === 0 && newImages.length > 0) {
-      newImages[0].is_thumbnail = true; // Đặt ảnh đầu tiên thành thumbnail nếu xóa ảnh hiện tại
+      newImages[0].is_thumbnail = 1;
     }
 
     setImages(newImages);
-
-    // Xóa ảnh đã tồn tại trong setImageFile hoặc setImages
-    if (index < images.length) {
-      // Ảnh đã tồn tại
-      setImageFile((prevFiles) => [
-        ...prevFiles,
-        { id: images[index].id, is_thumbnail: images[index].is_thumbnail },
-      ]);
-    }
+    //B3
+    setImageFile((prevFiles) =>
+      prevFiles.filter((file) => file.id !== images[index]?.id)
+    );
   };
 
   return (
     <div className="flex flex-row gap-4">
-      {/* Hiển thị các ảnh đã tồn tại */}
       {imageUrls.map((data, index) => (
         <div key={index} className="basis-1/8 flex items-center">
           <div className="max-w-40 relative">
             <img src={data} alt={`image-${index}`} className="w-full" />
-            <button
+            <div
               className="absolute top-0 right-0 bg-red-500 text-white p-1"
               onClick={() => handleRemoveImage(index)}
             >
               X
-            </button>
+            </div>
           </div>
         </div>
       ))}
 
-      {/* Input để thêm ảnh mới */}
       <div className="mt-4">
         <input type="file" accept="image/*" onChange={handleFileChange} />
       </div>

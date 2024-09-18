@@ -27,10 +27,10 @@ const ListCouponst = ({ setMenu, menu, setDiscount, setPriceCheckout }) => {
       const response = await listCoupons();
       console.log("response", response.data);
       const activeCoupons = response.data.filter(
-        (coupon) => coupon.status === "Active"
+        (coupon) => coupon.status === "active"
       );
       const inactiveCoupons = response.data.filter(
-        (coupon) => coupon.status === "Inactive"
+        (coupon) => coupon.status === "unactive"
       );
       setCoupons(activeCoupons);
       setInActive(inactiveCoupons);

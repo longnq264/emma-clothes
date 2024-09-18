@@ -1,10 +1,19 @@
-import { Form, Input, InputNumber, Button, Select, DatePicker, message, Card } from 'antd';
-import { addCoupon } from '../../../api/coupon';
-import { useNavigate } from 'react-router-dom';
-import { FaTicketAlt } from 'react-icons/fa';
-import { getRandomCouponCode } from '../../../utils/couponHelpers'; // Giả sử bạn có một hàm helper để tạo mã ngẫu nhiên
-import dayjs from 'dayjs';
-import { FaRandom } from 'react-icons/fa';
+import {
+  Form,
+  Input,
+  InputNumber,
+  Button,
+  Select,
+  DatePicker,
+  message,
+  Card,
+} from "antd";
+import { addCoupon } from "../../../api/coupon";
+import { useNavigate } from "react-router-dom";
+import { FaTicketAlt } from "react-icons/fa";
+import { getRandomCouponCode } from "../../../utils/couponHelpers"; // Giả sử bạn có một hàm helper để tạo mã ngẫu nhiên
+import dayjs from "dayjs";
+import { FaRandom } from "react-icons/fa";
 const { Option } = Select;
 
 const CouponAdd = () => {
@@ -15,13 +24,13 @@ const CouponAdd = () => {
     try {
       const data = {
         ...values,
-        expiration_date: values.expiration_date.format('YYYY-MM-DD'),
+        expiration_date: values.expiration_date.format("YYYY-MM-DD"),
       };
       await addCoupon(data);
-      message.success('Coupon đã được thêm thành công!');
-      navigate('/admin/coupons');
+      message.success("Coupon đã được thêm thành công!");
+      navigate("/admin/coupons");
     } catch (error) {
-      message.error('Lỗi khi thêm coupon');
+      message.error("Lỗi khi thêm coupon");
     }
   };
 
@@ -32,38 +41,47 @@ const CouponAdd = () => {
 
   return (
     <Card
-      title={<span><FaTicketAlt /> Thêm Coupon Mới</span>}
+      title={
+        <span>
+          <FaTicketAlt /> Thêm Coupon Mới
+        </span>
+      }
       bordered={false}
-      style={{ maxWidth: 600, margin: '0 auto', marginTop: 20 }}
+      style={{ maxWidth: 600, margin: "0 auto", marginTop: 20 }}
     >
       <Form
         form={form}
         layout="vertical"
         onFinish={onFinish}
         initialValues={{
-          status: 'Active', // Mặc định là Active
+          status: "Active", // Mặc định là Active
         }}
       >
         <Form.Item
           name="code"
           label="Mã Coupon"
-          rules={[{ required: true, message: 'Vui lòng nhập mã coupon!' }]}
+          rules={[{ required: true, message: "Vui lòng nhập mã coupon!" }]}
         >
-            <Input
+          <Input
             placeholder="Nhập mã coupon"
-            addonAfter={<FaRandom onClick={generateRandomCode} style={{ cursor: 'pointer' }} />}
+            addonAfter={
+              <FaRandom
+                onClick={generateRandomCode}
+                style={{ cursor: "pointer" }}
+              />
+            }
           />
         </Form.Item>
 
         <Form.Item
           name="discount"
           label="Giảm giá (%)"
-          rules={[{ required: true, message: 'Vui lòng nhập giảm giá!' }]}
+          rules={[{ required: true, message: "Vui lòng nhập giảm giá!" }]}
         >
           <InputNumber
             min={1}
             max={100}
-            style={{ width: '100%' }}
+            style={{ width: "100%" }}
             placeholder="Nhập phần trăm giảm giá"
           />
         </Form.Item>
@@ -71,28 +89,30 @@ const CouponAdd = () => {
         <Form.Item
           name="expiration_date"
           label="Ngày hết hạn"
-          rules={[{ required: true, message: 'Vui lòng chọn ngày hết hạn!' }]}
+          rules={[{ required: true, message: "Vui lòng chọn ngày hết hạn!" }]}
         >
           <DatePicker
-            style={{ width: '100%' }}
+            style={{ width: "100%" }}
             placeholder="Chọn ngày hết hạn"
-            disabledDate={(current) => current && current < dayjs().endOf('day')}
+            disabledDate={(current) =>
+              current && current < dayjs().endOf("day")
+            }
           />
         </Form.Item>
 
         <Form.Item
           name="status"
           label="Trạng thái"
-          rules={[{ required: true, message: 'Vui lòng chọn trạng thái!' }]}
+          rules={[{ required: true, message: "Vui lòng chọn trạng thái!" }]}
         >
           <Select placeholder="Chọn trạng thái">
-            <Option value="Active">Active</Option>
-            <Option value="Inactive">Inactive</Option>
+            <Option value="active">Active</Option>
+            <Option value="unactive">Inactive</Option>
           </Select>
         </Form.Item>
 
         <Form.Item>
-          <Button type="primary" htmlType="submit" style={{ width: '100%' }}>
+          <Button type="primary" htmlType="submit" style={{ width: "100%" }}>
             Thêm Coupon
           </Button>
         </Form.Item>
@@ -102,3 +122,4 @@ const CouponAdd = () => {
 };
 
 export default CouponAdd;
+

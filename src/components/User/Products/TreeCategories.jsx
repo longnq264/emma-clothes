@@ -4,19 +4,17 @@ import { getCategories } from "../../../api/api-server";
 
 const TreeDataExample = () => {
   const [treeData, setTreeData] = useState([]);
-
+  console.log(treeData);
   useEffect(() => {
     const fetchCategories = async () => {
       try {
         const response = await getCategories();
-        console.log("Phản hồi từ API:", response);
         if (response.data && Array.isArray(response.data)) {
           const rootCategory = response.data.find(
             (category) => category.id === 1
           );
           if (rootCategory) {
             const formattedData = formatTreeData(rootCategory.children);
-            console.log("Dữ liệu cây đã được định dạng:", formattedData);
             setTreeData(formattedData);
           }
         } else {
@@ -47,6 +45,8 @@ const TreeDataExample = () => {
       <h1 className="text-lg pb-2 font-semibold">Danh mục</h1>
       <Form.Item name="category">
         <TreeSelect
+          // selectedkeys={"Nam"}
+
           treeData={treeData}
           placeholder="Chọn danh mục"
           treeDefaultExpandAll
