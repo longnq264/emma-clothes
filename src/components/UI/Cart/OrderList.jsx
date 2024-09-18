@@ -21,24 +21,15 @@ const OrderList = () => {
     }
 
     try {
-      const checkingData = {
-        totalPrice,
-        delivery,
-        discount,
-        // Thêm các dữ liệu cần thiết khác cho việc kiểm tra
-      };
-
-      const response = await checking(checkingData);
+      const response = await checking();
 
       if (response?.status) {
         navigate("/checkout"); // Điều hướng đến trang thanh toán nếu thành công
-      }else {
-          alert(response?.message);
-        }
-      
+      } else {
+        alert(response?.message); // Thông báo lỗi nếu có sản phẩm không khả dụng
+      }
     } catch (error) {
       console.error("Lỗi khi kiểm tra đơn hàng:", error);
-   
     }
   };
 
