@@ -1,8 +1,8 @@
 const EditProfile = () => (
   <div className="px-8 py-5">
-    <h1 className="text-2xl font-bold mb-4">Edit Profile</h1>
+    <h1 className="text-2xl font-bold mb-4">Chỉnh sửa hồ sơ</h1>
     <div id="profile" className="mb-8">
-      <h2 className="text-xl font-semibold mb-4">Profile Settings</h2>
+      <h2 className="text-xl font-semibold mb-4">Cài đặt hồ sơ</h2>
       {/* Form or content for Profile Settings */}
       <form className="space-y-4">
         <div>
@@ -10,7 +10,7 @@ const EditProfile = () => (
             htmlFor="name"
             className="block text-sm font-medium text-gray-700"
           >
-            Name
+            Tên
           </label>
           <input
             type="text"
@@ -24,7 +24,7 @@ const EditProfile = () => (
             htmlFor="email"
             className="block text-sm font-medium text-gray-700"
           >
-            Email
+            E-mail
           </label>
           <input
             type="email"
@@ -38,7 +38,7 @@ const EditProfile = () => (
             htmlFor="password"
             className="block text-sm font-medium text-gray-700"
           >
-            Password
+            Mật khẩu
           </label>
           <input
             type="password"
@@ -51,7 +51,7 @@ const EditProfile = () => (
           type="submit"
           className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
         >
-          Save Changes
+          Lưu thay đổi
         </button>
       </form>
     </div>

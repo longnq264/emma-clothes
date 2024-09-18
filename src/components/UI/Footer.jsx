@@ -95,7 +95,9 @@ const Footer = () => {
             </ul>
           </div>
           <div className="space-y-4">
-            <h2 className="text-xl font-bold">Subscribe to our Newsletter</h2>
+            <h2 className="text-xl font-bold">
+              Đăng ký nhận bản tin của chúng tôi
+            </h2>
             <form className="flex space-x-2">
               <input
                 type="email"
@@ -103,7 +105,7 @@ const Footer = () => {
                 placeholder="Enter your email"
               />
               <button className="px-4 py-2 bg-gray-600 rounded-md hover:bg-gray-700">
-                Subscribe
+                Đặt mua
               </button>
             </form>
           </div>

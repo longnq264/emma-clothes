@@ -8,12 +8,14 @@ import {
 } from "../../utils/indexUtils";
 import { syncLocalCartToServer } from "../../store/cartThunk";
 import imglogin from "../../assets/img/mountain.jpg";
+
 const Signin = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { status, error } = useSelector((state) => state.auth);
   const { merged } = useSelector((state) => state.cart);
   console.log(merged);
+
   const onFinish = async (values) => {
     const formData = {
       ...values,
@@ -27,17 +29,16 @@ const Signin = () => {
       if (cartItem.length > 0) {
         // Merge cartServer & cartLocal
         await dispatch(syncLocalCartToServer(token)).unwrap();
-
         // await dispatch(fetchCarts(token));
       }
       navigate("/member");
     } catch (error) {
-      console.error("Registration failed:", error);
+      console.error("Đăng nhập thất bại:", error);
     }
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    console.log("Thất bại:", errorInfo);
   };
 
   return (
@@ -53,7 +54,7 @@ const Signin = () => {
               />
               <div className="absolute bottom-20 left-16">
                 <h1 className="text-site-title text-7xl font-bold text-white mb-6">
-                  Welcome !
+                  Chào mừng!
                 </h1>
                 <p className="text-slate-100 opacity-70 w-2/3 font-bold">
                   Chào mừng bạn đến với Emma! Hãy đăng nhập để khám phá những ưu
@@ -82,7 +83,8 @@ const Signin = () => {
                   rules={[
                     {
                       required: true,
-                      message: "Please input your username!",
+                      type: "email",
+                      message: "Vui lòng nhập đúng định dạng email!",
                     },
                   ]}
                   className="mb-4 text-sm font-medium text-gray-700"
@@ -98,15 +100,16 @@ const Signin = () => {
                   rules={[
                     {
                       required: true,
-                      message: "Please input your password!",
+                      message: "Vui lòng nhập mật khẩu!",
                     },
                   ]}
                 >
                   <Input.Password
-                    placeholder="Password"
+                    placeholder="Mật khẩu"
                     className="bg-white bg-opacity-20 border-none h-10"
                   />
                 </Form.Item>
+
                 <Form.Item className="">
                   <Button
                     type="primary"
@@ -122,7 +125,7 @@ const Signin = () => {
                     </Link>
                   </p>
                 </Form.Item>
-                {error && <div>Error</div>}
+                {error && <div className="text-red-500">Đăng nhập thất bại. Vui lòng thử lại!</div>}
               </Form>
             </div>
           </div>

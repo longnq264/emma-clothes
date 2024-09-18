@@ -1,48 +1,37 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Button, Form } from "antd";
-import ProductTitleForm from "../../components/User/SubmitForm/ProductTitleForm";
 import GetListCategories from "../../components/User/Products/GetListCategories";
-import ProductImagesForm from "../../components/User/Products/ProductImageForm";
-import UploadImage from "../../components/User/Products/UploadImage";
 import { getProduct, updateProduct, getCategories } from "../../api/api-server";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
+import UpdateProductTitleForm from "../../components/User/SubmitForm/UpdateProductTitleForm";
+import UpdateProductImage from "../../components/User/SubmitForm/UpdateProductImage";
 
 const ProductEdit = () => {
   const { id } = useParams();
-  const [variants, setVariants] = useState([]);
-  const [images, setImages] = useState([]);
+  // const [variants, setVariants] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [product, setProduct] = useState({
-    name: "",
-    description: "",
-    price: "",
-    price_old: "",
-    quantity: "",
-    category_id: "",
-    promotion: "",
-    status: "",
-  });
-
-  const navigate = useNavigate();
+  const [images, setImages] = useState([]);
+  const [imagesFile, setImageFile] = useState();
+  const [product, setProduct] = useState({});
+  console.log(product);
+  console.log("image", images);
+  console.log("list update image file", imagesFile);
+  // const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const { data } = await getProduct(id);
-        setProduct({
-          name: data.name || "",
-          description: data.description || "",
-          price: data.price || "",
-          price_old: data.price_old || "",
-          quantity: data.quantity || "",
-          category_id: data.category_id || "",
-          promotion: data.promotion || "",
-          status: data.status || "",
-        });
-        setVariants(data.variants || []);
-        setImages(data.images || []);
+        const response = await getProduct(id);
+        console.log(response);
+        setProduct(response.data);
+        // setVariants(response.data.productImages || []);
+        setImages(response.data.productImages || []);
+        const existingImages = response.data.productImages.map((img) => ({
+          id: img.id,
+          is_thumbnail: img.is_thumbnail,
+        }));
+        setImageFile(existingImages);
       } catch (error) {
         console.error("Lỗi không tìm được sản phẩm:", error);
       }
@@ -62,28 +51,37 @@ const ProductEdit = () => {
   }, [id]);
 
   const onFinish = async (values) => {
-    const formData = {
-      name: values.name,
-      description: values.description,
-      images: images,
-      price: Number(values.price),
-      price_old: Number(values.price_old),
-      quantity: Number(values.quantity),
-      category_id: values.category,
-      promotion: "Giảm giá đặc biệt",
-      status: "Active",
-      variants: variants,
-    };
+    console.log("values", values);
+    const formData = new FormData();
+    formData.append("promotion", "Giảm giá đặc biệt");
+    formData.append("status", "Active");
+    formData.append("name", values.name);
+    formData.append("description", values.description);
+    formData.append("price", Number(values.price));
+    formData.append("price_old", Number(values.price_old));
+    formData.append("quantity", Number(values.quantity));
+    formData.append("category_id", values.category);
 
+    imagesFile.forEach((image, index) => {
+      if (image.id !== undefined) {
+        formData.append(`images[${index}].id`, image.id);
+        formData.append(`images[${index}].is_thumbnail`, image.is_thumbnail);
+      }
+    });
+
+    // Thêm ảnh mới
+    imagesFile.forEach((image, index) => {
+      if (image.file) {
+        formData.append(`images[${index}]`, image.file);
+        formData.append(`images[${index}].is_thumbnail`, image.is_thumbnail);
+      }
+    });
+    formData.append("_method", "PUT");
     try {
       await updateProduct(id, formData);
-      toast.success("Sản phẩm đã được cập nhật thành công!");
-      setTimeout(() => {
-        navigate("/admin/products");
-      }, 2000);
+      // navigate("/admin/products");
     } catch (error) {
       console.error("Lỗi cập nhật sản phẩm:", error);
-      toast.error("Có lỗi xảy ra khi cập nhật sản phẩm!");
     }
   };
 
@@ -97,23 +95,19 @@ const ProductEdit = () => {
         Chỉnh Sửa Sản Phẩm
       </h1>
       <Form
-        initialValues={{
-          name: product.name,
-          description: product.description,
-          price: product.price,
-          price_old: product.price_old,
-          quantity: product.quantity,
-          category: product.category_id,
-        }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         className="space-y-8 bg-white shadow-lg rounded-lg p-8"
       >
-        {/* Image */}
-        <ProductImagesForm images={images} setImages={setImages} />
-        <UploadImage images={images} setImages={setImages} />
+        {images.length > 0 && (
+          <UpdateProductImage
+            images={images}
+            setImages={setImages}
+            setImageFile={setImageFile}
+          />
+        )}
 
-        <ProductTitleForm />
+        {product && <UpdateProductTitleForm product={product} />}
 
         <GetListCategories categories={categories} />
 
@@ -137,3 +131,4 @@ const ProductEdit = () => {
 };
 
 export default ProductEdit;
+

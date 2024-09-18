@@ -12,9 +12,7 @@ const AboutUs = () => {
               Về Chúng Tôi
             </h1>
             <p className="pt-10 text-base md:text-xl md:pr-24 text-center md:text-start">
-              Lorem Ipsum has been the standard dummy text ever since the 1500s,
-              when an unknown printer took a galley of type and scrambled it to
-              make a type specimen book. It has survived not only five centuries
+            Không ngừng sáng tạo và tỉ mỉ từ công đoạn sản xuất đến các khâu dịch vụ, nhằm mang đến cho Quý Khách Hàng những trải nghiệm mua sắm đặc biệt nhất: sản phẩm chất lượng - dịch vụ hoàn hảo - xu hướng thời trang mới mẻ và tinh tế. Thông qua các sản phẩm thời trang, EMMA luôn mong muốn truyền tải đến bạn những thông điệp tốt đẹp cùng với nguồn cảm hứng trẻ trung và tích cực.
             </p>
           </div>
         </div>

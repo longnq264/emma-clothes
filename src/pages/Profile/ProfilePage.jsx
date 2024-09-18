@@ -8,11 +8,11 @@ const ProfilePage = () => {
 
   const renderContent = () => {
     switch (activeSection) {
-      case "Profile":
+      case "Hồ sơ":
         return <DashBoad />;
-      case "Edit Profile":
+      case "Chỉnh sửa hồ sơ":
         return <EditProfile />;
-      case "Orders":
+      case "Đơn hàng":
         return <Orders />;
       default:
         return <DashBoad />;
@@ -31,7 +31,7 @@ const ProfilePage = () => {
                 </h2>
                 <nav>
                   <ul>
-                    {["Profile", "Edit Profile", "Orders"].map((section) => (
+                    {["Hồ sơ", "Chỉnh sửa hồ sơ", "Đơn hàng"].map((section) => (
                       <li
                         key={section}
                         className={`nav-item py-3 px-4 cursor-pointer ${
@@ -44,7 +44,7 @@ const ProfilePage = () => {
                         {section}
                       </li>
                     ))}
-                    <li className="py-3 px-4 cursor-pointer">Logout</li>
+                    {/* <li className="py-3 px-4 cursor-pointer">Đăng xuất</li> */}
                   </ul>
                 </nav>
               </div>

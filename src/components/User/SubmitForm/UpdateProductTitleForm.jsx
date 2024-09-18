@@ -1,6 +1,7 @@
 import { Form, Input } from "antd";
-import GetListCategories from "../Products/GetListCategories";
-const ProductTitleForm = () => {
+import PropTypes from "prop-types";
+const UpdateProductTitleForm = ({ product }) => {
+  console.log("productrs", product);
   return (
     <>
       <div className="col-span-full">
@@ -13,6 +14,9 @@ const ProductTitleForm = () => {
               Tên sản phẩm
             </label>
             <Form.Item
+              initialvalues={{
+                name: product?.name,
+              }}
               name="name"
               rules={[
                 {
@@ -84,10 +88,12 @@ const ProductTitleForm = () => {
             </Form.Item>
           </div>
         </div>
-        <GetListCategories />
       </div>
     </>
   );
 };
 
-export default ProductTitleForm;
+UpdateProductTitleForm.propTypes = {
+  product: PropTypes.any,
+};
+export default UpdateProductTitleForm;

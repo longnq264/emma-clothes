@@ -37,8 +37,8 @@ const Banner = () => {
       </div>
       <div className="w-full bg-stone-100 text-center py-2">
         <p className="">
-          Get UPTO 40% OFF on your 1st order{" "}
-          <Link to="/products">SHOP NOW</Link>
+        Giảm giá tới 40% cho đơn hàng đầu tiên của bạn{" "}
+          <Link to="/products">MUA NGAY</Link>
         </p>
       </div>
     </div>

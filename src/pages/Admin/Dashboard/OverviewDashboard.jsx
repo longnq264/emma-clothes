@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { Col, Row, Statistic, Table, Spin, Alert } from "antd";
 import {
@@ -46,10 +45,14 @@ const COLORS = [
   "#FF9933",
 ];
 const cardStyles = {
-  revenue: "bg-blue-500 text-white shadow-lg hover:shadow-xl transition-shadow duration-300",
-  orders: "bg-green-500 text-white shadow-lg hover:shadow-xl transition-shadow duration-300",
-  completed: "bg-yellow-500 text-white shadow-lg hover:shadow-xl transition-shadow duration-300",
-  canceled: "bg-red-500 text-white shadow-lg hover:shadow-xl transition-shadow duration-300",
+  revenue:
+    "bg-blue-500 text-white shadow-lg hover:shadow-xl transition-shadow duration-300",
+  orders:
+    "bg-green-500 text-white shadow-lg hover:shadow-xl transition-shadow duration-300",
+  completed:
+    "bg-yellow-500 text-white shadow-lg hover:shadow-xl transition-shadow duration-300",
+  canceled:
+    "bg-red-500 text-white shadow-lg hover:shadow-xl transition-shadow duration-300",
 };
 
 const ChartCard = ({ title, children, className }) => (
@@ -305,6 +308,7 @@ const OverviewDashboard = () => {
 
   return (
     <div className="p-4 space-y-4">
+      
       <div className="mb-6 p-4 bg-gray-100 rounded-lg shadow-md">
         <h2 className="text-2xl font-bold">Chào Mừng, {adminInfo.name}!</h2>
         <p className="text-gray-600">Email: {adminInfo.email}</p>
@@ -312,43 +316,126 @@ const OverviewDashboard = () => {
         <div></div>
       </div>
       <Row gutter={16}>
-    <Col span={6}>
-      <ChartCard title="Tổng Doanh Thu" className={cardStyles.revenue}>
-        <Statistic
-          title="Tổng Doanh Thu"
-          value={`₫${dashboard.order.totalRevenue.toLocaleString()}`}
-          prefix={<DollarOutlined />}
-        />
-      </ChartCard>
-    </Col>
-    <Col span={6}>
-      <ChartCard title="Tổng Số Đơn Hàng" className={cardStyles.orders}>
-        <Statistic
-          title="Tổng Số Đơn Hàng"
-          value={dashboard.order.countOrders}
-          prefix={<TagOutlined />}
-        />
-      </ChartCard>
-    </Col>
-    <Col span={6}>
-      <ChartCard title="Đơn Hàng Hoàn Thành" className={cardStyles.completed}>
-        <Statistic
-          title="Đơn Hàng Hoàn Thành"
-          value={dashboard.order.completedOrders}
-          prefix={<CheckCircleOutlined />}
-        />
-      </ChartCard>
-    </Col>
-    <Col span={6}>
-      <ChartCard title="Đơn Hàng Đã Hủy" className={cardStyles.canceled}>
-        <Statistic
-          title="Đơn Hàng Đã Hủy"
-          value={dashboard.order.canceledOrders}
-          prefix={<CloseCircleOutlined />}
-        />
-      </ChartCard>
-    </Col>
-  </Row>
+        <Col span={6}>
+          <ChartCard title="Tổng Doanh Thu" className={cardStyles.revenue}>
+            <Statistic
+              title="Tổng Doanh Thu"
+              value={`₫${dashboard.order.totalRevenue.toLocaleString()}`}
+              prefix={<DollarOutlined />}
+            />
+          </ChartCard>
+        </Col>
+        <Col span={6}>
+          <ChartCard title="Tổng Số Đơn Hàng" className={cardStyles.orders}>
+            <Statistic
+              title="Tổng Số Đơn Hàng"
+              value={dashboard.order.countOrders}
+              prefix={<TagOutlined />}
+            />
+          </ChartCard>
+        </Col>
+        <Col span={6}>
+          <ChartCard
+            title="Đơn Hàng Hoàn Thành"
+            className={cardStyles.completed}
+          >
+            <Statistic
+              title="Đơn Hàng Hoàn Thành"
+              value={dashboard.order.completedOrders}
+              prefix={<CheckCircleOutlined />}
+            />
+          </ChartCard>
+        </Col>
+        <Col span={6}>
+          <ChartCard title="Đơn Hàng Đã Hủy" className={cardStyles.canceled}>
+            <Statistic
+              title="Đơn Hàng Đã Hủy"
+              value={dashboard.order.canceledOrders}
+              prefix={<CloseCircleOutlined />}
+            />
+          </ChartCard>
+        </Col>
+      </Row>
+      <br />
+      <h1>Sản phẩm</h1>
+      <Row gutter={16}>
+        <Col span={6}>
+          <ChartCard
+            title="Tổng số lượng sản phẩm"
+            className={cardStyles.revenue}
+          >
+            <Statistic
+              title="Tổng số lượng sản phẩm"
+              value={`₫${dashboard.product.productStock.toLocaleString()}`}
+              prefix={<DollarOutlined />}
+            />
+          </ChartCard>
+        </Col>
+        <Col span={6}>
+          <ChartCard title="Số sản phẩm đã bán" className={cardStyles.orders}>
+            <Statistic
+              title="Số sản phẩm đã bán"
+              value={dashboard.product.countSoldProducts}
+              prefix={<TagOutlined />}
+            />
+          </ChartCard>
+        </Col>
+        <Col span={6}>
+          <ChartCard title="Số Sản Phẩm" className={cardStyles.completed}>
+            <Statistic
+              title="Số Sản Phẩm"
+              value={dashboard.product.products}
+              prefix={<CheckCircleOutlined />}
+            />
+          </ChartCard>
+        </Col>
+      </Row>
+      <br />
+      <h1>Người dùng</h1>
+      <Row gutter={16}>
+        <Col span={6}>
+          <ChartCard title="Số lượng người dùng" className={cardStyles.revenue}>
+            <Statistic
+              title="Số lượng người dùng tổng cộng trong hệ thống"
+              value={dashboard.user.countUser}
+              prefix={<TagOutlined />}
+            />
+          </ChartCard>
+        </Col>
+        <Col span={6}>
+          <ChartCard title="Số nguời quản trị " className={cardStyles.orders}>
+            <Statistic
+              title="Số lượng người dùng có quyền quản trị (admin)."
+              value={dashboard.user.countAdmin}
+              prefix={<TagOutlined />}
+            />
+          </ChartCard>
+        </Col>
+        <Col span={6}>
+          <ChartCard
+            title="Tổng số người trong hệ thống"
+            className={cardStyles.completed}
+          >
+            <Statistic
+              title="bao gồm user và admin."
+              value={dashboard.user.sumUser}
+              prefix={<CheckCircleOutlined />}
+            />
+          </ChartCard>
+        </Col>
+        <Col span={6}>
+          <ChartCard
+            title="Số người dùng đang hoạt động "
+            className={cardStyles.canceled}
+          >
+            <Statistic
+              title="Số lượng người dùng đang hoạt động "
+              value={dashboard.user.userActive}
+              prefix={<CloseCircleOutlined />}
+            />
+          </ChartCard>
+        </Col>
+      </Row>
       <Row gutter={16}>
         <Col span={12}>
           <ChartCard title="Biểu Đồ Thống Kê Đơn Hàng">
@@ -368,7 +455,7 @@ const OverviewDashboard = () => {
           </ChartCard>
         </Col>
         <Col span={12}>
-          <ChartCard title="Top Sản Phẩm Bán Chạy Nhất">
+          <ChartCard title="Top Sản Phẩm View Nhiều Nhất">
             <Table
               dataSource={statistics.topProducts}
               columns={topProductsColumns}

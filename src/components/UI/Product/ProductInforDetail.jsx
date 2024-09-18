@@ -91,14 +91,14 @@ const ProductInforDetail = ({
       id: Number(id),
       product_id: Number(id),
       variant_id: selectedVariant.id,
-      quantity: quantity,
+      quantity,
     };
 
     const cartData = {
       id: Number(id),
       product_id: data.id,
       variant_id: selectedVariant.id,
-      quantity: quantity,
+      quantity,
       price: data.price,
       product: {
         id: Number(id),

@@ -58,19 +58,6 @@ const OnChangeAttribute = ({ productItemsUser, setProductItemsUser }) => {
                   className="border p-2 m-2"
                 />
               </label>
-
-              <label>
-                Ảnh:
-                <input
-                  type="text"
-                  name="thumbnail"
-                  value={data.thumbnail || ""}
-                  onChange={(e) =>
-                    handleInputChange(index, "thumbnail", e.target.value)
-                  }
-                  className="border p-2 m-2"
-                />
-              </label>
             </div>
           ))}
         </div>

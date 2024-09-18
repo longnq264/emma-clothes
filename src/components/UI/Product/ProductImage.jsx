@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 
 const ProductImage = ({ images }) => {
   const [hoveredImage, setHoveredImage] = useState(null);
+  console.log(images);
 
   const defaultImage =
     "https://m.yodycdn.com/fit-in/filters:format(webp)/products/ao-polo-nam-yody-apm6179-caf-2.jpg";
@@ -10,12 +11,8 @@ const ProductImage = ({ images }) => {
   const defaultHoverImage =
     "https://m.yodycdn.com/products/ao-polo-nam-yody-apm6179-caf-4.jpg";
 
-  const mainImage =
-    images.length > 0
-      ? images
-          .filter((image) => image.is_thumbnail === 1)
-          .map((image) => image.image_url)
-      : [defaultImage]; // Sử dụng ảnh mặc định nếu không có ảnh nào
+  // Lấy ảnh đầu tiên từ danh sách `images`, nếu không có thì sử dụng ảnh mặc định
+  const mainImage = images.length > 0 ? images[0].image_url : defaultImage;
 
   const hoverImages =
     images.length > 0
@@ -30,7 +27,7 @@ const ProductImage = ({ images }) => {
       onMouseLeave={() => setHoveredImage(null)}
     >
       <img
-        src={hoveredImage || mainImage}
+        src={hoveredImage || mainImage} // Nếu đang hover, hiển thị ảnh hover, nếu không hiển thị ảnh chính
         alt="Product"
         style={{ width: "100%", height: "100%", objectFit: "cover" }}
       />

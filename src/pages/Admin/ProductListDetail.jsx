@@ -16,10 +16,14 @@ const ProductDetail = () => {
       try {
         const response = await getProductId(id);
         setData(response.data);
+
         const initialImage =
           response.data.productImages.find((img) => img.is_thumbnail === 1)
             ?.image_url || response.data.productImages[0]?.image_url;
         setSelectedImage(initialImage);
+
+        console.log(response);
+
       } catch (error) {
         setError("Không thể lấy thông tin chi tiết về sản phẩm.");
       } finally {
@@ -215,3 +219,4 @@ const ProductDetail = () => {
 };
 
 export default ProductDetail;
+
