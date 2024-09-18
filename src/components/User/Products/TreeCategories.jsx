@@ -4,7 +4,7 @@ import { getCategories } from "../../../api/api-server";
 
 const TreeDataExample = () => {
   const [treeData, setTreeData] = useState([]);
-
+  console.log(treeData);
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -45,6 +45,8 @@ const TreeDataExample = () => {
       <h1 className="text-lg pb-2 font-semibold">Danh mục</h1>
       <Form.Item name="category">
         <TreeSelect
+          // selectedkeys={"Nam"}
+
           treeData={treeData}
           placeholder="Chọn danh mục"
           treeDefaultExpandAll

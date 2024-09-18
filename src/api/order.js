@@ -1,5 +1,6 @@
 import axios from "axios";
 import { getTokenFromLocalStorage } from "../utils/indexUtils";
+import { getTokenAdminFromLocalStorage } from "../utils/indexUtils";
 
 const API_URL = "http://127.0.0.1:8000/api";
 
@@ -22,11 +23,11 @@ export const addOrder = async (orderData) => {
 
 // Hàm lấy tất cả các đơn hàng
 export const fetchOrders = async () => {
-  const token = getTokenFromLocalStorage();
+  const adminToken = getTokenAdminFromLocalStorage();
   try {
     const response = await axios.get(`${API_URL}/order`, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${adminToken}`,
       },
     });
     return response.data.data || [];
@@ -61,9 +62,9 @@ export const updateOrderStatus = async (orderId, newStatus) => {
 
 // Hàm lấy chi tiết đơn hàng
 export const fetchOrderDetails = async (orderId) => {
-  const token = getTokenFromLocalStorage();
+  const token = getTokenAdminFromLocalStorage();
   try {
-    const response = await axios.get(`${API_URL}/orders/${orderId}/detail`, {
+    const response = await axios.get(`${API_URL}/order/${orderId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

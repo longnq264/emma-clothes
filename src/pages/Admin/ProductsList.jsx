@@ -35,7 +35,7 @@ const ProductsList = () => {
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [filters] = useState({ status: "", category: "", type: "" });
   const productsPerPage = 5;
-
+  console.log(products);
   useEffect(() => {
     fetchData();
   }, []);
@@ -117,7 +117,9 @@ const ProductsList = () => {
   );
 
   const mainImage = (images) => {
-    return images.length > 0 ? images[0].image_url : "https://via.placeholder.com/150";
+    return images.length > 0
+      ? images[0].image_url
+      : "https://via.placeholder.com/150";
   };
 
   const columns = [
@@ -137,7 +139,7 @@ const ProductsList = () => {
       //   <Link to={`/admin/products/${record.id}`}>{text}</Link>
       // ),
     },
-    
+
     {
       title: "Giá",
       dataIndex: "price",
@@ -145,8 +147,6 @@ const ProductsList = () => {
       render: (text) => <span>{text}₫</span>,
     },
 
-    
-    
     {
       title: "Ảnh",
       dataIndex: "productImages",
@@ -159,7 +159,7 @@ const ProductsList = () => {
         />
       ),
     },
-    
+
     // {
     //   title: "Ảnh",
     //   dataIndex: "productImages",
@@ -180,9 +180,7 @@ const ProductsList = () => {
       dataIndex: "status",
       key: "status",
       render: (status) => (
-        <Tag color={status === "active" ? "green" : "red"}>
-          {status === "active" ? "Kích hoạt" : "Vô hiệu hóa"}
-        </Tag>
+        <Tag color={status === "active" ? "green" : "red"}>{status}</Tag>
       ),
     },
     {
@@ -218,7 +216,9 @@ const ProductsList = () => {
   const printProductsList = () => {
     const printWindow = window.open("", "", "height=600,width=800");
     if (printWindow) {
-      printWindow.document.write("<html><head><title>Print Products List</title>");
+      printWindow.document.write(
+        "<html><head><title>Print Products List</title>"
+      );
       printWindow.document.write(
         `<style>
           body { font-family: Arial, sans-serif; }
@@ -263,8 +263,8 @@ const ProductsList = () => {
             menu={{
               items: [
                 {
-                  key: 'delete',
-                  label: 'Xóa tất cả sản phẩm đã chọn',
+                  key: "delete",
+                  label: "Xóa tất cả sản phẩm đã chọn",
                   onClick: () => handleBulkAction("delete"),
                 },
               ],
@@ -329,7 +329,7 @@ const ProductsList = () => {
           current={currentPage}
           pageSize={productsPerPage}
           total={sortedProducts.length}
-          pageSizeOptions={['10', '20', '50']}
+          pageSizeOptions={["10", "20", "50"]}
           onChange={(page) => setCurrentPage(page)}
         />
       </div>
