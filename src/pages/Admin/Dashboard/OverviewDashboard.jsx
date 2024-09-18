@@ -361,6 +361,7 @@ const OverviewDashboard = () => {
   <h2 className="text-3xl font-extrabold text-gray-900 mb-w transition-colors duration-50 hover:text-blue-400">
     Chào Mừng, {adminInfo.name}!
   </h2>
+  <br />
   <p className="text-gray-700 text-lg">
     Email: <span className="font-medium text-">{adminInfo.email}</span>
   </p>
@@ -464,7 +465,7 @@ const OverviewDashboard = () => {
             className={cardStyles.completed}
           >
             <Statistic
-              title="bao gồm user và admin."
+              title="Bao gồm user và admin."
               value={dashboard.user.sumUser}
               prefix={<UsergroupAddOutlined />}
             />

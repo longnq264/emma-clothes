@@ -16,10 +16,12 @@ const Thanks = () => {
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">
-      <div className="relative max-w-md w-full bg-white shadow-lg rounded-lg p-6">
-        <div className="relative z-10">
-          <h1 className="text-center text-4xl font-bold text-gray-800 mb-4 animate-bounce">
-            Cảm ơn bạn đã qua hàng của Emma!
+      <div className="relative max-w-md w-full">
+        
+        <div className="relative z-50">
+          <h1 className="text-center text-4xl font-bold text-orange-500 mb-4 animate-bounce">
+            Cảm ơn bạn đặt sản phẩm của cửa hàng Emma  !
+
           </h1>
           <p className="text-center text-lg text-gray-600 mb-2">
             Bạn đã đặt hàng thành công.
