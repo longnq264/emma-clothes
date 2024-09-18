@@ -18,6 +18,8 @@ const ProductEdit = () => {
   const [images, setImages] = useState([]);
   const [imagesFile, setImageFile] = useState();
   const [product, setProduct] = useState();
+  const [form] = Form.useForm();
+
   console.log(product);
   useEffect(() => {
     const fetchProduct = async () => {
@@ -48,6 +50,19 @@ const ProductEdit = () => {
     fetchProduct();
     fetchCategories();
   }, [id]);
+
+  useEffect(() => {
+    if (product) {
+      form.setFieldsValue({
+        name: product.name,
+        price: product.price,
+        price_old: product.price_old,
+        quantity: product.quantity,
+        description: product.description,
+        category: product.category.id,
+      });
+    }
+  }, [product, form]); // Khi product thay đổi, form sẽ được cập nhật
 
   const onFinish = async (values) => {
     console.log("values", values);
@@ -196,6 +211,7 @@ const ProductEdit = () => {
       attribute: variants,
       stock: product.quantity,
       price: product.price,
+      category: product.category.name,
     };
 
     console.log(variantData);
@@ -227,12 +243,11 @@ const ProductEdit = () => {
         Chỉnh Sửa Sản Phẩm
       </h1>
       <Form
+        form={form}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         className="space-y-8 bg-white shadow-lg rounded-lg p-8"
       >
-        {/* {images.length > 0 && (
-        )} */}
         <UpdateProductImage
           images={images}
           setImages={setImages}
