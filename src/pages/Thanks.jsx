@@ -37,7 +37,6 @@ const Thanks = () => {
             </Button>
           </div>
         </div>
-        
       </div>
     </div>
   );
