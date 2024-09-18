@@ -54,7 +54,7 @@ const ProductEdit = () => {
     console.log("values", values);
     const formData = new FormData();
     formData.append("promotion", "Giảm giá đặc biệt");
-    formData.append("status", "Active");
+    formData.append("status", "active");
     formData.append("name", values.name);
     formData.append("description", values.description);
     formData.append("price", Number(values.price));

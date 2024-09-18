@@ -109,8 +109,27 @@ const ListOrder = () => {
     }
   };
 
-  const handlePrintOrder = (orderId) => {
-    message.info(`In đơn hàng với mã: ${orderId}`);
+  const handlePrintOrder = async (orderId) => {
+    try {
+      // Cập nhật trạng thái đơn hàng thành "Đã xử lý" (status_id = 2)
+      const response = await updateOrderStatus(orderId, 2);
+      if (response.status) {
+        message.success("Đơn hàng đã chuyển sang trạng thái 'Đã xử lý'");
+        setOrders((prevOrders) =>
+          prevOrders.map((order) =>
+            order.id === orderId ? { ...order, status_id: 2 } : order
+          )
+        );
+        applyFilters();
+
+        // Chuyển đến trang chi tiết đơn hàng để in
+        navigate(`/admin/orders/${orderId}`);
+      } else {
+        message.error("Cập nhật trạng thái thất bại");
+      }
+    } catch (error) {
+      message.error("Có lỗi xảy ra khi cập nhật trạng thái");
+    }
   };
 
   const handleCancelOrder = async (orderId) => {
@@ -255,17 +274,15 @@ const ListOrder = () => {
       render: (text, record) => (
         <Space size="middle">
           {/* Only show Print button for orders that are neither shipped nor delivered nor canceled */}
-          {record.status_id !== 3 &&
-            record.status_id !== 4 &&
-            record.status_id !== 5 && (
-              <Button
-                type="primary"
-                icon={<PrinterOutlined />}
-                onClick={() => handlePrintOrder(record.id)}
-              >
-                In đơn
-              </Button>
-            )}
+          {record.status_id === 1 && ( // Chỉ hiển thị nút "In đơn" cho đơn hàng ở trạng thái "Chờ xử lý"
+            <Button
+              type="primary"
+              icon={<PrinterOutlined />}
+              onClick={() => handlePrintOrder(record.id)}
+            >
+              In đơn
+            </Button>
+          )}
           <Button
             type="default"
             icon={<EyeOutlined />}
