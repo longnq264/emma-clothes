@@ -5,8 +5,11 @@ import {
   TagOutlined,
   CheckCircleOutlined,
   CloseCircleOutlined,
+  UserOutlined,
+  UsergroupAddOutlined,
+  ProductOutlined 
 } from "@ant-design/icons";
-import { Bar, Pie, Doughnut } from "react-chartjs-2";
+import { Bar, Pie} from "react-chartjs-2";
 import { getProducts, getDashboardData } from "../../../api/api-server";
 import {
   Chart as ChartJS,
@@ -34,16 +37,7 @@ ChartJS.register(
   Title
 );
 
-const COLORS = [
-  "#0088FE",
-  "#00C49F",
-  "#FFBB28",
-  "#FF8042",
-  "#A28FD0",
-  "#FF6699",
-  "#33CCFF",
-  "#FF9933",
-];
+
 const cardStyles = {
   revenue:
     "bg-blue-500 text-white shadow-lg hover:shadow-xl transition-shadow duration-300",
@@ -53,8 +47,7 @@ const cardStyles = {
     "bg-yellow-500 text-white shadow-lg hover:shadow-xl transition-shadow duration-300",
   canceled:
     "bg-red-500 text-white shadow-lg hover:shadow-xl transition-shadow duration-300",
-    cam:
-    "bg-orange-500 text-white shadow-lg hover:shadow-xl transition-shadow duration-300",
+  cam: "bg-orange-500 text-white shadow-lg hover:shadow-xl transition-shadow duration-300",
 };
 
 const ChartCard = ({ title, children, className }) => (
@@ -181,14 +174,23 @@ const OverviewDashboard = () => {
   const statistics = calculateStatistics(products);
 
   const barChartData = {
-    labels: ["Tổng số đơn hàng", "Đơn hàng hoàn thành", "Đơn hàng đã hủy"],
+    // labels: ["Tổng số đơn hàng", "Đơn hàng hoàn thành", "Đơn hàng đã hủy"],
+    labels: [
+      "Đơn hàng đang chờ xử lý",
+      "Đơn hàng đã xác nhận",
+      "Đơn hàng đã giao",
+      "Đơn hàng hoàn thành",
+      "Đơn hàng đã hủy",
+    ],
     datasets: [
       {
         label: "Đơn hàng",
         data: [
-          dashboard.order.countOrders,
-          dashboard.order.completedOrders,
-          dashboard.order.canceledOrders,
+          dashboard.order.pendingOrders, //don hang dang cho xu ly
+          dashboard.order.confirmedOrders, // don hang da xac nhan
+          dashboard.order.shippedOrders, // don hang da giao
+          dashboard.order.completedOrders, // don hang hoan thanh
+          dashboard.order.canceledOrders, // don da huy
         ],
         backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
         borderColor: ["#FF6384", "#36A2EB", "#FFCE56"],
@@ -197,37 +199,67 @@ const OverviewDashboard = () => {
     ],
   };
 
-  const pieChartData = {
-    labels: statistics.categoryPercentages.map((item) => item.name),
-    datasets: [
-      {
-        data: statistics.categoryPercentages.map((item) => item.percentage),
-        backgroundColor: COLORS,
-        borderColor: "#fff",
-        borderWidth: 1,
-      },
-    ],
-  };
+  
+  //   labels: statistics.categoryPercentages.map((item) => item.name),
+  //   datasets: [
+  //     {
+  //       data: statistics.categoryPercentages.map((item) => item.percentage),
+  //       backgroundColor: COLORS,
+  //       borderColor: "#fff",
+  //       borderWidth: 1,
+  //     },
+  //   ],
+  // };
 
-  const doughnutChartData = {
-    labels: [
-      "số người dùng",
-      "Số quản trị viên",
-      "Tổng người dùng đang hoạt động",
-    ],
-    datasets: [
-      {
-        data: [
-          dashboard.user.countUser,
-          dashboard.user.countAdmin,
-          dashboard.user.userActive,
-        ],
-        backgroundColor: COLORS,
-        borderColor: "#fff",
-        borderWidth: 1,
-      },
-    ],
-  };
+  
+
+  // const doughnutChartData = {
+  //   labels: [
+  //     "số người dùng",
+  //     "Số quản trị viên",
+  //     "Tổng người dùng đang hoạt động",
+  //   ],
+  //   datasets: [
+  //     {
+  //       data: [
+  //         dashboard.user.countUser,
+  //         dashboard.user.countAdmin,
+  //         dashboard.user.userActive,
+  //       ],
+  //       backgroundColor: COLORS,
+  //       borderColor: "#fff",
+  //       borderWidth: 1,
+  //     },
+  //   ],
+  // };
+
+  // Thống kê danh mục
+
+
+  // const danhmucChartData = {
+  //   labels: [
+  //     "",
+  //     "",
+  //     "",
+  //   ],
+  //   datasets: [
+  //     {
+  //       data: [
+  //         dashboard.user.countUser,
+  //         dashboard.user.countAdmin,
+  //         dashboard.user.userActive,
+  //       ],
+  //       backgroundColor: COLORS,
+  //       borderColor: "#fff",
+  //       borderWidth: 1,
+  //     },
+  //   ],
+  // };
+
+
+
+
+  //
 
   const topProductsColumns = [
     {
@@ -236,12 +268,6 @@ const OverviewDashboard = () => {
       key: "name",
       render: (text) => <span className="font-medium">{text}</span>,
     },
-    // {
-    //   title: "Số Lượng",
-    //   dataIndex: "quantity",
-    //   key: "quantity",
-    //   render: (view) => <span>{view}</span>,
-    // },
     {
       title: "Lượt xem",
       dataIndex: "view",
@@ -263,35 +289,50 @@ const OverviewDashboard = () => {
     },
   ];
 
-  const categoryColumns = [
-    {
-      title: "Danh Mục",
-      dataIndex: "name",
-      key: "name",
-      render: (text) => <span className="font-medium">{text}</span>,
-    },
-    {
-      title: "Số Lượng Sản Phẩm",
-      dataIndex: "quantity",
-      key: "quantity",
-      sorter: (a, b) => a.quantity - b.quantity,
-      render: (quantity) => <span>{quantity}</span>,
-    },
-    // {
-    //   title: "Doanh Thu",
-    //   dataIndex: "totalValue",
-    //   key: "totalValue",
-    //   sorter: (a, b) => a.totalValue - b.totalValue,
-    //   render: (value) => `₫${value.toLocaleString()}`,
-    // },
-    // {
-    //   title: "Giá Trung Bình",
-    //   dataIndex: "averagePrice",
-    //   key: "averagePrice",
-    //   sorter: (a, b) => a.averagePrice - b.averagePrice,
-    //   render: (value) => `₫${value.toFixed(2).toLocaleString()}`,
-    // },
-  ];
+ 
+  //   {
+  //     title: "Danh Mục",
+  //     dataIndex: "name",
+  //     key: "name",
+  //     render: (text) => <span className="font-medium">{text}</span>,
+  //   },
+  //   {
+  //     title: "Số Lượng Sản Phẩm",
+  //     dataIndex: "quantity",
+  //     key: "quantity",
+  //     sorter: (a, b) => a.quantity - b.quantity,
+  //     render: (quantity) => <span>{quantity}</span>,
+  //   },
+  //   // {
+  //   //   title: "Doanh Thu",
+  //   //   dataIndex: "totalValue",
+  //   //   key: "totalValue",
+  //   //   sorter: (a, b) => a.totalValue - b.totalValue,
+  //   //   render: (value) => `₫${value.toLocaleString()}`,
+  //   // },
+  //   // {
+  //   //   title: "Giá Trung Bình",
+  //   //   dataIndex: "averagePrice",
+  //   //   key: "averagePrice",
+  //   //   sorter: (a, b) => a.averagePrice - b.averagePrice,
+  //   //   render: (value) => `₫${value.toFixed(2).toLocaleString()}`,
+  //   // },
+  // ];
+
+  const categories = dashboard.category.categories;
+
+  // Chuẩn bị dữ liệu cho biểu đồ hình tròn
+  const pieDat = {
+    labels: categories.map((category) => category.name),
+    datasets: [
+      {
+        data: categories.map((category) => category.countProduct),
+        backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"], // Màu sắc cho từng phân khúc
+        borderColor: "#fff",
+        borderWidth: 1,
+      },
+    ],
+  };
 
   const chartOptions = {
     responsive: true,
@@ -306,17 +347,25 @@ const OverviewDashboard = () => {
         },
       },
     },
+    layout: {
+      padding: {
+        top: 20,
+        bottom: 10,
+      },
+    },
   };
 
   return (
     <div className="p-4 space-y-4">
-      
-      <div className="mb-6 p-4 bg-gray-100 rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold">Chào Mừng, {adminInfo.name}!</h2>
-        <p className="text-gray-600">Email: {adminInfo.email}</p>
-        <br />
-        <div></div>
-      </div>
+      <div className="mb-6 p-6 bg-gradient-to-r from-blue-100 via-white to-blue-100 rounded-xl shadow-lg transition-transform transform hover:scale-100">
+  <h2 className="text-3xl font-extrabold text-gray-900 mb-w transition-colors duration-50 hover:text-blue-400">
+    Chào Mừng, {adminInfo.name}!
+  </h2>
+  <p className="text-gray-700 text-lg">
+    Email: <span className="font-medium text-">{adminInfo.email}</span>
+  </p>
+</div>
+
       <Row gutter={16}>
         <Col span={6}>
           <ChartCard title="Tổng Doanh Thu" className={cardStyles.revenue}>
@@ -358,8 +407,6 @@ const OverviewDashboard = () => {
           </ChartCard>
         </Col>
       </Row>
-      <br />
-      <h1>Sản phẩm</h1>
       <Row gutter={16}>
         <Col span={6}>
           <ChartCard
@@ -369,38 +416,36 @@ const OverviewDashboard = () => {
             <Statistic
               title="Tổng số lượng sản phẩm"
               value={dashboard.product.productStock}
-              prefix={<TagOutlined />}
+              prefix={<ProductOutlined />}
             />
           </ChartCard>
         </Col>
         <Col span={6}>
-          <ChartCard title="Số sản phẩm đã bán" className={cardStyles.orders}>
-            <Statistic
-              title="Số sản phẩm đã bán"
-              value={dashboard.product.countSoldProducts}
-              prefix={<TagOutlined />}
-            />
-          </ChartCard>
-        </Col>
-        <Col span={6}>
-          <ChartCard title="Số Sản Phẩm" className={cardStyles.completed}>
+          <ChartCard title="Số Sản Phẩm" className={cardStyles.orders}>
             <Statistic
               title="Số Sản Phẩm"
               value={dashboard.product.products}
+              prefix={<ProductOutlined />}
+            />
+          </ChartCard>
+        </Col>
+        <Col span={6}>
+          <ChartCard title="Số sản phẩm đã bán" className={cardStyles.completed}>
+            <Statistic
+              title="Số sản phẩm đã bán"
+              value={dashboard.product.countSoldProducts}
               prefix={<CheckCircleOutlined />}
             />
           </ChartCard>
         </Col>
       </Row>
-      <br />
-      <h1>Người dùng</h1>
       <Row gutter={16}>
         <Col span={6}>
           <ChartCard title="Số lượng người dùng" className={cardStyles.revenue}>
             <Statistic
               title="Số lượng người dùng tổng cộng trong hệ thống"
               value={dashboard.user.countUser}
-              prefix={<TagOutlined />}
+              prefix={<UserOutlined />}
             />
           </ChartCard>
         </Col>
@@ -409,7 +454,7 @@ const OverviewDashboard = () => {
             <Statistic
               title="Số lượng người dùng có quyền quản trị (admin)."
               value={dashboard.user.countAdmin}
-              prefix={<TagOutlined />}
+              prefix={<UserOutlined />}
             />
           </ChartCard>
         </Col>
@@ -421,7 +466,7 @@ const OverviewDashboard = () => {
             <Statistic
               title="bao gồm user và admin."
               value={dashboard.user.sumUser}
-              prefix={<CheckCircleOutlined />}
+              prefix={<UsergroupAddOutlined />}
             />
           </ChartCard>
         </Col>
@@ -433,56 +478,31 @@ const OverviewDashboard = () => {
             <Statistic
               title="Số lượng người dùng đang hoạt động "
               value={dashboard.user.userActive}
-              prefix={<TagOutlined  />}
+              prefix={<UserOutlined />}
             />
           </ChartCard>
         </Col>
       </Row>
-      <Row gutter={16}>
-        <Col span={12}>
-          <ChartCard title="Biểu Đồ Thống Kê Đơn Hàng">
-            <Bar data={barChartData} options={chartOptions} />
-          </ChartCard>
-        </Col>
-        <Col span={12}>
-          <ChartCard title="Biểu Đồ Phân Bố Danh Mục">
-            <Pie data={pieChartData} options={chartOptions} />
-          </ChartCard>
-        </Col>
-      </Row>
-      <Row gutter={16}>
-        <Col span={12}>
-          <ChartCard title="Biểu Đồ Thống Kê Người Dùng">
-            <Doughnut data={doughnutChartData} options={chartOptions} />
-          </ChartCard>
-        </Col>
-        <Col span={12}>
-          <ChartCard title="Top Sản Phẩm View Nhiều Nhất">
-            <Table
-              dataSource={statistics.topProducts}
-              columns={topProductsColumns}
-              rowKey="id"
-              pagination={false}
-            />
-          </ChartCard>
-        </Col>
-      </Row>
-      <Row gutter={16}>
-        <Col span={24}>
-          <ChartCard title="Thống Kê Sản Phẩm Theo Danh Mục">
-            <Table
-              dataSource={statistics.categoryData}
-              columns={categoryColumns}
-              rowKey="name"
-              pagination={false}
-            />
-          </ChartCard>
-        </Col>
-      </Row>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+  <div className="bg-white shadow-2xl border border-gray-300 rounded-lg p-6 transition-transform transform hover:scale-105 hover:shadow-2xl">
+    <h3 className="text-2xl font-semibold mb-4 text-gray-900">Biểu Đồ Thống Kê Đơn Hàng</h3>
+    <Bar data={barChartData} options={chartOptions} />
+  </div>
+  <div className="bg-white shadow-2xl border border-gray-300 rounded-lg p-6 transition-transform transform hover:scale-105 hover:shadow-2xl">
+    <h3 className="text-2xl font-semibold mb-4 text-gray-900">Top Sản Phẩm View Nhiều Nhất</h3>
+    <Table dataSource={statistics.topProducts} columns={topProductsColumns} rowKey="id" pagination={false} />
+  </div>
+</div>
+<div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+  <div className="bg-white shadow-2xl border border-gray-300 rounded-lg p-6 transition-transform transform hover:scale-105 hover:shadow-2xl">
+    <h3 className="text-2xl font-semibold mb-4 text-gray-900">Biểu Đồ Phân Bố Danh Mục</h3>
+    <Pie data={pieDat} options={chartOptions} />
+  </div>
+</div>
+
     </div>
   );
 };
-
 ChartCard.propTypes = {
   title: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
