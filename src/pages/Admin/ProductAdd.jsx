@@ -23,7 +23,7 @@ const ProductAdd = () => {
   const navigate = useNavigate();
   console.log("variants", variants);
   console.log("images", images);
-
+  console.log("response onFinish", productItem);
   //Submit postProduct request firts
 
   const onFinish = async (values) => {
@@ -139,11 +139,6 @@ const ProductAdd = () => {
         console.log(error);
       }
     }
-    // // Nếu không có variant mới nào, không cần gửi thêm
-    // if (newVariants.length === 0) {
-    //   console.log("Tất cả các variants đã tồn tại, không cần thêm mới");
-    //   return;
-    // }
   };
 
   //get list Attribute

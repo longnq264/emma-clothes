@@ -1,7 +1,6 @@
 import { Form, Input } from "antd";
 import PropTypes from "prop-types";
 const UpdateProductTitleForm = ({ product }) => {
-  console.log("productrs", product);
   return (
     <>
       <div className="col-span-full">
