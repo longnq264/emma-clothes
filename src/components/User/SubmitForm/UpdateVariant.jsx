@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { Checkbox } from "antd";
 import { getAttributes } from "../../../api/api-server";
-import OnChangeAttribute from "./OnChangeAttribute";
+import UpdatedAttributes from "./UpdateAttributes";
 const UpdateVariant = ({
   variants,
   setVariants,
@@ -99,7 +99,7 @@ const UpdateVariant = ({
           ))}
         </div>
 
-        <OnChangeAttribute
+        <UpdatedAttributes
           productItemsUser={productItemsUser}
           setProductItemsUser={setProductItemsUser}
         />
