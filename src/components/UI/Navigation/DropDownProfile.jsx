@@ -44,7 +44,7 @@ const DropDownProfile = () => {
                 <div className="py-1" role="none">
                   {[
                     { to: "/profile", label: "Hồ sơ" },
-                    { to: "/profile", label: "Cài đặt" },
+                    // { to: "/profile", label: "Cài đặt" },
                   ].map((item, index) => (
                     <NavLink
                       key={index}
@@ -61,7 +61,7 @@ const DropDownProfile = () => {
                     className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-left"
                     onClick={handleLogout}
                   >
-                    Đăng ký
+                    Đăng xuất
                   </button>
                 </div>
               </>

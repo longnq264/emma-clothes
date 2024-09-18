@@ -19,11 +19,14 @@ export const calculateTotalPriceAll = (totalPrice, shippingFee) => {
 };
 
 export const applyCoupon = (totalPrice, discount) => {
+  if (discount === 100) {
+    return 0;
+  }
   // Tính số tiền giảm
   const discountAmount = totalPrice * (discount / 100);
 
   // Tính tổng tiền sau khi giảm
   const finalPrice = totalPrice - discountAmount;
 
-  return finalPrice;
+  return finalPrice >= 0 ? finalPrice : 0;
 };
