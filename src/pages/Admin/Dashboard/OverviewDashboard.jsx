@@ -53,6 +53,8 @@ const cardStyles = {
     "bg-yellow-500 text-white shadow-lg hover:shadow-xl transition-shadow duration-300",
   canceled:
     "bg-red-500 text-white shadow-lg hover:shadow-xl transition-shadow duration-300",
+    cam:
+    "bg-orange-500 text-white shadow-lg hover:shadow-xl transition-shadow duration-300",
 };
 
 const ChartCard = ({ title, children, className }) => (
@@ -366,8 +368,8 @@ const OverviewDashboard = () => {
           >
             <Statistic
               title="Tổng số lượng sản phẩm"
-              value={`₫${dashboard.product.productStock.toLocaleString()}`}
-              prefix={<DollarOutlined />}
+              value={dashboard.product.productStock}
+              prefix={<TagOutlined />}
             />
           </ChartCard>
         </Col>
@@ -426,12 +428,12 @@ const OverviewDashboard = () => {
         <Col span={6}>
           <ChartCard
             title="Số người dùng đang hoạt động "
-            className={cardStyles.canceled}
+            className={cardStyles.cam}
           >
             <Statistic
               title="Số lượng người dùng đang hoạt động "
               value={dashboard.user.userActive}
-              prefix={<CloseCircleOutlined />}
+              prefix={<TagOutlined  />}
             />
           </ChartCard>
         </Col>

@@ -116,15 +116,11 @@ const ProductsList = () => {
     indexOfLastProduct
   );
 
+  const mainImage = (images) => {
+    return images.length > 0 ? images[0].image_url : "https://via.placeholder.com/150";
+  };
+
   const columns = [
-    {
-      title: "ID",
-      dataIndex: "id",
-      key: "id",
-      // render: (text, record) => (
-      //   <Link to={`/admin/products/${record.id}`}>{text}</Link>
-      // ),
-    },
     {
       title: "Tên",
       dataIndex: "name",
@@ -134,26 +130,51 @@ const ProductsList = () => {
       ),
     },
     {
+      title: "ID",
+      dataIndex: "id",
+      key: "id",
+      // render: (text, record) => (
+      //   <Link to={`/admin/products/${record.id}`}>{text}</Link>
+      // ),
+    },
+    
+    {
       title: "Giá",
       dataIndex: "price",
       key: "price",
       render: (text) => <span>{text}₫</span>,
     },
+
+    
+    
     {
       title: "Ảnh",
       dataIndex: "productImages",
       key: "productImages",
       render: (images) => (
         <img
-          src={
-            images.find((img) => img.is_thumbnail === 1)?.image_url ||
-            "https://via.placeholder.com/150"
-          }
+          src={mainImage(images)}
           alt="product"
           style={{ height: "60px", width: "60px", objectFit: "cover" }}
         />
       ),
     },
+    
+    // {
+    //   title: "Ảnh",
+    //   dataIndex: "productImages",
+    //   key: "productImages",
+    //   render: (images) => (
+    //     <img
+    //       src={
+    //         images.find((img) => img.is_thumbnail === 1)?.image_url ||
+    //         "https://via.placeholder.com/150"
+    //       }
+    //       alt="product"
+    //       style={{ height: "60px", width: "60px", objectFit: "cover" }}
+    //     />
+    //   ),
+    // },
     {
       title: "Trạng Thái",
       dataIndex: "status",
