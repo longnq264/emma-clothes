@@ -61,12 +61,12 @@ const UpdateProductImage = ({ images, setImages, setImageFile }) => {
         <div key={index} className="basis-1/8 flex items-center">
           <div className="max-w-40 relative">
             <img src={data} alt={`image-${index}`} className="w-full" />
-            <button
+            <div
               className="absolute top-0 right-0 bg-red-500 text-white p-1"
               onClick={() => handleRemoveImage(index)}
             >
               X
-            </button>
+            </div>
           </div>
         </div>
       ))}

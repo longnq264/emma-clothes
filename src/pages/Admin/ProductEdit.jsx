@@ -187,6 +187,7 @@ const ProductEdit = () => {
   //     console.log(error);
   //   }
   // };
+
   const handleVariantSubmit = () => {
     console.log("onClick");
     setIsVariant(true);
@@ -212,13 +213,13 @@ const ProductEdit = () => {
         onFinishFailed={onFinishFailed}
         className="space-y-8 bg-white shadow-lg rounded-lg p-8"
       >
-        {images.length > 0 && (
-          <UpdateProductImage
-            images={images}
-            setImages={setImages}
-            setImageFile={setImageFile}
-          />
-        )}
+        {/* {images.length > 0 && (
+        )} */}
+        <UpdateProductImage
+          images={images}
+          setImages={setImages}
+          setImageFile={setImageFile}
+        />
 
         {product && <UpdateProductTitleForm product={product} />}
 
