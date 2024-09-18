@@ -1,11 +1,11 @@
 import { Button, Form, Input, DatePicker, Checkbox } from "antd";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { registerUser } from "../../store/authThunk";
 import imgRegister from "../../assets/img/registerImage.jpg";
 import { useDispatch } from "react-redux";
 
 const Signup = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const onFinish = async (values) => {
@@ -19,7 +19,7 @@ const Signup = () => {
 
     try {
       await dispatch(registerUser(formData));
-      // navigate("/");
+      navigate("/");
     } catch (error) {
       console.error("Đăng ký thất bại:", error);
     }
@@ -71,13 +71,16 @@ const Signup = () => {
             >
               <Input placeholder="Email của bạn" />
             </Form.Item>
-
             <Form.Item
               name="password"
               rules={[
                 {
                   required: true,
                   message: "Vui lòng nhập mật khẩu!",
+                },
+                {
+                  min: 6,
+                  message: "Mật khẩu phải có ít nhất 6 ký tự!",
                 },
               ]}
             >

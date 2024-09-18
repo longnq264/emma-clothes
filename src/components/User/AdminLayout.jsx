@@ -8,9 +8,8 @@ import {
   FaBars,
   FaUser,
   FaSignOutAlt,
-  FaBell,
+   
   FaCog,
-  FaLifeRing,
 } from "react-icons/fa";
 import SearchBar from "./SearchBar";
 import NavBar from "./NavBar";
@@ -21,7 +20,7 @@ const AdminLayout = () => {
   const { darkMode, toggleDarkMode } = useDarkMode(); // Sử dụng hook
   const [isNavBarOpen, setIsNavBarOpen] = useState(true);
   const [showUserMenu, setShowUserMenu] = useState(false);
-  const [showNotifications, setShowNotifications] = useState(false);
+  // const [showNotifications, setShowNotifications] = useState(false);
   const navigate = useNavigate();
 
   const toggleNavBar = () => {
@@ -32,9 +31,9 @@ const AdminLayout = () => {
     setShowUserMenu(!showUserMenu);
   };
 
-  const toggleNotifications = () => {
-    setShowNotifications(!showNotifications);
-  };
+  // const toggleNotifications = () => {
+  //   setShowNotifications(!showNotifications);
+  // };
 
   const handleLogout = () => {
     if (window.confirm("Bạn có chắc chắn muốn đăng xuất không?")) {
@@ -71,7 +70,7 @@ const AdminLayout = () => {
 
           <div className="flex items-center space-x-4">
             <SearchBar />
-            <button
+            {/* <button
               onClick={toggleNotifications}
               className={`relative flex items-center px-4 py-2 rounded-lg ${
                 darkMode
@@ -81,9 +80,9 @@ const AdminLayout = () => {
             >
               <FaBell className="text-xl" />
               <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">
-                3
+         
               </span>
-            </button>
+            </button> */}
 
             <div className="relative">
               <button
@@ -115,10 +114,10 @@ const AdminLayout = () => {
                     }`}
                   >
                     <FaCog className="text-lg" />
-                    <span className="ml-2">Account </span>
+                    <span className="ml-2">Tài khoản </span>
                   </NavLink>
 
-                  <NavLink
+                  {/* <NavLink
                     to="/support"
                     className={`flex items-center px-4 py-2 hover:bg-gray-200 ${
                       darkMode ? "hover:bg-gray-700" : "hover:bg-gray-200"
@@ -126,7 +125,7 @@ const AdminLayout = () => {
                   >
                     <FaLifeRing className="text-lg" />
                     <span className="ml-2">Support</span>
-                  </NavLink>
+                  </NavLink> */}
 
                   {/* Dark Mode Toggle */}
                   <button
@@ -141,7 +140,7 @@ const AdminLayout = () => {
                       <FaMoon className="text-lg text-blue-500" />
                     )}
                     <span className="ml-2">
-                      {darkMode ? "Light Mode" : "Dark Mode"}
+                      {darkMode ? "Chế độ sáng" : "Chế độ tối"}
                     </span>
                   </button>
 
@@ -156,7 +155,7 @@ const AdminLayout = () => {
                         darkMode ? "text-red-300" : "text-red-600"
                       }`}
                     />
-                    <span className="ml-2">Log Out</span>
+                    <span className="ml-2">Đăng xuất</span>
                   </button>
                 </div>
               )}
