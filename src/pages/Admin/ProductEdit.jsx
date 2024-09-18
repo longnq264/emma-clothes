@@ -68,16 +68,18 @@ const ProductEdit = () => {
 
     imagesFile.forEach((image, index) => {
       if (image.id !== undefined) {
-        formData.append(`images[${index}].id`, image.id);
-        formData.append(`images[${index}].is_thumbnail`, image.is_thumbnail);
+        formData.append(`images[${index}][id]`, image.id);
+        // formData.append(`images[${index}][file]`, null);
+        formData.append(`images[${index}][is_thumbnail]`, image.is_thumbnail);
       }
     });
 
     // Thêm ảnh mới
     imagesFile.forEach((image, index) => {
       if (image.file) {
-        formData.append(`images[${index}]`, image.file);
-        formData.append(`images[${index}].is_thumbnail`, image.is_thumbnail);
+        // formData.append(`images[${index}][id]`, null);
+        formData.append(`images[${index}][file]`, image.file);
+        formData.append(`images[${index}][is_thumbnail]`, 0);
       }
     });
     formData.append("_method", "PUT");
