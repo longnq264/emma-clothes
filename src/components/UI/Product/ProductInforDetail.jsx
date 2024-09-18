@@ -99,6 +99,7 @@ const ProductInforDetail = ({
       product_id: data.id,
       variant_id: selectedVariant.id,
       quantity,
+      stock: selectedVariant.stock,
       price: data.price,
       product: {
         id: Number(id),
@@ -206,7 +207,16 @@ const ProductInforDetail = ({
           <span className="basis-1/3 text-center">{quantity}</span>
           <button
             className="font-bold basis-1/3"
-            onClick={() => setQuantity((q) => q + 1)}
+            onClick={() =>
+              setQuantity((q) => {
+                if (q < selectedVariant.stock) {
+                  return q + 1;
+                } else {
+                  alert("Bạn đã đạt giới hạn số lượng sản phẩm trong kho.");
+                  return q; // giữ nguyên số lượng nếu vượt quá stock
+                }
+              })
+            }
           >
             +
           </button>
