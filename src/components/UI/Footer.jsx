@@ -102,10 +102,10 @@ const Footer = () => {
               <input
                 type="email"
                 className="w-full p-2 rounded-md text-black"
-                placeholder="Enter your email"
+                placeholder="Nhập email của bạn"
               />
               <button className="px-4 py-2 bg-gray-600 rounded-md hover:bg-gray-700">
-                Đặt mua
+                Gửi
               </button>
             </form>
           </div>
@@ -114,7 +114,7 @@ const Footer = () => {
         {/* Copyright Information */}
       </div>
       <div className="text-center mt-8 border-t border-gray-700 pt-4">
-        <p>&copy; 2024 Emma. All rights reserved.</p>
+        <p>&copy; 2024 Emma. Bảo lưu mọi quyền.</p>
       </div>
     </footer>
   );

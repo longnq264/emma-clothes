@@ -31,16 +31,30 @@ const EditAttribute = () => {
     const handleSubmit = async (values) => {
         setLoading(true);
         try {
-            const updatedValues = values.values.split(',').map(value => ({ value }));
+            // Kiểm tra trùng lặp giá trị
+            const newValues = values.values.split(',').map(value => value.trim());
+            const uniqueValues = [...new Set(newValues)]; // Lọc giá trị duy nhất
+            if (newValues.length !== uniqueValues.length) {
+                form.setFields([
+                    {
+                        name: 'values',
+                        errors: ['Có giá trị trùng lặp, vui lòng nhập giá trị khác!'],
+                    },
+                ]);
+                setLoading(false);
+                return; // Dừng lại nếu có trùng lặp giá trị
+            }
+    
+            const updatedValues = uniqueValues.map(value => ({ value }));
             await updateAttribute(id, { ...values, values: updatedValues });
-            navigate('/admin/attributes');  // Điều hướng về trang danh sách thuộc tính sau khi cập nhật thành công
+            navigate('/admin/attributes'); // Điều hướng về trang danh sách thuộc tính sau khi cập nhật thành công
         } catch (error) {
             console.error('Lỗi khi cập nhật thuộc tính:', error);
         } finally {
             setLoading(false);
         }
     };
-
+    
     return (
         <div className="p-6 bg-white shadow rounded-lg">
             <h2 className="text-2xl font-bold mb-4">Chỉnh sửa thuộc tính</h2>
