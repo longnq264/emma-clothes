@@ -35,7 +35,7 @@ const ProductsList = () => {
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [filters] = useState({ status: "", category: "", type: "" });
   const productsPerPage = 5;
-  console.log(products);
+  // console.log(products);
   useEffect(() => {
     fetchData();
   }, []);

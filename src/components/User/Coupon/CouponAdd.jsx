@@ -54,7 +54,7 @@ const CouponAdd = () => {
         layout="vertical"
         onFinish={onFinish}
         initialValues={{
-          status: "Active", // Mặc định là Active
+          status: "active", // Mặc định là Active
         }}
       >
         <Form.Item
@@ -106,11 +106,10 @@ const CouponAdd = () => {
           rules={[{ required: true, message: "Vui lòng chọn trạng thái!" }]}
         >
           <Select placeholder="Chọn trạng thái">
-            <Option value="active">Active</Option>
-            <Option value="unactive">Inactive</Option>
+            <Option value="active">active</Option>
+            <Option value="unactive">unactive</Option>
           </Select>
         </Form.Item>
-
         <Form.Item>
           <Button type="primary" htmlType="submit" style={{ width: "100%" }}>
             Thêm Coupon

@@ -15,12 +15,12 @@ const CategoriesAdd = () => {
     const fetchCategories = async () => {
       try {
         const response = await getCategories();
-        console.log('Phản hồi từ API:', response);
+        // console.log('Phản hồi từ API:', response);
         if (response.data && Array.isArray(response.data)) {
           const rootCategory = response.data.find(category => category.id === 1); // Tìm danh mục gốc có id = 1
           if (rootCategory) {
             const formattedData = formatTreeData(rootCategory.children);
-            console.log('Dữ liệu cây đã được định dạng:', formattedData);
+            // console.log('Dữ liệu cây đã được định dạng:', formattedData);
             setTreeData(formattedData);
           }
         } else {

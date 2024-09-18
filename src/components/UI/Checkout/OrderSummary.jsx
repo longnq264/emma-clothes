@@ -14,8 +14,8 @@ const OrderSummary = () => {
   const totalPrice = useSelector((state) => state.cart.totalPrice);
   const delivery = useSelector((state) => state.cart.shippingFee);
   const initPrice = calculateTotalPriceAll(totalPrice, delivery);
-  console.log(initPrice);
-  console.log(priceCheckout);
+  // console.log(initPrice);
+  // console.log(priceCheckout);
   return (
     <div className="md:size-3/5 px-6 md:pl-14 order-summary md:min-w-96 pb-6">
       <h2 className="text-base font-bold pb-5">Thông tin sản phẩm</h2>

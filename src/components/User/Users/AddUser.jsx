@@ -29,7 +29,7 @@ const AddUser = () => {
 
         if (response.status === false) {
             // Log the error for debugging
-            console.log('Error from API:', response.error);
+            // console.log('Error from API:', response.error);
             // Display a user-friendly message
             message.error(response.message || 'Lỗi không xác định');
         } else {

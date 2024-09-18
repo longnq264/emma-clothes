@@ -8,7 +8,14 @@ const ForgotPassword = () => {
   const handleSubmit = async () => {
     // Kiểm tra nếu email trống
     if (!email) {
-      message.warning("Vui lòng nhập email của bạn");  // Thông báo cảnh báo nếu chưa nhập email
+      message.warning("Vui lòng nhập email của bạn");
+      return;
+    }
+
+    // Kiểm tra định dạng email
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailPattern.test(email)) {
+      message.warning("Vui lòng nhập địa chỉ email hợp lệ");
       return;
     }
 
@@ -20,12 +27,14 @@ const ForgotPassword = () => {
           'Content-Type': 'application/json',
         }
       })
-      message.success(response.data.message || "Yêu cầu đã được gửi thành công")  // Hiển thị thông báo thành công từ phản hồi
+      message.success(response.data.message || "Yêu cầu đã được gửi thành công")
     } catch (error) {
       if (error.response && error.response.data && error.response.data.message) {
-        message.error(error.response.data.message)  // Hiển thị thông báo lỗi từ phản hồi
+        message.error(error.response.data.message)
+      } else if (error.request) {
+        message.error("Không thể kết nối đến máy chủ. Vui lòng thử lại sau.");
       } else {
-        message.error("Có lỗi xảy ra, vui lòng kiểm tra email")  // Thông báo lỗi mặc định
+        message.error("Có lỗi xảy ra, vui lòng kiểm tra email")
       }
     }
   }
@@ -51,7 +60,14 @@ const ForgotPassword = () => {
                   placeholder="Nhập email"
                   onChange={(e) => { setEmail(e.target.value) }}
                 />
-                <button type="button" onClick={handleSubmit} className="w-full bg-orange-400 bg-opacity-50 p-1 mt-2 rounded-md text-white hover:bg-orange-500">
+                <button 
+                  type="button" 
+                  onClick={handleSubmit} 
+                  className={`w-full p-1 mt-2 rounded-md text-white ${
+                    email ? 'bg-orange-400 hover:bg-orange-500' : 'bg-gray-400 cursor-not-allowed'
+                  }`}
+                  disabled={!email}
+                >
                   Submit
                 </button>
               </div>

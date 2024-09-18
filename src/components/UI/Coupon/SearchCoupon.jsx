@@ -17,7 +17,7 @@ const SearchCoupon = ({ setCoupons, coupons }) => {
       // Nếu không có từ khóa, đặt lại danh sách coupons gốc
       setCoupons(originalCoupons);
     } else {
-      console.log("Tìm kiếm từ khóa:", value);
+      // console.log("Tìm kiếm từ khóa:", value);
       const searchCoupon = originalCoupons.filter(
         (data) => data.code === value
       );

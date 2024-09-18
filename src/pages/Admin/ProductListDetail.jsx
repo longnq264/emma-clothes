@@ -24,7 +24,7 @@ const ProductDetail = () => {
         setSelectedImage(initialImage);
 
 
-        console.log(response);
+        // console.log(response);
 
 
       } catch (error) {

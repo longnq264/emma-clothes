@@ -317,7 +317,7 @@ export const importUsers = async (formData) => {
 
 export const getListAddress = async () => {
   const response = await axios.get(`https://esgoo.net/api-tinhthanh/1/0.htm`);
-  console.log(`Get address data`, response.data);
+  // console.log(`Get address data`, response.data);
   return response.data;
 };
 
@@ -381,7 +381,7 @@ export const listOrders = async (token) => {
 export const getDashboardData = async () => {
   try {
     const response = await axios.get(`${API_URL}/dashboard`);
-    console.log("Get dashboard data:", response.data);
+    // console.log("Get dashboard data:", response.data);
     return response.data;
   } catch (error) {
     // Kiểm tra lỗi và phản hồi từ API

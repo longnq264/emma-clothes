@@ -13,7 +13,7 @@ const CategoryPopular = () => {
   ];
   const [selectedCategory, setSelectedCategory] = useState(33);
   const [products, setProducts] = useState([]);
-  console.log(products);
+  // console.log(products);
   const fetchProducts = async (id) => {
     try {
       const response = await getProductByCategoryId(id);

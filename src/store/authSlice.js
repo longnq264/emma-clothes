@@ -44,7 +44,7 @@ const authSlice = createSlice({
 
       .addCase(registerUser.fulfilled, (state, action) => {
         const { user, token } = action.payload;
-        console.log(user);
+        // console.log(user);
         console.log(token);
         state.status = "succeeded";
         state.user = user;
