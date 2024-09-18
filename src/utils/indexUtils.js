@@ -16,10 +16,13 @@ export const getAdminLocalStorage = () => {
 
   return admin ? true : false;
 };
-
 export const getTokenFromLocalStorage = () => {
   const token = localStorage.getItem("token");
   return token;
+};
+export const getTokenAdminFromLocalStorage = () => {
+  const adminToken = localStorage.getItem("adminToken");
+  return adminToken;
 };
 
 export const loadCartFromLocalStorage = () => {
