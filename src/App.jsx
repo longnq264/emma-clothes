@@ -59,6 +59,7 @@ import CouponEdit from "./components/User/Coupon/CouponEdit.jsx";
 
 
 import ResetPassword from "./pages/Auth/ResetPassword.jsx";
+import CartChecFail from "./components/UI/Cart/CartCheckFail.jsx";
 
 
 function App() {
@@ -89,6 +90,7 @@ function App() {
         { path: "/admin", element: <DashBoardPage /> },
         { path: "/sale", element: <Sale /> },
         { path: "/resetPassword/:data", element: <GetData /> },
+        { path: "/check", element: <CartChecFail /> },
       ],
     },
     {

@@ -118,12 +118,12 @@ const ProductsList = () => {
 
   const columns = [
     {
-      title: "STT",
+      title: "ID",
       dataIndex: "id",
       key: "id",
-      render: (text, record) => (
-        <Link to={`/admin/products/${record.id}`}>{text}</Link>
-      ),
+      // render: (text, record) => (
+      //   <Link to={`/admin/products/${record.id}`}>{text}</Link>
+      // ),
     },
     {
       title: "Tên",
