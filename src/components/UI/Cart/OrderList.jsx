@@ -1,8 +1,9 @@
 import { useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import PaymentIcon from "./PaymentIcon";
 import { calculateTotalPriceAll } from "../../../utils/helperFunction";
 import { getTokenFromLocalStorage } from "../../../utils/indexUtils";
+import { checking } from "../../../api/checking"; 
 
 const OrderList = () => {
   const totalPrice = useSelector((state) => state.cart.totalPrice);
@@ -10,6 +11,37 @@ const OrderList = () => {
   const discount = useSelector((state) => state.cart.discount);
   const token = getTokenFromLocalStorage();
   const priceCheckout = calculateTotalPriceAll(totalPrice, delivery, discount);
+  
+  const navigate = useNavigate(); // Dùng để điều hướng
+  
+  const handleCheckout = async () => {
+    if (!token) {
+      navigate('/auth/login');
+      return;
+    }
+
+    try {
+      const checkingData = {
+        totalPrice,
+        delivery,
+        discount,
+        // Thêm các dữ liệu cần thiết khác cho việc kiểm tra
+      };
+
+      const response = await checking(checkingData);
+
+      if (response?.status) {
+        navigate("/checkout"); // Điều hướng đến trang thanh toán nếu thành công
+      }else {
+          alert(response?.message);
+        }
+      
+    } catch (error) {
+      console.error("Lỗi khi kiểm tra đơn hàng:", error);
+   
+    }
+  };
+
   return (
     <div className="cart-detail bg-white basis-2/5 md:ml-4 p-6 mt-2 md:mt-0">
       <h1 className="font-bold text-xl mb-5">Chi tiết đơn hàng</h1>
@@ -23,7 +55,7 @@ const OrderList = () => {
             })}
           </p>
         </div>
-        <div className="delyvery flex justify-between mb-4 ">
+        <div className="delyvery flex justify-between mb-4">
           <p>Vận chuyển</p>
           <p>
             {Number(delivery).toLocaleString("vi-VN", {
@@ -43,12 +75,12 @@ const OrderList = () => {
           })}
         </span>
       </p>
-      <NavLink
-        to={token ? `/checkout` : `/auth/login`}
+      <button
+        onClick={handleCheckout}
         className="w-full block bg-orange-400 hover:bg-orange-300 uppercase text-center py-3 font-bold rounded-lg shadow-lg mt-4 text-white"
       >
         Thanh Toán
-      </NavLink>
+      </button>
       <PaymentIcon />
     </div>
   );
