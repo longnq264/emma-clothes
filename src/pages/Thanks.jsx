@@ -20,8 +20,8 @@ const Thanks = () => {
         
         <div className="relative z-50">
           <h1 className="text-center text-4xl font-bold text-orange-500 mb-4 animate-bounce">
-            Cảm ơn bạn đặt sản phẩm của cửa hàng Emma   !
-==
+            Cảm ơn bạn đặt sản phẩm của cửa hàng Emma  !
+
           </h1>
           <p className="text-center text-lg text-gray-600 mb-2">
             Bạn đã đặt hàng thành công.
