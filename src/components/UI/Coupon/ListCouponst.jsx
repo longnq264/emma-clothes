@@ -17,6 +17,7 @@ const ListCouponst = ({ setMenu, menu, setDiscount, setPriceCheckout }) => {
 
   const revertNumber = (number) => {
     const percentage = (number / 100) * 100;
+    console.log(percentage);
     return percentage;
   };
 
