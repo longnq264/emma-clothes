@@ -54,6 +54,7 @@ const CouponEdit = () => {
     }
   };
 
+  
   const handleGenerateRandomCode = () => {
     const randomCode = getRandomCouponCode();
     form.setFieldsValue({ code: randomCode });

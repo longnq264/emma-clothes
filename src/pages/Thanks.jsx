@@ -18,7 +18,6 @@ const Thanks = () => {
       <div className="my-4">
         <h1 className="text-center text-4xl font-bold">Cảm ơn bạn!</h1>
         <p className="text-center text-lg my-2">Bạn đã đặt hàng thành công.</p>
- 
         <div className="text-center mt-6">
           <button
             className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
