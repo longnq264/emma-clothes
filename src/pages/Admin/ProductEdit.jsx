@@ -57,6 +57,12 @@ const ProductEdit = () => {
         formData.append(`images[${index}][is_thumbnail]`, 0);
       }
     });
+    formValues.forEach((variant, index) => {
+      formData.append(`variants[${index}][id]`, variant.id || null);
+      formData.append(`variants[${index}][price]`, variant.price || 0);
+      formData.append(`variants[${index}][stock]`, variant.stock || 0);
+    });
+
     formData.append("_method", "PUT");
     try {
       await updateProduct(id, formData);
