@@ -13,7 +13,7 @@ const ProductDetail = () => {
   const [selectedColor, setSelectedColor] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedMaterial, setSelectedMaterial] = useState("");
-  console.log("selected", selectedVariant);
+  // console.log("selected", selectedVariant);
 
   const fetchProductDetail = async (id) => {
     const response = await getProductId(id);

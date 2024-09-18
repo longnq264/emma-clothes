@@ -19,7 +19,7 @@ const SigninAdmin = () => {
       const role = user.role;
 
       if (role === "admin" && token) {
-        console.log("save");
+        // console.log("save");
         localStorage.setItem("adminToken", token);
         localStorage.setItem("admin", JSON.stringify(user));
         navigate("/admin");

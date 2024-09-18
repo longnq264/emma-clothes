@@ -1,6 +1,6 @@
-const OrderPage = () => {
-    return <div>Order</div>;
-  };
+// const OrderPage = () => {
+//     return <div>Order</div>;
+//   };
   
-  export default OrderPage;
+//   export default OrderPage;
   

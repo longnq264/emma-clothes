@@ -15,7 +15,7 @@ const Banner = () => {
     setLoading(true);
     try {
       const response = await getBanners();
-      console.log("Banners response:", response);
+      // console.log("Banners response:", response);
 
       if (response && response.data && Array.isArray(response.data)) {
         // Chỉ lấy những banner đang active

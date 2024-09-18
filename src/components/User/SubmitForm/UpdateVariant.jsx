@@ -8,9 +8,10 @@ const UpdateVariant = ({
   setVariants,
   productItemsUser,
   setProductItemsUser,
+  setFormValues,
 }) => {
-  console.log("variants", variants);
-  console.log("Atrri", productItemsUser);
+  // console.log("variants", variants);
+  // console.log("Atrri", productItemsUser);
   const [attributes, setAttributes] = useState([]);
   useEffect(() => {
     const fetchAttributes = async () => {
@@ -102,6 +103,7 @@ const UpdateVariant = ({
         </div>
 
         <UpdatedAttributes
+          setFormValues={setFormValues}
           productItemsUser={productItemsUser}
           setProductItemsUser={setProductItemsUser}
         />
@@ -116,6 +118,7 @@ UpdateVariant.propTypes = {
   idProduct: PropTypes.any,
   productItemsUser: PropTypes.any,
   setProductItemsUser: PropTypes.any,
+  setFormValues: PropTypes.any,
 };
 
 export default UpdateVariant;

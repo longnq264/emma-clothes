@@ -7,12 +7,12 @@ export const fetchCarts = createAsyncThunk(
   async (token, { rejectWithValue }) => {
     try {
       const response = await listCart(token);
-      console.log(response);
+      // console.log(response);
 
       if (response.items.length > 0) {
         saveCartToLocalStorage(response.items.products);
       }
-      console.log(response.items);
+      // console.log(response.items);
 
       return {
         items: response.items,
@@ -44,10 +44,10 @@ export const syncLocalCartToServer = createAsyncThunk(
   async (token, { rejectWithValue }) => {
     try {
       const localCart = JSON.parse(localStorage.getItem("cartItems")) || [];
-      console.log(localCart);
+      // console.log(localCart);
 
       const response = await listCart(token);
-      console.log("syncCartServer", response);
+      // console.log("syncCartServer", response);
 
       let serverCart = [];
 
@@ -56,7 +56,7 @@ export const syncLocalCartToServer = createAsyncThunk(
       }
 
       for (const item of localCart) {
-        console.log(item);
+        // console.log(item);
 
         const existingItem = serverCart.find(
           (serverItem) =>
@@ -64,15 +64,15 @@ export const syncLocalCartToServer = createAsyncThunk(
             serverItem.variant_id === item.variant_id
         );
 
-        console.log(existingItem);
+        // console.log(existingItem);
 
         if (existingItem) {
-          console.log(existingItem);
-          console.log("quantity", existingItem.quantity);
-          console.log(existingItem.id);
-          console.log(item.id);
+          // console.log(existingItem);
+          // console.log("quantity", existingItem.quantity);
+          // console.log(existingItem.id);
+          // console.log(item.id);
 
-          console.log(token);
+          // console.log(token);
           const quantityUpdate = {
             quantity: item.quantity + existingItem.quantity,
           };
@@ -85,7 +85,7 @@ export const syncLocalCartToServer = createAsyncThunk(
       }
       // update cart
       const updatedResponse = await listCart(token);
-      console.log(updatedResponse.items);
+      // console.log(updatedResponse.items);
 
       return updatedResponse.items;
     } catch (error) {
@@ -100,7 +100,7 @@ export const updateCartQuantity = createAsyncThunk(
     const quantityData = { quantity: quantity };
     try {
       const response = await updateCart(id, token, quantityData);
-      console.log(response);
+      // console.log(response);
       return response;
     } catch (error) {
       return rejectWithValue(error.response.data);

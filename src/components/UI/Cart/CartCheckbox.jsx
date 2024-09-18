@@ -20,7 +20,7 @@ import { clearCart } from "../../../api/api-server";
 
 const CartCheckbox = () => {
   const [cartItems, setCartItems] = useState(getCartFromLocalStorage());
-  console.log(cartItems);
+  // console.log(cartItems);
 
   const dispatch = useDispatch();
   const token = getTokenFromLocalStorage();
@@ -43,7 +43,7 @@ const CartCheckbox = () => {
       const updatedItems = cartItems.map((item) =>
         item.id === id ? { ...item, quantity: newQuantity } : item
       );
-      console.log(updatedItems);
+      // console.log(updatedItems);
 
       setCartItems(updatedItems);
       saveCartToLocalStorage(updatedItems);
@@ -63,7 +63,7 @@ const CartCheckbox = () => {
     } else {
       try {
         await clearCart(token);
-        console.log("clear cart");
+        // console.log("clear cart");
         await dispatch(fetchCarts(token));
       } catch (error) {
         console.log(error);

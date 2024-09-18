@@ -34,9 +34,9 @@ const cartSlice = createSlice({
   reducers: {
     addItemToCart(state, action) {
       const { product_id, quantity } = action.payload;
-      console.log(action.payload);
-      console.log(product_id);
-      console.log(quantity);
+      // console.log(action.payload);
+      // console.log(product_id);
+      // console.log(quantity);
 
       const existingItem = state.items.find(
         (item) => item.product_id === product_id
@@ -160,14 +160,14 @@ const cartSlice = createSlice({
       .addCase(updateCartQuantity.fulfilled, (state, action) => {
         // Cập nhật trạng thái giỏ hàng khi cập nhật số lượng thành công
         const updatedItem = action.payload;
-        console.log(updatedItem);
+        // console.log(updatedItem);
         const existingItem = state.items.find(
           (item) => item.id === updatedItem.id
         );
         if (existingItem) {
           existingItem.quantity = updatedItem.quantity;
           state.totalQuantity = calculateTotalQuantity(state.items);
-          console.log(state.totalQuantity);
+          // console.log(state.totalQuantity);
         }
       })
       .addCase(syncLocalCartToServer.pending, (state) => {
@@ -175,7 +175,7 @@ const cartSlice = createSlice({
       })
       .addCase(syncLocalCartToServer.fulfilled, (state, action) => {
         state.items = action.payload;
-        console.log("payload reducer", action.payload);
+        // console.log("payload reducer", action.payload);
         state.totalPrice = calculateTotalPrice(state.items);
         state.totalQuantity = calculateTotalQuantity(action.payload);
         state.status = "succeeded";

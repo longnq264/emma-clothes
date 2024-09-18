@@ -24,7 +24,7 @@ const Signin = () => {
     try {
       await dispatch(loginUser(formData)).unwrap();
       const token = getTokenFromLocalStorage();
-      console.log(merged);
+      // console.log(merged);
       const cartItem = getCartFromLocalStorage();
       if (cartItem.length > 0) {
         // Merge cartServer & cartLocal

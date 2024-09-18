@@ -24,7 +24,7 @@ const SuggestedProducts = () => {
       // console.log("response", response.data);
       setProducts(response.data);
     } catch (error) {
-      console.log(error.name);
+      // console.log(error.name);
     }
   };
 
@@ -33,7 +33,7 @@ const SuggestedProducts = () => {
   }, [selectedCategory]);
 
   const handleCategoryChange = (e) => {
-    console.log("e", e.target.value);
+    // console.log("e", e.target.value);
     setSelectedCategory(e.target.value);
   };
 

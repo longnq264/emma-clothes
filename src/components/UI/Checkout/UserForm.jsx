@@ -22,7 +22,7 @@ const UserForm = () => {
   const navigate = useNavigate();
 
   const onFinish = async (values) => {
-    console.log("Success:", values);
+    // console.log("Success:", values);
     setOrderDetail((prevOrderDetail) => ({
       ...prevOrderDetail,
       payment: payment,
@@ -31,18 +31,18 @@ const UserForm = () => {
       phone_number: Number(values.phone_number),
       name: values.name,
     }));
-    console.log(orderDetail);
+    // console.log(orderDetail);
     setFormSubmitted(true);
   };
   useEffect(() => {
     if (formSubmitted) {
       const handleSubmitCheckout = async () => {
         try {
-          console.log(token);
+          // console.log(token);
 
           await handleCheckoutDetail(orderDetail, token);
 
-          console.log("Request sent successfully");
+          // console.log("Request sent successfully");
         } catch (error) {
           console.error("Request failed", error);
         }

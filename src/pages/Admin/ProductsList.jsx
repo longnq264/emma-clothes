@@ -35,7 +35,7 @@ const ProductsList = () => {
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [filters] = useState({ status: "", category: "", type: "" });
   const productsPerPage = 5;
-
+  // console.log(products);
   useEffect(() => {
     fetchData();
   }, []);
@@ -180,9 +180,7 @@ const ProductsList = () => {
       dataIndex: "status",
       key: "status",
       render: (status) => (
-        <Tag color={status === "active" ? "green" : "red"}>
-          {status === "active" ? "Kích hoạt" : "Vô hiệu hóa"}
-        </Tag>
+        <Tag color={status === "active" ? "green" : "red"}>{status}</Tag>
       ),
     },
     {

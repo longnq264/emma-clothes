@@ -6,9 +6,9 @@ const DashBoad = () => {
   const user = useSelector((state) => state.auth.user);
   const status = useSelector((state) => state.auth.status); // Thêm trạng thái cho việc fetch dữ liệu
   const error = useSelector((state) => state.auth.error); // Thêm lỗi nếu có
-  console.log("user redux", user);
+  // console.log("user redux", user);
 
-  console.log(token);
+  // console.log(token);
 
   if (!token) {
     return <div>Loading...</div>;

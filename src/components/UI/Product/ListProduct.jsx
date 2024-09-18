@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { formatCurrency } from "../../../utils/helperFunction";
 import ProductImage from "./ProductImage";
 const ListProduct = ({ quantityProduct, paginatedProducts }) => {
-  console.log("paginatedProducts", paginatedProducts);
+  // console.log("paginatedProducts", paginatedProducts);
   return (
     <div className="min-h-screen md:basis-4/5">
       <div className="pl-10">

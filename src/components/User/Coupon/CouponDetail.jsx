@@ -33,6 +33,7 @@ const CouponDetail = () => {
       }
     };
 
+    
     fetchCoupon();
   }, [id]);
 

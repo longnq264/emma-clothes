@@ -10,7 +10,7 @@ const UpdateProductImage = ({ images, setImages, setImageFile }) => {
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
-    console.log(file);
+    // console.log(file);
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {

@@ -20,9 +20,12 @@ const Thanks = () => {
         
         <div className="relative z-50">
           <h1 className="text-center text-4xl font-bold text-orange-500 mb-4 animate-bounce">
-            Cảm ơn bạn sản phẩm của cửa hàng Emma   !
+            Cảm ơn bạn đặt sản phẩm của cửa hàng Emma   !
+==
           </h1>
-          <p className="text-center text-lg text-gray-600 mb-2">Bạn đã đặt hàng thành công.</p>
+          <p className="text-center text-lg text-gray-600 mb-2">
+            Bạn đã đặt hàng thành công.
+          </p>
           <p className="text-center text-md text-gray-500 mb-4">
             Chúng tôi sẽ xác nhận đơn hàng của bạn trong thời gian sớm nhất.
           </p>
@@ -30,7 +33,7 @@ const Thanks = () => {
             <Button
               type="primary"
               size="large"
-              onClick={() => window.location.href = '/'} 
+              onClick={() => (window.location.href = "/")}
               className="hover:shadow-lg transition duration-300 ease-in-out animate-pulse"
             >
               Tiếp tục mua sắm

@@ -11,61 +11,26 @@ import UpdateVariant from "../../components/User/SubmitForm/UpdateVariant";
 
 const ProductEdit = () => {
   const { id } = useParams();
-  const [isVariant, setIsVariant] = useState(false);
+  const [form] = Form.useForm();
   const [productItemsUser, setProductItemsUser] = useState([]);
   const [variants, setVariants] = useState([]);
   const [categories, setCategories] = useState([]);
   const [images, setImages] = useState([]);
   const [imagesFile, setImageFile] = useState();
   const [product, setProduct] = useState();
-  const [form] = Form.useForm();
-
-  console.log(product);
-  useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const response = await getProduct(id);
-        setProduct(response.data);
-        setImages(response.data.productImages || []);
-        const existingImages = response.data.productImages.map((img) => ({
-          id: img.id,
-          is_thumbnail: img.is_thumbnail,
-        }));
-
-        setImageFile(existingImages);
-      } catch (error) {
-        console.error("Lỗi không tìm được sản phẩm:", error);
-      }
-    };
-
-    const fetchCategories = async () => {
-      try {
-        const { data } = await getCategories();
-        setCategories(data[0]?.children || []);
-      } catch (error) {
-        console.error("Lỗi không lấy được danh mục:", error);
-      }
-    };
-
-    fetchProduct();
-    fetchCategories();
-  }, [id]);
-
-  useEffect(() => {
-    if (product) {
-      form.setFieldsValue({
-        name: product.name,
-        price: product.price,
-        price_old: product.price_old,
-        quantity: product.quantity,
-        description: product.description,
-        category: product.category.id,
-      });
-    }
-  }, [product, form]); // Khi product thay đổi, form sẽ được cập nhật
-
+  const [formValues, setFormValues] = useState([]);
+  console.log(formValues);
+  // useEffect(() => {
+  //   if (productItemsUser && Array.isArray(productItemsUser)) {
+  //     setFormValues(productItemsUser.map((item) => ({
+  //       id: item.id,
+  //       price: item.price,
+  //       stock: item.stock,
+  //     })));
+  //   }
+  // }, [productItemsUser]);
   const onFinish = async (values) => {
-    console.log("values", values);
+    // console.log("values", values);
     const formData = new FormData();
     formData.append("promotion", "Giảm giá đặc biệt");
     formData.append("status", "active");
@@ -105,105 +70,6 @@ const ProductEdit = () => {
     console.log("Failed:", errorInfo);
   };
 
-  // const handleVariantSubmit = async () => {
-  //   if (variants.length === 0 || !productItem)
-  //     return console.log("No select variant item!!");
-
-  //   const variantData = {
-  //     product_id: productItem.id,
-  //     attribute: variants,
-  //     stock: productItem.quantity,
-  //     price: productItem.price,
-  //   };
-  //   try {
-  //     const response = await createProductVariants(idProduct, variantData);
-  //     if (response.status === true) {
-  //       await fetchProductItems(idProduct);
-  //       console.log("success");
-  //     }
-  //     return;
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  //   const existingVariants = productItemsUser
-  //     .map((item) => item.attributes)
-  //     .flat();
-
-  //   if (!existingVariants.length) {
-  //     return;
-  //   }
-
-  //   console.log("exitings variants", existingVariants);
-
-  //   const result = existingVariants.reduce((acc, item) => {
-  //     const { attribute_id, id } = item;
-  //     console.log("acc", acc);
-  //     console.log("item", attribute_id, id);
-  //     const existingAttribute = acc.find(
-  //       (attr) => attr.attribute_id === attribute_id
-  //     );
-  //     console.log(existingAttribute);
-  //     if (existingAttribute) {
-  //       if (!existingAttribute.value_ids.includes(id)) {
-  //         existingAttribute.value_ids.push(id);
-  //       }
-  //     } else {
-  //       acc.push({
-  //         attribute_id: attribute_id,
-  //         value_ids: [id],
-  //       });
-  //     }
-
-  //     return acc;
-  //   }, []);
-
-  //   console.log("init variant", result);
-
-  //   const newVariants = filterNewVariants(result, variants);
-  //   console.log("new variants", newVariants);
-
-  //   const newVariantData = {
-  //     product_id: productItem.id,
-  //     attribute: newVariants,
-  //     stock: productItem.quantity,
-  //     price: productItem.price,
-  //   };
-  //   if (newVariants.length > 0) {
-  //     try {
-  //       const response = await createProductVariants(idProduct, newVariantData);
-  //       console.log("Variant response", response);
-  //       if (response.status === true) {
-  //         await fetchProductItems(idProduct);
-  //         console.log("success");
-  //       }
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   }
-  //   // // Nếu không có variant mới nào, không cần gửi thêm
-  //   // if (newVariants.length === 0) {
-  //   //   console.log("Tất cả các variants đã tồn tại, không cần thêm mới");
-  //   //   return;
-  //   // }
-  // };
-
-  // //get list Attribute
-  // const fetchProductItems = async (id) => {
-  //   try {
-  //     const response = await getProductItems(id);
-  //     console.log(response);
-  //     setProductItemsUser(response.data.productVariants);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  const handleVariantSubmit = async () => {
-    console.log("onClick");
-    setIsVariant(true);
-    fetchProductItems(id);
-  };
-
   const handleUpdateVariant = async () => {
     console.log("click update variant");
     const variantData = {
@@ -231,12 +97,54 @@ const ProductEdit = () => {
   const fetchProductItems = async (id) => {
     try {
       const response = await getProductItems(id);
-      console.log(response);
       setProductItemsUser(response.data.productVariants);
     } catch (error) {
       console.log(error);
     }
   };
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const response = await getProduct(id);
+        setProduct(response.data);
+        setImages(response.data.productImages || []);
+        const existingImages = response.data.productImages.map((img) => ({
+          id: img.id,
+          is_thumbnail: img.is_thumbnail,
+        }));
+
+        setImageFile(existingImages);
+      } catch (error) {
+        console.error("Lỗi không tìm được sản phẩm:", error);
+      }
+    };
+
+    const fetchCategories = async () => {
+      try {
+        const { data } = await getCategories();
+        setCategories(data[0]?.children || []);
+      } catch (error) {
+        console.error("Lỗi không lấy được danh mục:", error);
+      }
+    };
+
+    fetchProduct();
+    fetchCategories();
+    fetchProductItems(id);
+  }, [id]);
+
+  useEffect(() => {
+    if (product) {
+      form.setFieldsValue({
+        name: product.name,
+        price: product.price,
+        price_old: product.price_old,
+        quantity: product.quantity,
+        description: product.description,
+        category: product.category.id,
+      });
+    }
+  }, [product, form]); // Khi product thay đổi, form sẽ được cập nhật
   return (
     <div className="container mx-auto px-4 mb-20">
       <h1 className="pl-8 text-4xl text-stone-700 font-extrabold pb-4">
@@ -258,28 +166,18 @@ const ProductEdit = () => {
 
         <GetListCategories categories={categories} />
 
-        {isVariant && (
-          <div className="px-8">
-            <UpdateVariant
-              productItemsUser={productItemsUser}
-              variants={variants}
-              setVariants={setVariants}
-              idProduct={id}
-              setProductItemsUser={setProductItemsUser}
-            />
-            <Button onClick={handleUpdateVariant}>Update Attribute</Button>
-          </div>
-        )}
-        {/* Submit button for variants */}
-        <div className="flex justify-start mt-10">
-          <Button
-            type="primary"
-            onClick={handleVariantSubmit}
-            className="bg-orange-400 text-lg"
-          >
-            Hiển thị thuộc tính
-          </Button>
+        <div className="px-8">
+          <UpdateVariant
+            setFormValues={setFormValues}
+            productItemsUser={productItemsUser}
+            variants={variants}
+            setVariants={setVariants}
+            idProduct={id}
+            setProductItemsUser={setProductItemsUser}
+          />
+          <Button onClick={handleUpdateVariant}>Update Attribute</Button>
         </div>
+        {/* Submit button for variants */}
 
         <Form.Item className="flex justify-end">
           <Button

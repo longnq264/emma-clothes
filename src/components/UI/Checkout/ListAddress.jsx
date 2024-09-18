@@ -9,7 +9,7 @@ const ListAddress = () => {
   const fetchAddress = async () => {
     try {
       const response = await getListAddress();
-      console.log(response);
+      // console.log(response);
       setAddress(response);
     } catch (error) {
       console.log(error);

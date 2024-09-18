@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const ProductImage = ({ images }) => {
   const [hoveredImage, setHoveredImage] = useState(null);
-  console.log(images);
+  // console.log(images);
 
   const defaultImage =
     "https://m.yodycdn.com/fit-in/filters:format(webp)/products/ao-polo-nam-yody-apm6179-caf-2.jpg";

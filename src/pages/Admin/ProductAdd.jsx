@@ -21,9 +21,9 @@ const ProductAdd = () => {
   const [idProduct, setIdProduct] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
-  console.log("variants", variants);
-  console.log("images", images);
-  console.log("response onFinish", productItem);
+  // console.log("variants", variants);
+  // console.log("images", images);
+  // console.log("response onFinish", productItem);
   //Submit postProduct request firts
 
   const onFinish = async (values) => {
@@ -41,11 +41,11 @@ const ProductAdd = () => {
       formData.append(`images[${index}]`, image.file);
       formData.append(`images[${index}].is_thumbnail`, image.is_thumbnail);
     });
-    console.log(images);
+    // console.log(images);
     try {
-      console.log("formdata", formData);
+      // console.log("formdata", formData);
       const response = await createProductItem(formData);
-      console.log("response", response);
+      // console.log("response", response);
       setProductItem(response.data);
       setIdProduct(response.data.id);
       if (response.data.status) {
@@ -92,16 +92,16 @@ const ProductAdd = () => {
       return;
     }
 
-    console.log("exitings variants", existingVariants);
+    // console.log("exitings variants", existingVariants);
 
     const result = existingVariants.reduce((acc, item) => {
       const { attribute_id, id } = item;
-      console.log("acc", acc);
-      console.log("item", attribute_id, id);
+      // console.log("acc", acc);
+      // console.log("item", attribute_id, id);
       const existingAttribute = acc.find(
         (attr) => attr.attribute_id === attribute_id
       );
-      console.log(existingAttribute);
+      // console.log(existingAttribute);
       if (existingAttribute) {
         if (!existingAttribute.value_ids.includes(id)) {
           existingAttribute.value_ids.push(id);
@@ -116,10 +116,10 @@ const ProductAdd = () => {
       return acc;
     }, []);
 
-    console.log("init variant", result);
+    // console.log("init variant", result);
 
     const newVariants = filterNewVariants(result, variants);
-    console.log("new variants", newVariants);
+    // console.log("new variants", newVariants);
 
     const newVariantData = {
       product_id: productItem.id,
@@ -130,10 +130,10 @@ const ProductAdd = () => {
     if (newVariants.length > 0) {
       try {
         const response = await createProductVariants(idProduct, newVariantData);
-        console.log("Variant response", response);
+        // console.log("Variant response", response);
         if (response.status === true) {
           await fetchProductItems(idProduct);
-          console.log("success");
+          // console.log("success");
         }
       } catch (error) {
         console.log(error);
@@ -145,7 +145,7 @@ const ProductAdd = () => {
   const fetchProductItems = async (id) => {
     try {
       const response = await getProductItems(id);
-      console.log(response);
+      // console.log(response);
       setProductItemsUser(response.data.productVariants);
     } catch (error) {
       console.log(error);
@@ -155,7 +155,7 @@ const ProductAdd = () => {
   // submit multiple
   const handleSubmit = async () => {
     if (productItemsUser.length === 0) return;
-    console.log(productItemsUser);
+    // console.log(productItemsUser);
     const productSubmit = {
       variants: productItemsUser.map((item) => {
         return {
@@ -166,7 +166,7 @@ const ProductAdd = () => {
         };
       }),
     };
-    console.log(productSubmit);
+    // console.log(productSubmit);
 
     try {
       const response = await updateMultiple(productSubmit);

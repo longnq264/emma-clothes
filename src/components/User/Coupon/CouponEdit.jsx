@@ -54,6 +54,7 @@ const CouponEdit = () => {
     }
   };
 
+  
   const handleGenerateRandomCode = () => {
     const randomCode = getRandomCouponCode();
     form.setFieldsValue({ code: randomCode });
@@ -107,8 +108,8 @@ const CouponEdit = () => {
           rules={[{ required: true, message: 'Vui lòng chọn trạng thái!' }]}
         >
           <Select placeholder="Chọn trạng thái">
-            <Option value="Active">Active</Option>
-            <Option value="Inactive">Inactive</Option>
+            <Option value="active">active</Option>
+            <Option value="unactive">unactive</Option>
           </Select>
         </Form.Item>
 
