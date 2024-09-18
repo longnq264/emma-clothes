@@ -4,11 +4,6 @@ import { getCategories } from "../../../api/api-server";
 
 const TreeDataExample = () => {
   const [treeData, setTreeData] = useState([]);
-<<<<<<< HEAD
-
-=======
-  // console.log(treeData);
->>>>>>> hieu/Coupon
   useEffect(() => {
     const fetchCategories = async () => {
       try {

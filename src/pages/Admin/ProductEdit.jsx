@@ -18,7 +18,6 @@ const ProductEdit = () => {
   const [images, setImages] = useState([]);
   const [imagesFile, setImageFile] = useState();
   const [product, setProduct] = useState();
-<<<<<<< HEAD
   const [formValues, setFormValues] = useState([]);
   console.log(formValues);
   // useEffect(() => {
@@ -30,54 +29,6 @@ const ProductEdit = () => {
   //     })));
   //   }
   // }, [productItemsUser]);
-=======
-  const [form] = Form.useForm();
-
-  // console.log(product);
-  useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const response = await getProduct(id);
-        setProduct(response.data);
-        setImages(response.data.productImages || []);
-        const existingImages = response.data.productImages.map((img) => ({
-          id: img.id,
-          is_thumbnail: img.is_thumbnail,
-        }));
-
-        setImageFile(existingImages);
-      } catch (error) {
-        console.error("Lỗi không tìm được sản phẩm:", error);
-      }
-    };
-
-    const fetchCategories = async () => {
-      try {
-        const { data } = await getCategories();
-        setCategories(data[0]?.children || []);
-      } catch (error) {
-        console.error("Lỗi không lấy được danh mục:", error);
-      }
-    };
-
-    fetchProduct();
-    fetchCategories();
-  }, [id]);
-
-  useEffect(() => {
-    if (product) {
-      form.setFieldsValue({
-        name: product.name,
-        price: product.price,
-        price_old: product.price_old,
-        quantity: product.quantity,
-        description: product.description,
-        category: product.category.id,
-      });
-    }
-  }, [product, form]); // Khi product thay đổi, form sẽ được cập nhật
-
->>>>>>> hieu/Coupon
   const onFinish = async (values) => {
     // console.log("values", values);
     const formData = new FormData();
