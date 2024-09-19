@@ -203,6 +203,7 @@ const ProductAdd = () => {
             htmlType="submit"
             className="bg-orange-500 text-lg"
             disabled={isSubmitting} // Disable button khi isSubmitting là true
+            // loading={isSubmii}
           >
             Thêm thuộc tính
           </Button>
