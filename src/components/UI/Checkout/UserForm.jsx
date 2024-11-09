@@ -1,28 +1,29 @@
 import { Form } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { AppContext } from "../../../context/AppContext";
+import { getTokenFromLocalStorage } from "../../../utils/indexUtils";
 import Payment from "../Payment";
 import SelectShiping from "./SelectShiping";
 import Address from "../Address/Address";
 import PaymentIcon from "../Cart/PaymentIcon";
-import { useSelector } from "react-redux";
 import UserInput from "./UserInput";
 import SubmitForm from "./SubmitForm";
-import { useContext, useState } from "react";
-import { AppContext } from "../../../context/AppContext";
-import { getTokenFromLocalStorage } from "../../../utils/indexUtils";
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { clearCart } from "../../../store/cartSlice";
+// import { clearCart } from "../../../store/cartSlice";
 
 const UserForm = () => {
-  const userData = useSelector((state) => state.auth.user);
+  const navigate = useNavigate();
+  const token = getTokenFromLocalStorage();
   const { orderDetail, setOrderDetail, handleCheckoutDetail } =
     useContext(AppContext);
+  const userData = useSelector((state) => state.auth.user);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [payment, setPayment] = useState("COD");
-  const token = getTokenFromLocalStorage();
-  const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const onFinish = async (values) => {
-    // console.log("Success:", values);
     setOrderDetail((prevOrderDetail) => ({
       ...prevOrderDetail,
       payment: payment,
@@ -34,15 +35,14 @@ const UserForm = () => {
     // console.log(orderDetail);
     setFormSubmitted(true);
   };
+
   useEffect(() => {
     if (formSubmitted) {
       const handleSubmitCheckout = async () => {
         try {
-          // console.log(token);
-
           await handleCheckoutDetail(orderDetail, token);
-
-          // console.log("Request sent successfully");
+          localStorage.removeItem("cartItems");
+          dispatch(clearCart());
         } catch (error) {
           console.error("Request failed", error);
         }

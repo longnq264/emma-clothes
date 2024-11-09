@@ -29,6 +29,7 @@ const Header = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [lastScrollY]);
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -39,14 +40,14 @@ const Header = () => {
           isVisible ? "transform translate-y-0" : "transform -translate-y-full "
         }`}
       >
-        <div className="bg-stone-900 py-1 text-center text-sm">
+        <div className="bg-stone-900 text-center text-sm">
           Giảm giá tới 40% cho đơn hàng đầu tiên của bạn
         </div>
-        <div className="hidden md:block bg-slate-50 py-3 text-center text-xl text-stone-600 border-b">
+        <div className="bg-slate-50 py-3 text-center lg:text-xl text-stone-600 border-b">
           Chào mừng đến với cửa hàng emma
         </div>
-        <div className="container mx-auto flex justify-between px-2 lg:px-0">
-          <div className="flex items-center pr-3 min-w-10 sm:min-w-20 lg:hidden">
+        <div className="px-6 lg:px-20 xl:px-40 flex justify-between items-center">
+          <div className="flex items-center min-w-10 sm:min-w-20 lg:hidden">
             <button
               className="flex items-center text-black"
               onClick={toggleMenu}
@@ -54,16 +55,14 @@ const Header = () => {
               <RxHamburgerMenu size={24} />
             </button>
           </div>
-          <div className="flex items-center">
-            <Logo />
-            <Navigation />
-          </div>
-          <div className="flex">
+          <Logo />
+          <Navigation />
+          <div className="flex justify-end items-center">
             <Search />
-            <div className="flex items-center">
-              <CartQuantity />
-              <DropDownProfile />
-            </div>
+            <CartQuantity />
+            {/* <div className="flex items-center">
+            </div> */}
+            <DropDownProfile />
           </div>
         </div>
       </header>

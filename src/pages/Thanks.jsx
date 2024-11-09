@@ -3,25 +3,26 @@ import { useDispatch } from "react-redux";
 import { clearCart } from "../store/cartSlice";
 import { fetchCarts } from "../store/cartThunk";
 import { Button } from "antd";
+import { getTokenFromLocalStorage } from "../utils/indexUtils";
 
 const Thanks = () => {
   const dispatch = useDispatch();
-
+  const token = getTokenFromLocalStorage();
   useEffect(() => {
     // Xóa giỏ hàng sau khi đặt đơn thành công
-    dispatch(clearCart());
-    localStorage.removeItem("cartItems");
-    dispatch(fetchCarts());
-  }, [dispatch]);
+    if (token) {
+      dispatch(clearCart());
+      localStorage.removeItem("cartItems");
+      dispatch(fetchCarts(token));
+    }
+  }, [dispatch, token]);
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">
       <div className="relative max-w-md w-full">
-        
         <div className="relative z-50">
           <h1 className="text-center text-4xl font-bold text-orange-500 mb-4 animate-bounce">
-            Cảm ơn bạn đặt sản phẩm của cửa hàng Emma  !
-
+            Cảm ơn bạn đặt sản phẩm của cửa hàng Emma !
           </h1>
           <p className="text-center text-lg text-gray-600 mb-2">
             Bạn đã đặt hàng thành công.

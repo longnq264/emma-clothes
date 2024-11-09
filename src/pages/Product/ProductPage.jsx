@@ -37,7 +37,6 @@ const ProductPage = () => {
   const fetchProducts = useCallback(async () => {
     try {
       let response;
-
       if (selectedPriceRange) {
         response = await getProductsByPriceRange(
           selectedPriceRange.min,
@@ -79,7 +78,7 @@ const ProductPage = () => {
       <BreadCrumb titleName={titleName} href={"/products/:role"} />
       <div className="container mx-auto py-2 md:py-4">
         <div className="md:hidden border-b pb-3 mx-2">{titleName}</div>
-        <div className="md:flex">
+        <div className="lg:flex">
           <NavFilter
             titleName={titleName}
             selectedPriceRange={selectedPriceRange}

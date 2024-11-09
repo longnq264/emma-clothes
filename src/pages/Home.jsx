@@ -9,7 +9,7 @@ import Coupon from "../components/UI/Home/Coupon";
 
 function HomePage() {
   return (
-    <div className="">
+    <div>
       <Banner />
       <Coupon />
       <AboutUs />

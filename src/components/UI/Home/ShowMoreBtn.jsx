@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
+import { memo } from "react";
 
 const ShowMoreBtn = ({ props, color }) => {
   return (
@@ -20,4 +21,4 @@ ShowMoreBtn.propTypes = {
   color: PropTypes.any,
 };
 
-export default ShowMoreBtn;
+export default memo(ShowMoreBtn);

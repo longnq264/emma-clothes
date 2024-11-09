@@ -1,7 +1,7 @@
+import "swiper/css";
 import { NavLink } from "react-router-dom";
 import collectionImage from "../../../assets/img/collection-sport.jpg";
 import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
 import { getCategories } from "../../../api/api-server";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -19,13 +19,26 @@ const Collection = () => {
   useEffect(() => {
     fetchCategories();
   }, []);
+
   return (
     <div className="md:pt-10 md:pb-20">
       <h1 className="text-start pl-2 md:pl-0 md:text-center title my-10 font-semibold text-stone-700">
         Bộ Sưu Tập Nổi Bật
       </h1>
       <div className="pl-2 sm:pl-4 lg:px-0">
-        <Swiper slidesPerView={6} spaceBetween={20} loop={true}>
+        <Swiper
+          // slidesPerView={2}
+          spaceBetween={20}
+          loop={true}
+          breakpoints={{
+            320: {
+              slidesPerView: 3,
+            },
+            640: {
+              slidesPerView: 6,
+            },
+          }}
+        >
           {categories.map((data) => (
             <SwiperSlide key={data.id}>
               <NavLink to="/collection/summer">

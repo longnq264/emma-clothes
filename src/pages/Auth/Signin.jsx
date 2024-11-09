@@ -6,15 +6,13 @@ import {
   getCartFromLocalStorage,
   getTokenFromLocalStorage,
 } from "../../utils/indexUtils";
-import { syncLocalCartToServer } from "../../store/cartThunk";
+import { fetchCarts, syncLocalCartToServer } from "../../store/cartThunk";
 import imglogin from "../../assets/img/mountain.jpg";
 
 const Signin = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { status, error } = useSelector((state) => state.auth);
-  const { merged } = useSelector((state) => state.cart);
-  console.log(merged);
 
   const onFinish = async (values) => {
     const formData = {
@@ -27,11 +25,10 @@ const Signin = () => {
       // console.log(merged);
       const cartItem = getCartFromLocalStorage();
       if (cartItem.length > 0) {
-        // Merge cartServer & cartLocal
         await dispatch(syncLocalCartToServer(token)).unwrap();
-        // await dispatch(fetchCarts(token));
       }
-      navigate("/member");
+      await dispatch(fetchCarts(token));
+      navigate("/");
     } catch (error) {
       console.error("Đăng nhập thất bại:", error);
     }
@@ -125,7 +122,11 @@ const Signin = () => {
                     </Link>
                   </p>
                 </Form.Item>
-                {error && <div className="text-red-500">Đăng nhập thất bại. Vui lòng thử lại!</div>}
+                {error && (
+                  <div className="text-red-500">
+                    Đăng nhập thất bại. Vui lòng thử lại!
+                  </div>
+                )}
               </Form>
             </div>
           </div>

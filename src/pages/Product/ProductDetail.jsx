@@ -6,25 +6,43 @@ import ProductInforDetail from "../../components/UI/Product/ProductInforDetail.j
 import ProductImageDetail from "../../components/UI/Product/ProductImageDetail.jsx";
 
 const ProductDetail = () => {
+  const [isLoading, setIsLoading] = useState(true); // Trạng thái loading
+  const [error, setError] = useState(null);
   const { id } = useParams();
   const [data, setData] = useState([]);
-  const [mainImage, setMainImage] = useState([]);
+  // const [mainImage, setMainImage] = useState([]);
   const [selectedVariant, setSelectedVariant] = useState([]);
   const [selectedColor, setSelectedColor] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedMaterial, setSelectedMaterial] = useState("");
-  // console.log("selected", selectedVariant);
+  console.log("selected", selectedVariant);
 
   const fetchProductDetail = async (id) => {
-    const response = await getProductId(id);
-    setData(response.data);
-    setSelectedVariant(response.data.productVariants[0]);
-    setMainImage(response.data.productImages);
+    setIsLoading(true);
+    try {
+      const response = await getProductId(id);
+      setData(response.data);
+      setSelectedVariant(response.data.productVariants[0]);
+    } catch (error) {
+      console.error("Failed to fetch product details:", error);
+      setError("Error loading product details.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
+  const mainImage = data.productImages || [];
   useEffect(() => {
     fetchProductDetail(id);
   }, [id]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   return (
     <div className="md:pt-10">

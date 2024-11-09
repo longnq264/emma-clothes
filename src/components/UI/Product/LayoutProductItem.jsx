@@ -1,24 +1,17 @@
 import PropTypes from "prop-types";
-import { NavLink } from "react-router-dom";
-import { formatCurrency } from "../../../utils/helperFunction";
 import ProductImage from "./ProductImage";
+import ProductDescription from "./ProductDescription";
+import { memo } from "react";
 const LayoutProductItem = ({ product }) => {
   return (
-    <>
-      <NavLink to={`/products/${product.id}`}>
-        <ProductImage images={product.productImages} />
-        <div className="px-2 md:px-4 pb-4">
-          <h2 className="font-semibold mt-4 text-sm xs:h-16 sm:h-16 lg:h-10">
-            {product.name}
-          </h2>
-          <p className="pt-2">{formatCurrency(product.price)}</p>
-        </div>
-      </NavLink>
-    </>
+    <div className="product-item flex flex-col justify-between h-full">
+      <ProductImage productId={product.id} images={product.productImages} />
+      <ProductDescription product={product} />
+    </div>
   );
 };
 
 LayoutProductItem.propTypes = {
   product: PropTypes.any,
 };
-export default LayoutProductItem;
+export default memo(LayoutProductItem);

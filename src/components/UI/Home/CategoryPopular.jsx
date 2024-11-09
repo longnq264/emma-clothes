@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import ShowMoreBtn from "./ShowMoreBtn";
 import { getProductByCategoryId } from "../../../api/api-server";
-import { SwiperSlide, Swiper } from "swiper/react";
+// import { SwiperSlide, Swiper } from "swiper/react";
+import ShowMoreBtn from "./ShowMoreBtn";
 import ProductItem from "./ProductItem";
 
 const CategoryPopular = () => {
@@ -13,7 +13,7 @@ const CategoryPopular = () => {
   ];
   const [selectedCategory, setSelectedCategory] = useState(33);
   const [products, setProducts] = useState([]);
-  // console.log(products);
+
   const fetchProducts = async (id) => {
     try {
       const response = await getProductByCategoryId(id);
@@ -30,15 +30,13 @@ const CategoryPopular = () => {
   return (
     <>
       <div className="bg-gray-100">
-        <div className="container mx-auto py-4">
+        <div className="container mx-auto py-4 px-6">
           <h1 className="title my-8 lg:my-10 font-semibold text-stone-700">
             Sản phẩm ưa chuộng
           </h1>
-          <div className="md:hidden pb-6">
+          {/* <div className="md:hidden pb-6">
             <Swiper
-              className="ml-2"
               slidesPerView="auto"
-              // spaceBetween={10}
               breakpoints={{
                 768: {
                   slidesPerView: 4,
@@ -69,7 +67,7 @@ const CategoryPopular = () => {
                 </SwiperSlide>
               ))}
             </Swiper>
-          </div>
+          </div> */}
           <div className="hidden md:block">
             <div className="flex justify-center flex-wrap mb-16">
               {categories.map((data, index) => (

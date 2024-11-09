@@ -7,7 +7,7 @@ export const fetchCarts = createAsyncThunk(
   async (token, { rejectWithValue }) => {
     try {
       const response = await listCart(token);
-      // console.log(response);
+      console.log(response);
 
       if (response.items.length > 0) {
         saveCartToLocalStorage(response.items.products);
@@ -29,9 +29,7 @@ export const addToCartItems = createAsyncThunk(
   async ({ values, token, data }, { rejectWithValue }) => {
     try {
       const response = await addToCart(values, token);
-
       console.log(response);
-
       return data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -56,23 +54,13 @@ export const syncLocalCartToServer = createAsyncThunk(
       }
 
       for (const item of localCart) {
-        // console.log(item);
-
         const existingItem = serverCart.find(
           (serverItem) =>
             serverItem.product_id === item.product_id &&
             serverItem.variant_id === item.variant_id
         );
 
-        // console.log(existingItem);
-
         if (existingItem) {
-          // console.log(existingItem);
-          // console.log("quantity", existingItem.quantity);
-          // console.log(existingItem.id);
-          // console.log(item.id);
-
-          // console.log(token);
           const quantityUpdate = {
             quantity: item.quantity + existingItem.quantity,
           };

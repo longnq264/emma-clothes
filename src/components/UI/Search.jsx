@@ -5,6 +5,7 @@ import { Form, Input } from "antd";
 import Logo from "../UI/Home/Logo";
 import { IoCloseSharp } from "react-icons/io5";
 import ProductImage from "./Product/ProductImage";
+
 const Search = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -54,9 +55,9 @@ const Search = () => {
   };
 
   return (
-    <div className="flex items-center">
+    <div id="search-layout" className=" flex items-center lg:block">
       <div
-        className="bg-gray-400 p-3 rounded-full cursor-pointer hidden lg:block"
+        className="bg-gray-400 p-3 rounded-full cursor-pointer "
         onClick={() => setIsDropdownOpen(true)}
       >
         <FaSearch className=" text-grey-500" color="white" />

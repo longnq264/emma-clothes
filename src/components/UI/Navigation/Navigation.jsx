@@ -17,13 +17,14 @@ const Navigation = () => {
   useEffect(() => {
     fetchCategories();
   }, []);
+
   return (
     <>
-      <nav className="pl-10 hidden lg:static lg:block">
-        <ul className="flex">
+      <nav className="nav-menu py-2 lg:block">
+        <ul className="flex justify-center">
           {categories.map((item, index) => (
             <li
-              className="relative px-5 py-8 list text-stone-800"
+              className="list px-8 text-stone-800"
               key={item.id}
               onMouseEnter={() => setActiveIndex(index)}
               onMouseLeave={() => setActiveIndex(null)}
@@ -32,13 +33,13 @@ const Navigation = () => {
                 to={`/category/${item.id}`}
                 state={{ categoryName: item.name }}
               >
-                <span className="text-lg text-stone-700 font-semibold capitalize hover:text-stone-300">
+                <span className="text-xl text-stone-700 font-semibold capitalize hover:text-stone-300">
                   {item.name}
                 </span>
               </NavLink>
               {activeIndex === index && item.children && (
                 <div
-                  className={`sub-child min-h-64 fixed left-0 w-screen bg-slate-50 border-t border-gray-100 shadow`}
+                  className={`mt-2 sub-child min-h-64 fixed left-0 top-32 w-screen bg-slate-50 border-t border-gray-100 shadow`}
                 >
                   <div className="container mx-auto py-4">
                     <ul className="flex">
@@ -85,7 +86,7 @@ const Navigation = () => {
               )}
             </li>
           ))}
-          <li className="relative px-4 py-8 list text-stone-800">
+          <li className="list px-10 text-stone-800">
             <NavLink to={`/collection`}>
               <span className="text-lg text-stone-700 font-semibold capitalize  hover:text-stone-400">
                 bộ sưu tập

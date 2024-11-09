@@ -21,7 +21,6 @@ const cartSlice = createSlice({
   name: "cart",
   initialState: {
     items: JSON.parse(localStorage.getItem("cartItems")) || [],
-    merged: false,
     totalQuantity: calculateTotalQuantity(getCartFromLocalStorage()),
     status: "idle",
     totalPrice: calculateTotalPrice(getCartFromLocalStorage()),
@@ -31,12 +30,10 @@ const cartSlice = createSlice({
     discount: 0,
     totalPriceAll: 0,
   },
+
   reducers: {
     addItemToCart(state, action) {
       const { product_id, quantity } = action.payload;
-      // console.log(action.payload);
-      // console.log(product_id);
-      // console.log(quantity);
 
       const existingItem = state.items.find(
         (item) => item.product_id === product_id
@@ -50,16 +47,13 @@ const cartSlice = createSlice({
             : item
         );
       } else {
-        // Thêm sản phẩm mới vào giỏ hàng
         state.items.push(action.payload);
       }
 
-      // Cập nhật tổng số lượng và tổng giá trị
       state.totalQuantity = calculateTotalQuantity(state.items);
       state.totalPrice = calculateTotalPrice(state.items);
       saveCartToLocalStorage(state.items);
     },
-
     updateItemQuantity(state, action) {
       const { id, quantity } = action.payload;
       const item = state.items.find((i) => i.id === id);
@@ -85,7 +79,6 @@ const cartSlice = createSlice({
         state.discount
       );
     },
-
     removeItemFromCart(state, action) {
       const id = action.payload;
       const item = state.items.find((i) => i.id === id);

@@ -56,11 +56,8 @@ import CouponList from "./components/User/Coupon/CouponList.jsx";
 import CouponAdd from "./components/User/Coupon/CouponAdd.jsx";
 import CouponDetail from "./components/User/Coupon/CouponDetail.jsx";
 import CouponEdit from "./components/User/Coupon/CouponEdit.jsx";
-
-
 import ResetPassword from "./pages/Auth/ResetPassword.jsx";
 import CartChecFail from "./components/UI/Cart/CartCheckFail.jsx";
-
 
 function App() {
   const router = createBrowserRouter([
@@ -131,7 +128,6 @@ function App() {
         { path: "attributes/edit/:id", element: <EditAttribute /> },
         { path: "attributes/new", element: <AddAttribute /> },
         { path: "products/:id", element: <ProductListDetail /> },
-
         { path: "coupons", element: <CouponList /> },
         { path: "coupons/new", element: <CouponAdd /> },
         { path: "coupons/edit/:id", element: <CouponEdit /> },

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { ImageZoom } from "react-responsive-image-zoom";
+
 const ProductImageDetail = ({ mainImage }) => {
   // Kiểm tra và thiết lập ảnh chính ban đầu
   const [selectedImage, setSelectedImage] = useState(null);
@@ -15,7 +16,6 @@ const ProductImageDetail = ({ mainImage }) => {
   }, [mainImage]);
 
   const handleThumbnailClick = (imageUrl) => {
-    // Cập nhật ảnh chính khi click vào thumbnail
     setSelectedImage(imageUrl);
   };
 

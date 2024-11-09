@@ -23,7 +23,7 @@ const ProductInforDetail = ({
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const token = useSelector((state) => state.auth.token);
-  // console.log(data);
+  console.log(selectedVariant);
   // Lấy danh sách màu sắc và kích cỡ từ productVariants
   const colors = useMemo(() => {
     return Array.from(
@@ -196,7 +196,7 @@ const ProductInforDetail = ({
         </>
       )}
 
-      <div className="md:flex">
+      <div className="md:flex md:justify-between">
         <div className="flex justify-center items-center basis-1/4 border rounded-lg my-4 min-h-14">
           <button
             className="font-bold basis-1/3"
@@ -222,7 +222,7 @@ const ProductInforDetail = ({
           </button>
         </div>
         <button
-          className="px-10 py-2 border-2 border-black font-bold my-5 w-full rounded-lg md:basis-3/4 uppercase hover:bg-gray-100"
+          className={`${!selectedVariant ? "cusor-not-allowed" : ""} px-10 py-2 border-2 border-black font-bold my-5 w-full rounded-lg md:basis-2/4 uppercase hover:bg-gray-100`}
           onClick={handleAddToCart}
         >
           Thêm vào giỏ hàng

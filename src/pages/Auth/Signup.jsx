@@ -19,7 +19,7 @@ const Signup = () => {
 
     try {
       await dispatch(registerUser(formData));
-      navigate("/");
+      navigate("/member");
     } catch (error) {
       console.error("Đăng ký thất bại:", error);
     }

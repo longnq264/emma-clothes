@@ -119,7 +119,6 @@ const AppProvider = ({ children }) => {
 
   const handleButtonClick = (type) => {
     // console.log("type", type);
-
     setCurrentSelect(type);
   };
 

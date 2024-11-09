@@ -1,40 +1,48 @@
 import PropTypes from "prop-types";
-import { NavLink } from "react-router-dom";
 import { formatCurrency } from "../../../utils/helperFunction";
 import ProductImage from "./ProductImage";
-const ListProduct = ({ quantityProduct, paginatedProducts }) => {
-  // console.log("paginatedProducts", paginatedProducts);
+import { memo } from "react";
+
+const ListProduct = memo(function ListProduct({
+  quantityProduct,
+  paginatedProducts,
+}) {
+  const customText = (text) => {
+    if (text.length > 10) {
+      return text.slice(0, 15) + "..";
+    } else {
+      return text;
+    }
+  };
+
+  console.log("paginatedProducts", paginatedProducts);
   return (
     <div className="min-h-screen md:basis-4/5">
-      <div className="pl-10">
+      <div className="lg:pl-10">
         <div className="mx-2 py-2">
           <p className="font-bold text-stone-600">{quantityProduct} sản phẩm</p>
         </div>
-        <div className="grid grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 lg:gap-6 pb-6">
           {paginatedProducts.map((res) => (
-            <NavLink key={res.id} to={`/products/${res.id}`}>
-              <div className="mx-2 my-2 pb-4 shadow-md">
-                {/* <img src={res.productImages[0].image_url} /> */}
-                <ProductImage images={res.productImages} />
-                <div className="content-product px-4 py-2">
-                  <h3 className="h-10 box-border text-sm font-semibold text-stone-700 pt-2">
-                    {res.name}
-                  </h3>
-                  <h1 className="price text-base font-semibold mt-4 text-stone-700">
-                    {formatCurrency(res.price)}
-                    <span className="text-stone-400 font-semibold my-2 ml-2 line-through text-sm">
-                      {formatCurrency(res.price_old)}
-                    </span>
-                  </h1>
+            <div key={res.id} className="shadow-md">
+              <div className="product-item flex flex-col justify-between h-full">
+                <ProductImage images={res.productImages} productId={res.id} />
+                <div className="px-4 py-4">
+                  <h2 className="font-semibold text-sm">
+                    {customText(res.name)}
+                    {/* {res.name} */}
+                  </h2>
+                  <p className="">{formatCurrency(res.price)}</p>
                 </div>
               </div>
-            </NavLink>
+            </div>
           ))}
         </div>
       </div>
     </div>
   );
-};
+});
+
 ListProduct.propTypes = {
   quantityProduct: PropTypes.any,
   paginatedProducts: PropTypes.any,

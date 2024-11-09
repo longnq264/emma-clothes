@@ -25,7 +25,6 @@ export const login = async (data) => {
     const response = await axios.post(`${API_URL}/login`, data);
     return response.data;
   } catch (error) {
-    // Xử lý lỗi khi đăng nhập thất bại
     console.error(
       "Login failed:",
       error.response ? error.response.data : error.message
