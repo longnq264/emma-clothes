@@ -1,4 +1,3 @@
-import newImg from "../../../assets/img/new-collection.jpg";
 const NewCollection = () => {
   return (
     <div className="new-collection lg:my-14 px-2 md:px-0">
@@ -28,7 +27,9 @@ const NewCollection = () => {
               </button>
             </div>
           </div>
-          <img className="h-full w-full" src={newImg} alt="" />
+          <div>
+            <h1>New Collection</h1>
+          </div>
         </div>
       </div>
     </div>

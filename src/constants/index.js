@@ -145,11 +145,9 @@ export const NAV_LINKS = [
   { href: "/", key: "about", label: "About" },
   { href: "/", key: "blog", label: "Blog" },
   { href: "/", key: "sale", label: "Sale" },
-  // update 
+  // update
   { href: "/", key: "privacy", label: "Privacy" },
   { href: "/", key: "terms", label: "Terms" },
-  
-
 ];
 
 export const NAV_LINKS_WOMEN = [
@@ -169,4 +167,10 @@ export const NAV_USER_MENU = [
   { href: "/", key: "profile", label: "Profile" },
 ];
 
-export const NAV_LINKS_FOOTER = [];
+export const NAV_LINKS_FOOTER = [
+  { href: "/about", label: "About Us" },
+  { href: "/contact", label: "Contact Us" },
+  { href: "/blog", label: "Blog" },
+  { href: "/privacy", label: "Privacy Policy" },
+  { href: "/terms", label: "Terms & Conditions" },
+];

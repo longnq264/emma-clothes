@@ -6,15 +6,15 @@ import ProductInforDetail from "../../components/UI/Product/ProductInforDetail.j
 import ProductImageDetail from "../../components/UI/Product/ProductImageDetail.jsx";
 
 const ProductDetail = () => {
-  const [isLoading, setIsLoading] = useState(true); // Trạng thái loading
-  const [error, setError] = useState(null);
   const { id } = useParams();
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [data, setData] = useState([]);
-  // const [mainImage, setMainImage] = useState([]);
   const [selectedVariant, setSelectedVariant] = useState([]);
   const [selectedColor, setSelectedColor] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedMaterial, setSelectedMaterial] = useState("");
+
   console.log("selected", selectedVariant);
 
   const fetchProductDetail = async (id) => {

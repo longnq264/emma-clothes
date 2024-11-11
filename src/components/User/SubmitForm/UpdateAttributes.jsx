@@ -1,11 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 
-const UpdatedAttributes = ({
-  productItemsUser,
-  // setProductItemsUser,
-  setFormValues,
-}) => {
+const UpdatedAttributes = ({ productItemsUser, setFormValues }) => {
   // State to manage the product being edited
   const [editingProduct, setEditingProduct] = useState(null);
 
@@ -14,40 +10,6 @@ const UpdatedAttributes = ({
     price: "",
     stock: "",
   });
-
-  // const handleInputChange = (index, field, value, id) => {
-  //   setFormValues((prevFormValues) => {
-  //     // Tìm xem biến thể này đã tồn tại trong formValues chưa
-  //     const existingVariantIndex = prevFormValues.findIndex(
-  //       (variant) => variant.id === id
-  //     );
-
-  //     // Nếu tồn tại, cập nhật giá trị của biến thể đó
-  //     if (existingVariantIndex !== -1) {
-  //       const updatedVariants = [...prevFormValues];
-  //       updatedVariants[existingVariantIndex] = {
-  //         ...updatedVariants[existingVariantIndex],
-  //         [field]: Number(value),
-  //       };
-  //       return updatedVariants;
-  //     }
-
-  //     // Nếu chưa tồn tại, thêm mới biến thể vào formValues
-  //     return [
-  //       ...prevFormValues, // Giữ nguyên các biến thể cũ
-  //       { id, [field]: Number(value) }, // Thêm biến thể mới
-  //     ];
-  //   });
-
-  //   setProductItemsUser((prevProductItems) => {
-  //     const updatedProducts = [...prevProductItems];
-  //     updatedProducts[index] = {
-  //       ...updatedProducts[index],
-  //       [field]: Number(value),
-  //     };
-  //     return updatedProducts;
-  //   });
-  // };
 
   const handleEditClick = (product) => {
     setEditingProduct(product);
@@ -105,7 +67,7 @@ const UpdatedAttributes = ({
         <h1 className="text-xl pb-4">Danh sách thuộc tính sản phẩm đã thêm</h1>
         <div className="bg-white p-4 rounded-lg shadow-inner max-h-96 overflow-auto">
           {productItemsUser.map((data) => (
-            <div key={data.id} className="flex mb-4">
+            <div key={data.id} className="flex mb-4 justify-between">
               <div className="basis-1/4">
                 <p>Sku</p>
                 <h1 className="text-black text-lg pb-2">{data.sku}</h1>
@@ -113,7 +75,7 @@ const UpdatedAttributes = ({
 
               <label>
                 Giá:
-                <input
+                {/* <input
                   type="text"
                   name="price"
                   value={data.price}
@@ -121,12 +83,13 @@ const UpdatedAttributes = ({
                   //   handleInputChange(index, "price", e.target.value, data.id)
                   // }
                   className="border p-2 m-2"
-                />
+                /> */}
+                <p>{data.price || ""}</p>
               </label>
 
               <label>
                 Số lượng:
-                <input
+                {/* <input
                   type="text"
                   name="stock"
                   value={data.stock || ""}
@@ -134,7 +97,8 @@ const UpdatedAttributes = ({
                   //   handleInputChange(index, "stock", e.target.value, data.id)
                   // }
                   className="border p-2 m-2"
-                />
+                /> */}
+                <p>{data.stock || ""}</p>
               </label>
 
               <div

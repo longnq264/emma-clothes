@@ -2,7 +2,6 @@ import { Carousel } from "antd";
 import { useEffect, useState } from "react";
 import { getBanners } from "../../../api/api-server";
 import { Link } from "react-router-dom";
-import VideoBanner from "./VideoBanner";
 
 const Banner = () => {
   const [state, setState] = useState([]);
@@ -21,7 +20,6 @@ const Banner = () => {
 
   return (
     <div className="box-border">
-      <VideoBanner />
       <div className="banner-home md:block">
         <Carousel afterChange={onChange}>
           {state.map((data) => (

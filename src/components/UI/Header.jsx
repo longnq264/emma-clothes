@@ -36,7 +36,8 @@ const Header = () => {
   return (
     <>
       <header
-        className={`bg-slate-50 text-white shadow fixed w-full top-0 left-0 z-40 transition-transform duration-300 ${
+        id="header-container"
+        className={`header-site bg-slate-50 text-white shadow fixed w-full top-0 left-0 z-40 transition-transform duration-300 ${
           isVisible ? "transform translate-y-0" : "transform -translate-y-full "
         }`}
       >

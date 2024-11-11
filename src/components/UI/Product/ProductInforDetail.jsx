@@ -24,6 +24,7 @@ const ProductInforDetail = ({
   const dispatch = useDispatch();
   const token = useSelector((state) => state.auth.token);
   console.log(selectedVariant);
+  console.log("data", data);
   // Lấy danh sách màu sắc và kích cỡ từ productVariants
   const colors = useMemo(() => {
     return Array.from(

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getProductByCategoryId } from "../../../api/api-server";
-// import { SwiperSlide, Swiper } from "swiper/react";
+import { SwiperSlide, Swiper } from "swiper/react";
 import ShowMoreBtn from "./ShowMoreBtn";
 import ProductItem from "./ProductItem";
 
@@ -34,9 +34,9 @@ const CategoryPopular = () => {
           <h1 className="title my-8 lg:my-10 font-semibold text-stone-700">
             Sản phẩm ưa chuộng
           </h1>
-          {/* <div className="md:hidden pb-6">
+          <div className="pb-6 container mx-auto">
             <Swiper
-              slidesPerView="auto"
+              slidesPerView={4}
               breakpoints={{
                 768: {
                   slidesPerView: 4,
@@ -67,7 +67,7 @@ const CategoryPopular = () => {
                 </SwiperSlide>
               ))}
             </Swiper>
-          </div> */}
+          </div>
           <div className="hidden md:block">
             <div className="flex justify-center flex-wrap mb-16">
               {categories.map((data, index) => (

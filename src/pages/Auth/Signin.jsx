@@ -7,7 +7,6 @@ import {
   getTokenFromLocalStorage,
 } from "../../utils/indexUtils";
 import { fetchCarts, syncLocalCartToServer } from "../../store/cartThunk";
-import imglogin from "../../assets/img/mountain.jpg";
 
 const Signin = () => {
   const dispatch = useDispatch();
@@ -44,11 +43,6 @@ const Signin = () => {
         <div className="container mx-auto">
           <div className="wrap-content flex justify-center">
             <div className="bg-white bg-opacity-30 w-1/2 relative rounded-l-lg shadow-2xl">
-              <img
-                src={imglogin}
-                alt=""
-                className="opacity-80 object-center h-full rounded-l-lg"
-              />
               <div className="absolute bottom-20 left-16">
                 <h1 className="text-site-title text-7xl font-bold text-white mb-6">
                   Chào mừng!

@@ -7,7 +7,7 @@ import {
 } from "react-icons/fa";
 
 // Constants for navigation links in footer
-export const NAV_LINKS_FOOTER = [
+const NAV_LINKS_FOOTER = [
   { href: "/about", label: "About Us" },
   { href: "/contact", label: "Contact Us" },
   { href: "/blog", label: "Blog" },
@@ -100,9 +100,11 @@ const Footer = () => {
             </h2>
             <form className="flex space-x-2">
               <input
+                name="email"
                 type="email"
                 className="w-full p-2 rounded-md text-black"
                 placeholder="Nhập email của bạn"
+                autoComplete="address-level1"
               />
               <button className="px-4 py-2 bg-gray-600 rounded-md hover:bg-gray-700">
                 Gửi

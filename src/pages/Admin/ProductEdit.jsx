@@ -20,15 +20,7 @@ const ProductEdit = () => {
   const [product, setProduct] = useState();
   const [formValues, setFormValues] = useState([]);
   console.log(formValues);
-  // useEffect(() => {
-  //   if (productItemsUser && Array.isArray(productItemsUser)) {
-  //     setFormValues(productItemsUser.map((item) => ({
-  //       id: item.id,
-  //       price: item.price,
-  //       stock: item.stock,
-  //     })));
-  //   }
-  // }, [productItemsUser]);
+
   const onFinish = async (values) => {
     // console.log("values", values);
     const formData = new FormData();
@@ -89,12 +81,9 @@ const ProductEdit = () => {
     console.log(variantData);
     try {
       const response = await createProductVariants(id, variantData);
-      if (response.status === true) {
-        await fetchProductItems(id);
-        console.log("success");
-      }
       console.log(response);
-      return;
+      await fetchProductItems(id);
+      console.log(response);
     } catch (error) {
       console.log(error);
     }

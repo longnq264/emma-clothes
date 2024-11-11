@@ -10,7 +10,6 @@ const SuggestedProducts = () => {
     const fetchProductsByCategory = async (value) => {
       try {
         const response = await filterProduct(value);
-        console.log("response", response.data);
         setProducts(response.data);
       } catch (error) {
         console.error("error", error);

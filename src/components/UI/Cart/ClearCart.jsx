@@ -8,7 +8,7 @@ const ClearCart = () => {
         Không có sản phẩm nào trong giỏ hàng!
       </h1>
       <div className="w-2/3 md:w-3/12 container mx-auto">
-        <img className="w-full" src={emptyImg} alt="" />
+        <img className="w-full" loading="lazy" src={emptyImg} alt="" />
       </div>
       <div className="grid place-items-center my-10">
         <NavLink to="/products">
