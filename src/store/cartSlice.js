@@ -17,20 +17,21 @@ import {
   calculateTotalQuantity,
 } from "../utils/helperFunction";
 
+const initStateCart = {
+  items: JSON.parse(localStorage.getItem("cartItems")) || [],
+  totalQuantity: calculateTotalQuantity(getCartFromLocalStorage()),
+  status: "idle",
+  totalPrice: calculateTotalPrice(getCartFromLocalStorage()),
+  shippingFee: 20000,
+  freeship: 1000000,
+  totalPriceApi: 0,
+  discount: 0,
+  totalPriceAll: 0,
+};
+
 const cartSlice = createSlice({
   name: "cart",
-  initialState: {
-    items: JSON.parse(localStorage.getItem("cartItems")) || [],
-    totalQuantity: calculateTotalQuantity(getCartFromLocalStorage()),
-    status: "idle",
-    totalPrice: calculateTotalPrice(getCartFromLocalStorage()),
-    shippingFee: 20000,
-    freeship: 1000000,
-    totalPriceApi: 0,
-    discount: 0,
-    totalPriceAll: 0,
-  },
-
+  initialState: initStateCart,
   reducers: {
     addItemToCart(state, action) {
       const { product_id, quantity } = action.payload;
